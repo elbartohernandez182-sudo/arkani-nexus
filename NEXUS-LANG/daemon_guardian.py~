@@ -1,0 +1,27 @@
+import time
+import requests
+import sys
+from datetime import datetime
+
+def check_connection():
+    try:
+        response = requests.get("http://127.0.0.1:11434", timeout=5)
+        return response.status_code == 200
+    except requests.exceptions.RequestException:
+        return False
+
+def main():
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] - Daemon Guardian Iniciado.")
+
+    while True:
+        if check_connection():
+            sys.stdout.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] - Núcleo conectado y activo.\n")
+            sys.stdout.flush()
+        else:
+            sys.stdout.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] - Sin conexión al núcleo. Intentando reconectar...\n")
+            sys.stdout.flush()
+
+        time.sleep(10)
+
+if __name__ == "__main__":
+    main()

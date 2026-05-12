@@ -1,0 +1,13 @@
+[0;1;32m●[0m anydesk.service - AnyDesk
+     Loaded: loaded (]8;;file://arkani-VirtualBox/etc/systemd/system/anydesk.service/etc/systemd/system/anydesk.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Fri 2026-03-27 19:03:04 CST; 1min 30s ago
+   Main PID: 21656 (anydesk)
+      Tasks: 23 (limit: 9373)
+     Memory: 18.9M (peak: 22.2M)
+        CPU: 1.979s
+     CGroup: /system.slice/anydesk.service
+             ├─[0;38;5;245m21656 /usr/bin/anydesk --service[0m
+             └─[0;38;5;245m21688 /usr/bin/anydesk --tray[0m
+
+mar 27 19:03:04 arkani-VirtualBox systemd[1]: Started anydesk.service - AnyDesk.
+mar 27 19:03:07 arkani-VirtualBox anydesk[21688]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mgdk_window_thaw_toplevel_updates: assertion 'window->update_and_descendants_freeze_count > 0' failed[0m

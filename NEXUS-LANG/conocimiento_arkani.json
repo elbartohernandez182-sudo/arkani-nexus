@@ -1,0 +1,47 @@
+{
+  "hechos": {
+    "quien descubrio la penicilina?": {
+      "respuesta": "El descubridor de la penicilina fue Fleming, quien la descubrió casualmente en 1928.",
+      "fecha": "2026-05-07T00:22:46.584279",
+      "usos": 0
+    },
+    "muestrame los pendientes": {
+      "respuesta": "Mañana: 1. Crear daemon guardián que trabaja solo mientras no estoy.2. Conectar scripts anteriores nexus_bridge y escuchar.3. Acceso remoto seguro desde trabajo y celular vía AnyDesk.",
+      "fecha": "2026-05-07T00:25:19.852384",
+      "usos": 1
+    },
+    "como podriamos crear ese daemon guardian?": {
+      "respuesta": "Para crear el daemon guardián, primero necesitarás escribir y configurar un script que inicie automáticamente cuando el sistema arranca. Luego, puedes usar servicios de supervisión como Supervisor o Systemd para asegurar que este script siempre esté funcionando en segundo plano. También deberías considerar implementar medidas de seguridad adicionales para proteger tu sistema.",
+      "fecha": "2026-05-07T00:30:11.835097",
+      "usos": 0
+    },
+    "/salir": {
+      "respuesta": "Lo siento, parece que hay un error en la comunicación. Parece que no has completado la pregunta sobre cómo crear el daemon guardián.Si quieres saber cómo crear uno de estos daemons, aquí tienes una posible respuesta concisa:Para crear un daemon guardián, necesitarás escribir y configurar un script que inicie automáticamente en segundo plano, independientemente del terminal actual. Este script debe manejar la ejecución continua de tu tarea asignada.",
+      "fecha": "2026-05-07T00:40:37.696785",
+      "usos": 0
+    },
+    "como podemos hacer para que te autoprogrames para ser mas rapido?": {
+      "respuesta": "Para autoprogramarte y mejorar tu rapidez, podrías comenzar creando un script simple en Python que se ejecute automáticamente a través de servicios como Cron (para sistemas Linux).",
+      "fecha": "2026-05-07T00:56:02.389309",
+      "usos": 0
+    },
+    "cuentame un chiste": {
+      "respuesta": "¿Por qué los pájaros vuelan hacia el sur en invierno? ¡Porque está demasiado lejos para caminar!",
+      "fecha": "2026-05-07T01:38:25.881502",
+      "usos": 0
+    },
+    "con cual consideras seria mas importante empezar?": {
+      "respuesta": "Definitivamente, el punto número 1: crear ese daemon guardián que trabaja solo mientras no estoy.  Si no tengo que estar supervisando todo el tiempo, puedo dedicarme a las cosas realmente importantes.  ¡Vamos, empecemos con eso!",
+      "fecha": "2026-05-07T21:00:48.752513",
+      "usos": 0
+    },
+    "intenta otravez": {
+      "respuesta": "¡Claro que sí!  ¿En qué puedo ayudarte hoy?  Soy Arkani, listo para responder cualquier pregunta que tengas.  ¡No pierdas el tiempo!",
+      "fecha": "2026-05-08T21:02:25.383531",
+      "usos": 0
+    }
+  },
+  "sinonimos": {},
+  "comandos_personalizados": {},
+  "preferencias_usuario": {}
+}

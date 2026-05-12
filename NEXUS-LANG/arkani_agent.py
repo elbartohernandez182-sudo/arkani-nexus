@@ -1,0 +1,221 @@
+import json
+import os
+import re
+import requests
+import datetime
+import time
+from arkani_tools import HERRAMIENTAS, log_accion
+
+# ============================================
+# ARKANI AGENT v1.0 - Bucle ReAct
+# Piensa → Actua → Observa → Repite
+# Constructor: Medico Radiologo, Xalapa
+# ============================================
+
+OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
+MODELO = "qwen2.5:3b"
+MAX_PASOS  = 8  # maximo de pasos por objetivo
+
+
+SYSTEM_PROMPT = """Eres Arkani, un agente autonomo inteligente.
+Tienes acceso a herramientas para leer, escribir y ejecutar codigo.
+Responde SIEMPRE en espanol.
+
+HERRAMIENTAS DISPONIBLES:
+- leer_archivo(ruta) - Lee un archivo
+- escribir_archivo(ruta, contenido) - Escribe un archivo
+- ejecutar_bash(comando) - Ejecuta comando bash
+- probar_script(ruta) - Verifica sintaxis Python
+- listar_archivos(directorio) - Lista archivos
+- buscar_en_nexus(termino) - Busca en archivos
+- guardar_reporte(titulo, contenido) - Guarda reporte
+
+FORMATO DE RESPUESTA OBLIGATORIO:
+Siempre responde en este formato exacto:
+
+PENSAMIENTO: [que estas pensando]
+ACCION: [nombre_herramienta]
+PARAMETROS: [parametro1="valor1", parametro2="valor2"]
+
+IMPORTANTE: DEBES ejecutar las herramientas realmente, no solo describirlas.
+
+O si ya terminaste:
+PENSAMIENTO: [conclusion]
+RESPUESTA_FINAL: [resumen de lo que hiciste]
+
+REGLAS:
+1. Un paso a la vez
+2. Siempre explica tu pensamiento
+3. Nunca inventes resultados
+4. Si algo falla, intenta otra forma
+5. Guarda siempre un reporte al final
+"""
+
+
+def llamar_ollama(prompt: str) -> str:
+    """Llama a Ollama y retorna la respuesta."""
+    try:
+        r = requests.post(OLLAMA_URL, json={
+            "model": MODELO,
+            "prompt": prompt,
+            "stream": False,
+            "options": {
+                "temperature": 0.3,  # baja para ser mas preciso
+                "num_predict": 800,
+                "stop": ["OBSERVACION:", "Constructor:"]
+            }
+        }, timeout=600)
+        if r.status_code == 200:
+            return r.json().get("response", "").strip()
+        return f"Error Ollama: {r.status_code}"
+    except Exception as e:
+        return f"Error: {e}"
+
+
+def parsear_accion(texto: str) -> dict:
+    """Extrae la accion y parametros del texto del modelo."""
+    resultado = {
+        "pensamiento": "",
+        "accion": None,
+        "parametros": {},
+        "respuesta_final": None
+    }
+
+    # Extraer pensamiento
+    match = re.search(r'PENSAMIENTO:\s*(.+?)(?=ACCION:|RESPUESTA_FINAL:|$)',
+                      texto, re.DOTALL)
+    if match:
+        resultado["pensamiento"] = match.group(1).strip()
+
+    # Extraer respuesta final
+    match = re.search(r'RESPUESTA_FINAL:\s*(.+?)$', texto, re.DOTALL)
+    if match:
+        resultado["respuesta_final"] = match.group(1).strip()
+        return resultado
+
+    # Extraer accion
+    match = re.search(r'ACCION:\s*(\w+)', texto)
+    if match:
+        resultado["accion"] = match.group(1).strip()
+
+    # Extraer parametros
+    match = re.search(r'PARAMETROS:\s*(.+?)(?=\n\n|$)', texto, re.DOTALL)
+    if match:
+        params_str = match.group(1).strip()
+        # Parsear parametros simples: param="valor"
+        params = re.findall(r'(\w+)=["\']([^"\']+)["\']', params_str)
+        for k, v in params:
+            resultado["parametros"][k] = v
+
+    return resultado
+
+
+def ejecutar_herramienta(nombre: str, params: dict) -> str:
+    """Ejecuta una herramienta con los parametros dados."""
+    if nombre not in HERRAMIENTAS:
+        return f"ERROR: Herramienta '{nombre}' no existe"
+
+    fn = HERRAMIENTAS[nombre]["fn"]
+    try:
+        # Llamar con los parametros en orden
+        if len(params) == 0:
+            return fn()
+        elif len(params) == 1:
+            return fn(list(params.values())[0])
+        elif len(params) == 2:
+            vals = list(params.values())
+            return fn(vals[0], vals[1])
+        else:
+            return fn(**params)
+    except Exception as e:
+        return f"ERROR ejecutando {nombre}: {e}"
+
+
+def correr_agente(objetivo: str, verbose: bool = True) -> str:
+    """
+    Ejecuta el bucle ReAct para completar un objetivo.
+    Retorna el resumen de lo que hizo.
+    """
+    if verbose:
+        print(f"\n{'='*50}")
+        print(f"ARKANI AGENT - Objetivo: {objetivo}")
+        print(f"{'='*50}\n")
+
+    historial = []
+    herramientas_desc = "\n".join(
+        f"- {k}: {v['desc']}"
+        for k, v in HERRAMIENTAS.items()
+    )
+
+    for paso in range(MAX_PASOS):
+        if verbose:
+            print(f"\n--- Paso {paso + 1}/{MAX_PASOS} ---")
+
+        # Construir prompt con historial
+        contexto = SYSTEM_PROMPT
+        contexto += f"\n\nOBJETIVO: {objetivo}\n\n"
+
+        if historial:
+            contexto += "HISTORIAL DE ACCIONES:\n"
+            for h in historial:
+                contexto += f"Pensamiento: {h['pensamiento']}\n"
+                if h.get('accion'):
+                    contexto += f"Accion: {h['accion']} {h['params']}\n"
+                    contexto += f"Resultado: {h['resultado']}\n\n"
+
+        contexto += "\nSiguiente paso:"
+
+        # Llamar al modelo
+        respuesta = llamar_ollama(contexto)
+        if verbose:
+            print(f"Modelo: {respuesta[:300]}")
+
+        # Parsear la respuesta
+        parsed = parsear_accion(respuesta)
+
+        if verbose:
+            print(f"Pensamiento: {parsed['pensamiento'][:100]}")
+
+        # Si tiene respuesta final, terminar
+        if parsed["respuesta_final"]:
+            if verbose:
+                print(f"\nRESULTADO FINAL:\n{parsed['respuesta_final']}")
+            return parsed["respuesta_final"]
+
+        # Si no tiene accion, terminar
+        if not parsed["accion"]:
+            msg = "Arkani no determino una accion. Objetivo completado o sin herramientas."
+            if verbose:
+                print(msg)
+            return msg
+
+        # Ejecutar la herramienta
+        if verbose:
+            print(f"Ejecutando: {parsed['accion']}({parsed['parametros']})")
+
+        resultado = ejecutar_herramienta(
+            parsed["accion"], parsed["parametros"]
+        )
+
+        if verbose:
+            print(f"Resultado: {resultado[:200]}")
+
+        # Agregar al historial
+        historial.append({
+            "pensamiento": parsed["pensamiento"],
+            "accion": parsed["accion"],
+            "params": str(parsed["parametros"]),
+            "resultado": resultado
+        })
+
+        time.sleep(1)  # pausa entre pasos
+
+    return f"Agente completó {MAX_PASOS} pasos. Revisa el log para detalles."
+
+
+if __name__ == "__main__":
+    # Test simple
+    resultado = correr_agente(
+        "Lista los archivos Python en ~/NEXUS/NEXUS-LANG/ y guarda un reporte"
+    )
+    print(f"\nFinal: {resultado}")

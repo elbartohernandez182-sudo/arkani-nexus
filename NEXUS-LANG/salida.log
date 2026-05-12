@@ -1,0 +1,21 @@
+nohup: no se tendrá en cuenta la entrada
+
+==================================================
+🧠 ARKANI CORE v1.0 - INICIANDO
+==================================================
+✅ Memoria cargada. Conversaciones previas: 16
+📌 Pendientes: 8
+
+Comandos especiales:
+  /pendiente [tarea] - agregar pendiente
+  /memoria - ver resumen
+  /salir - guardar y salir
+--------------------------------------------------
+
+Tú: Traceback (most recent call last):
+  File "/home/arkani/NEXUS/NEXUS-LANG/arkani_core.py", line 132, in <module>
+    main()
+  File "/home/arkani/NEXUS/NEXUS-LANG/arkani_core.py", line 95, in main
+    entrada = input("Tú: ").strip()
+              ^^^^^^^^^^^^^
+OSError: [Errno 9] Bad file descriptor

@@ -1,0 +1,22 @@
+{
+    "name": "ARKANI_BRAIN",
+    "value": "v1.0",
+    "role": "SYSTEM",
+    "last_update": "2026-03-25T23:52:07.855637",
+    "children": {
+        "MEMORIA_CORTA": {
+            "name": "MEMORIA_CORTA",
+            "value": "Activa",
+            "role": "LOG",
+            "last_update": "2026-03-25T23:52:07.855655",
+            "children": {}
+        },
+        "PROCESADOR_CLINICO": {
+            "name": "PROCESADOR_CLINICO",
+            "value": "Esperando Capturas",
+            "role": "CLINICAL",
+            "last_update": "2026-03-25T23:52:07.855684",
+            "children": {}
+        }
+    }
+}
