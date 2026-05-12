@@ -21,7 +21,7 @@ MEMORIA_PATH    = os.path.join(BASE_DIR, "memoria_arkani.json")
 CONOCIMIENTO_PATH = os.path.join(BASE_DIR, "conocimiento_arkani.json")
 SCRIPTS_DIR     = os.path.join(BASE_DIR, "scripts_arkani/")
 OLLAMA_URL      = "http://127.0.0.1:11434/api/generate"
-MODELO          = "qwen2.5:3b"   # ligero, rapido, instalado
+MODELO          = "qwen2.5:7b"   # ligero, rapido, instalado
 
 os.makedirs(BASE_DIR, exist_ok=True)
 os.makedirs(SCRIPTS_DIR, exist_ok=True)
@@ -98,7 +98,7 @@ class MemoriaEvolutiva:
         # Parcial
         palabras = set(key.split()) - {"que","quien","como","es","fue","el","la","un","de"}
         for k, v in self.conocimiento["hechos"].items():
-            if any(p in k for p in palabras if len(p) > 3):
+            if sum(1 for p in palabras if len(p) > 3 and p in k) >= 2:
                 return v["respuesta"]
         return None
 
@@ -315,7 +315,7 @@ def construir_prompt(mem: MemoriaEvolutiva, pregunta: str,
     ap_str = "\n".join(f"  - {a}" for a in aprends) or "  (ninguno)"
 
     historial = ""
-    for c in mem.memoria.get("conversaciones",[])[-2:]:
+    for c in mem.memoria.get("conversaciones",[])[-5:]:
         historial += f"Constructor: {c.get('pregunta','')[:60]}\nArkani: {c.get('respuesta','')[:100]}\n"
 
     rag_str = ""

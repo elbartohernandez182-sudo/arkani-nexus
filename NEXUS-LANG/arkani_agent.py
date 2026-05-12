@@ -13,7 +13,7 @@ from arkani_tools import HERRAMIENTAS, log_accion
 # ============================================
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
-MODELO = "qwen2.5:3b"
+MODELO = "qwen2.5:7b"
 MAX_PASOS  = 8  # maximo de pasos por objetivo
 
 
@@ -49,6 +49,8 @@ REGLAS:
 3. Nunca inventes resultados
 4. Si algo falla, intenta otra forma
 5. Guarda siempre un reporte al final
+6. NUNCA digas que hiciste algo sin ejecutar la herramienta primero
+7. Si necesitas crear un archivo, USA escribir_archivo, no lo describas
 """
 
 

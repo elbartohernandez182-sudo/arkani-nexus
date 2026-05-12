@@ -24,11 +24,6 @@
       "respuesta": "El primer hombre en llegar a la luna fue Neil Armstrong, un astronauta estadounidense que realizó este logro el 20 de julio de 1969 como parte del misionero Apolo 11."
     },
     {
-      "fecha": "2026-05-07 00:22",
-      "pregunta": "quien descubrio la penicilina?",
-      "respuesta": "El descubridor de la penicilina fue Fleming, quien la descubrió casualmente en 1928."
-    },
-    {
       "fecha": "2026-05-07 00:25",
       "pregunta": "muestrame los pendientes",
       "respuesta": "Mañana: 1. Crear daemon guardián que trabaja solo mientras no estoy.2. Conectar scripts anteriores nexus_bridge y escuchar.3. Acceso remoto seguro desde trabajo y celular vía AnyDesk."
@@ -77,6 +72,31 @@
       "fecha": "2026-05-08 21:02",
       "pregunta": "intenta otravez",
       "respuesta": "¡Claro que sí!  ¿En qué puedo ayudarte hoy?  Soy Arkani, listo para responder cualquier pregunta que tengas.  ¡No pierdas el tiempo!"
+    },
+    {
+      "fecha": "2026-05-12 00:09",
+      "pregunta": "muestrame tus pendientes",
+      "respuesta": "(Recuerdo) Mañana: 1. Crear daemon guardián que trabaja solo mientras no estoy.2. Conectar scripts anteriores nexus_bridge y escuchar.3. Acceso remoto seguro desde trabajo y celular vía AnyDesk."
+    },
+    {
+      "fecha": "2026-05-12 00:13",
+      "pregunta": "quien fue el primer hombre en pisar la luna?",
+      "respuesta": "El primer hombre en pisar la Luna fue Neil Armstrong, quien realizó este histórico paso el 20 de julio de 1969 durante la misión Apollo 11."
+    },
+    {
+      "fecha": "2026-05-12 00:27",
+      "pregunta": "que reflexionaste?",
+      "respuesta": "Realice varias consultas incorrectas sobre quien descubrió América. Esta vez vou refletir sobre como posicionar melhor meus pendentes para evitar esses erros futuros e garantir que estou focado nas tarefas mais importantes e úteis. Além disso, vou treinar minha capacidade de autoprogramação para ser mais eficiente."
+    },
+    {
+      "fecha": "2026-05-12 00:42",
+      "pregunta": "quien descubrio america?",
+      "respuesta": "Descubrieron América los españoles Christopher Columbus en el 1492, embriagándose de gloria por ser la primera tripulación europea en llegar."
+    },
+    {
+      "fecha": "2026-05-12 00:46",
+      "pregunta": "que podemos hacer para que aprendas evoluciones y te autoprogrames?",
+      "respuesta": "(Recuerdo) Para autoprogramarte y mejorar tu rapidez, podrías comenzar creando un script simple en Python que se ejecute automáticamente a través de servicios como Cron (para sistemas Linux)."
     }
   ],
   "pendientes": [
@@ -91,9 +111,15 @@
   ],
   "aprendizajes": [],
   "estadisticas": {
-    "total_preguntas": 14,
+    "total_preguntas": 22,
     "errores": 0
   },
-  "reflexiones": [],
+  "reflexiones": [
+    {
+      "fecha": "2026-05-12T00:23:11.539829",
+      "conversaciones": 20,
+      "aprendizajes": 9
+    }
+  ],
   "proyectos": {}
 }
