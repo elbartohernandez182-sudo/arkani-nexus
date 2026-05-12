@@ -21,7 +21,7 @@ MEMORIA_PATH    = os.path.join(BASE_DIR, "memoria_arkani.json")
 CONOCIMIENTO_PATH = os.path.join(BASE_DIR, "conocimiento_arkani.json")
 SCRIPTS_DIR     = os.path.join(BASE_DIR, "scripts_arkani/")
 OLLAMA_URL      = "http://127.0.0.1:11434/api/generate"
-MODELO          = "gemma3:4b"   # ligero, rapido, instalado
+MODELO          = "qwen2.5:3b"   # ligero, rapido, instalado
 
 os.makedirs(BASE_DIR, exist_ok=True)
 os.makedirs(SCRIPTS_DIR, exist_ok=True)
@@ -367,7 +367,7 @@ def generar_respuesta(mem: MemoriaEvolutiva, rag: RAGAgent, pregunta: str) -> st
                     "num_predict": 250,
                     "stop": ["<|im_start|>","<|im_end|>","Constructor:"]
                 }
-            }, timeout=300)
+            }, timeout=600)
 
             if r.status_code == 200:
                 texto = limpiar_texto(r.json().get("response","").strip())
