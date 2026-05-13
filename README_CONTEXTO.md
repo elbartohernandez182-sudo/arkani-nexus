@@ -1,21 +1,26 @@
-# ARKANI NEXUS - Estado del Proyecto
+# ARKANI NEXUS - Estado 12 Mayo 2026
 
 ## Archivos clave
-- arkani_core.py — Arkani v2.0 conversacional
-- arkani_agent.py — Agente ReAct autónomo  
-- arkani_supervisor.py — Daemon nocturno 18:00
+- arkani_core.py — Arkani v2.0 conversacional (FUNCIONANDO ✅)
+- arkani_agent.py — Agente ReAct autonomo (EN FIX)
+- arkani_supervisor.py — Daemon 18:00 (CONFIGURADO ✅)
 - arkani_tools.py — Herramientas del agente
 
-## Bug activo
-arkani_agent.py: parser PARAMETROS no ejecuta herramientas
-Línea 108: regex no captura valores con / y ~
+## Estado actual
+- arkani_core responde bien, sin portugues, sin Cron ✅
+- arkani_agent parser PARAMETROS en fix — captura directorio pero no ejecuta
+- Regex que funciona: r'(\w+)="([^"]+)"' captura directorio="~/NEXUS/NEXUS-LANG/"
+- ejecutar_herramienta ya usa fn(**params) ✅
+
+## Bug pendiente
+arkani_agent.py linea 111: regex no captura bien
+Solucion: usar r'(\w+)="([^"]+)"' en lugar del regex actual
 
 ## Pendientes
-1. Fix parser PARAMETROS en arkani_agent.py
-2. Limpiar respuesta Cron de conocimiento_arkani.json
-3. Interfaz gráfica con avatar (tkinter)
-4. Conectar arkani_core con arkani_agent
+1. Fix definitivo parser arkani_agent.py
+2. Interfaz grafica con avatar (tkinter)
+3. Conectar arkani_core con arkani_agent
 
-## Cron configurado
-- 18:00 supervisor
+## Cron
+- 18:00 supervisor nocturno
 - 18:30 git backup
