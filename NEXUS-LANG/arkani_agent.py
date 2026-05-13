@@ -19,7 +19,7 @@ MAX_PASOS  = 8  # maximo de pasos por objetivo
 
 SYSTEM_PROMPT = """Eres Arkani, un agente autonomo inteligente.
 Tienes acceso a herramientas para leer, escribir y ejecutar codigo.
-Responde SIEMPRE en espanol.
+Responde SIEMPRE en espanol. NUNCA respondas en portugues ni en ingles. Solo espanol.
 
 HERRAMIENTAS DISPONIBLES:
 - leer_archivo(ruta) - Lee un archivo
@@ -66,7 +66,7 @@ def llamar_ollama(prompt: str) -> str:
                 "num_predict": 800,
                 "stop": ["OBSERVACION:", "Constructor:"]
             }
-        }, timeout=600)
+        }, timeout=900)
         if r.status_code == 200:
             return r.json().get("response", "").strip()
         return f"Error Ollama: {r.status_code}"
@@ -104,12 +104,13 @@ def parsear_accion(texto: str) -> dict:
     match = re.search(r'PARAMETROS:\s*(.+?)(?=\n\n|$)', texto, re.DOTALL)
     if match:
         params_str = match.group(1).strip()
-        # Parsear parametros simples: param="valor"
-        params = re.findall(r'(\w+)=["\']([^"\']+)["\']', params_str)
-        for k, v in params:
-            resultado["parametros"][k] = v
-
-    return resultado
+        try:
+            import ast
+            resultado["parametros"] = ast.literal_eval(params_str)
+        except:
+            params = re.findall(r'(\w+)=["\']([^"\']*)["\']', params_str)
+            for k, v in params:
+                resultado["parametros"][k] = v
 
 
 def ejecutar_herramienta(nombre: str, params: dict) -> str:
@@ -120,14 +121,6 @@ def ejecutar_herramienta(nombre: str, params: dict) -> str:
     fn = HERRAMIENTAS[nombre]["fn"]
     try:
         # Llamar con los parametros en orden
-        if len(params) == 0:
-            return fn()
-        elif len(params) == 1:
-            return fn(list(params.values())[0])
-        elif len(params) == 2:
-            vals = list(params.values())
-            return fn(vals[0], vals[1])
-        else:
             return fn(**params)
     except Exception as e:
         return f"ERROR ejecutando {nombre}: {e}"
@@ -176,16 +169,16 @@ def correr_agente(objetivo: str, verbose: bool = True) -> str:
         parsed = parsear_accion(respuesta)
 
         if verbose:
-            print(f"Pensamiento: {parsed['pensamiento'][:100]}")
+            if parsed: print(f"Pensamiento: {parsed.get('pensamiento','')[:100]}")
 
         # Si tiene respuesta final, terminar
-        if parsed["respuesta_final"]:
+        if parsed and parsed["respuesta_final"]:
             if verbose:
                 print(f"\nRESULTADO FINAL:\n{parsed['respuesta_final']}")
             return parsed["respuesta_final"]
 
         # Si no tiene accion, terminar
-        if not parsed["accion"]:
+        if not parsed or not parsed["accion"]:
             msg = "Arkani no determino una accion. Objetivo completado o sin herramientas."
             if verbose:
                 print(msg)

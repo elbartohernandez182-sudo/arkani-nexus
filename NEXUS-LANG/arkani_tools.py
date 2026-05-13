@@ -144,7 +144,7 @@ def listar_archivos(directorio: str) -> str:
         return f"ERROR: {e}"
 
 
-def buscar_en_nexus(termino: str) -> str:
+def buscar_en_nexus(termino: str = "*.py") -> str:
     """Busca un término en archivos del NEXUS."""
     try:
         resultado = subprocess.run(
