@@ -135,7 +135,16 @@ def on_mensaje(data):
         with app.app_context():
             socketio.emit('typing', {'status': True}, room=sid, namespace='/')
 
-        if ARKANI_OK:
+        # MODO AGENTE - detectar comando autoprograma:
+        if texto.lower().startswith("autoprograma:"):
+            objetivo = texto[13:].strip()
+            try:
+                from arkani_agent import correr_agente
+                respuesta = correr_agente(objetivo, verbose=False)
+                respuesta = f"Agente completo:\n{respuesta}"
+            except Exception as e:
+                respuesta = f"Error en agente: {e}"
+        elif ARKANI_OK:
             try:
                 ctx, src = arkani.buscar(texto)
                 from arkani_core import main as arkani_main

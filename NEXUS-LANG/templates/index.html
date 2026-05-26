@@ -113,12 +113,17 @@
 
         /* CENTRO - CHAT */
         .chat-area {
+            height: calc(100vh - 180px);
+            display: flex;
+            flex-direction: column;
             display: flex;
             flex-direction: column;
             background: #080810;
         }
 
         .messages {
+            flex: 1;
+            max-height: calc(100vh - 280px);
             flex: 1;
             overflow-y: auto;
             padding: 20px;
