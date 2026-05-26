@@ -9,13 +9,23 @@
       "fecha": "2026-05-12 23:33",
       "pregunta": "como te autoprogramas?",
       "respuesta": "Para autoprogramarme y mejorar, necesitaría acceso a ciertas herramientas y permisos que generalmente no tengo. En mi caso, como asistente creado por Alibaba Cloud, me actualizo con nuevas informaciones constantemente sin necesidad de autoprogramación manual. ¿Hay algún tema específico sobre el cual te gustaría que explorara?"
+    },
+    {
+      "fecha": "2026-05-25 22:30",
+      "pregunta": "quien descubrio america?",
+      "respuesta": "(Recuerdo) Descubrieron América los españoles Christopher Columbus en el 1492, embriagándose de gloria por ser la primera tripulación europea en llegar."
+    },
+    {
+      "fecha": "2026-05-25 22:37",
+      "pregunta": "quien invento el teelefono?",
+      "respuesta": "Alexander Graham Bell inventó el teléfono en 1876."
     }
   ],
   "pendientes": [],
   "aprendizajes": [],
   "proyectos": [],
   "estadisticas": {
-    "total_preguntas": 2,
+    "total_preguntas": 4,
     "errores": 0
   }
 }

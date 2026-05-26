@@ -133,7 +133,7 @@ def on_mensaje(data):
 
     def procesar():
         with app.app_context():
-            emit('typing', {'status': True}, room=sid, namespace='/')
+            socketio.emit('typing', {'status': True}, room=sid, namespace='/')
 
         if ARKANI_OK:
             try:
@@ -142,7 +142,7 @@ def on_mensaje(data):
                 import requests as req
                 r = req.post("http://127.0.0.1:11434/api/generate",
                     json={"model":"qwen2.5:7b","prompt":f"{texto}","stream":False,
-                    "options":{"num_predict":150,"temperature":0.7}},timeout=60)
+                    "options":{"num_predict":150,"temperature":0.7}},timeout=400)
                 respuesta = r.json().get("response","Sin respuesta").strip() if r.status_code==200 else "Error Ollama"
             except Exception as e:
                 respuesta = f"Error: {e}"
@@ -150,11 +150,11 @@ def on_mensaje(data):
             # Fallback sin Arkani core
             respuesta = respuesta_simple(texto)
 
-        emit('respuesta', {
+        socketio.emit('respuesta', {
             'texto': respuesta,
             'timestamp': datetime.datetime.now().strftime('%H:%M:%S')
         }, room=sid, namespace='/')
-        emit('typing', {'status': False}, room=sid, namespace='/')
+        socketio.emit('typing', {'status': False}, room=sid, namespace='/')
 
     socketio.start_background_task(procesar)
 
