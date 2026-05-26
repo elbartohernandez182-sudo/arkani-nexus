@@ -126,14 +126,14 @@ def on_connect():
 
 @socketio.on('mensaje')
 def on_mensaje(data):
-    """Procesa mensaje del usuario"""
+    sid = request.sid
     texto = data.get('texto', '').strip()
     if not texto:
         return
 
-    # Responder en hilo separado para no bloquear
     def procesar():
-        emit('typing', {'status': True})
+        with app.app_context():
+            emit('typing', {'status': True}, room=sid, namespace='/')
 
         if ARKANI_OK:
             try:
@@ -153,8 +153,8 @@ def on_mensaje(data):
         emit('respuesta', {
             'texto': respuesta,
             'timestamp': datetime.datetime.now().strftime('%H:%M:%S')
-        })
-        emit('typing', {'status': False})
+        }, room=sid, namespace='/')
+        emit('typing', {'status': False}, room=sid, namespace='/')
 
     socketio.start_background_task(procesar)
 
