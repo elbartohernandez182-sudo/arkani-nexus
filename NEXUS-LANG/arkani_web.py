@@ -307,4 +307,4 @@ if __name__ == '__main__':
     os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
     cargar_rag()
-    socketio.run(app, host='0.0.0.0', port=8081, debug=False)
+    socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)

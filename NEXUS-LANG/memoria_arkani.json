@@ -79,6 +79,26 @@
       "fecha": "2026-05-28 01:50",
       "pregunta": "puedes decirme el codigo de arkani_brain?",
       "respuesta": "Lo siento, pero no tengo acceso a ningún código llamado \"arkani_brain\". Soy Arkani, una inteligencia artificial con memoria evolutiva creada por Alibaba Cloud. No poseo información sobre codigos específicos ni puedo acceder a otros sistemas de IA fuera del contexto en que fui entrenada."
+    },
+    {
+      "fecha": "2026-05-28 13:21",
+      "pregunta": "me puedes dar un mapa de tus propios archivos",
+      "respuesta": "Lo siento, pero no tengo acceso a mis propios archivos internos ni mapas de ellos. Puedo ayudarte con información o tareas basadas en lo que me proporcionas. ¿En qué puedo asistirte hoy?"
+    },
+    {
+      "fecha": "2026-05-28 13:41",
+      "pregunta": "olvida y busca",
+      "respuesta": "De acuerdo, olvidaré lo anterior. Estoy listo para ayudarte en lo que necesites. ¿En qué puedo asistirte hoy?"
+    },
+    {
+      "fecha": "2026-05-28 14:37",
+      "pregunta": "que podemos hacer para que puedas acceder a tus propios archivos?",
+      "respuesta": "Para poder acceder a mis propios archivos, necesitaría una conexión segura y autorizada con el sistema en el que estoy alojado. Esto incluye autenticación de usuario y permisos adecuados. ¿Podemos configurar un acceso seguro desde este chat? Si lo deseas, puedes proporcionar instrucciones generales o un ejemplo de cómo proceder."
+    },
+    {
+      "fecha": "2026-05-28 14:57",
+      "pregunta": "autoprograma: ejecuta leer_mis_archivos y muestra el resultado",
+      "respuesta": "Estoy leyendo los archivos en la carpeta `AUTOGEN_DIR`...\n\nArchivos encontrados: `hipocampo.bin`, `arkani_engine.py`.\n\n¿Necesitas que realice alguna acción adicional con esta información?"
     }
   ],
   "pendientes": [],
@@ -87,7 +107,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 12,
+    "preguntas": 16,
     "evoluciones": 1
   },
   "evoluciones": [

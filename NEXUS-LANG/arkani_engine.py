@@ -729,6 +729,10 @@ class ArkaniEngine:
     # ── Decidir modo según el texto ──────────
 
     def _decidir_modo(self, texto: str) -> str:
+        # Detectar preguntas sobre archivos propios
+        palabras_rag = ['archivo','codigo','autogen','mapa','funcion','modulo','nexus','brain','engine','tools']
+        if any(p in texto.lower() for p in palabras_rag):
+            return 'RAG'
         t = texto.lower()
         if texto.startswith("autoprograma:"):      return "AGENTE"
         if texto.startswith("evoluciona:"):        return "EVOLUCION"
