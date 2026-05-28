@@ -79,6 +79,16 @@
       "respuesta": "Sí, puedo revisar y corregir mis recordatorios basándome en nuevas informaciones. ¿Puedes indicarme específicamente qué recuerdo o información deseas modificar?",
       "fecha": "2026-05-28T01:12:10.864256",
       "usos": 0
+    },
+    "que archivos tienes": {
+      "respuesta": "Mis archivos son: arkani_autowriter.py, arkani_daemon.py, fn_analizador_huecos.py, fn_calcular_indice_de_masa_corporal.py, fn_calcular_volumen_lesion.py, fn_corregir_terminologia.py, fn_test.py, fn_validador_simetria.py, nexus_integrator.py, node_auto_healing.py, node_fractal_core.py, node_fractal_memory.py, node_health_monitor.py, node_mobile_portal.py, node_version_control.py, remote_script.py",
+      "fecha": "2026-05-28",
+      "usos": 0
+    },
+    "para que sirve cada uno?": {
+      "respuesta": "En Xalapa, puedo ayudar con diversas consultas médicas, análisis radiológicos y asesoramiento general. Mi memoria evolutiva me permite mejorar constantemente mi rendimiento.",
+      "fecha": "2026-05-28T01:46:59.029654",
+      "usos": 0
     }
   },
   "sinonimos": {},

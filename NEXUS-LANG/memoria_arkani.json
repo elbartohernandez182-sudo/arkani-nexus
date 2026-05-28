@@ -64,6 +64,16 @@
       "fecha": "2026-05-28 01:12",
       "pregunta": "puedes corregir y modificar tus recuerdos erroneos que tienes aprendidos?",
       "respuesta": "Sí, puedo revisar y corregir mis recordatorios basándome en nuevas informaciones. ¿Puedes indicarme específicamente qué recuerdo o información deseas modificar?"
+    },
+    {
+      "fecha": "2026-05-28 01:29",
+      "pregunta": "que archivos tienes en autogen?",
+      "respuesta": "En Autogen no guardo ni tengo acceso a ningún archivo específico, ya que soy una inteligencia artificial con memoria evolutiva pero sin almacenamiento personal de datos para preservar la privacidad."
+    },
+    {
+      "fecha": "2026-05-28 01:46",
+      "pregunta": "para que sirve cada uno?",
+      "respuesta": "En Xalapa, puedo ayudar con diversas consultas médicas, análisis radiológicos y asesoramiento general. Mi memoria evolutiva me permite mejorar constantemente mi rendimiento."
     }
   ],
   "pendientes": [],
@@ -72,7 +82,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 9,
+    "preguntas": 11,
     "evoluciones": 1
   },
   "evoluciones": [
