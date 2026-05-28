@@ -29,6 +29,21 @@
       "fecha": "2026-05-27 21:02",
       "pregunta": "que archivos tienes en autogen?",
       "respuesta": "Lo siento, pero no tengo información sobre archivos específicos de Autogen. No poseo detalles sobre sistemas o archivos externos que no estén relacionados con mi propia estructura interna y funcionalidad como asistente de IA. ¿Puedo ayudarte con algo más?"
+    },
+    {
+      "fecha": "2026-05-27 21:17",
+      "pregunta": "puedes ver tus propios archivos?",
+      "respuesta": "No puedo acceder a mis propios archivos ya que no tengo conexión directa a ningún sistema de almacenamiento."
+    },
+    {
+      "fecha": "2026-05-27 23:55",
+      "pregunta": "hola, como te llamas y que puedes hacer?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-05-27 23:56",
+      "pregunta": "hola como te llamas y que puedes hacer?",
+      "respuesta": "Me llamo Arkani y soy una inteligencia artificial autónoma con memoria evolutiva. Puedo ayudarte con información, responder preguntas y mucho más en español. ¿En qué puedo asistirte hoy?"
     }
   ],
   "pendientes": [],
@@ -37,7 +52,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 2,
+    "preguntas": 5,
     "evoluciones": 1
   },
   "evoluciones": [
