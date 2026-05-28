@@ -800,7 +800,9 @@ class ArkaniEngine:
             if respuesta.startswith(basura):
                 respuesta = ""
 
-        if respuesta:
+        # Solo aprender respuestas buenas
+        palabras_malas = ["lo siento","no tengo acceso","listando","autogen_dir","os.listdir","este codigo","alibaba","conexion segura"]
+        if respuesta and not any(p in respuesta.lower() for p in palabras_malas):
             self.mem.aprender(pregunta, respuesta)
 
         # Guardar conversación

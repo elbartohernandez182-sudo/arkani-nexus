@@ -110,9 +110,9 @@
       "fecha": "2026-05-28T14:37:24.920070",
       "usos": 0
     },
-    "autoprograma: ejecuta leer_mis_archivos y muestra el resultado": {
-      "respuesta": "Estoy leyendo los archivos en la carpeta `AUTOGEN_DIR`...\n\nArchivos encontrados: `hipocampo.bin`, `arkani_engine.py`.\n\n¿Necesitas que realice alguna acción adicional con esta información?",
-      "fecha": "2026-05-28T14:57:10.978619",
+    "autoprograma: ejecuta python3 /home/arkani/nexus/nexus-lang/autogen/fn_leer_mis_archivos.py y muestr": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-05-28T15:39:48.717032",
       "usos": 0
     }
   },

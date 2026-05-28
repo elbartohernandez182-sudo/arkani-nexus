@@ -99,6 +99,16 @@
       "fecha": "2026-05-28 14:57",
       "pregunta": "autoprograma: ejecuta leer_mis_archivos y muestra el resultado",
       "respuesta": "Estoy leyendo los archivos en la carpeta `AUTOGEN_DIR`...\n\nArchivos encontrados: `hipocampo.bin`, `arkani_engine.py`.\n\n¿Necesitas que realice alguna acción adicional con esta información?"
+    },
+    {
+      "fecha": "2026-05-28 15:27",
+      "pregunta": "autoprograma: lista archivos en autogen",
+      "respuesta": "Listando archivos en el directorio `autogen/`...\n\n```python\narchivos_autogen = os.listdir(AUTOGEN_DIR)\nprint(\"Archivos en autogen:\", archivos_autogen)\n```\n\nEste código listaría los archivos presentes en el directorio `autogen/`."
+    },
+    {
+      "fecha": "2026-05-28 15:39",
+      "pregunta": "autoprograma: ejecuta python3 /home/arkani/NEXUS/NEXUS-LANG/autogen/fn_leer_mis_archivos.py y muestra el resultado",
+      "respuesta": "Timeout Ollama"
     }
   ],
   "pendientes": [],
@@ -107,7 +117,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 16,
+    "preguntas": 18,
     "evoluciones": 1
   },
   "evoluciones": [
