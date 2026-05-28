@@ -54,6 +54,16 @@
       "respuesta": "Alexander Graham Bell inventó el teléfono en 1876.",
       "fecha": "2026-05-25T22:37:19.176916",
       "usos": 0
+    },
+    "hola estas ahi?": {
+      "respuesta": "Sí, estoy aquí. ¿En qué puedo ayudarte?",
+      "fecha": "2026-05-27T21:00:19.061723",
+      "usos": 0
+    },
+    "que archivos tienes en autogen?": {
+      "respuesta": "Lo siento, pero no tengo información sobre archivos específicos de Autogen. No poseo detalles sobre sistemas o archivos externos que no estén relacionados con mi propia estructura interna y funcionalidad como asistente de IA. ¿Puedo ayudarte con algo más?",
+      "fecha": "2026-05-27T21:02:58.306440",
+      "usos": 0
     }
   },
   "sinonimos": {},

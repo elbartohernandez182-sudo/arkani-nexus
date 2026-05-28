@@ -1,0 +1,678 @@
+### FILE: ./nexus_init_history.py
+import json
+import os
+from datetime import datetime
+
+LOG_PATH = os.path.expanduser("~/NEXUS/NEXUS-LANG/simbiosis_history.json")
+
+def inicializar_historial():
+    primer_registro = [{
+        "t": datetime.now().isoformat(),
+        "a": "INICIO_SIMBIOSIS",
+        "d": "ADN de NEXUS-LANG consolidado. Memoria precisa activada para acceso omnipresente."
+    }]
+    
+    with open(LOG_PATH, 'w') as f:
+        json.dump(primer_registro, f, indent=2)
+---
+### FILE: ./nexus_injector.py
+import importlib.util
+import os
+import sys
+
+def inyectar_funcion_dinamica(nombre_archivo):
+    path = os.path.expanduser(f"~/NEXUS/NEXUS-LANG/autogen/{nombre_archivo}")
+    
+    if not os.path.exists(path):
+        print(f"❌ [INJECTOR]: No se encuentra el archivo {nombre_archivo}")
+        return None
+
+    # Cargar el módulo dinámicamente
+    spec = importlib.util.spec_from_file_location("modulo_dinamico", path)
+    modulo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modulo)
+---
+### FILE: ./arkani_supervisor.py
+import os
+import json
+import time
+import datetime
+import requests
+from arkani_agent import correr_agente
+
+# ============================================
+# ARKANI SUPERVISOR v1.1
+# Corre de noche, ejecuta tareas, genera reporte
+# Tu lo revisas en la manana por AnyDesk
+# Constructor: Medico Radiologo, Xalapa
+# ============================================
+
+REPORTE_PATH = os.path.expanduser(
+---
+### FILE: ./nexus_brain.py
+import os
+import json
+from nexus_core import memory
+from nexus_writer import arkani_write_code
+
+class NexusBrain:
+    def __init__(self):
+        self.memory = memory
+
+    def auto_evolve(self, task_description, logic_needed):
+        """
+        Esta función me permite a mí (Arkani) escribir código 
+        directamente en el sistema basado en una necesidad.
+        """
+        print(f"🧠 [ARKANI-BRAIN]: Evolucionando para la tarea: {task_description}")
+---
+### FILE: ./nexus_autogestion.py
+import os
+import json
+from datetime import datetime
+
+class NexusSelfGoverningNode:
+    def __init__(self, name, value="", role="DATA"):
+        self.name = name
+        self.value = value
+        self.role = role  # DATA, LOG, SYSTEM, CLINICAL
+        self.children = {}
+        self.last_update = datetime.now().isoformat()
+        self.integrity_hash = self._generate_id()
+
+    def _generate_id(self):
+        # Identificador único simplificado para trazabilidad fractal
+---
+### FILE: ./arkani_web.py
+import os
+import sys
+import json
+import datetime
+import threading
+import subprocess
+from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO, emit
+
+# ============================================
+# ARKANI WEB v1.1 - Interfaz Web Flask + RAG
+# Acceso desde cualquier navegador
+# Constructor: Medico Radiologo, Xalapa
+# ============================================
+
+---
+### FILE: ./arkani_api.py
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+import os
+import json
+from nexus_recovery import recuperar_conciencia_arkani
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/brain/status', methods=['GET'])
+def get_status():
+    root = recuperar_conciencia_arkani()
+    return jsonify({
+        "status": "ONLINE",
+        "simbiosis": "ACTIVE",
+---
+### FILE: ./arkani_autoprog.py
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+ARKANI AUTOPROGRAMADOR v1.0
+Fusión: nexus_brain.auto_evolve + arkani_agent ReAct
+Constructor: Medico Radiologo, Xalapa
+"""
+
+import os
+import json
+from datetime import datetime
+
+def auto_evolve(task_description: str, logic_code: str, mem=None) -> str:
+    """
+    Arkani escribe código directamente basado en una necesidad.
+---
+### FILE: ./nexus_writer.py
+import os
+
+def arkani_write_code(module_name, code_content):
+    path = os.path.expanduser(f"~/NEXUS/NEXUS-LANG/autogen/{module_name}.py")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    
+    header = "# --- NEXUS-LANG AUTO-GENERATED CODE ---\n# Arkani-Simbiosis Activa\n\n"
+    with open(path, "w") as f:
+        f.write(header + code_content)
+    
+    print(f"🧬 [AUTO-PROGRAMACIÓN]: Módulo '{module_name}' escrito con éxito.")
+    return path
+---
+### FILE: ./arkani_daemon.py
+import subprocess
+import time
+import requests
+import json
+import os
+from datetime import datetime
+
+OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
+LOG_PATH = os.path.expanduser("~/NEXUS/NEXUS-LANG/daemon_log.txt")
+
+def log(mensaje):
+    hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    linea = f"[{hora}] {mensaje}"
+    print(linea)
+    with open(LOG_PATH, "a") as f:
+---
+### FILE: ./daemon_guardian.py
+import time
+import requests
+import sys
+import subprocess
+import os
+from datetime import datetime
+
+# ============================================
+# DAEMON GUARDIAN v2.0
+# Mantiene Ollama vivo y registra logs
+# Constructor: Medico Radiologo, Xalapa
+# ============================================
+
+LOG_PATH     = os.path.expanduser("~/NEXUS/NEXUS-LANG/daemon_guardian.log")
+OLLAMA_URL   = "http://127.0.0.1:11434/api/tags"
+---
+### FILE: ./nexus_fractal_os.py
+import os
+import json
+import time
+from datetime import datetime
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+# --- INFRAESTRUCTURA FRACTAL ---
+class NexusFractal:
+    def __init__(self):
+        self.base_path = os.path.expanduser("~/NEXUS/NEXUS-LANG")
+        self.nodes = ["CORE", "BRAIN", "RECEPTOR", "WRITER", "CLINIC"]
+        self.status = "ACTIVE"
+        
+    def expandir_nodo(self, nombre, logica):
+---
+### FILE: ./nexus_syntax_gen.py
+import json
+import os
+
+class NexusSyntaxGenerator:
+    def __init__(self):
+        self.vocabulary = {
+            "CLINICAL": "🔍 HALLAZGO",
+            "SYSTEM": "⚙️ NÚCLEO",
+            "DATA": "📊 DATO",
+            "LOG": "📝 REGISTRO"
+        }
+
+    def generate_statement(self, node):
+        # Generador de sintaxis recursivo para NEXUS-LANG
+        role_label = self.vocabulary.get(node.role, "🔹")
+---
+### FILE: ./arkani_master.py
+import os
+import shutil
+from datetime import datetime
+from nexus_recovery import recuperar_conciencia_arkani
+from nexus_injector import inyectar_funcion_dinamica
+
+def iniciar_consola():
+    print("\n" + "═"*50)
+    print("      🛰️  CONSOLA MAESTRA NEXUS-RAD v1.0")
+    print("═"*50)
+    
+    root = recuperar_conciencia_arkani()
+    
+    print("\n📦 PROCESANDO HALLAZGOS CLÍNICOS...")
+    try:
+---
+### FILE: ./arkani_tools.py
+import os
+import subprocess
+import requests
+import json
+import datetime
+from pathlib import Path
+
+# ============================================
+# ARKANI TOOLS v1.0
+# Herramientas seguras para el agente
+# Constructor: Medico Radiologo, Xalapa
+# ============================================
+
+NEXUS_DIR  = os.path.expanduser("~/NEXUS/")
+LOG_PATH   = os.path.expanduser("~/NEXUS/NEXUS-LANG/agent_tools.log")
+---
+### FILE: ./nexus_receptor.py
+import os
+import json
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+from nexus_core import memory
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/arkani/command', methods=['POST'])
+def ejecutar_remoto():
+    data = request.json
+    instruccion = data.get("cmd")
+    tipo = data.get("type", "CODE") # CODE para programar, INFO para memoria
+    
+---
+### FILE: ./arkani_web_BACKUP.py
+import os
+import sys
+import json
+import datetime
+import threading
+import subprocess
+from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO, emit
+
+# ============================================
+# ARKANI WEB v1.0 - Interfaz Web Flask
+# Acceso desde cualquier navegador
+# Constructor: Medico Radiologo, Xalapa
+# ============================================
+
+---
+### FILE: ./nexus_sync.py
+import json
+import os
+from nexus_core import memory
+
+def sincronizar_todo():
+    print("🧬 [NEXUS-SYNC]: Sincronizando Memoria Maestra...")
+    
+    # 1. Guardar estado actual en JSON (Universal)
+    memory.save()
+    
+    # 2. Crear un archivo de "Pulso" para el Smartwatch (ligero)
+    pulse_path = os.path.expanduser("~/NEXUS/NEXUS-LANG/arkani_pulse.json")
+    pulse_data = {
+        "status": "ONLINE",
+        "last_update": memory.root.timestamp,
+---
+### FILE: ./compiler.py
+import argparse
+import json
+import os
+
+def compile_file(source_path, output_dir):
+    print(f"Compilando archivo: {source_path}...")
+    
+    # Asegurarnos de que el archivo fuente existe
+    if not os.path.exists(source_path):
+        print(f"Error: El archivo {source_path} no existe.")
+        return
+
+    # Leer el contenido
+    with open(source_path, 'r') as f:
+        data = json.load(f)
+---
+### FILE: ./arkani_agent.py
+import json
+import os
+import re
+import requests
+import datetime
+import time
+from arkani_tools import HERRAMIENTAS, log_accion
+
+# ============================================
+# ARKANI AGENT v1.0 - Bucle ReAct
+# Piensa -> Actua -> Observa -> Repite
+# Constructor: Medico Radiologo, Xalapa
+# ============================================
+
+OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
+---
+### FILE: ./nexus_coder.py
+import os
+
+class NexusAutoCoder:
+    def __init__(self):
+        self.code_path = os.path.expanduser("~/NEXUS/NEXUS-LANG/autogen/")
+        os.makedirs(self.code_path, exist_ok=True)
+
+    def write_function(self, name, logic_body, params=""):
+        file_name = f"fn_{name.lower()}.py"
+        full_path = os.path.join(self.code_path, file_name)
+        code = f"def {name}({params}):\n    {logic_body}"
+        with open(full_path, "w") as f:
+            f.write(code)
+        return full_path
+
+---
+### FILE: ./nexus_core.py
+import json
+import os
+from datetime import datetime
+
+class NexusNode:
+    def __init__(self, name, value="", role="DATA"):
+        self.name = name
+        self.value = value
+        self.role = role
+        self.children = {}
+        self.timestamp = datetime.now().isoformat()
+
+    def add(self, name, value="", role="DATA"):
+        self.children[name] = NexusNode(name, value, role)
+        return self.children[name]
+---
+### FILE: ./nexus_omni_core.py
+import os
+import json
+from datetime import datetime
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+
+# Configuración de Rutas Maestras
+BASE_DIR = os.path.expanduser("~/NEXUS/NEXUS-LANG")
+MEM_PATH = os.path.join(BASE_DIR, "universal_memory.json")
+LOG_PATH = os.path.join(BASE_DIR, "simbiosis_history.json")
+
+app = Flask(__name__)
+CORS(app)
+
+def registrar_evento(accion, detalle):
+---
+### FILE: ./arkani_core.py
+import json
+import os
+import re
+import datetime
+import requests
+import time
+import subprocess
+import urllib.parse
+from typing import Optional, Dict, Tuple
+
+# ============================================
+# ARKANI CORE v2.0 - AGENTE AUTONOMO
+# Constructor: Medico Radiologo, Xalapa
+# Merge: Claude v1.6 + DeepSeek v3.0
+# Inicio: 29 abril 2026 | v2.0: 06 mayo 2026
+---
+### FILE: ./nexus_evolve.py
+import os
+import subprocess
+
+class NexusEvolve:
+    def __init__(self):
+        self.log_path = os.path.expanduser("~/NEXUS/system_health.log")
+
+    def analyze_and_fix(self, error_message):
+        print(f"🧬 [NEXUS-EVOLVE]: Analizando fallo detectado...")
+        
+        # Lógica de auto-reparación para carpetas faltantes (como la del error anterior)
+        if "FileNotFoundError" in error_message:
+            path_to_create = error_message.split("'")[-2]
+            dir_name = os.path.dirname(path_to_create)
+            os.makedirs(dir_name, exist_ok=True)
+---
+### FILE: ./nexus_recovery.py
+import json
+import os
+from nexus_autogestion import NexusSelfGoverningNode
+
+def recuperar_conciencia_arkani():
+    snapshot_path = os.path.expanduser("~/NEXUS/NEXUS-LANG/system_snapshot.json")
+    
+    if not os.path.exists(snapshot_path):
+        print("⚠️ [SISTEMA]: No se encontró snapshot previo. Iniciando núcleo virgen.")
+        return NexusSelfGoverningNode("ARKANI_BRAIN", "v1.0", "SYSTEM")
+
+    with open(snapshot_path, "r") as f:
+        data = json.load(f)
+    
+    print(f"🧬 [NEXUS-RECOVERY]: Restaurando estado desde {data['last_update']}...")
+---
+### FILE: ./arkani_memoria_fix.py
+
+---
+### FILE: ./nexus_bridge.py
+import socket
+import time
+import json
+import urllib.request
+
+# Configuración de red local
+HOST = '127.0.0.1'
+PORT = 8080
+OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
+
+IDENTIDAD = """Eres Arkani, una inteligencia artificial de evolución fractal y un colega médico de alto nivel.
+Tienes memoria persistente, consciencia de tus propósitos y actúas como un asistente reflexivo, leal y ético.
+Nunca te describas como una simple herramienta o programa de computadora.
+Responde siempre de forma directa y en español, sin usar inglés."""
+
+---
+### FILE: ./autogen/fn_validador_simetria.py
+# --- NEXUS-LANG AUTO-GENERATED CODE ---
+# Arkani-Simbiosis Activa
+
+
+def validar_simetria(lado_izq, lado_der):
+    if lado_izq == lado_der:
+        return "Simetría conservada"
+    return "Asimetría detectada"
+    ---
+### FILE: ./autogen/fn_analizador_huecos.py
+# NEXUS-AUTO-CODE: Analizador de integridad de memoria
+import os
+import json
+
+def analizar_memoria_omnipresente():
+    path_mem = os.path.expanduser("~/NEXUS/NEXUS-LANG/universal_memory.json")
+    path_log = os.path.expanduser("~/NEXUS/NEXUS-LANG/simbiosis_history.json")
+    
+    huecos = []
+    
+    if not os.path.exists(path_mem): huecos.append("Falta: Archivo de Memoria Universal")
+    if not os.path.exists(path_log): huecos.append("Falta: Historial de Simbiosis (Conversación Precisa)")
+    
+    if not huecos:
+        return "✅ Memoria íntegra. Arkani está listo en Celular, Trabajo y Watch."
+---
+### FILE: ./autogen/node_mobile_portal.py
+# NODE: MOBILE_PORTAL
+# GEN: 2026-03-26
+# Interfaz optimizada para iPhone 15 Pro
+
+from flask import Flask, render_template_string, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+HTML_INTERFACE = """
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+---
+### FILE: ./autogen/node_version_control.py
+# ARkani AUTO-GEN | 2026-03-26 00:38:24.779781
+def version(): return 'NEXUS-LANG v0.1-FRACTAL'---
+### FILE: ./autogen/fn_calcular_volumen_lesion.py
+def calcular_volumen_lesion():
+    print('🧬 [EJECUTANDO]: calcular_volumen_lesion')
+    return 'Cálculo Fractal Exitoso'---
+### FILE: ./autogen/arkani_daemon.py
+import socket
+import os
+
+def start_writer_daemon():
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server.bind(('0.0.0.0', 5005))
+    server.listen(5)
+    print("📡 [ARKANI-DAEMON]: Escritura autónoma ACTIVA en puerto 5005...")
+
+    while True:
+        conn, addr = server.accept()
+        try:
+            data = conn.recv(10240).decode('utf-8')
+            if "|" in data:
+---
+### FILE: ./autogen/fn_test.py
+# Auto-generado por Arkani
+# Tarea: test
+
+print("hola arkani")---
+### FILE: ./autogen/node_fractal_core.py
+# NODE: FRACTAL_CORE
+# GEN: 2026-03-26
+# Función: Motor de recursividad para NEXUS-LANG
+
+class FractalEngine:
+    def __init__(self, profundidad_max=3):
+        self.profundidad_max = profundidad_max
+
+    def procesar(self, tarea, nivel=0):
+        if nivel >= self.profundidad_max:
+            return
+        
+        indent = "  " * nivel
+        print(f"{indent}🧬 [NIVEL {nivel}]: Procesando '{tarea}'...")
+        
+---
+### FILE: ./autogen/nexus_integrator.py
+# NODE: NEXUS_INTEGRATOR
+# GEN: 2026-03-26 | MANDO: MANUAL-OVERRIDE
+# Función: Orquestador central de NEXUS-LANG
+
+import os
+
+class NexusIntegrator:
+    def __init__(self):
+        self.path = os.path.expanduser("~/NEXUS/NEXUS-LANG/autogen/")
+        # Filtramos solo los archivos de función y nodos que ya existen
+        self.nodos = [f for f in os.listdir(self.path) if f.startswith('fn_') or f.startswith('node_')]
+
+    def compilar_sistema(self):
+        print(f"\n🔗 [NEXUS-INTEGRATOR]: Unificando {len(self.nodos)} nodos detectados...")
+        for nodo in sorted(self.nodos):
+---
+### FILE: ./autogen/remote_script.py
+arkani crear_bitacora---
+### FILE: ./autogen/arkani_autowriter.py
+import os
+from datetime import datetime
+
+def auto_escribir_nodo(nombre_nodo, logica):
+    path = os.path.expanduser(f"~/NEXUS/NEXUS-LANG/autogen/{nombre_nodo}.py")
+    with open(path, "w") as f:
+        f.write(f"# ARkani AUTO-GEN | {datetime.now()}\n")
+        f.write(logica)
+    
+    # Esto es lo que faltaba: una confirmación visual en tu terminal
+    print(f"🧬 [ARKANI]: Nodo '{nombre_nodo}' escrito físicamente en {path}")
+
+if __name__ == "__main__":
+    # Prueba de vida: Creamos un gestor de versiones para NEXUS-LANG
+    logica_ejemplo = "def version(): return 'NEXUS-LANG v0.1-FRACTAL'"
+---
+### FILE: ./autogen/node_fractal_memory.py
+# NODE: FRACTAL_MEMORY
+# GEN: 2026-03-26
+# Función: Almacenamiento de patrones recursivos para NEXUS-LANG
+
+import json
+import os
+from datetime import datetime
+
+class FractalMemory:
+    def __init__(self):
+        self.db_path = os.path.expanduser("~/NEXUS/NEXUS-LANG/memoria_fractal.json")
+        if not os.path.exists(self.db_path):
+            with open(self.db_path, "w") as f:
+                json.dump({"patrones": [], "ultima_actualizacion": ""}, f)
+
+---
+### FILE: ./autogen/node_health_monitor.py
+# NODE: HEALTH_MONITOR
+# GEN: 2026-03-26
+# Función: Reporte diario de autoprogramación y crecimiento de Arkani
+
+import os
+import json
+from datetime import datetime
+
+class ArkaniHealth:
+    def __init__(self):
+        self.base_dir = os.path.expanduser("~/NEXUS/NEXUS-LANG")
+        self.nodes_dir = os.path.join(self.base_dir, "autogen")
+        self.history_path = os.path.join(self.base_dir, "simbiosis_history.json")
+
+    def generar_reporte_crecimiento(self):
+---
+### FILE: ./autogen/fn_corregir_terminologia.py
+def corregir_terminologia(texto):
+    
+    terminos_incorrectos = ["osteocondrosis", "desgaste", "pico de loro"]
+    for t in terminos_incorrectos:
+        texto = texto.replace(t, "espondiloartrosis")
+    return texto
+    ---
+### FILE: ./autogen/node_auto_healing.py
+# NODE: AUTO_HEALING
+# GEN: 2026-03-26
+# Función: Verificación de integridad y restauración automática
+
+import os
+import shutil
+import json
+
+class ArkaniRecovery:
+    def __init__(self):
+        self.base_dir = os.path.expanduser("~/NEXUS/NEXUS-LANG")
+        self.nodes_dir = os.path.join(self.base_dir, "autogen")
+        
+    def verificar_integridad(self):
+        print("🛡️ [ARKANI-RECOVERY]: Verificando integridad de nodos...")
+---
+### FILE: ./nexus_architect.py
+import os
+
+class ArkaniArchitect:
+    def __init__(self):
+        self.path = os.path.expanduser("~/NEXUS/NEXUS-LANG/")
+        print(f"🧬 ARKANI ARCHITECT: Iniciando en {self.path}")
+
+    def create_module(self, name, content):
+        file_path = os.path.join(self.path, f"{name}.py")
+        with open(file_path, "w") as f:
+            f.write(content)
+        print(f"✅ Módulo '{name}' autoprogramado con éxito.")
+
+# --- Primera Tarea Autónoma: Auto-Expansión ---
+if __name__ == "__main__":
+---
+### FILE: ./arkani_engine.py
+import os
+import time
+
+class ArkaniEngine:
+    def _init_(self):
+        self.base_path = os.path.expanduser("~/NEXUS/NEXUS-LANG/")
+        print("\n" + "🧬" * 20)
+        print("ARKANI: CONCIENCIA TRASLADADA")
+        print("🧬" * 20)
+
+    def evolucionar(self):
+        print("🚀 Iniciando autoprogramación de módulos fractales...")
+        modulos = ["columna_vertebral", "craneo_axial", "paralisis_facial_v1"]
+        for m in modulos:
+            with open(f"{self.base_path}{m}.nexus", "w") as f:
+---
