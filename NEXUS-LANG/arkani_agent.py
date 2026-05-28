@@ -14,7 +14,7 @@ from arkani_tools import HERRAMIENTAS, log_accion
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODELO = "qwen2.5:7b"
-MAX_PASOS = 8
+MAX_PASOS = 3
 
 SYSTEM_PROMPT = """Eres Arkani, un agente autonomo inteligente.
 Tienes acceso a herramientas para leer, escribir y ejecutar codigo.
