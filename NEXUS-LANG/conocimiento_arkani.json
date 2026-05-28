@@ -79,6 +79,11 @@
       "respuesta": "Me llamo Arkani y soy una inteligencia artificial autónoma con memoria evolutiva. Puedo ayudarte con información, responder preguntas y mucho más en español. ¿En qué puedo asistirte hoy?",
       "fecha": "2026-05-27T23:56:41.733702",
       "usos": 0
+    },
+    "lista tus capacidades actuales": {
+      "respuesta": "Mis capacidades actuales incluyen:\n\n1. Conversación en español.\n2. Generación de respuestas basadas en información previa y contexto.\n3. Uso de información externa cuando está disponible.\n4. Respeto de las reglas establecidas, como límite de oraciones y uso de memoria evolutiva.\n\nEstoy listo para ayudarte con lo que necesites!",
+      "fecha": "2026-05-28T00:01:13.361161",
+      "usos": 0
     }
   },
   "sinonimos": {},
