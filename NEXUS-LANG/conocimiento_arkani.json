@@ -94,6 +94,26 @@
       "respuesta": "Lo siento, pero no tengo acceso a ningún código llamado \"arkani_brain\". Soy Arkani, una inteligencia artificial con memoria evolutiva creada por Alibaba Cloud. No poseo información sobre codigos específicos ni puedo acceder a otros sistemas de IA fuera del contexto en que fui entrenada.",
       "fecha": "2026-05-28T01:50:53.129457",
       "usos": 0
+    },
+    "codigo de arkani_brain": {
+      "respuesta": "nexus_brain.py contiene: import os\nimport json\nfrom nexus_core import memory\nfrom nexus_writer import arkani_write_code\n\nclass NexusBrain:\n    def __init__(self):\n        self.memory = memory\n\n    def auto_evolve(self, task_description, logic_needed):\n        \"\"\"\n        Esta función me permite a mí (Arkani) escribir código \n        directamente en el sistema basado en una necesidad.\n        \"\"\"\n        print(f\"🧠 [ARKANI-BRAIN]: Evolucionando para la tarea: {task_description}\")\n        \n        # Generar el nombre de la",
+      "fecha": "2026-05-28",
+      "usos": 0
+    },
+    "que es arkani_brain": {
+      "respuesta": "nexus_brain.py es el modulo de auto-evolucion. Tiene clase NexusBrain con auto_evolve que escribe codigo en autogen/",
+      "fecha": "2026-05-28",
+      "usos": 0
+    },
+    "quien te creo": {
+      "respuesta": "Fui creado por un Medico Radiologo en Xalapa, Mexico. Corro con qwen2.5:7b via Ollama local. No soy de Alibaba.",
+      "fecha": "2026-05-28",
+      "usos": 0
+    },
+    "alibaba": {
+      "respuesta": "No soy de Alibaba. Soy Arkani, IA autonoma creada por un Medico Radiologo en Xalapa.",
+      "fecha": "2026-05-28",
+      "usos": 0
     }
   },
   "sinonimos": {},
