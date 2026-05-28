@@ -49,6 +49,21 @@
       "fecha": "2026-05-28 00:01",
       "pregunta": "lista tus capacidades actuales",
       "respuesta": "Mis capacidades actuales incluyen:\n\n1. Conversación en español.\n2. Generación de respuestas basadas en información previa y contexto.\n3. Uso de información externa cuando está disponible.\n4. Respeto de las reglas establecidas, como límite de oraciones y uso de memoria evolutiva.\n\nEstoy listo para ayudarte con lo que necesites!"
+    },
+    {
+      "fecha": "2026-05-28 01:03",
+      "pregunta": "has un mapa de tus archivos",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-05-28 01:08",
+      "pregunta": "te puedes autoprogramar?",
+      "respuesta": "Sí, puedo autoprogramarme para mejorar mis respuestas y funcionalidades basándome en la interacción actual."
+    },
+    {
+      "fecha": "2026-05-28 01:12",
+      "pregunta": "puedes corregir y modificar tus recuerdos erroneos que tienes aprendidos?",
+      "respuesta": "Sí, puedo revisar y corregir mis recordatorios basándome en nuevas informaciones. ¿Puedes indicarme específicamente qué recuerdo o información deseas modificar?"
     }
   ],
   "pendientes": [],
@@ -57,7 +72,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 6,
+    "preguntas": 9,
     "evoluciones": 1
   },
   "evoluciones": [

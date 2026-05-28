@@ -69,6 +69,21 @@
       "respuesta": "Me llamo Arkani y soy una inteligencia artificial autónoma con memoria evolutiva. Puedo ayudarte con información, responder preguntas y mucho más en español. ¿En qué puedo asistirte hoy?",
       "fecha": "2026-05-27T23:56:41.733702",
       "usos": 0
+    },
+    "has un mapa de tus archivos": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-05-28T01:03:38.961590",
+      "usos": 0
+    },
+    "te puedes autoprogramar?": {
+      "respuesta": "Sí, puedo autoprogramarme para mejorar mis respuestas y funcionalidades basándome en la interacción actual.",
+      "fecha": "2026-05-28T01:08:49.469312",
+      "usos": 0
+    },
+    "puedes corregir y modificar tus recuerdos erroneos que tienes aprendidos?": {
+      "respuesta": "Sí, puedo revisar y corregir mis recordatorios basándome en nuevas informaciones. ¿Puedes indicarme específicamente qué recuerdo o información deseas modificar?",
+      "fecha": "2026-05-28T01:12:10.864256",
+      "usos": 0
     }
   },
   "sinonimos": {},
