@@ -1,5 +1,5 @@
 import os, sys, json, ast, datetime
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
@@ -50,7 +50,13 @@ def status():
     except:
         cpu = ram = 0
     info = arkani.resumen() if arkani else {}
-    return jsonify({'cpu': cpu, 'ram': ram, 'arkani_ok': ARKANI_OK, **info,
+    ultimas = []
+    if arkani:
+        convs = arkani.mem.memoria.get('conversaciones', [])[-5:]
+        ultimas = [{'pregunta': c.get('pregunta','')[:40],
+                    'fecha': c.get('fecha','')} for c in reversed(convs)]
+    return jsonify({'cpu': cpu, 'ram': ram, 'arkani_ok': ARKANI_OK,
+                    'ultimas_conversaciones': ultimas, **info,
                     'timestamp': datetime.datetime.now().strftime('%H:%M:%S')})
 
 @app.route('/hipocampo')
@@ -247,6 +253,29 @@ def logs():
     except:
         return jsonify({"logs": ["Sin logs"]})
 
+
+ALLOWED_EXT = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+
+@app.route('/upload_avatar', methods=['POST'])
+def upload_avatar():
+    if 'file' not in request.files:
+        return jsonify({"ok": False, "error": "Sin archivo"})
+    file = request.files['file']
+    if not file.filename:
+        return jsonify({"ok": False, "error": "Sin nombre"})
+    ext = file.filename.rsplit('.', 1)[-1].lower() if '.' in file.filename else ''
+    if ext not in ALLOWED_EXT:
+        return jsonify({"ok": False, "error": "Formato no permitido"})
+    static_dir = os.path.join(BASE_DIR, 'static')
+    os.makedirs(static_dir, exist_ok=True)
+    filename = f"avatar.{ext}"
+    file.save(os.path.join(static_dir, filename))
+    return jsonify({"ok": True, "filename": filename, "url": f"/static/{filename}"})
+
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory(os.path.join(BASE_DIR, 'static'), filename)
+
 @socketio.on('connect')
 def on_connect():
     emit('status', {'msg': 'Arkani Nexus v4.0 Conectado'})
@@ -279,4 +308,3 @@ if __name__ == '__main__':
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
     cargar_rag()
     socketio.run(app, host='0.0.0.0', port=8081, debug=False)
-

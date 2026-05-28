@@ -7,131 +7,102 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #0a0a0f;
-            color: #00ffff;
-            font-family: 'Courier New', monospace;
-            height: 100vh;
-            overflow: hidden;
-        }
+        body { background: #0a0a0f; color: #00ffff; font-family: 'Courier New', monospace;
+               height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
         /* HEADER */
-        .header {
-            background: #0d1117;
-            border-bottom: 1px solid #00ffff33;
-            padding: 8px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header h1 { font-size: 1.1em; letter-spacing: 4px; color: #00ffff; text-shadow: 0 0 10px #00ffff; }
+        .header { background: #0d1117; border-bottom: 1px solid #00ffff33;
+                  padding: 8px 20px; display: flex; justify-content: space-between;
+                  align-items: center; flex-shrink: 0; }
+        .header h1 { font-size: 1.1em; letter-spacing: 4px; color: #00ffff;
+                     text-shadow: 0 0 10px #00ffff; }
         .header-stats { display: flex; gap: 15px; font-size: 0.75em; color: #00ffff99; }
         .stat-item { display: flex; flex-direction: column; align-items: center; }
         .stat-val { color: #00ff88; font-size: 1.1em; font-weight: bold; }
         .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #00ff88;
-            box-shadow: 0 0 8px #00ff88; display: inline-block; margin-right: 6px;
-            animation: pulse 2s infinite; }
+                      box-shadow: 0 0 8px #00ff88; display: inline-block; margin-right: 6px;
+                      animation: pulse 2s infinite; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
         /* TABS */
-        .tabs {
-            display: flex;
-            background: #0d1117;
-            border-bottom: 1px solid #00ffff22;
-        }
-        .tab {
-            padding: 8px 20px;
-            cursor: pointer;
-            font-size: 0.85em;
-            color: #00ffff66;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            letter-spacing: 2px;
-        }
+        .tabs { display: flex; background: #0d1117; border-bottom: 1px solid #00ffff22;
+                flex-shrink: 0; }
+        .tab { padding: 8px 18px; cursor: pointer; font-size: 0.82em; color: #00ffff66;
+               border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 1px; }
         .tab:hover { color: #00ffff; background: #00ffff11; }
-        .tab.active { color: #00ffff; border-bottom-color: #00ffff; background: #00ffff08; }
-        .tab .badge {
-            background: #ff4444;
-            color: white;
-            border-radius: 10px;
-            padding: 1px 6px;
-            font-size: 0.8em;
-            margin-left: 5px;
-        }
+        .tab.active { color: #00ffff; border-bottom-color: #00ffff; }
+        .badge { background: #ff4444; color: white; border-radius: 10px;
+                 padding: 1px 5px; font-size: 0.78em; margin-left: 4px; }
 
-        /* LAYOUT */
-        .workspace {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            height: calc(100vh - 90px);
-        }
-        .panel {
-            display: none;
-            flex-direction: column;
-            border-right: 1px solid #00ffff22;
-            height: 100%;
-        }
-        .panel.active { display: flex; }
-        .panel-full {
-            display: none;
-            flex-direction: column;
-            grid-column: 1 / -1;
-            height: 100%;
-        }
-        .panel-full.active { display: flex; }
+        /* BODY LAYOUT */
+        .body-layout { display: flex; flex: 1; overflow: hidden; }
+
+        /* SIDEBAR */
+        .sidebar { width: 170px; min-width: 170px; background: #06060a;
+                   border-right: 1px solid #00ffff22;
+                   display: flex; flex-direction: column; align-items: center;
+                   padding: 15px 8px; overflow-y: auto; flex-shrink: 0; }
+        .avatar-wrap { position: relative; margin-bottom: 10px; }
+        .avatar-wrap img { width: 150px; height: 150px; border-radius: 50%;
+                           border: 3px solid #00ffff88;
+                           box-shadow: 0 0 25px #00ffff55; object-fit: cover; display: block; }
+        .avatar-btn { position: absolute; bottom: 6px; right: 6px;
+                      background: #0d1117; border: 1px solid #00ffff66;
+                      border-radius: 50%; width: 28px; height: 28px;
+                      display: flex; align-items: center; justify-content: center;
+                      cursor: pointer; font-size: 13px; }
+        .arkani-name { color: #00ffff; font-size: 0.88em; letter-spacing: 3px;
+                       margin-bottom: 3px; font-weight: bold; }
+        .arkani-status { color: #00ff88; font-size: 0.7em; margin-bottom: 15px; }
+        .conv-title { color: #00ffff44; font-size: 0.68em; letter-spacing: 2px;
+                      margin-bottom: 8px; text-align: center; width: 100%;
+                      border-top: 1px solid #00ffff22; padding-top: 10px; }
+        .conv-item { width: 100%; padding: 5px 7px; border-radius: 5px; cursor: pointer;
+                     font-size: 0.72em; color: #00ffff88; border: 1px solid #00ffff11;
+                     background: #00ffff05; line-height: 1.3; margin-bottom: 3px; }
+        .conv-item:hover { background: #00ffff15; color: #00ffff; }
+
+        /* MAIN AREA */
+        .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* TAB PANELS */
+        .tab-panel { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+        .tab-panel.active { display: flex; }
 
         /* CHAT */
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .msg { padding: 10px 14px; border-radius: 8px; max-width: 85%; font-size: 0.88em; line-height: 1.5; }
-        .msg-user { background: #00ffff15; border: 1px solid #00ffff33; align-self: flex-end; color: #00ffff; }
-        .msg-arkani { background: #00ff8815; border: 1px solid #00ff8833; align-self: flex-start; color: #00ff88; }
-        .msg-system { background: #ff880015; border: 1px solid #ff880033; align-self: center;
-            color: #ff8800; font-size: 0.8em; font-style: italic; }
-        .msg-error { background: #ff444415; border: 1px solid #ff444433; color: #ff4444; }
-        .msg-time { font-size: 0.7em; opacity: 0.5; margin-top: 4px; }
-        .typing { color: #00ffff66; font-size: 0.85em; padding: 5px 15px;
-            animation: blink 1s infinite; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 15px;
+                         display: flex; flex-direction: column; gap: 10px;
+                         scroll-behavior: smooth; }
+        .msg { padding: 10px 14px; border-radius: 8px; max-width: 85%;
+               font-size: 0.87em; line-height: 1.5; word-break: break-word; }
+        .msg-user { background: #00ffff15; border: 1px solid #00ffff33;
+                    align-self: flex-end; color: #00ffff; }
+        .msg-arkani { background: #00ff8815; border: 1px solid #00ff8833;
+                      align-self: flex-start; color: #00ff88; }
+        .msg-system { background: #ff880015; border: 1px solid #ff880033;
+                      align-self: center; color: #ff8800; font-size: 0.78em; }
+        .msg-time { font-size: 0.68em; opacity: 0.5; margin-top: 4px; }
+        .typing-ind { color: #00ffff66; font-size: 0.82em; padding: 4px 15px;
+                      animation: blink 1s infinite; flex-shrink: 0; }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-        .chat-input-area {
-            padding: 10px;
-            background: #0d1117;
-            border-top: 1px solid #00ffff22;
-            display: flex;
-            gap: 8px;
-        }
-        .chat-input {
-            flex: 1;
-            background: #0a0a0f;
-            border: 1px solid #00ffff33;
-            color: #00ffff;
-            padding: 10px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            resize: none;
-            height: 60px;
-        }
-        .chat-input:focus { outline: none; border-color: #00ffff88; box-shadow: 0 0 8px #00ffff22; }
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85em;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-        }
+        /* CHAT INPUT — SIEMPRE VISIBLE */
+        .chat-input-area { background: #0d1117; border-top: 1px solid #00ffff22;
+                           padding: 10px; display: flex; gap: 8px;
+                           flex-shrink: 0; align-items: flex-end; }
+        .chat-input { flex: 1; background: #0a0a0f; border: 1px solid #00ffff33;
+                      color: #00ffff; padding: 10px; border-radius: 6px;
+                      font-family: 'Courier New', monospace; font-size: 0.88em;
+                      resize: none; height: 58px; }
+        .chat-input:focus { outline: none; border-color: #00ffff88; }
+        .chat-btns { display: flex; flex-direction: column; gap: 5px; }
+
+        /* BOTONES */
+        .btn { padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer;
+               font-family: 'Courier New', monospace; font-size: 0.8em;
+               font-weight: bold; letter-spacing: 1px; transition: all 0.2s; }
         .btn-cyan { background: #00ffff22; color: #00ffff; border: 1px solid #00ffff44; }
-        .btn-cyan:hover { background: #00ffff33; box-shadow: 0 0 10px #00ffff44; }
+        .btn-cyan:hover { background: #00ffff33; }
         .btn-green { background: #00ff8822; color: #00ff88; border: 1px solid #00ff8844; }
         .btn-green:hover { background: #00ff8833; }
         .btn-orange { background: #ff880022; color: #ff8800; border: 1px solid #ff880044; }
@@ -139,172 +110,91 @@
         .btn-red { background: #ff444422; color: #ff4444; border: 1px solid #ff444444; }
         .btn-red:hover { background: #ff444433; }
 
-        /* EDITOR DE CÓDIGO */
-        .editor-header {
-            padding: 8px 12px;
-            background: #0d1117;
-            border-bottom: 1px solid #00ffff22;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        /* EDITOR */
+        .editor-header { padding: 8px 12px; background: #0d1117;
+                         border-bottom: 1px solid #00ffff22;
+                         display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+                         flex-shrink: 0; }
         .editor-title { color: #00ffff99; font-size: 0.8em; letter-spacing: 2px; flex: 1; }
-        .file-selector {
-            background: #0a0a0f;
-            border: 1px solid #00ffff33;
-            color: #00ffff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8em;
-        }
-        .code-editor {
-            flex: 1;
-            background: #050508;
-            color: #e0e0e0;
-            border: none;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85em;
-            resize: none;
-            line-height: 1.6;
-            tab-size: 4;
-        }
+        .file-selector { background: #0a0a0f; border: 1px solid #00ffff33;
+                         color: #00ffff; padding: 4px 8px; border-radius: 4px;
+                         font-family: 'Courier New', monospace; font-size: 0.8em; }
+        .code-editor { flex: 1; background: #050508; color: #e0e0e0; border: none;
+                       padding: 15px; font-family: 'Courier New', monospace;
+                       font-size: 0.85em; resize: none; line-height: 1.6; tab-size: 4; }
         .code-editor:focus { outline: none; }
-        .editor-footer {
-            padding: 8px 12px;
-            background: #0d1117;
-            border-top: 1px solid #00ffff22;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
+        .editor-footer { padding: 8px 12px; background: #0d1117;
+                         border-top: 1px solid #00ffff22;
+                         display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
         .editor-status { flex: 1; font-size: 0.75em; color: #00ffff66; }
+        .nombre-input { background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
+                        padding: 5px 8px; border-radius: 4px; font-family: monospace;
+                        font-size: 0.8em; width: 160px; }
 
-        /* PANEL ERRORES */
-        .errores-lista {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .error-card {
-            background: #ff444410;
-            border: 1px solid #ff444433;
-            border-radius: 8px;
-            padding: 12px;
-        }
-        .error-card.warning { background: #ff880010; border-color: #ff880033; }
-        .error-card.info { background: #00ffff10; border-color: #00ffff33; }
-        .error-titulo { font-size: 0.85em; color: #ff4444; margin-bottom: 6px; }
+        /* ERRORES */
+        .panel-header { padding: 10px 12px; background: #0d1117;
+                        border-bottom: 1px solid #00ffff22;
+                        display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+        .panel-header-title { flex: 1; font-size: 0.85em; letter-spacing: 2px; }
+        .errores-lista { flex: 1; overflow-y: auto; padding: 10px;
+                         display: flex; flex-direction: column; gap: 8px; }
+        .error-card { border-radius: 8px; padding: 12px; }
+        .error-card.error { background: #ff444410; border: 1px solid #ff444433; }
+        .error-card.warning { background: #ff880010; border: 1px solid #ff880033; }
+        .error-card.info { background: #00ffff10; border: 1px solid #00ffff33; }
+        .error-titulo { font-size: 0.85em; margin-bottom: 6px; }
+        .error-card.error .error-titulo { color: #ff4444; }
         .error-card.warning .error-titulo { color: #ff8800; }
-        .error-card.info .error-titulo { color: #00ffff; }
-        .error-desc { font-size: 0.8em; color: #cccccc; margin-bottom: 8px; line-height: 1.4; }
+        .error-desc { font-size: 0.78em; color: #cccccc; margin-bottom: 8px; }
         .error-codigo { background: #0a0a0f; border-radius: 4px; padding: 8px;
-            font-size: 0.78em; color: #00ff88; margin-bottom: 8px; white-space: pre-wrap; }
+                        font-size: 0.76em; color: #00ff88; margin-bottom: 8px;
+                        white-space: pre-wrap; }
         .error-acciones { display: flex; gap: 6px; }
 
-        /* PANEL INTROSPECCIÓN */
-        .intro-grid {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            align-content: start;
-        }
-        .fn-card {
-            background: #00ff8808;
-            border: 1px solid #00ff8822;
-            border-radius: 8px;
-            padding: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        /* CAPACIDADES */
+        .intro-grid { flex: 1; overflow-y: auto; padding: 10px;
+                      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+                      align-content: start; }
+        .fn-card { background: #00ff8808; border: 1px solid #00ff8822;
+                   border-radius: 8px; padding: 10px; cursor: pointer; transition: all 0.2s; }
         .fn-card:hover { background: #00ff8815; border-color: #00ff8844; }
         .fn-nombre { color: #00ff88; font-size: 0.82em; margin-bottom: 4px; }
         .fn-desc { color: #cccccc; font-size: 0.75em; line-height: 1.4; }
         .fn-status { font-size: 0.7em; margin-top: 6px; }
-        .fn-ok { color: #00ff88; }
-        .fn-error { color: #ff4444; }
+        .fn-ok { color: #00ff88; } .fn-err { color: #ff4444; }
 
         /* HIPOCAMPO */
-        .hipocampo-panel {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-        }
-        .instr-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 10px;
-            border-bottom: 1px solid #00ffff11;
-            font-size: 0.8em;
-        }
+        .hipo-panel { flex: 1; overflow-y: auto; padding: 10px; }
+        .instr-row { display: flex; gap: 10px; padding: 6px 10px;
+                     border-bottom: 1px solid #00ffff11; font-size: 0.8em; }
         .instr-addr { color: #00ffff66; width: 40px; }
         .instr-op { color: #00ff88; width: 80px; }
-        .instr-scale { color: #ff8800; width: 60px; }
-        .instr-hex { color: #ffffff44; font-size: 0.75em; flex: 1; overflow: hidden;
-            text-overflow: ellipsis; white-space: nowrap; }
+        .instr-hex { color: #ffffff33; flex: 1; overflow: hidden;
+                     text-overflow: ellipsis; white-space: nowrap; }
 
-        /* BARRA INFERIOR */
-        .statusbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #0d1117;
-            border-top: 1px solid #00ffff22;
-            padding: 4px 15px;
-            display: flex;
-            gap: 20px;
-            font-size: 0.72em;
-            color: #00ffff66;
-        }
-        .statusbar span { display: flex; align-items: center; gap: 4px; }
+        /* STATUSBAR */
+        .statusbar { background: #0d1117; border-top: 1px solid #00ffff22;
+                     padding: 4px 15px; display: flex; gap: 20px;
+                     font-size: 0.72em; color: #00ffff66; flex-shrink: 0; }
         .statusbar .val { color: #00ff88; }
 
-        /* MODAL AUTORIZACIÓN */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: #000000cc;
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
+        /* MODAL */
+        .modal-overlay { display: none; position: fixed; inset: 0;
+                         background: #000000cc; z-index: 1000;
+                         align-items: center; justify-content: center; }
         .modal-overlay.show { display: flex; }
-        .modal {
-            background: #0d1117;
-            border: 1px solid #ff880066;
-            border-radius: 12px;
-            padding: 24px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 0 30px #ff880033;
-        }
+        .modal { background: #0d1117; border: 1px solid #ff880066; border-radius: 12px;
+                 padding: 24px; max-width: 480px; width: 90%;
+                 box-shadow: 0 0 30px #ff880033; }
         .modal h3 { color: #ff8800; margin-bottom: 12px; letter-spacing: 2px; }
         .modal pre { background: #050508; padding: 12px; border-radius: 6px;
-            font-size: 0.8em; color: #00ff88; margin: 12px 0; overflow-x: auto;
-            max-height: 200px; overflow-y: auto; }
+                     font-size: 0.8em; color: #00ff88; margin: 12px 0;
+                     overflow-x: auto; max-height: 180px; overflow-y: auto; }
         .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
 
-        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #0a0a0f; }
         ::-webkit-scrollbar-thumb { background: #00ffff33; border-radius: 2px; }
-
-        /* RESPONSIVE hint */
-        @media (max-width: 768px) {
-            .workspace { grid-template-columns: 1fr; }
-            .intro-grid { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 <body>
@@ -323,105 +213,117 @@
 
 <!-- TABS -->
 <div class="tabs">
-    <div class="tab active" onclick="switchTab('chat')">💬 CHAT</div>
-    <div class="tab" onclick="switchTab('editor')">⌨️ EDITOR</div>
-    <div class="tab" onclick="switchTab('errores')" id="tabErrores">⚠️ ERRORES <span class="badge" id="badgeErrores" style="display:none">0</span></div>
-    <div class="tab" onclick="switchTab('intro')">🧬 CAPACIDADES</div>
-    <div class="tab" onclick="switchTab('hipocampo')">💾 HIPOCAMPO</div>
+    <div class="tab active" id="tabChat" onclick="switchTab('chat')">💬 CHAT</div>
+    <div class="tab" id="tabEditor" onclick="switchTab('editor')">⌨️ EDITOR</div>
+    <div class="tab" id="tabErrores" onclick="switchTab('errores')">⚠️ ERRORES <span class="badge" id="badgeErrores" style="display:none">0</span></div>
+    <div class="tab" id="tabIntro" onclick="switchTab('intro')">🧬 CAPACIDADES</div>
+    <div class="tab" id="tabHipo" onclick="switchTab('hipocampo')">💾 HIPOCAMPO</div>
 </div>
 
-<!-- WORKSPACE -->
-<div class="workspace" id="workspace">
+<!-- BODY -->
+<div class="body-layout">
 
-    <!-- TAB CHAT -->
-    <div class="panel-full active" id="tab-chat">
-        <div class="chat-messages" id="chatMessages">
-            <div class="msg msg-system">🧬 Arkani Nexus v3.0 — Motor Unificado + Hipocampo Activo</div>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="avatar-wrap">
+            <img id="avatarImg" src="/static/avatar.gif"
+                 onerror="this.style.display='none'">
+            <label for="avatarInput" class="avatar-btn" title="Cambiar avatar">📷</label>
+            <input type="file" id="avatarInput" accept="image/*"
+                   style="display:none" onchange="cambiarAvatar(this)">
         </div>
-        <div id="typingIndicator" class="typing" style="display:none">Arkani pensando...</div>
-        <div class="chat-input-area">
-            <textarea class="chat-input" id="chatInput"
-                placeholder="Escribe aquí... | autoprograma: [tarea] | evoluciona: [desc]"
-                onkeydown="handleKey(event)"></textarea>
-            <div style="display:flex;flex-direction:column;gap:6px">
-                <button class="btn btn-cyan" onclick="enviarMensaje()">ENVIAR</button>
-                <button class="btn btn-orange" onclick="escanearErrores()">ESCANEAR</button>
+        <div class="arkani-name">ARKANI</div>
+        <div class="arkani-status">● EN LÍNEA</div>
+        <div class="conv-title">CONVERSACIONES</div>
+        <div id="sidebarConvs" style="width:100%"></div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-area">
+
+        <!-- TAB CHAT -->
+        <div class="tab-panel active" id="panel-chat">
+            <div class="chat-messages" id="chatMessages">
+                <div class="msg msg-system">🧬 Arkani Nexus v3.0 — Motor Unificado + Hipocampo Activo</div>
+            </div>
+            <div id="typingInd" class="typing-ind" style="display:none">Arkani pensando...</div>
+            <div class="chat-input-area">
+                <textarea class="chat-input" id="chatInput"
+                    placeholder="Escribe aquí... | autoprograma: [tarea] | evoluciona: [desc]"
+                    onkeydown="handleKey(event)"></textarea>
+                <div class="chat-btns">
+                    <button class="btn btn-cyan" onclick="enviarMensaje()">ENVIAR</button>
+                    <button class="btn btn-orange" onclick="escanearErrores()">ESCANEAR</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- TAB EDITOR -->
-    <div class="panel-full" id="tab-editor">
-        <div class="editor-header">
-            <span class="editor-title">⌨️ EDITOR DE CÓDIGO</span>
-            <select class="file-selector" id="fileSelector" onchange="cargarArchivo()">
-                <option value="">-- Seleccionar archivo --</option>
-            </select>
-            <button class="btn btn-cyan" onclick="nuevoArchivo()">+ NUEVO</button>
-            <button class="btn btn-orange" onclick="probarCodigo()">▶ PROBAR</button>
-        </div>
-        <textarea class="code-editor" id="codeEditor"
-            placeholder="# Escribe código Python aquí&#10;# Se guardará en autogen/ y Arkani lo podrá usar&#10;&#10;def mi_funcion():&#10;    pass"></textarea>
-        <div class="editor-footer">
-            <span class="editor-status" id="editorStatus">Listo</span>
-            <input type="text" id="nombreArchivo" placeholder="nombre_funcion"
-                style="background:#0a0a0f;border:1px solid #00ffff33;color:#00ffff;
-                padding:5px 8px;border-radius:4px;font-family:monospace;font-size:0.8em;width:180px">
-            <button class="btn btn-green" onclick="guardarCodigo()">💾 GUARDAR EN AUTOGEN</button>
-            <button class="btn btn-cyan" onclick="enviarAlChat()">💬 ENVIAR A CHAT</button>
-        </div>
-    </div>
-
-    <!-- TAB ERRORES -->
-    <div class="panel-full" id="tab-errores">
-        <div style="padding:10px;background:#0d1117;border-bottom:1px solid #00ffff22;
-            display:flex;gap:8px;align-items:center">
-            <span style="flex:1;color:#ff4444;font-size:0.85em;letter-spacing:2px">⚠️ ERRORES DETECTADOS</span>
-            <button class="btn btn-orange" onclick="escanearErrores()">🔍 ESCANEAR AHORA</button>
-            <button class="btn btn-cyan" onclick="limpiarErrores()">🗑️ LIMPIAR</button>
-        </div>
-        <div class="errores-lista" id="erroresLista">
-            <div style="text-align:center;color:#00ffff33;padding:40px;font-size:0.85em">
-                Sin errores detectados.<br>Presiona ESCANEAR para analizar autogen/
+        <!-- TAB EDITOR -->
+        <div class="tab-panel" id="panel-editor">
+            <div class="editor-header">
+                <span class="editor-title">⌨️ EDITOR</span>
+                <select class="file-selector" id="fileSelector" onchange="cargarArchivo()">
+                    <option value="">-- Seleccionar --</option>
+                </select>
+                <button class="btn btn-cyan" onclick="nuevoArchivo()">+ NUEVO</button>
+                <button class="btn btn-orange" onclick="probarCodigo()">▶ PROBAR</button>
+            </div>
+            <textarea class="code-editor" id="codeEditor"
+                placeholder="# Escribe código Python aquí&#10;def mi_funcion():&#10;    pass"></textarea>
+            <div class="editor-footer">
+                <span class="editor-status" id="editorStatus">Listo</span>
+                <input class="nombre-input" type="text" id="nombreArchivo" placeholder="nombre_funcion">
+                <button class="btn btn-green" onclick="guardarCodigo()">💾 GUARDAR</button>
+                <button class="btn btn-cyan" onclick="enviarAlChat()">💬 AL CHAT</button>
             </div>
         </div>
-    </div>
 
-    <!-- TAB CAPACIDADES / INTROSPECCIÓN -->
-    <div class="panel-full" id="tab-intro">
-        <div style="padding:10px;background:#0d1117;border-bottom:1px solid #00ffff22;
-            display:flex;gap:8px;align-items:center">
-            <span style="flex:1;color:#00ff88;font-size:0.85em;letter-spacing:2px">🧬 CAPACIDADES DE ARKANI</span>
-            <button class="btn btn-green" onclick="cargarCapacidades()">🔄 ACTUALIZAR</button>
-        </div>
-        <div class="intro-grid" id="introGrid">
-            <div style="text-align:center;color:#00ffff33;padding:40px;font-size:0.85em;grid-column:1/-1">
-                Cargando capacidades...
+        <!-- TAB ERRORES -->
+        <div class="tab-panel" id="panel-errores">
+            <div class="panel-header">
+                <span class="panel-header-title" style="color:#ff4444">⚠️ ERRORES</span>
+                <button class="btn btn-orange" onclick="escanearErrores()">🔍 ESCANEAR</button>
+                <button class="btn btn-cyan" onclick="limpiarErrores()">🗑️ LIMPIAR</button>
+            </div>
+            <div class="errores-lista" id="erroresLista">
+                <div style="text-align:center;color:#00ffff33;padding:40px;font-size:0.85em">
+                    Presiona ESCANEAR para analizar autogen/
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- TAB HIPOCAMPO -->
-    <div class="panel-full" id="tab-hipocampo">
-        <div style="padding:10px;background:#0d1117;border-bottom:1px solid #00ffff22;
-            display:flex;gap:8px;align-items:center">
-            <span style="flex:1;color:#00ffff;font-size:0.85em;letter-spacing:2px">💾 HIPOCAMPO BINARIO</span>
-            <span id="hipoResumen" style="color:#00ff8899;font-size:0.75em"></span>
-            <button class="btn btn-cyan" onclick="cargarHipocampo()">🔄 ACTUALIZAR</button>
+        <!-- TAB CAPACIDADES -->
+        <div class="tab-panel" id="panel-intro">
+            <div class="panel-header">
+                <span class="panel-header-title" style="color:#00ff88">🧬 CAPACIDADES</span>
+                <button class="btn btn-green" onclick="cargarCapacidades()">🔄 ACTUALIZAR</button>
+            </div>
+            <div class="intro-grid" id="introGrid">
+                <div style="color:#00ffff33;padding:20px;grid-column:1/-1">Cargando...</div>
+            </div>
         </div>
-        <div class="hipocampo-panel" id="hipocampoPanel">
-            <div style="text-align:center;color:#00ffff33;padding:40px">Cargando...</div>
+
+        <!-- TAB HIPOCAMPO -->
+        <div class="tab-panel" id="panel-hipocampo">
+            <div class="panel-header">
+                <span class="panel-header-title">💾 HIPOCAMPO BINARIO</span>
+                <span id="hipoResumen" style="color:#00ff8899;font-size:0.75em"></span>
+                <button class="btn btn-cyan" onclick="cargarHipocampo()">🔄 ACTUALIZAR</button>
+            </div>
+            <div class="hipo-panel" id="hipocampoPanel">
+                <div style="text-align:center;color:#00ffff33;padding:40px">Cargando...</div>
+            </div>
         </div>
-    </div>
 
-</div>
+    </div><!-- fin main-area -->
+</div><!-- fin body-layout -->
 
-<!-- BARRA INFERIOR -->
+<!-- STATUSBAR -->
 <div class="statusbar">
-    <span>🧠 ARKANI <span class="val" id="sbEstado">ONLINE</span></span>
-    <span>💾 HIPOCAMPO <span class="val" id="sbHipo">0 instr</span></span>
-    <span>🧬 EVOL/SESIÓN <span class="val" id="sbEvol">0/10</span></span>
-    <span>📂 AUTOGEN <span class="val" id="sbAutogen">0 módulos</span></span>
+    <span>🧠 <span class="val" id="sbEstado">ONLINE</span></span>
+    <span>💾 HIPOCAMPO <span class="val" id="sbHipo">0</span></span>
+    <span>🧬 EVOL <span class="val" id="sbEvol">0/10</span></span>
+    <span>📂 AUTOGEN <span class="val" id="sbAutogen">0</span></span>
     <span style="margin-left:auto;color:#00ffff33" id="sbHora"></span>
 </div>
 
@@ -429,11 +331,10 @@
 <div class="modal-overlay" id="modalAuth">
     <div class="modal">
         <h3>⚠️ AUTORIZACIÓN REQUERIDA</h3>
-        <p style="color:#cccccc;font-size:0.85em" id="modalDesc">Arkani quiere aplicar el siguiente fix:</p>
+        <p style="color:#cccccc;font-size:0.85em" id="modalDesc">Fix propuesto:</p>
         <pre id="modalCodigo"></pre>
         <p style="color:#ff880099;font-size:0.78em">
-            ⚡ El código se ejecutará en sandbox aislado primero.<br>
-            Solo se aplicará si pasa la verificación de seguridad.
+            Se ejecutará en sandbox aislado primero.
         </p>
         <div class="modal-btns">
             <button class="btn btn-red" onclick="rechazarFix()">❌ RECHAZAR</button>
@@ -443,378 +344,257 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// SOCKET.IO
-// ═══════════════════════════════════════════
 const socket = io();
 let pendingFix = null;
 let erroresCount = 0;
 
-socket.on('connect', () => {
-    addMsg('system', '🔗 Conectado a Arkani Nexus');
-    cargarCapacidades();
-    cargarHipocampo();
-    cargarArchivosEditor();
-});
-
-socket.on('disconnect', () => {
-    document.getElementById('statusDot').style.background = '#ff4444';
-    addMsg('system', '⚠️ Desconectado');
-});
-
+socket.on('connect', () => { addMsg('system','🔗 Conectado'); cargarCapacidades(); cargarHipocampo(); cargarArchivosEditor(); });
+socket.on('disconnect', () => { document.getElementById('statusDot').style.background='#ff4444'; });
 socket.on('status', d => addMsg('system', d.msg));
+socket.on('typing', d => { document.getElementById('typingInd').style.display = d.status?'block':'none'; });
+socket.on('respuesta', d => { addMsg('arkani', d.texto, d.timestamp); actualizarStats(); cargarSidebarConvs(); });
 
-socket.on('typing', d => {
-    document.getElementById('typingIndicator').style.display = d.status ? 'block' : 'none';
-});
-
-socket.on('respuesta', d => {
-    addMsg('arkani', d.texto, d.timestamp);
-    actualizarStats();
-});
-
-socket.on('error_detectado', d => {
-    agregarError(d);
-});
-
-socket.on('fix_propuesto', d => {
-    pendingFix = d;
-    document.getElementById('modalDesc').textContent = d.descripcion;
-    document.getElementById('modalCodigo').textContent = d.codigo;
-    document.getElementById('modalAuth').classList.add('show');
-});
-
-// ═══════════════════════════════════════════
 // TABS
-// ═══════════════════════════════════════════
 function switchTab(nombre) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.panel, .panel-full').forEach(p => p.classList.remove('active'));
-    event.target.classList.add('active');
-    document.getElementById('tab-' + nombre).classList.add('active');
-    if (nombre === 'intro') cargarCapacidades();
-    if (nombre === 'hipocampo') cargarHipocampo();
-    if (nombre === 'editor') cargarArchivosEditor();
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab' + nombre.charAt(0).toUpperCase() + nombre.slice(1)).classList.add('active');
+    document.getElementById('panel-' + nombre).classList.add('active');
+    if (nombre==='intro') cargarCapacidades();
+    if (nombre==='hipocampo') cargarHipocampo();
+    if (nombre==='editor') cargarArchivosEditor();
 }
 
-// ═══════════════════════════════════════════
 // CHAT
-// ═══════════════════════════════════════════
 function addMsg(tipo, texto, tiempo) {
     const div = document.getElementById('chatMessages');
     const msg = document.createElement('div');
-    msg.className = `msg msg-${tipo}`;
-    msg.innerHTML = texto.replace(/\n/g, '<br>');
-    if (tiempo) {
-        const t = document.createElement('div');
-        t.className = 'msg-time';
-        t.textContent = tiempo;
-        msg.appendChild(t);
-    }
+    msg.className = 'msg msg-' + tipo;
+    msg.innerHTML = texto.replace(/\n/g,'<br>');
+    if (tiempo) { const t=document.createElement('div'); t.className='msg-time'; t.textContent=tiempo; msg.appendChild(t); }
     div.appendChild(msg);
     div.scrollTop = div.scrollHeight;
 }
-
-function handleKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        enviarMensaje();
-    }
-}
-
+function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensaje();} }
 function enviarMensaje() {
     const input = document.getElementById('chatInput');
     const texto = input.value.trim();
     if (!texto) return;
     addMsg('user', texto);
-    socket.emit('mensaje', { texto });
+    socket.emit('mensaje', {texto});
     input.value = '';
 }
 
-// ═══════════════════════════════════════════
-// EDITOR DE CÓDIGO
-// ═══════════════════════════════════════════
+// AVATAR
+async function cambiarAvatar(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const form = new FormData();
+    form.append('file', file);
+    try {
+        const r = await fetch('/upload_avatar', {method:'POST', body:form});
+        const d = await r.json();
+        if (d.ok) {
+            document.getElementById('avatarImg').src = d.url + '?t=' + Date.now();
+            document.getElementById('avatarImg').style.display = 'block';
+            addMsg('system', '✅ Avatar actualizado');
+        } else { addMsg('system', '❌ ' + d.error); }
+    } catch(e) { addMsg('system', '❌ Error al subir'); }
+}
+
+// SIDEBAR CONVERSACIONES
+async function cargarSidebarConvs() {
+    try {
+        const r = await fetch('/status');
+        const d = await r.json();
+        const convs = d.ultimas_conversaciones || [];
+        const sidebar = document.getElementById('sidebarConvs');
+        if (!sidebar) return;
+        if (convs.length === 0) {
+            sidebar.innerHTML = '<div style="color:#00ffff22;font-size:0.72em;text-align:center">Sin conversaciones</div>';
+        } else {
+            sidebar.innerHTML = convs.map(c => {
+                const p = (c.pregunta||'').substring(0,28);
+                return '<div class="conv-item" onclick="document.getElementById(\'chatInput\').value=\'' +
+                    (c.pregunta||'').replace(/'/g,"\\'").substring(0,50) + '\'">' + p + (p.length>=28?'...':'') + '</div>';
+            }).join('');
+        }
+    } catch(e) {}
+}
+
+// EDITOR
 async function cargarArchivosEditor() {
     try {
         const r = await fetch('/archivos');
         const d = await r.json();
         const sel = document.getElementById('fileSelector');
-        sel.innerHTML = '<option value="">-- Seleccionar archivo --</option>';
-        (d.archivos || []).forEach(f => {
-            const opt = document.createElement('option');
-            opt.value = f;
-            opt.textContent = f;
-            sel.appendChild(opt);
-        });
-        document.getElementById('sbAutogen').textContent = (d.archivos || []).length + ' módulos';
+        sel.innerHTML = '<option value="">-- Seleccionar --</option>';
+        (d.archivos||[]).forEach(f => { const o=document.createElement('option'); o.value=f; o.textContent=f; sel.appendChild(o); });
+        document.getElementById('sbAutogen').textContent = (d.archivos||[]).length + ' mód';
     } catch(e) {}
 }
-
 async function cargarArchivo() {
-    const nombre = document.getElementById('fileSelector').value;
-    if (!nombre) return;
-    try {
-        const r = await fetch(`/archivo?nombre=${encodeURIComponent(nombre)}`);
-        const d = await r.json();
-        document.getElementById('codeEditor').value = d.contenido || '';
-        document.getElementById('nombreArchivo').value = nombre.replace('.py','').replace('fn_','');
-        document.getElementById('editorStatus').textContent = `Cargado: ${nombre}`;
-    } catch(e) {}
+    const n = document.getElementById('fileSelector').value;
+    if (!n) return;
+    const r = await fetch('/archivo?nombre='+encodeURIComponent(n));
+    const d = await r.json();
+    document.getElementById('codeEditor').value = d.contenido||'';
+    document.getElementById('nombreArchivo').value = n.replace('.py','').replace('fn_','');
+    document.getElementById('editorStatus').textContent = 'Cargado: ' + n;
 }
-
 function nuevoArchivo() {
-    document.getElementById('codeEditor').value =
-        '# Nuevo módulo para Arkani\n# Constructor: Medico Radiologo, Xalapa\n\ndef mi_funcion():\n    """Descripcion de la funcion"""\n    pass\n';
+    document.getElementById('codeEditor').value = '# Nuevo módulo\ndef mi_funcion():\n    """Descripción"""\n    pass\n';
     document.getElementById('nombreArchivo').value = '';
-    document.getElementById('fileSelector').value = '';
     document.getElementById('editorStatus').textContent = 'Nuevo archivo';
 }
-
 async function guardarCodigo() {
     const codigo = document.getElementById('codeEditor').value;
     const nombre = document.getElementById('nombreArchivo').value.trim();
-    if (!nombre) { alert('Escribe un nombre para el archivo'); return; }
-    if (!codigo.trim()) { alert('El editor está vacío'); return; }
-
-    document.getElementById('editorStatus').textContent = '💾 Guardando...';
-    try {
-        const r = await fetch('/guardar_codigo', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre, codigo })
-        });
-        const d = await r.json();
-        if (d.ok) {
-            document.getElementById('editorStatus').textContent = `✅ Guardado: ${d.ruta}`;
-            cargarArchivosEditor();
-            addMsg('system', `💾 Código guardado: fn_${nombre}.py`);
-        } else {
-            document.getElementById('editorStatus').textContent = `❌ Error: ${d.error}`;
-        }
-    } catch(e) {
-        document.getElementById('editorStatus').textContent = `❌ Error de red`;
-    }
+    if (!nombre||!codigo.trim()) { alert('Falta nombre o código'); return; }
+    document.getElementById('editorStatus').textContent = 'Guardando...';
+    const r = await fetch('/guardar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nombre,codigo})});
+    const d = await r.json();
+    document.getElementById('editorStatus').textContent = d.ok ? '✅ '+d.mensaje : '❌ '+d.error;
+    if (d.ok) { cargarArchivosEditor(); addMsg('system','💾 '+d.mensaje); }
 }
-
 async function probarCodigo() {
     const codigo = document.getElementById('codeEditor').value;
     if (!codigo.trim()) return;
-    document.getElementById('editorStatus').textContent = '▶ Probando en sandbox...';
-    try {
-        const r = await fetch('/probar_codigo', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ codigo })
-        });
-        const d = await r.json();
-        if (d.ok) {
-            document.getElementById('editorStatus').textContent = `✅ ${d.mensaje}`;
-            addMsg('system', `✅ Sandbox OK: ${d.mensaje}`);
-        } else {
-            document.getElementById('editorStatus').textContent = `❌ ${d.error}`;
-            addMsg('system', `❌ Sandbox error: ${d.error}`);
-        }
-    } catch(e) {}
+    document.getElementById('editorStatus').textContent = 'Probando...';
+    const r = await fetch('/probar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codigo})});
+    const d = await r.json();
+    document.getElementById('editorStatus').textContent = d.ok ? '✅ Sandbox OK' : '❌ '+d.error;
+    addMsg('system', d.ok ? '✅ Sandbox OK' : '❌ '+d.error);
 }
-
 function enviarAlChat() {
     const codigo = document.getElementById('codeEditor').value;
-    const nombre = document.getElementById('nombreArchivo').value || 'codigo';
+    const nombre = document.getElementById('nombreArchivo').value||'codigo';
     if (!codigo.trim()) return;
-    const msg = `Revisa este código para fn_${nombre}:\n\`\`\`python\n${codigo}\n\`\`\``;
-    document.getElementById('chatInput').value = msg;
+    document.getElementById('chatInput').value = 'Revisa este código:\n```python\n'+codigo+'\n```';
     switchTab('chat');
 }
 
-// ═══════════════════════════════════════════
 // ERRORES
-// ═══════════════════════════════════════════
 async function escanearErrores() {
-    addMsg('system', '🔍 Escaneando errores en autogen/...');
-    try {
-        const r = await fetch('/escanear_errores');
-        const d = await r.json();
-        const lista = document.getElementById('erroresLista');
-        lista.innerHTML = '';
-
-        if (!d.errores || d.errores.length === 0) {
-            lista.innerHTML = '<div style="text-align:center;color:#00ff8866;padding:40px">✅ Sin errores detectados</div>';
-            erroresCount = 0;
-        } else {
-            erroresCount = d.errores.length;
-            d.errores.forEach(e => agregarError(e));
-        }
-        actualizarBadgeErrores();
-        if (d.errores && d.errores.length > 0) switchTab('errores');
-    } catch(e) {
-        addMsg('system', '❌ Error al escanear');
+    addMsg('system','🔍 Escaneando...');
+    const r = await fetch('/escanear_errores');
+    const d = await r.json();
+    const lista = document.getElementById('erroresLista');
+    lista.innerHTML = '';
+    erroresCount = 0;
+    if (!d.errores||d.errores.length===0) {
+        lista.innerHTML = '<div style="text-align:center;color:#00ff8866;padding:40px">✅ Sin errores</div>';
+    } else {
+        d.errores.forEach(e => agregarError(e));
     }
+    actualizarBadge();
+    if (d.errores&&d.errores.length>0) switchTab('errores');
 }
-
 function agregarError(e) {
     const lista = document.getElementById('erroresLista');
     const card = document.createElement('div');
-    card.className = `error-card ${e.tipo || 'error'}`;
-    card.innerHTML = `
-        <div class="error-titulo">${e.tipo === 'warning' ? '⚠️' : '❌'} ${e.archivo} — ${e.titulo}</div>
-        <div class="error-desc">${e.descripcion}</div>
-        ${e.codigo_fix ? `<div class="error-codigo">${e.codigo_fix}</div>` : ''}
-        <div class="error-acciones">
-            ${e.codigo_fix ? `<button class="btn btn-green" onclick='solicitarFix(${JSON.stringify(e)})'>🔧 APLICAR FIX</button>` : ''}
-            <button class="btn btn-cyan" onclick='verEnEditor("${e.archivo}")'>📝 VER</button>
-            <button class="btn btn-red" onclick='this.closest(".error-card").remove();erroresCount--;actualizarBadgeErrores()'>✕</button>
-        </div>`;
+    card.className = 'error-card ' + (e.tipo||'error');
+    card.innerHTML = '<div class="error-titulo">'+(e.tipo==='warning'?'⚠️':'❌')+' '+e.archivo+' — '+e.titulo+'</div>' +
+        '<div class="error-desc">'+e.descripcion+'</div>' +
+        (e.codigo_fix?'<div class="error-codigo">'+e.codigo_fix+'</div>':'') +
+        '<div class="error-acciones">' +
+        (e.codigo_fix?'<button class="btn btn-green" onclick=\'solicitarFix('+JSON.stringify(e)+')\'>🔧 FIX</button>':'') +
+        '<button class="btn btn-cyan" onclick=\'verEnEditor("'+e.archivo+'")\'>📝 VER</button>' +
+        '<button class="btn btn-red" onclick=\'this.closest(".error-card").remove();erroresCount--;actualizarBadge()\'>✕</button>' +
+        '</div>';
     lista.appendChild(card);
     erroresCount++;
-    actualizarBadgeErrores();
+    actualizarBadge();
 }
-
 function limpiarErrores() {
-    document.getElementById('erroresLista').innerHTML =
-        '<div style="text-align:center;color:#00ffff33;padding:40px">Sin errores detectados.</div>';
-    erroresCount = 0;
-    actualizarBadgeErrores();
+    document.getElementById('erroresLista').innerHTML='<div style="text-align:center;color:#00ffff33;padding:40px">Sin errores.</div>';
+    erroresCount=0; actualizarBadge();
+}
+function actualizarBadge() {
+    const b=document.getElementById('badgeErrores');
+    b.textContent=erroresCount; b.style.display=erroresCount>0?'inline':'none';
 }
 
-function actualizarBadgeErrores() {
-    const badge = document.getElementById('badgeErrores');
-    if (erroresCount > 0) {
-        badge.textContent = erroresCount;
-        badge.style.display = 'inline';
-    } else {
-        badge.style.display = 'none';
-    }
-}
-
-// ═══════════════════════════════════════════
-// AUTORIZACIÓN DE FIX
-// ═══════════════════════════════════════════
-function solicitarFix(errorData) {
-    pendingFix = errorData;
-    document.getElementById('modalDesc').textContent =
-        `Fix para: ${errorData.archivo} — ${errorData.titulo}`;
-    document.getElementById('modalCodigo').textContent = errorData.codigo_fix;
+// AUTORIZACIÓN
+function solicitarFix(e) {
+    pendingFix=e;
+    document.getElementById('modalDesc').textContent='Fix para: '+e.archivo+' — '+e.titulo;
+    document.getElementById('modalCodigo').textContent=e.codigo_fix;
     document.getElementById('modalAuth').classList.add('show');
 }
-
 async function autorizarFix() {
     if (!pendingFix) return;
     document.getElementById('modalAuth').classList.remove('show');
-    addMsg('system', `🔧 Aplicando fix autorizado: ${pendingFix.archivo}...`);
-    try {
-        const r = await fetch('/aplicar_fix', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(pendingFix)
-        });
-        const d = await r.json();
-        if (d.ok) {
-            addMsg('system', `✅ Fix aplicado: ${d.mensaje}`);
-            escanearErrores();
-            cargarArchivosEditor();
-        } else {
-            addMsg('system', `❌ Fix rechazado por sandbox: ${d.error}`);
-        }
-    } catch(e) {}
-    pendingFix = null;
+    addMsg('system','🔧 Aplicando fix...');
+    const r=await fetch('/aplicar_fix',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pendingFix)});
+    const d=await r.json();
+    addMsg('system', d.ok?'✅ '+d.mensaje:'❌ '+d.error);
+    if (d.ok) { escanearErrores(); cargarArchivosEditor(); }
+    pendingFix=null;
 }
+function rechazarFix() { document.getElementById('modalAuth').classList.remove('show'); addMsg('system','❌ Fix rechazado'); pendingFix=null; }
+async function verEnEditor(archivo) { document.getElementById('fileSelector').value=archivo; await cargarArchivo(); switchTab('editor'); }
 
-function rechazarFix() {
-    document.getElementById('modalAuth').classList.remove('show');
-    addMsg('system', '❌ Fix rechazado por el Constructor');
-    pendingFix = null;
-}
-
-// ═══════════════════════════════════════════
-// CAPACIDADES / INTROSPECCIÓN
-// ═══════════════════════════════════════════
+// CAPACIDADES
 async function cargarCapacidades() {
-    try {
-        const r = await fetch('/introspeccion');
-        const d = await r.json();
-        const grid = document.getElementById('introGrid');
-        grid.innerHTML = '';
-        (d.funciones || []).forEach(fn => {
-            const card = document.createElement('div');
-            card.className = 'fn-card';
-            card.innerHTML = `
-                <div class="fn-nombre">⚡ ${fn.nombre}</div>
-                <div class="fn-desc">${fn.descripcion}</div>
-                <div class="fn-status ${fn.valido ? 'fn-ok' : 'fn-error'}">
-                    ${fn.valido ? '✅ Sintaxis OK' : '❌ Error sintaxis'}
-                    · ${fn.lineas} líneas · ${fn.fecha}
-                </div>`;
-            card.onclick = () => verEnEditor(fn.nombre + '.py');
-            grid.appendChild(card);
-        });
-        if (!d.funciones || d.funciones.length === 0) {
-            grid.innerHTML = '<div style="color:#00ffff33;padding:20px;grid-column:1/-1">Sin módulos autogenerados aún.</div>';
-        }
-    } catch(e) {}
+    const r = await fetch('/introspeccion');
+    const d = await r.json();
+    const grid = document.getElementById('introGrid');
+    grid.innerHTML = '';
+    (d.funciones||[]).forEach(fn => {
+        const card=document.createElement('div'); card.className='fn-card';
+        card.innerHTML='<div class="fn-nombre">⚡ '+fn.nombre+'</div>'+
+            '<div class="fn-desc">'+fn.descripcion+'</div>'+
+            '<div class="fn-status '+(fn.valido?'fn-ok':'fn-err')+'">'+(fn.valido?'✅':'❌')+' '+fn.lineas+' líneas · '+fn.fecha+'</div>';
+        card.onclick=()=>verEnEditor(fn.nombre);
+        grid.appendChild(card);
+    });
+    if (!d.funciones||d.funciones.length===0)
+        grid.innerHTML='<div style="color:#00ffff33;padding:20px;grid-column:1/-1">Sin módulos aún.</div>';
 }
 
-async function verEnEditor(archivo) {
-    document.getElementById('fileSelector').value = archivo;
-    await cargarArchivo();
-    switchTab('editor');
-}
-
-// ═══════════════════════════════════════════
 // HIPOCAMPO
-// ═══════════════════════════════════════════
 async function cargarHipocampo() {
-    try {
-        const r = await fetch('/hipocampo');
-        const d = await r.json();
-        document.getElementById('hipoResumen').textContent = d.resumen || '';
-        document.getElementById('sbHipo').textContent = `${d.total} instr`;
-        document.getElementById('statHipo').textContent = d.total;
-        const panel = document.getElementById('hipocampoPanel');
-        panel.innerHTML = '';
-        (d.instrucciones || []).forEach((inst, i) => {
-            const row = document.createElement('div');
-            row.className = 'instr-row';
-            const parts = inst.match(/⟦(\w+)⟧.*SCALE:(\d+)/);
-            row.innerHTML = `
-                <span class="instr-addr">Dir ${i}</span>
-                <span class="instr-op">⟦${parts ? parts[1] : '?'}⟧</span>
-                <span class="instr-scale">SCL:${parts ? parts[2] : '?'}</span>
-                <span class="instr-hex">${inst}</span>`;
-            panel.appendChild(row);
-        });
-    } catch(e) {}
+    const r = await fetch('/hipocampo');
+    const d = await r.json();
+    document.getElementById('hipoResumen').textContent=d.resumen||'';
+    document.getElementById('sbHipo').textContent=d.total||0;
+    document.getElementById('statHipo').textContent=d.total||0;
+    const panel=document.getElementById('hipocampoPanel');
+    panel.innerHTML='';
+    (d.instrucciones||[]).forEach((inst,i)=>{
+        const row=document.createElement('div'); row.className='instr-row';
+        const m=inst.match(/⟦(\w+)⟧.*SCALE:(\d+)/);
+        row.innerHTML='<span class="instr-addr">Dir '+i+'</span>'+
+            '<span class="instr-op">⟦'+(m?m[1]:'?')+'⟧</span>'+
+            '<span class="instr-hex">'+inst+'</span>';
+        panel.appendChild(row);
+    });
 }
 
-// ═══════════════════════════════════════════
 // STATS
-// ═══════════════════════════════════════════
 async function actualizarStats() {
     try {
-        const r = await fetch('/status');
-        const d = await r.json();
-        document.getElementById('statConv').textContent = d.conversaciones || 0;
-        document.getElementById('statEvol').textContent = d.evoluciones || 0;
-        document.getElementById('statRam').textContent = Math.round(d.ram || 0) + '%';
-        document.getElementById('statCpu').textContent = Math.round(d.cpu || 0) + '%';
-        document.getElementById('sbEvol').textContent =
-            `${d.evol_sesion || 0}/${d.evol_max_sesion || 10}`;
-        document.getElementById('statusDot').style.background =
-            d.arkani_ok ? '#00ff88' : '#ff4444';
-        document.getElementById('sbEstado').textContent =
-            d.arkani_ok ? 'ONLINE' : 'ERROR';
+        const r=await fetch('/status');
+        const d=await r.json();
+        document.getElementById('statConv').textContent=d.conversaciones||0;
+        document.getElementById('statEvol').textContent=d.evoluciones||0;
+        document.getElementById('statRam').textContent=Math.round(d.ram||0)+'%';
+        document.getElementById('statCpu').textContent=Math.round(d.cpu||0)+'%';
+        document.getElementById('sbEvol').textContent=(d.evol_sesion||0)+'/'+(d.evol_max_sesion||10);
+        document.getElementById('statusDot').style.background=d.arkani_ok?'#00ff88':'#ff4444';
+        document.getElementById('sbEstado').textContent=d.arkani_ok?'ONLINE':'ERROR';
     } catch(e) {}
 }
 
-// Hora en statusbar
-function actualizarHora() {
-    document.getElementById('sbHora').textContent =
-        new Date().toLocaleTimeString('es-MX');
-}
+function actualizarHora() { document.getElementById('sbHora').textContent=new Date().toLocaleTimeString('es-MX'); }
 
-// Init
+// INIT
 actualizarStats();
 cargarCapacidades();
+cargarSidebarConvs();
 setInterval(actualizarStats, 5000);
+setInterval(cargarSidebarConvs, 8000);
 setInterval(actualizarHora, 1000);
 actualizarHora();
 </script>

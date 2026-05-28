@@ -60,16 +60,6 @@
       "fecha": "2026-05-27T21:00:19.061723",
       "usos": 0
     },
-    "que archivos tienes en autogen?": {
-      "respuesta": "Lo siento, pero no tengo información sobre archivos específicos de Autogen. No poseo detalles sobre sistemas o archivos externos que no estén relacionados con mi propia estructura interna y funcionalidad como asistente de IA. ¿Puedo ayudarte con algo más?",
-      "fecha": "2026-05-27T21:02:58.306440",
-      "usos": 0
-    },
-    "puedes ver tus propios archivos?": {
-      "respuesta": "No puedo acceder a mis propios archivos ya que no tengo conexión directa a ningún sistema de almacenamiento.",
-      "fecha": "2026-05-27T21:17:41.646733",
-      "usos": 1
-    },
     "hola, como te llamas y que puedes hacer?": {
       "respuesta": "Timeout Ollama",
       "fecha": "2026-05-27T23:55:28.557274",
@@ -78,11 +68,6 @@
     "hola como te llamas y que puedes hacer?": {
       "respuesta": "Me llamo Arkani y soy una inteligencia artificial autónoma con memoria evolutiva. Puedo ayudarte con información, responder preguntas y mucho más en español. ¿En qué puedo asistirte hoy?",
       "fecha": "2026-05-27T23:56:41.733702",
-      "usos": 0
-    },
-    "lista tus capacidades actuales": {
-      "respuesta": "Mis capacidades actuales incluyen:\n\n1. Conversación en español.\n2. Generación de respuestas basadas en información previa y contexto.\n3. Uso de información externa cuando está disponible.\n4. Respeto de las reglas establecidas, como límite de oraciones y uso de memoria evolutiva.\n\nEstoy listo para ayudarte con lo que necesites!",
-      "fecha": "2026-05-28T00:01:13.361161",
       "usos": 0
     }
   },
