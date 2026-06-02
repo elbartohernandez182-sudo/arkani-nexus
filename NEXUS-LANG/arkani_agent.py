@@ -71,7 +71,10 @@ def llamar_ollama(prompt: str) -> str:
             }
         }, timeout=900)
         if r.status_code == 200:
-            return r.json().get("response", "").strip()
+            respuesta = r.json().get("response", "").strip()
+        respuesta = re.sub(r"\x1b\[[0-9;]*[A-Za-z]", "", respuesta)
+        respuesta = re.sub(r"[\x00-\x1f\x7f]", "", respuesta)
+        return respuesta
         return f"Error Ollama: {r.status_code}"
     except Exception as e:
         return f"Error: {e}"
