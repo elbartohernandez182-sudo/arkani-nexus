@@ -109,6 +109,11 @@
       "fecha": "2026-05-28 15:39",
       "pregunta": "autoprograma: ejecuta python3 /home/arkani/NEXUS/NEXUS-LANG/autogen/fn_leer_mis_archivos.py y muestra el resultado",
       "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-05-28 18:01",
+      "pregunta": "que aprendiste hoy?",
+      "respuesta": "Timeout Ollama"
     }
   ],
   "pendientes": [],
@@ -117,7 +122,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 18,
+    "preguntas": 19,
     "evoluciones": 1
   },
   "evoluciones": [

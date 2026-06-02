@@ -307,6 +307,7 @@ if __name__ == '__main__':
     os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
     cargar_rag()
+    socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)
 
 # ── FRACTAL VM INTEGRATION ──────────────────
 @app.route('/fractal/ejecutar', methods=['POST'])
@@ -327,14 +328,3 @@ def fractal_estado():
         return jsonify(vm.estado())
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-if __name__ == '__main__':
-    print("\n" + "=" * 50)
-    print(" ARKANI WEB v4.0 - Panel de Control")
-    print(f" Engine: {'OK' if ARKANI_OK else 'ERROR'}")
-    print(" http://0.0.0.0:8081")
-    print("=" * 50 + "\n")
-    os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
-    os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
-    cargar_rag()
-    socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)

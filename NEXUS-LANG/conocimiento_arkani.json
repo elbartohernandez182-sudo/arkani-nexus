@@ -114,6 +114,11 @@
       "respuesta": "Timeout Ollama",
       "fecha": "2026-05-28T15:39:48.717032",
       "usos": 0
+    },
+    "que aprendiste hoy?": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-05-28T18:01:59.783311",
+      "usos": 0
     }
   },
   "sinonimos": {},
