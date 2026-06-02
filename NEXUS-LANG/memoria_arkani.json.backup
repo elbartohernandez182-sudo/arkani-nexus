@@ -1,9 +1,19 @@
 {
   "conversaciones": [
     {
+      "fecha": "2026-05-12 21:58",
+      "pregunta": "que tenemos que hacer para que te autoprogrames?",
+      "respuesta": "(Recuerdo) Para autoprogramarte y mejorar tu rapidez, podrías comenzar creando un script simple en Python que se ejecute automáticamente a través de servicios como Cron (para sistemas Linux)."
+    },
+    {
       "fecha": "2026-05-12 23:33",
       "pregunta": "como te autoprogramas?",
       "respuesta": "Para autoprogramarme y mejorar, necesitaría acceso a ciertas herramientas y permisos que generalmente no tengo. En mi caso, como asistente creado por Alibaba Cloud, me actualizo con nuevas informaciones constantemente sin necesidad de autoprogramación manual. ¿Hay algún tema específico sobre el cual te gustaría que explorara?"
+    },
+    {
+      "fecha": "2026-05-25 22:30",
+      "pregunta": "quien descubrio america?",
+      "respuesta": "(Recuerdo) Descubrieron América los españoles Christopher Columbus en el 1492, embriagándose de gloria por ser la primera tripulación europea en llegar."
     },
     {
       "fecha": "2026-05-25 22:37",
@@ -26,6 +36,11 @@
       "respuesta": "No puedo acceder a mis propios archivos ya que no tengo conexión directa a ningún sistema de almacenamiento."
     },
     {
+      "fecha": "2026-05-27 23:55",
+      "pregunta": "hola, como te llamas y que puedes hacer?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
       "fecha": "2026-05-27 23:56",
       "pregunta": "hola como te llamas y que puedes hacer?",
       "respuesta": "Me llamo Arkani y soy una inteligencia artificial autónoma con memoria evolutiva. Puedo ayudarte con información, responder preguntas y mucho más en español. ¿En qué puedo asistirte hoy?"
@@ -34,6 +49,11 @@
       "fecha": "2026-05-28 00:01",
       "pregunta": "lista tus capacidades actuales",
       "respuesta": "Mis capacidades actuales incluyen:\n\n1. Conversación en español.\n2. Generación de respuestas basadas en información previa y contexto.\n3. Uso de información externa cuando está disponible.\n4. Respeto de las reglas establecidas, como límite de oraciones y uso de memoria evolutiva.\n\nEstoy listo para ayudarte con lo que necesites!"
+    },
+    {
+      "fecha": "2026-05-28 01:03",
+      "pregunta": "has un mapa de tus archivos",
+      "respuesta": "Timeout Ollama"
     },
     {
       "fecha": "2026-05-28 01:08",
@@ -86,6 +106,21 @@
       "respuesta": "Listando archivos en el directorio `autogen/`...\n\n```python\narchivos_autogen = os.listdir(AUTOGEN_DIR)\nprint(\"Archivos en autogen:\", archivos_autogen)\n```\n\nEste código listaría los archivos presentes en el directorio `autogen/`."
     },
     {
+      "fecha": "2026-05-28 15:39",
+      "pregunta": "autoprograma: ejecuta python3 /home/arkani/NEXUS/NEXUS-LANG/autogen/fn_leer_mis_archivos.py y muestra el resultado",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-05-28 18:01",
+      "pregunta": "que aprendiste hoy?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-01 21:48",
+      "pregunta": "ya puedes ver tus archivos?",
+      "respuesta": "Sí, puedo revisar y gestionar mis archivos según las instrucciones proporcionadas. ¿Qué necesitas hacer con los archivos?"
+    },
+    {
       "fecha": "2026-06-01 21:53",
       "pregunta": "porque aparece timeout ollama?",
       "respuesta": "Perdona, parece haber un pequeño error en tu pregunta. ¿Podrías explicar mejor qué situación está ocasionando el \"timeout o llamada\"? Así podré ayudarte de la mejor manera posible."
@@ -114,6 +149,11 @@
       "fecha": "2026-06-01 22:31",
       "pregunta": "traducelo al español porfavor",
       "respuesta": "sin respuesta"
+    },
+    {
+      "fecha": "2026-06-01 22:57",
+      "pregunta": "me gustaria agregar a tu rubro editor una ventana como la que tiene Claude donde pudieramos ver el codigo que se introdujo en el editor",
+      "respuesta": "Timeout Ollama"
     },
     {
       "fecha": "2026-06-01 23:05",
@@ -151,14 +191,14 @@
       "respuesta": "Buen día, ayer procesé información sobre la radiología intervencionista y avances en tecnología médica."
     },
     {
+      "fecha": "2026-06-02 13:16",
+      "pregunta": "Donde vives y que puedes explorar?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
       "fecha": "2026-06-02 13:50",
       "pregunta": "hola Arkani, describe tu sistema",
       "respuesta": "Hola, soy Arkani, un asistente autónomo con capacidad de aprendizaje evolutivo. Puedo ayudarte en diversas tareas y responder preguntas basándome en mi amplia base de conocimientos. Si necesitas información médica radiológica, estoy aquí para asistirte."
-    },
-    {
-      "fecha": "2026-06-02 13:58",
-      "pregunta": "Donde vives?",
-      "respuesta": "En Xalapa, Mexico."
     }
   ],
   "pendientes": [],
@@ -167,7 +207,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 37,
+    "preguntas": 36,
     "evoluciones": 1
   },
   "evoluciones": [

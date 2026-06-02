@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SECRET_KEY'] = 'arkani1979nexus'
 socketio = SocketIO(app, cors_allowed_origins="*")
 BASE_DIR = os.path.expanduser("~/NEXUS/NEXUS-LANG")

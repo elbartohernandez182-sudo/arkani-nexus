@@ -17,7 +17,7 @@ sleep 2
 echo "Arrancando ngrok..."
 pkill ngrok
 sleep 2
-nohup ngrok http 5010 > ~/NEXUS/logs/ngrok.log 2>&1 &
+nohup ngrok http 8081 > ~/NEXUS/logs/ngrok.log 2>&1 &
 sleep 8
 
 echo "Tu URL ngrok:"

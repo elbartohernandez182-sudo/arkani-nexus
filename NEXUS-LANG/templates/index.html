@@ -358,7 +358,9 @@ socket.on('respuesta', d => { addMsg('arkani', d.texto, d.timestamp); actualizar
 function switchTab(nombre) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('tab' + nombre.charAt(0).toUpperCase() + nombre.slice(1)).classList.add('active');
+    const tabId = nombre === 'hipocampo' ? 'tabHipo' : 'tab' + nombre.charAt(0).toUpperCase() + nombre.slice(1);
+    const tabEl = document.getElementById(tabId);
+    if (tabEl) tabEl.classList.add('active');
     document.getElementById('panel-' + nombre).classList.add('active');
     if (nombre==='intro') cargarCapacidades();
     if (nombre==='hipocampo') cargarHipocampo();
@@ -564,10 +566,10 @@ async function cargarHipocampo() {
     panel.innerHTML='';
     (d.instrucciones||[]).forEach((inst,i)=>{
         const row=document.createElement('div'); row.className='instr-row';
-        const m=inst.match(/⟦(\w+)⟧.*SCALE:(\d+)/);
+        const m=inst.match(/[\u27e6⟦](\w+)[\u27e7⟧].*SCALE:(\d+)/);
         row.innerHTML='<span class="instr-addr">Dir '+i+'</span>'+
             '<span class="instr-op">⟦'+(m?m[1]:'?')+'⟧</span>'+
-            '<span class="instr-hex">'+inst+'</span>';
+            '<span class="instr-hex">'+inst.replace(/[\u27e6⟦]\w+[\u27e7⟧]\s*/,'')+'</span>';
         panel.appendChild(row);
     });
 }

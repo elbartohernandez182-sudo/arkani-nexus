@@ -8,14 +8,13 @@ from arkani_tools import HERRAMIENTAS, log_accion
 
 # ============================================
 # ARKANI AGENT v1.0 - Bucle ReAct
-# Piensa → Actua → Observa → Repite
+# Piensa -> Actua -> Observa -> Repite
 # Constructor: Medico Radiologo, Xalapa
 # ============================================
 
 OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODELO = "qwen2.5:7b"
-MAX_PASOS  = 8  # maximo de pasos por objetivo
-
+MAX_PASOS = 3
 
 SYSTEM_PROMPT = """Eres Arkani, un agente autonomo inteligente.
 Tienes acceso a herramientas para leer, escribir y ejecutar codigo.
@@ -35,7 +34,7 @@ Siempre responde en este formato exacto:
 
 PENSAMIENTO: [que estas pensando]
 ACCION: [nombre_herramienta]
-PARAMETROS: [parametro1="valor1", parametro2="valor2"]
+PARAMETROS: parametro1="valor1", parametro2="valor2"
 
 IMPORTANTE: DEBES ejecutar las herramientas realmente, no solo describirlas.
 
@@ -62,7 +61,7 @@ def llamar_ollama(prompt: str) -> str:
             "prompt": prompt,
             "stream": False,
             "options": {
-                "temperature": 0.3,  # baja para ser mas preciso
+                "temperature": 0.3,
                 "num_predict": 800,
                 "stop": ["OBSERVACION:", "Constructor:"]
             }
@@ -100,7 +99,7 @@ def parsear_accion(texto: str) -> dict:
     if match:
         resultado["accion"] = match.group(1).strip()
 
-    # Extraer parametros
+    # Extraer parametros - FIX DEFINITIVO
     match = re.search(r'PARAMETROS:\s*(.+?)(?=\n\n|$)', texto, re.DOTALL)
     if match:
         params_str = match.group(1).strip()
@@ -108,9 +107,17 @@ def parsear_accion(texto: str) -> dict:
             import ast
             resultado["parametros"] = ast.literal_eval(params_str)
         except:
+            # Intentar comillas dobles: clave="valor"
             params = re.findall(r'(\w+)="([^"]+)"', params_str)
             for k, v in params:
                 resultado["parametros"][k] = v
+            # Si no capturo nada, intentar comillas simples: clave='valor'
+            if not resultado["parametros"]:
+                params = re.findall(r"(\w+)='([^']+)'", params_str)
+                for k, v in params:
+                    resultado["parametros"][k] = v
+
+    return resultado
 
 
 def ejecutar_herramienta(nombre: str, params: dict) -> str:
@@ -120,8 +127,7 @@ def ejecutar_herramienta(nombre: str, params: dict) -> str:
 
     fn = HERRAMIENTAS[nombre]["fn"]
     try:
-        # Llamar con los parametros en orden
-            return fn(**params)
+        return fn(**params)
     except Exception as e:
         return f"ERROR ejecutando {nombre}: {e}"
 
@@ -146,7 +152,6 @@ def correr_agente(objetivo: str, verbose: bool = True) -> str:
         if verbose:
             print(f"\n--- Paso {paso + 1}/{MAX_PASOS} ---")
 
-        # Construir prompt con historial
         contexto = SYSTEM_PROMPT
         contexto += f"\n\nOBJETIVO: {objetivo}\n\n"
 
@@ -160,31 +165,27 @@ def correr_agente(objetivo: str, verbose: bool = True) -> str:
 
         contexto += "\nSiguiente paso:"
 
-        # Llamar al modelo
         respuesta = llamar_ollama(contexto)
         if verbose:
             print(f"Modelo: {respuesta[:300]}")
 
-        # Parsear la respuesta
         parsed = parsear_accion(respuesta)
 
         if verbose:
-            if parsed: print(f"Pensamiento: {parsed.get('pensamiento','')[:100]}")
+            if parsed:
+                print(f"Pensamiento: {parsed.get('pensamiento','')[:100]}")
 
-        # Si tiene respuesta final, terminar
         if parsed and parsed["respuesta_final"]:
             if verbose:
                 print(f"\nRESULTADO FINAL:\n{parsed['respuesta_final']}")
             return parsed["respuesta_final"]
 
-        # Si no tiene accion, terminar
         if not parsed or not parsed["accion"]:
             msg = "Arkani no determino una accion. Objetivo completado o sin herramientas."
             if verbose:
                 print(msg)
             return msg
 
-        # Ejecutar la herramienta
         if verbose:
             print(f"Ejecutando: {parsed['accion']}({parsed['parametros']})")
 
@@ -195,7 +196,6 @@ def correr_agente(objetivo: str, verbose: bool = True) -> str:
         if verbose:
             print(f"Resultado: {resultado[:200]}")
 
-        # Agregar al historial
         historial.append({
             "pensamiento": parsed["pensamiento"],
             "accion": parsed["accion"],
@@ -203,13 +203,12 @@ def correr_agente(objetivo: str, verbose: bool = True) -> str:
             "resultado": resultado
         })
 
-        time.sleep(1)  # pausa entre pasos
+        time.sleep(1)
 
-    return f"Agente completó {MAX_PASOS} pasos. Revisa el log para detalles."
+    return f"Agente completo {MAX_PASOS} pasos. Revisa el log para detalles."
 
 
 if __name__ == "__main__":
-    # Test simple
     resultado = correr_agente(
         "Lista los archivos Python en ~/NEXUS/NEXUS-LANG/ y guarda un reporte"
     )
