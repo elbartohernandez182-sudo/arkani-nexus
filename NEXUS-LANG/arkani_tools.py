@@ -20,6 +20,7 @@ RUTAS_PERMITIDAS = [
     os.path.expanduser("~/NEXUS/NEXUS-LANG/scripts_arkani/"),
     os.path.expanduser("~/NEXUS/NEXUS-LANG/"),
     os.path.expanduser("~/NEXUS/data/"),
+    os.path.expanduser("~/NEXUS/NEXUS-LANG/autogen/"),
 ]
 
 # Comandos peligrosos bloqueados
