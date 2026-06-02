@@ -4,7 +4,11 @@ import re
 import requests
 import datetime
 import time
-from arkani_tools import HERRAMIENTAS, log_accion
+try:
+    from arkani_tools import HERRAMIENTAS, log_accion
+except ImportError:
+    print("ERROR: arkani_tools.py no encontrado. Asegurate de estar en NEXUS-LANG/")
+    exit(1)
 
 # ============================================
 # ARKANI AGENT v1.0 - Bucle ReAct

@@ -160,7 +160,7 @@ class RAGAgent:
                         try:
                             with open(ruta,'r',errors='ignore') as f:
                                 contenido = f.read().lower()
-                            if sum(1 for p in palabras if p in contenido) >= 1:
+                            if palabras and sum(1 for p in palabras if p in contenido) >= 1:
                                 for linea in contenido.split('\n'):
                                     if any(p in linea for p in palabras):
                                         resultados.append(f"[{archivo}]: {linea[:150]}")
@@ -367,7 +367,7 @@ def generar_respuesta(mem: MemoriaEvolutiva, rag: RAGAgent, pregunta: str) -> st
                     "num_predict": 250,
                     "stop": ["<|im_start|>","<|im_end|>","Constructor:"]
                 }
-            }, timeout=600)
+            }, timeout=120)
 
             if r.status_code == 200:
                 texto = limpiar_texto(r.json().get("response","").strip())
@@ -543,7 +543,10 @@ def main():
             mem.memoria.setdefault("estadisticas", {"total_preguntas": 0, "errores": 0})
             mem.memoria["estadisticas"]["total_preguntas"] += 1
             mem.guardar()
-            mem.reflexionar()
+            try:
+                mem.reflexionar()
+            except Exception as e:
+                print(f"  [Advertencia] Reflexion fallo: {e}")
 
 
 if __name__ == "__main__":
