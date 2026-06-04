@@ -27,3 +27,6 @@ echo ""
 echo "Arkani Web:    http://192.168.100.29:8081"
 echo "Mapper Daemon: http://192.168.100.29:5010"
 echo "LISTO"
+
+# Auto-actualizar contexto para Claude
+bash ~/NEXUS/scripts/update_context.sh &
