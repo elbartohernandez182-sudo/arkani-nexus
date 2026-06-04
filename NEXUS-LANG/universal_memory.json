@@ -10,6 +10,20 @@
       "r": "SYSTEM",
       "t": "2026-03-26T00:07:16.051798",
       "c": {}
+    },
+    "EVOLUCION_": {
+      "n": "EVOLUCION_",
+      "v": "/home/arkani/NEXUS/NEXUS-LANG/autogen/fn_.py",
+      "r": "SYSTEM",
+      "t": "2026-06-03T22:37:43.132013",
+      "c": {}
+    },
+    "EVOLUCION_CALCULAR_IMC": {
+      "n": "EVOLUCION_CALCULAR_IMC",
+      "v": "/home/arkani/NEXUS/NEXUS-LANG/autogen/fn_calcular_imc.py",
+      "r": "SYSTEM",
+      "t": "2026-06-03T22:40:36.546661",
+      "c": {}
     }
   }
 }

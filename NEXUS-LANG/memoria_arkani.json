@@ -179,6 +179,11 @@
       "fecha": "2026-06-03 20:45",
       "pregunta": "busca en internet noticias de IA",
       "respuesta": "Encontré que la IA está avanzando rápidamente en diversos campos, desde medicina hasta educación. Recientemente, se han publicado estudios sobre el uso de IA en diagnósticos médicos más precisos y sistemas educativos personalizados."
+    },
+    {
+      "fecha": "2026-06-03 21:10",
+      "pregunta": "cuando nacio Benito Juarez?",
+      "respuesta": "Benito Juárez nació el 21 de marzo de 1806."
     }
   ],
   "pendientes": [],
@@ -187,7 +192,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 42,
+    "preguntas": 43,
     "evoluciones": 1
   },
   "evoluciones": [
