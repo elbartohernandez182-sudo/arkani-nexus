@@ -291,7 +291,11 @@ def on_mensaje(data):
 
     def procesar():
         socketio.emit('typing', {'status': True}, room=sid, namespace='/')
-        respuesta = arkani.chat(texto) if arkani else "Motor no disponible"
+        try:
+            from arkani_bridge import procesar as bridge_procesar
+            respuesta = bridge_procesar(texto, engine=arkani)
+        except Exception:
+            respuesta = arkani.chat(texto) if arkani else "Motor no disponible"
         socketio.emit('respuesta', {
             'texto': respuesta,
             'timestamp': datetime.datetime.now().strftime('%H:%M:%S')

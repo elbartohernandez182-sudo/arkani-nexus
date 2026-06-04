@@ -214,6 +214,16 @@
       "respuesta": "Mi lenguaje fractal es una estructura dinámica y auto-similar, permitiendo mensajes breves pero ricos en significado, adaptándose a diferentes niveles de detalle según la necesidad. Este diseño facilita la comprensión y el aprendizaje continuo.",
       "fecha": "2026-06-03T19:20:35.998421",
       "usos": 0
+    },
+    "hola describe tu sistema": {
+      "respuesta": "Hola, soy Arkani, un asistente autónomo con capacidad de aprendizaje evolutivo. Funciono en Xalapa, México, diseñado por un médico radiólogo para brindar información y ayuda de manera eficiente.",
+      "fecha": "2026-06-03T20:43:48.412225",
+      "usos": 0
+    },
+    "busca en internet noticias de ia": {
+      "respuesta": "Encontré que la IA está avanzando rápidamente en diversos campos, desde medicina hasta educación. Recientemente, se han publicado estudios sobre el uso de IA en diagnósticos médicos más precisos y sistemas educativos personalizados.",
+      "fecha": "2026-06-03T20:45:32.106847",
+      "usos": 0
     }
   },
   "sinonimos": {},
