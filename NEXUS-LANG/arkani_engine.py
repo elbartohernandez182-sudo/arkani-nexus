@@ -756,10 +756,21 @@ class ArkaniEngine:
             codigo = self._generar_codigo(desc)
             return self.motor.evolucionar(desc, codigo)
 
-        # Intentar memoria
-        recordado = self.mem.recordar(pregunta)
-        if recordado and "Error" not in recordado:
-            return f"(Recuerdo) {recordado}"
+        # 0. Detección fractal
+        palabras_fractal = ['fractal', 'ejecuta fractal', 'vm fractal', 'evolve', 'loop fractal']
+        if any(p in pregunta.lower() for p in palabras_fractal):
+            try:
+                from nexus_fractal_vm import FractalVM
+                vm = FractalVM()
+                r = vm.ejecutar_todo()
+                return f"VM Fractal ejecutada: {r.get('ejecuciones',0)} ejecuciones, {r.get('evoluciones',0)} evoluciones. Estado: ONLINE"
+            except Exception as e:
+                return f"Error VM fractal: {e}"
+
+        # Intentar memoria - desactivado para evitar respuestas incorrectas
+        # recordado = self.mem.recordar(pregunta)
+        # if recordado and "Error" not in recordado:
+        #     return recordado
 
         # RAG externo
         fuente, ctx_ext = self.rag.buscar(pregunta)

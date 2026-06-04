@@ -7,6 +7,11 @@ import time
 import subprocess
 import urllib.parse
 from typing import Optional, Dict, Tuple
+try:
+    from nexus_fractal_vm import FractalVM, ejecutar_desde_engine
+    FRACTAL_DISPONIBLE = True
+except Exception:
+    FRACTAL_DISPONIBLE = False
 
 # ============================================
 # ARKANI CORE v2.0 - AGENTE AUTONOMO
@@ -352,10 +357,18 @@ def construir_prompt(mem: MemoriaEvolutiva, pregunta: str,
 
 
 def generar_respuesta(mem: MemoriaEvolutiva, rag: RAGAgent, pregunta: str) -> str:
-    # 1. Intentar desde memoria de hechos
-    recordado = mem.recordar(pregunta)
-    if recordado and "Error" not in recordado and "404" not in recordado:
-        return recordado
+    # 0. Detección fractal
+    palabras_fractal = ['fractal', 'ejecuta fractal', 'vm fractal', 'hipocampo', 'evolve', 'loop fractal', 'instruccion fractal']
+    if FRACTAL_DISPONIBLE and any(p in pregunta.lower() for p in palabras_fractal):
+        try:
+            vm = FractalVM()
+            resultado = vm.ejecutar_todo()
+            return f"Fractal ejecutado: {resultado.get('ejecuciones',0)} ejecuciones, {resultado.get('evoluciones',0)} evoluciones. Estado: {resultado.get('estado','OK')}"
+        except Exception as e:
+            return f"Error en VM fractal: {e}"
+
+    # 1. Memoria desactivada como respuesta directa (evita respuestas incorrectas)
+    # recordado = mem.recordar(pregunta)  <- solo se usa para contexto, no respuesta
 
     # 2. RAG
     fuente, ctx = rag.buscar(pregunta)

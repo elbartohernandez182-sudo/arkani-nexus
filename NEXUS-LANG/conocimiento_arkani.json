@@ -199,6 +199,21 @@
       "respuesta": "En Xalapa, Mexico.",
       "fecha": "2026-06-02T13:58:26.653569",
       "usos": 0
+    },
+    "ejecuta fractal": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-02T15:54:10.497961",
+      "usos": 7
+    },
+    "tienes acceso a fractal?": {
+      "respuesta": "Sí, tengo información sobre Fractal, una compañía que desarrolla tecnologías de inteligencia artificial y machine learning.",
+      "fecha": "2026-06-03T19:08:12.390001",
+      "usos": 0
+    },
+    "describe tu lenguaje fractal": {
+      "respuesta": "Mi lenguaje fractal es una estructura dinámica y auto-similar, permitiendo mensajes breves pero ricos en significado, adaptándose a diferentes niveles de detalle según la necesidad. Este diseño facilita la comprensión y el aprendizaje continuo.",
+      "fecha": "2026-06-03T19:20:35.998421",
+      "usos": 0
     }
   },
   "sinonimos": {},

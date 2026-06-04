@@ -159,6 +159,16 @@
       "fecha": "2026-06-02 13:58",
       "pregunta": "Donde vives?",
       "respuesta": "En Xalapa, Mexico."
+    },
+    {
+      "fecha": "2026-06-03 19:08",
+      "pregunta": "tienes acceso a fractal?",
+      "respuesta": "Sí, tengo información sobre Fractal, una compañía que desarrolla tecnologías de inteligencia artificial y machine learning."
+    },
+    {
+      "fecha": "2026-06-03 19:20",
+      "pregunta": "describe tu lenguaje fractal",
+      "respuesta": "Mi lenguaje fractal es una estructura dinámica y auto-similar, permitiendo mensajes breves pero ricos en significado, adaptándose a diferentes niveles de detalle según la necesidad. Este diseño facilita la comprensión y el aprendizaje continuo."
     }
   ],
   "pendientes": [],
@@ -167,7 +177,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 37,
+    "preguntas": 40,
     "evoluciones": 1
   },
   "evoluciones": [
