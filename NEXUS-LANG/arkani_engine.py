@@ -762,8 +762,8 @@ class ArkaniEngine:
             try:
                 from nexus_fractal_vm import FractalVM
                 vm = FractalVM()
-                r = vm.ejecutar_todo()
-                return f"VM Fractal ejecutada: {r.get('ejecuciones',0)} ejecuciones, {r.get('evoluciones',0)} evoluciones. Estado: ONLINE"
+                r = vm.estado()
+                return f"VM Fractal activa: {r.get('neuronas',0)} neuronas, {r.get('evoluciones',0)} evoluciones. Estado: {r.get('status','ONLINE')}"
             except Exception as e:
                 return f"Error VM fractal: {e}"
 
