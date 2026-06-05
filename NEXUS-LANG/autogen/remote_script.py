@@ -1,1 +1,0 @@
-arkani crear_bitacora
