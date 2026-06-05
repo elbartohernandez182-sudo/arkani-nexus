@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-06-05 01:41:48
-Último commit: d854948 - Auto: Contexto actualizado 2026-06-05 01:26:12
+Actualizado: 2026-06-05 01:58:42
+Último commit: 80d1277 - Auto: Contexto actualizado 2026-06-05 01:41:48
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,6 +11,7 @@ Actualizado: 2026-06-05 01:41:48
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+80d1277 Auto: Contexto actualizado 2026-06-05 01:41:48
 d854948 Auto: Contexto actualizado 2026-06-05 01:26:12
 e1007a5 Auto: Contexto actualizado 2026-06-05 01:17:12
 6bd8145 Auto: Contexto actualizado 2026-06-05 01:11:35
@@ -20,7 +21,6 @@ afaea19 Auto: Contexto actualizado 2026-06-04 23:12:57
 ebb3dd0 Auto: Contexto actualizado 2026-06-04 22:51:58
 172a4c9 Auto: Contexto actualizado 2026-06-04 22:46:39
 f803ead Bridge v1.1: brain integrado, autoprogramacion funcional, nombre modulos corregido
-23bd78e Auto: Contexto actualizado 2026-06-03 22:40:34
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
