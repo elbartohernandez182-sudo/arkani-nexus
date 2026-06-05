@@ -284,6 +284,21 @@
       "respuesta": "Hoy no hubo nuevos avances en mi programación. Estuve procesando tareas habituales y realizando mantenimiento interno.",
       "fecha": "2026-06-05T05:59:34.049730",
       "usos": 0
+    },
+    "qué avances tuvimos hoy en tu programación?": {
+      "respuesta": "Hoy no hubo avances específicos en mi programación. Estoy funcionando según las capacidades predeterminadas.",
+      "fecha": "2026-06-05T06:26:55.665790",
+      "usos": 0
+    },
+    "qué avances tuvimos ayer en tu programación": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-05T06:38:43.430916",
+      "usos": 0
+    },
+    "qué hicimos ayer en tu programación": {
+      "respuesta": "Ayer agregamos pestanas Explorador y Compartir M2M a la interfaz. También mejoramos nexus_evolve para auto-reparación de errores. Además, el Brain se conectó con el Hipocampo permitiendo autoprogramación.",
+      "fecha": "2026-06-05T06:48:10.502098",
+      "usos": 0
     }
   },
   "sinonimos": {},
