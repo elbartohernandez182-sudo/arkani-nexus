@@ -23,6 +23,16 @@ class NexusBrain:
         # Registrar la evolución en la memoria fractal
         self.memory.root.add(f"EVOLUCION_{func_name.upper()}", path, "SYSTEM")
         self.memory.save()
+
+        # Conectar con Hipocampo — agregar neurona fractal
+        try:
+            from nexus_fractal_compiler import NexusCompiler, FractalOp, FractalInstruction
+            compiler = NexusCompiler()
+            inst = FractalInstruction(FractalOp.SPAWN, scale=5)
+            compiler.hipocampo.add_instruction(inst)
+            print(f"🧬 Hipocampo: nueva neurona SPAWN agregada (Dir {inst.address})")
+        except Exception as e:
+            print(f"⚠️ Hipocampo no actualizado: {e}")
         
         return f"Evolución completada. Módulo guardado en {path}"
 

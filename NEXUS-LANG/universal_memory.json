@@ -31,6 +31,13 @@
       "r": "SYSTEM",
       "t": "2026-06-05T03:13:59.140819",
       "c": {}
+    },
+    "EVOLUCION_TEST_CONEXION_HIPOCAMPO": {
+      "n": "EVOLUCION_TEST_CONEXION_HIPOCAMPO",
+      "v": "/home/arkani/NEXUS/NEXUS-LANG/autogen/fn_test_conexion_hipocampo.py",
+      "r": "SYSTEM",
+      "t": "2026-06-05T03:22:40.129215",
+      "c": {}
     }
   }
 }
