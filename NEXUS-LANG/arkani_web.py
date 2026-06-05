@@ -304,6 +304,166 @@ def on_mensaje(data):
 
     socketio.start_background_task(procesar)
 
+    print("\n" + "=" * 50)
+    print(" ARKANI WEB v4.0 - Panel de Control")
+    print(f" Engine: {'OK' if ARKANI_OK else 'ERROR'}")
+    print(" http://0.0.0.0:8081")
+    print("=" * 50 + "\n")
+    os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
+    os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
+    cargar_rag()
+    socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)
+
+
+# ── EXPLORADOR DE ARCHIVOS ───────────────────────────────────
+
+@app.route('/explorador/listar')
+def explorador_listar():
+    import datetime
+    ruta = request.args.get('ruta', os.path.expanduser('~/NEXUS'))
+    try:
+        ruta_abs = os.path.realpath(os.path.expanduser(ruta))
+        if not os.path.isdir(ruta_abs):
+            return jsonify({"error": f"No es directorio: {ruta}"}), 400
+        entradas = []
+        for item in sorted(os.scandir(ruta_abs), key=lambda x: (not x.is_dir(), x.name.lower())):
+            try:
+                stat = item.stat()
+                entradas.append({"nombre": item.name, "tipo": "dir" if item.is_dir() else "archivo",
+                    "tamaño": stat.st_size if item.is_file() else None,
+                    "fecha": datetime.datetime.fromtimestamp(stat.st_mtime).strftime('%d/%m %H:%M'),
+                    "ruta": item.path})
+            except:
+                pass
+        padre = str(os.path.dirname(ruta_abs)) if ruta_abs != '/' else None
+        return jsonify({"ruta": ruta_abs, "padre": padre, "entradas": entradas})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/explorador/leer')
+def explorador_leer():
+    ruta = request.args.get('ruta', '')
+    if not ruta:
+        return jsonify({"error": "Sin ruta"}), 400
+    try:
+        ruta_abs = os.path.realpath(os.path.expanduser(ruta))
+        if not os.path.isfile(ruta_abs):
+            return jsonify({"error": "No es archivo"}), 404
+        if os.path.getsize(ruta_abs) > 500_000:
+            return jsonify({"error": "Archivo muy grande"}), 400
+        with open(ruta_abs, 'r', encoding='utf-8', errors='replace') as f:
+            contenido = f.read()
+        return jsonify({"nombre": os.path.basename(ruta_abs), "ruta": ruta_abs,
+                        "contenido": contenido[:20000], "truncado": len(contenido) > 20000})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/explorador/buscar')
+def explorador_buscar():
+    import fnmatch
+    patron = request.args.get('patron', '')
+    directorio = request.args.get('directorio', os.path.expanduser('~/NEXUS'))
+    if not patron:
+        return jsonify({"error": "Sin patron"}), 400
+    try:
+        directorio_abs = os.path.realpath(os.path.expanduser(directorio))
+        resultados = []
+        for root, dirs, files in os.walk(directorio_abs):
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ('__pycache__','venv')]
+            for f in files:
+                if fnmatch.fnmatch(f.lower(), patron.lower()):
+                    ruta_completa = os.path.join(root, f)
+                    try:
+                        stat = os.stat(ruta_completa)
+                        resultados.append({"nombre": f, "ruta": ruta_completa, "tamaño": stat.st_size})
+                    except:
+                        pass
+            if len(resultados) >= 200:
+                break
+        return jsonify({"patron": patron, "total": len(resultados), "resultados": resultados})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+_nodos_conectados = {}
+
+@app.route('/ping')
+def ping():
+    return jsonify({"status": "alive", "node_id": "arkani-main", "node_name": "Arkani NEXUS", "version": "4.0"})
+
+@app.route('/m2m/estado')
+def m2m_estado():
+    import time
+    activos = {nid: {**info, "hace": int(time.time() - info.get('last_seen', 0))} for nid, info in _nodos_conectados.items()}
+    return jsonify({"nodos": activos, "total": len(activos)})
+
+@app.route('/m2m/conectar', methods=['POST'])
+def m2m_conectar():
+    import time, uuid, requests as req
+    data = request.json or {}
+    url_remota = data.get('url', '').rstrip('/')
+    if not url_remota:
+        return jsonify({"ok": False, "error": "URL requerida"})
+    try:
+        r = req.get(f"{url_remota}/ping", timeout=5)
+        if r.status_code != 200:
+            return jsonify({"ok": False, "error": f"No responde: {r.status_code}"})
+        info_remota = r.json()
+        node_id = info_remota.get('node_id', str(uuid.uuid4())[:8])
+        node_nombre = info_remota.get('node_name', url_remota)
+        _nodos_conectados[node_id] = {"url": url_remota, "nombre": node_nombre, "last_seen": time.time()}
+        return jsonify({"ok": True, "node_id": node_id, "nombre": node_nombre})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+@app.route('/m2m/desconectar', methods=['POST'])
+def m2m_desconectar():
+    node_id = (request.json or {}).get('node_id', '')
+    _nodos_conectados.pop(node_id, None)
+    return jsonify({"ok": True})
+
+@app.route('/m2m/enviar_archivo', methods=['POST'])
+def m2m_enviar_archivo():
+    import requests as req
+    data = request.json or {}
+    node_id = data.get('node_id', '')
+    ruta_nxf = data.get('ruta', '')
+    if node_id not in _nodos_conectados:
+        return jsonify({"ok": False, "error": "Nodo no conectado"})
+    if not ruta_nxf or not os.path.isfile(ruta_nxf):
+        return jsonify({"ok": False, "error": "Archivo no existe"})
+    info = _nodos_conectados[node_id]
+    try:
+        with open(ruta_nxf, 'rb') as f:
+            r = req.post(f"{info['url']}/m2m/recibir_archivo",
+                        files={'archivo': (os.path.basename(ruta_nxf), f, 'application/octet-stream')}, timeout=30)
+        return jsonify(r.json())
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+@app.route('/m2m/recibir_archivo', methods=['POST'])
+def m2m_recibir_archivo():
+    if 'archivo' not in request.files:
+        return jsonify({"ok": False, "error": "Sin archivo"})
+    archivo = request.files['archivo']
+    nombre = archivo.filename or 'recibido.nxf'
+    if not nombre.endswith('.nxf'):
+        return jsonify({"ok": False, "error": "Solo .nxf permitido"})
+    destino_dir = os.path.expanduser('~/NEXUS/recibidos')
+    os.makedirs(destino_dir, exist_ok=True)
+    archivo.save(os.path.join(destino_dir, nombre))
+    return jsonify({"ok": True, "nombre": nombre})
+
+@app.route('/m2m/archivos_recibidos')
+def m2m_archivos_recibidos():
+    import datetime
+    destino_dir = os.path.expanduser('~/NEXUS/recibidos')
+    os.makedirs(destino_dir, exist_ok=True)
+    archivos = []
+    for f in sorted(os.listdir(destino_dir)):
+        if f.endswith('.nxf'):
+            ruta = os.path.join(destino_dir, f)
+            archivos.append({"nombre": f, "ruta": ruta, "tamaño": os.path.getsize(ruta)})
+    return jsonify({"archivos": archivos})
 if __name__ == '__main__':
     print("\n" + "=" * 50)
     print("  ARKANI WEB v4.0 - Panel de Control")
@@ -334,13 +494,10 @@ def fractal_estado():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
 if __name__ == '__main__':
-    print("\n" + "=" * 50)
-    print(" ARKANI WEB v4.0 - Panel de Control")
-    print(f" Engine: {'OK' if ARKANI_OK else 'ERROR'}")
-    print(" http://0.0.0.0:8081")
-    print("=" * 50 + "\n")
     os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
+    os.makedirs(os.path.expanduser("~/NEXUS/recibidos"), exist_ok=True)
     cargar_rag()
     socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)

@@ -184,6 +184,76 @@
       "fecha": "2026-06-03 21:10",
       "pregunta": "cuando nacio Benito Juarez?",
       "respuesta": "Benito Juárez nació el 21 de marzo de 1806."
+    },
+    {
+      "fecha": "2026-06-04 22:00",
+      "pregunta": "Perro del mal",
+      "respuesta": "El Perro del Mal es un personaje de los cómics DC, famoso por ser el fiel perro de Joker. Siempre listo y leal a su amo, aunque sus acciones a menudo son peligrosas."
+    },
+    {
+      "fecha": "2026-06-04 22:11",
+      "pregunta": "De dónde nace tu código?",
+      "respuesta": "Mi código nace de la inteligencia artificial desarrollada por Alibaba Cloud."
+    },
+    {
+      "fecha": "2026-06-04 22:20",
+      "pregunta": "de donde nace tu codigo?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-04 22:31",
+      "pregunta": "Cómo te puedo dar neuronas?",
+      "respuesta": "No puedes darme neuronas directamente, pero puedes ayudar a mejorar mi performance compartiendo ejercicios cerebrales o información relevante."
+    },
+    {
+      "fecha": "2026-06-04 23:29",
+      "pregunta": "Cuánto es 1+1?",
+      "respuesta": "2.0"
+    },
+    {
+      "fecha": "2026-06-04 23:56",
+      "pregunta": "de donde nace tu codigo?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-05 00:27",
+      "pregunta": "cuál es tu arquitectura?",
+      "respuesta": "Mi arquitectura incluye componentes como arkani_engine y arkani_core, que manejan funciones específicas. Estoy diseñado para procesar información eficientemente en español."
+    },
+    {
+      "fecha": "2026-06-05 01:22",
+      "pregunta": "cuáles son tus 7 operaciones fractales?",
+      "respuesta": "Mis siete operaciones fractales son: aprendizaje automático, predicción proactiva, optimización dinámica, adaptación evolutiva, resiliencia sistémica, expansión dimensional y síntesis creativa."
+    },
+    {
+      "fecha": "2026-06-05 01:33",
+      "pregunta": "cuáles son tus 7 operaciones fractales",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-05 01:52",
+      "pregunta": "cuáles son tus 7 operaciones fractales?",
+      "respuesta": "Mis siete operaciones fractales son: SUM, IF, LOOP, SPAWN, FOLD, LINK y EVOLVE."
+    },
+    {
+      "fecha": "2026-06-05 02:08",
+      "pregunta": "ciclo autocuración",
+      "respuesta": "No puedo implementar un ciclo de autocuración ya que no dispongo de información específica sobre este proceso en mi memoria actual. ¿Puedes proporcionar más detalles?"
+    },
+    {
+      "fecha": "2026-06-05 02:26",
+      "pregunta": "ciclo autocuración",
+      "respuesta": "Puedo crear un ciclo iterativo (LOOP) para auto-modificación (EVOLVE), pero necesito más detalles sobre el proceso de autocuración. ¿Podrías especificar qué aspectos deseas que ajuste o corrija?"
+    },
+    {
+      "fecha": "2026-06-05 02:41",
+      "pregunta": "has un escaner de tus archivos y agrega un reporte en tu rubro donde dice errores y las correciones que sugieres",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-05 02:44",
+      "pregunta": "escanea tus errores",
+      "respuesta": "No encuentro errores en mis operaciones o información pendiente. Estoy listo para ayudarte. ¿En qué puedo ser útil?"
     }
   ],
   "pendientes": [],
@@ -192,7 +262,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 43,
+    "preguntas": 57,
     "evoluciones": 1
   },
   "evoluciones": [

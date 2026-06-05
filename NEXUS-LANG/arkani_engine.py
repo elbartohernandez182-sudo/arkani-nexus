@@ -33,7 +33,7 @@ HIPOCAMPO   = os.path.join(BASE_DIR, "hipocampo.bin")
 MEMORIA_PATH      = os.path.join(BASE_DIR, "memoria_arkani.json")
 CONOCIMIENTO_PATH = os.path.join(BASE_DIR, "conocimiento_arkani.json")
 OLLAMA_URL  = "http://127.0.0.1:11434/api/generate"
-MODELO      = "qwen2.5:7b"
+MODELO      = "arkani:latest"
 
 for d in [BASE_DIR, AUTOGEN_DIR, SCRIPTS_DIR]:
     os.makedirs(d, exist_ok=True)
@@ -628,7 +628,7 @@ def llamar_ollama(prompt: str, temp: float = 0.7,
         }
         if stop:
             payload["options"]["stop"] = stop
-        r = requests.post(OLLAMA_URL, json=payload, timeout=400)
+        r = requests.post(OLLAMA_URL, json=payload, timeout=600)
         if r.status_code == 200:
             texto = r.json().get("response", "").strip()
             return re.sub(r'\x1b\[[0-9;]*[A-Za-z]', '', texto)
@@ -757,7 +757,7 @@ class ArkaniEngine:
             return self.motor.evolucionar(desc, codigo)
 
         # 0. Detección fractal
-        palabras_fractal = ['fractal', 'ejecuta fractal', 'vm fractal', 'evolve', 'loop fractal']
+        palabras_fractal = ['ejecuta fractal', 'vm fractal', 'iniciar vm', 'estado vm']
         if any(p in pregunta.lower() for p in palabras_fractal):
             try:
                 from nexus_fractal_vm import FractalVM
