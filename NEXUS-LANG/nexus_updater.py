@@ -19,7 +19,7 @@ from pathlib import Path
 from datetime import datetime
 
 VERSION_LOCAL   = "1.0.0"
-VERSION_URL     = "https://raw.githubusercontent.com/elbartohernandez182-sudo/arkani-nexus/master/version.json"
+VERSION_URL     = "https://raw.githubusercontent.com/elbartohernandez182-sudo/arkani-nexus/refs/heads/master/NEXUS-LANG/version.json"
 BASE_DIR        = Path(os.path.expanduser("~/NEXUS/NEXUS-LANG"))
 VERSION_FILE    = Path(os.path.expanduser("~/NEXUS/version.json"))
 BACKUP_DIR      = Path(os.path.expanduser("~/NEXUS/backups"))

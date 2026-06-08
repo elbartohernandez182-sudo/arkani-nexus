@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "Verificando actualizaciones..."
+python3 ~/NEXUS/NEXUS-LANG/nexus_updater.py &
 echo "Arrancando Ollama..."
 sudo systemctl start ollama
 sleep 3

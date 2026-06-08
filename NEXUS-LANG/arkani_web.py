@@ -20,6 +20,13 @@ except Exception as e:
     arkani = None
     print(f"warning: {e}")
 
+# UPDATER
+try:
+    from nexus_updater import registrar_rutas as updater_rutas
+    UPDATER_OK = True
+except Exception as e:
+    UPDATER_OK = False
+
 def cargar_rag():
     frags = []
     for f in ["arkani_engine.py", "arkani_tools.py"]:
@@ -312,6 +319,8 @@ def on_mensaje(data):
     os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
     cargar_rag()
+    if UPDATER_OK:
+        updater_rutas(app)
     socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)
 
 
@@ -500,4 +509,6 @@ if __name__ == '__main__':
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
     os.makedirs(os.path.expanduser("~/NEXUS/recibidos"), exist_ok=True)
     cargar_rag()
+    if UPDATER_OK:
+        updater_rutas(app)
     socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)
