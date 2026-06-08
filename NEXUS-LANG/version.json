@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "fecha": "2026-06-07",
+  "descripcion": "Explorador, M2M, nexus_evolve v2, brain+hipocampo",
+  "url_nxf": "https://raw.githubusercontent.com/elbartohernandez182-sudo/arkani-nexus/master/arkani_setup.nxf",
+  "cambios": [
+    "Pestaña Explorador de archivos",
+    "Pestaña Compartir M2M",
+    "nexus_evolve v2.0 auto-reparacion",
+    "Brain conectado a Hipocampo",
+    "Modelfile con contexto real"
+  ]
+}
