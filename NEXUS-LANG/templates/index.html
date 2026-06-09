@@ -9,13 +9,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #0a0a0f; color: #00ffff; font-family: 'Courier New', monospace;
                height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-
-        /* HEADER */
         .header { background: #0d1117; border-bottom: 1px solid #00ffff33;
                   padding: 8px 20px; display: flex; justify-content: space-between;
                   align-items: center; flex-shrink: 0; }
-        .header h1 { font-size: 1.1em; letter-spacing: 4px; color: #00ffff;
-                     text-shadow: 0 0 10px #00ffff; }
+        .header h1 { font-size: 1.1em; letter-spacing: 4px; color: #00ffff; text-shadow: 0 0 10px #00ffff; }
         .header-stats { display: flex; gap: 15px; font-size: 0.75em; color: #00ffff99; }
         .stat-item { display: flex; flex-direction: column; align-items: center; }
         .stat-val { color: #00ff88; font-size: 1.1em; font-weight: bold; }
@@ -23,8 +20,6 @@
                       box-shadow: 0 0 8px #00ff88; display: inline-block; margin-right: 6px;
                       animation: pulse 2s infinite; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-        /* TABS */
         .tabs { display: flex; background: #0d1117; border-bottom: 1px solid #00ffff22;
                 flex-shrink: 0; overflow-x: auto; }
         .tab { padding: 8px 16px; cursor: pointer; font-size: 0.8em; color: #00ffff66;
@@ -34,74 +29,61 @@
         .tab.active { color: #00ffff; border-bottom-color: #00ffff; }
         .tab.tab-m2m.active { border-bottom-color: #ff8800; color: #ff8800; }
         .tab.tab-explorer.active { border-bottom-color: #aa88ff; color: #aa88ff; }
-        .badge { background: #ff4444; color: white; border-radius: 10px;
-                 padding: 1px 5px; font-size: 0.78em; margin-left: 4px; }
+        .tab.tab-llamada.active { border-bottom-color: #00ff88; color: #00ff88; }
+        .tab.tab-avatar.active { border-bottom-color: #ff44aa; color: #ff44aa; }
+        .badge { background: #ff4444; color: white; border-radius: 10px; padding: 1px 5px; font-size: 0.78em; margin-left: 4px; }
         .badge-green { background: #00aa44; }
-
-        /* BODY LAYOUT */
         .body-layout { display: flex; flex: 1; overflow: hidden; }
-
-        /* SIDEBAR */
-        .sidebar { width: 170px; min-width: 170px; background: #06060a;
-                   border-right: 1px solid #00ffff22;
-                   display: flex; flex-direction: column; align-items: center;
-                   padding: 15px 8px; overflow-y: auto; flex-shrink: 0; }
+        .sidebar { width: 170px; min-width: 170px; background: #06060a; border-right: 1px solid #00ffff22;
+                   display: flex; flex-direction: column; align-items: center; padding: 15px 8px; overflow-y: auto; flex-shrink: 0; }
         .avatar-wrap { position: relative; margin-bottom: 10px; }
-        .avatar-wrap img { width: 150px; height: 150px; border-radius: 50%;
-                           border: 3px solid #00ffff88;
+        .avatar-wrap img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ffff88;
                            box-shadow: 0 0 25px #00ffff55; object-fit: cover; display: block; }
-        .avatar-btn { position: absolute; bottom: 6px; right: 6px;
-                      background: #0d1117; border: 1px solid #00ffff66;
-                      border-radius: 50%; width: 28px; height: 28px;
-                      display: flex; align-items: center; justify-content: center;
-                      cursor: pointer; font-size: 13px; }
-        .arkani-name { color: #00ffff; font-size: 0.88em; letter-spacing: 3px;
-                       margin-bottom: 3px; font-weight: bold; }
+        .avatar-btn { position: absolute; bottom: 6px; right: 6px; background: #0d1117; border: 1px solid #00ffff66;
+                      border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center;
+                      justify-content: center; cursor: pointer; font-size: 13px; }
+        .arkani-name { color: #00ffff; font-size: 0.88em; letter-spacing: 3px; margin-bottom: 3px; font-weight: bold; }
         .arkani-status { color: #00ff88; font-size: 0.7em; margin-bottom: 15px; }
-        .conv-title { color: #00ffff44; font-size: 0.68em; letter-spacing: 2px;
-                      margin-bottom: 8px; text-align: center; width: 100%;
-                      border-top: 1px solid #00ffff22; padding-top: 10px; }
-        .conv-item { width: 100%; padding: 5px 7px; border-radius: 5px; cursor: pointer;
-                     font-size: 0.72em; color: #00ffff88; border: 1px solid #00ffff11;
-                     background: #00ffff05; line-height: 1.3; margin-bottom: 3px; }
+        .conv-title { color: #00ffff44; font-size: 0.68em; letter-spacing: 2px; margin-bottom: 8px;
+                      text-align: center; width: 100%; border-top: 1px solid #00ffff22; padding-top: 10px; }
+        .conv-item { width: 100%; padding: 5px 7px; border-radius: 5px; cursor: pointer; font-size: 0.72em;
+                     color: #00ffff88; border: 1px solid #00ffff11; background: #00ffff05; line-height: 1.3; margin-bottom: 3px; }
         .conv-item:hover { background: #00ffff15; color: #00ffff; }
-
-        /* MAIN AREA */
         .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-        /* TAB PANELS */
         .tab-panel { display: none; flex: 1; flex-direction: column; overflow: hidden; }
         .tab-panel.active { display: flex; }
-
-        /* CHAT */
-        .chat-messages { flex: 1; overflow-y: auto; padding: 15px;
-                         display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
-        .msg { padding: 10px 14px; border-radius: 8px; max-width: 85%;
-               font-size: 0.87em; line-height: 1.5; word-break: break-word; }
-        .msg-user { background: #00ffff15; border: 1px solid #00ffff33;
-                    align-self: flex-end; color: #00ffff; }
-        .msg-arkani { background: #00ff8815; border: 1px solid #00ff8833;
-                      align-self: flex-start; color: #00ff88; }
-        .msg-system { background: #ff880015; border: 1px solid #ff880033;
-                      align-self: center; color: #ff8800; font-size: 0.78em; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+        .msg { padding: 10px 14px; border-radius: 8px; max-width: 85%; font-size: 0.87em; line-height: 1.5; word-break: break-word; }
+        .msg-user { background: #00ffff15; border: 1px solid #00ffff33; align-self: flex-end; color: #00ffff; }
+        .msg-arkani { background: #00ff8815; border: 1px solid #00ff8833; align-self: flex-start; color: #00ff88; }
+        .msg-system { background: #ff880015; border: 1px solid #ff880033; align-self: center; color: #ff8800; font-size: 0.78em; }
         .msg-time { font-size: 0.68em; opacity: 0.5; margin-top: 4px; }
-        .typing-ind { color: #00ffff66; font-size: 0.82em; padding: 4px 15px;
-                      animation: blink 1s infinite; flex-shrink: 0; }
+        .typing-ind { color: #00ffff66; font-size: 0.82em; padding: 4px 15px; animation: blink 1s infinite; flex-shrink: 0; }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-        .chat-input-area { background: #0d1117; border-top: 1px solid #00ffff22;
-                           padding: 10px; display: flex; gap: 8px;
-                           flex-shrink: 0; align-items: flex-end; }
-        .chat-input { flex: 1; background: #0a0a0f; border: 1px solid #00ffff33;
-                      color: #00ffff; padding: 10px; border-radius: 6px;
-                      font-family: 'Courier New', monospace; font-size: 0.88em;
-                      resize: none; height: 58px; }
+        .chat-input-area { background: #0d1117; border-top: 1px solid #00ffff22; padding: 10px;
+                           display: flex; gap: 8px; flex-shrink: 0; align-items: flex-end; }
+        .chat-input { flex: 1; background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
+                      padding: 10px; border-radius: 6px; font-family: 'Courier New', monospace;
+                      font-size: 0.88em; resize: none; height: 58px; }
         .chat-input:focus { outline: none; border-color: #00ffff88; }
         .chat-btns { display: flex; flex-direction: column; gap: 5px; }
-
+        /* VOZ */
+        .voz-bar { background: #0d1117; border-top: 1px solid #00ffff11; padding: 6px 10px;
+                   display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+        .btn-mic { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #00ffff44;
+                   background: #00ffff11; color: #00ffff; font-size: 1.2em; cursor: pointer;
+                   display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .btn-mic:hover { background: #00ffff22; border-color: #00ffff; }
+        .btn-mic.grabando { background: #ff444433; border-color: #ff4444; animation: pulseRed 0.8s infinite; }
+        @keyframes pulseRed { 0%,100%{box-shadow:0 0 5px #ff4444} 50%{box-shadow:0 0 20px #ff4444} }
+        .btn-mic-activo { background: #00ff8811; border-color: #00ff8844; color: #00ff88; }
+        .btn-mic-activo.activo { background: #00ff8833; border-color: #00ff88; animation: pulseGreen 2s infinite; }
+        @keyframes pulseGreen { 0%,100%{box-shadow:0 0 5px #00ff88} 50%{box-shadow:0 0 15px #00ff88} }
+        .voz-status { flex: 1; font-size: 0.75em; color: #00ffff66; }
         /* BOTONES */
         .btn { padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer;
-               font-family: 'Courier New', monospace; font-size: 0.8em;
-               font-weight: bold; letter-spacing: 1px; transition: all 0.2s; }
+               font-family: 'Courier New', monospace; font-size: 0.8em; font-weight: bold;
+               letter-spacing: 1px; transition: all 0.2s; }
         .btn-cyan { background: #00ffff22; color: #00ffff; border: 1px solid #00ffff44; }
         .btn-cyan:hover { background: #00ffff33; }
         .btn-green { background: #00ff8822; color: #00ff88; border: 1px solid #00ff8844; }
@@ -112,35 +94,28 @@
         .btn-red:hover { background: #ff444433; }
         .btn-purple { background: #aa88ff22; color: #aa88ff; border: 1px solid #aa88ff44; }
         .btn-purple:hover { background: #aa88ff33; }
+        .btn-pink { background: #ff44aa22; color: #ff44aa; border: 1px solid #ff44aa44; }
+        .btn-pink:hover { background: #ff44aa33; }
         .btn-sm { padding: 4px 10px; font-size: 0.75em; }
-
         /* EDITOR */
-        .editor-header { padding: 8px 12px; background: #0d1117;
-                         border-bottom: 1px solid #00ffff22;
+        .editor-header { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #00ffff22;
                          display: flex; align-items: center; gap: 8px; flex-wrap: wrap; flex-shrink: 0; }
         .editor-title { color: #00ffff99; font-size: 0.8em; letter-spacing: 2px; flex: 1; }
-        .file-selector { background: #0a0a0f; border: 1px solid #00ffff33;
-                         color: #00ffff; padding: 4px 8px; border-radius: 4px;
-                         font-family: 'Courier New', monospace; font-size: 0.8em; }
-        .code-editor { flex: 1; background: #050508; color: #e0e0e0; border: none;
-                       padding: 15px; font-family: 'Courier New', monospace;
-                       font-size: 0.85em; resize: none; line-height: 1.6; tab-size: 4; }
+        .file-selector { background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
+                         padding: 4px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.8em; }
+        .code-editor { flex: 1; background: #050508; color: #e0e0e0; border: none; padding: 15px;
+                       font-family: 'Courier New', monospace; font-size: 0.85em; resize: none; line-height: 1.6; tab-size: 4; }
         .code-editor:focus { outline: none; }
-        .editor-footer { padding: 8px 12px; background: #0d1117;
-                         border-top: 1px solid #00ffff22;
+        .editor-footer { padding: 8px 12px; background: #0d1117; border-top: 1px solid #00ffff22;
                          display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
         .editor-status { flex: 1; font-size: 0.75em; color: #00ffff66; }
         .nombre-input { background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
-                        padding: 5px 8px; border-radius: 4px; font-family: monospace;
-                        font-size: 0.8em; width: 160px; }
-
-        /* ERRORES */
-        .panel-header { padding: 10px 12px; background: #0d1117;
-                        border-bottom: 1px solid #00ffff22;
+                        padding: 5px 8px; border-radius: 4px; font-family: monospace; font-size: 0.8em; width: 160px; }
+        /* PANELS */
+        .panel-header { padding: 10px 12px; background: #0d1117; border-bottom: 1px solid #00ffff22;
                         display: flex; gap: 8px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
         .panel-header-title { flex: 1; font-size: 0.85em; letter-spacing: 2px; }
-        .errores-lista { flex: 1; overflow-y: auto; padding: 10px;
-                         display: flex; flex-direction: column; gap: 8px; }
+        .errores-lista { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
         .error-card { border-radius: 8px; padding: 12px; }
         .error-card.error { background: #ff444410; border: 1px solid #ff444433; }
         .error-card.warning { background: #ff880010; border: 1px solid #ff880033; }
@@ -148,138 +123,114 @@
         .error-card.error .error-titulo { color: #ff4444; }
         .error-card.warning .error-titulo { color: #ff8800; }
         .error-desc { font-size: 0.78em; color: #cccccc; margin-bottom: 8px; }
-        .error-codigo { background: #0a0a0f; border-radius: 4px; padding: 8px;
-                        font-size: 0.76em; color: #00ff88; margin-bottom: 8px; white-space: pre-wrap; }
+        .error-codigo { background: #0a0a0f; border-radius: 4px; padding: 8px; font-size: 0.76em; color: #00ff88; margin-bottom: 8px; white-space: pre-wrap; }
         .error-acciones { display: flex; gap: 6px; }
-
-        /* CAPACIDADES */
-        .intro-grid { flex: 1; overflow-y: auto; padding: 10px;
-                      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; }
-        .fn-card { background: #00ff8808; border: 1px solid #00ff8822;
-                   border-radius: 8px; padding: 10px; cursor: pointer; transition: all 0.2s; }
+        .intro-grid { flex: 1; overflow-y: auto; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; }
+        .fn-card { background: #00ff8808; border: 1px solid #00ff8822; border-radius: 8px; padding: 10px; cursor: pointer; transition: all 0.2s; }
         .fn-card:hover { background: #00ff8815; border-color: #00ff8844; }
         .fn-nombre { color: #00ff88; font-size: 0.82em; margin-bottom: 4px; }
         .fn-desc { color: #cccccc; font-size: 0.75em; line-height: 1.4; }
         .fn-status { font-size: 0.7em; margin-top: 6px; }
         .fn-ok { color: #00ff88; } .fn-err { color: #ff4444; }
-
-        /* HIPOCAMPO */
         .hipo-panel { flex: 1; overflow-y: auto; padding: 10px; }
-        .instr-row { display: flex; gap: 10px; padding: 6px 10px;
-                     border-bottom: 1px solid #00ffff11; font-size: 0.8em; }
+        .instr-row { display: flex; gap: 10px; padding: 6px 10px; border-bottom: 1px solid #00ffff11; font-size: 0.8em; }
         .instr-addr { color: #00ffff66; width: 40px; }
         .instr-op { color: #00ff88; width: 80px; }
         .instr-hex { color: #ffffff33; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-        /* ── M2M COMPARTIR ── */
-        .m2m-layout { flex: 1; display: flex; gap: 0; overflow: hidden; }
-        .m2m-left { width: 320px; min-width: 280px; border-right: 1px solid #ff880022;
-                    display: flex; flex-direction: column; overflow: hidden; }
+        /* M2M */
+        .m2m-layout { flex: 1; display: flex; overflow: hidden; }
+        .m2m-left { width: 320px; min-width: 280px; border-right: 1px solid #ff880022; display: flex; flex-direction: column; overflow: hidden; }
         .m2m-right { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
         .m2m-section { padding: 10px 12px; border-bottom: 1px solid #ff880022; flex-shrink: 0; }
         .m2m-title { color: #ff8800; font-size: 0.8em; letter-spacing: 2px; margin-bottom: 8px; }
-        .m2m-input { background: #0a0a0f; border: 1px solid #ff880044; color: #ff8800;
-                     padding: 7px 10px; border-radius: 5px; font-family: monospace;
-                     font-size: 0.82em; width: 100%; margin-bottom: 6px; }
+        .m2m-input { background: #0a0a0f; border: 1px solid #ff880044; color: #ff8800; padding: 7px 10px;
+                     border-radius: 5px; font-family: monospace; font-size: 0.82em; width: 100%; margin-bottom: 6px; }
         .m2m-input:focus { outline: none; border-color: #ff8800; }
         .m2m-nodos { flex: 1; overflow-y: auto; padding: 8px; }
-        .nodo-card { background: #ff880008; border: 1px solid #ff880033; border-radius: 8px;
-                     padding: 10px 12px; margin-bottom: 6px; }
+        .nodo-card { background: #ff880008; border: 1px solid #ff880033; border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; }
         .nodo-nombre { color: #ff8800; font-size: 0.85em; font-weight: bold; margin-bottom: 3px; }
-        .nodo-url { color: #ff880066; font-size: 0.72em; margin-bottom: 6px;
-                    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .nodo-url { color: #ff880066; font-size: 0.72em; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .nodo-acciones { display: flex; gap: 5px; flex-wrap: wrap; }
-        .nodo-dot { width: 7px; height: 7px; border-radius: 50%; background: #00ff88;
-                    display: inline-block; margin-right: 5px; box-shadow: 0 0 5px #00ff88; }
+        .nodo-dot { width: 7px; height: 7px; border-radius: 50%; background: #00ff88; display: inline-block; margin-right: 5px; box-shadow: 0 0 5px #00ff88; }
         .m2m-archivos { flex: 1; overflow-y: auto; padding: 8px; }
-        .nxf-card { background: #ff880005; border: 1px solid #ff880022; border-radius: 6px;
-                    padding: 8px 10px; margin-bottom: 5px; display: flex;
-                    align-items: center; gap: 8px; }
+        .nxf-card { background: #ff880005; border: 1px solid #ff880022; border-radius: 6px; padding: 8px 10px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .nxf-nombre { flex: 1; color: #ff8800; font-size: 0.8em; }
         .nxf-meta { color: #ff880066; font-size: 0.72em; white-space: nowrap; }
-        .m2m-drop { border: 2px dashed #ff880033; border-radius: 8px; padding: 20px;
-                    text-align: center; color: #ff880066; font-size: 0.82em;
-                    margin: 8px; cursor: pointer; transition: all 0.2s; }
-        .m2m-drop:hover, .m2m-drop.drag-over { border-color: #ff8800; color: #ff8800; background: #ff880008; }
+        .m2m-drop { border: 2px dashed #ff880033; border-radius: 8px; padding: 20px; text-align: center;
+                    color: #ff880066; font-size: 0.82em; margin: 8px; cursor: pointer; transition: all 0.2s; }
+        .m2m-drop:hover,.m2m-drop.drag-over { border-color: #ff8800; color: #ff8800; background: #ff880008; }
         .m2m-log { flex: 1; overflow-y: auto; padding: 8px 10px; font-size: 0.78em; }
         .m2m-log-line { padding: 3px 0; border-bottom: 1px solid #ff880011; color: #ff880099; }
         .m2m-log-line.ok { color: #00ff88; }
         .m2m-log-line.err { color: #ff4444; }
-
-        /* ── EXPLORADOR ── */
+        /* LLAMADA M2M */
+        .llamada-layout { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 15px; gap: 12px; }
+        .llamada-header { display: flex; gap: 10px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+        .llamada-estado { flex: 1; padding: 10px 14px; background: #00ff8808; border: 1px solid #00ff8833; border-radius: 8px; font-size: 0.82em; color: #00ff88; }
+        .llamada-videos { display: flex; gap: 12px; flex: 1; overflow: hidden; }
+        .video-box { flex: 1; background: #050508; border: 1px solid #00ff8833; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; min-height: 200px; }
+        .video-label { padding: 6px 10px; font-size: 0.75em; color: #00ff8888; background: #00ff8808; border-bottom: 1px solid #00ff8822; }
+        .video-box video { flex: 1; object-fit: cover; background: #0a0a0f; width: 100%; }
+        .video-placeholder { flex: 1; display: flex; align-items: center; justify-content: center; color: #00ff8833; font-size: 2em; }
+        .llamada-controles { display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0; padding: 10px; background: #0d1117; border-radius: 8px; border: 1px solid #00ff8822; }
+        .llamada-info { font-size: 0.75em; color: #00ffff66; padding: 6px 10px; background: #00ffff08; border-radius: 6px; border: 1px solid #00ffff11; }
+        /* AVATAR */
+        .avatar-layout { flex: 1; display: flex; overflow: hidden; }
+        .avatar-left { width: 300px; min-width: 260px; border-right: 1px solid #ff44aa22; display: flex; flex-direction: column; overflow-y: auto; padding: 12px; gap: 10px; }
+        .avatar-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 14px; overflow: hidden; }
+        .avatar-section { background: #ff44aa08; border: 1px solid #ff44aa22; border-radius: 8px; padding: 12px; }
+        .avatar-section-title { color: #ff44aa; font-size: 0.78em; letter-spacing: 2px; margin-bottom: 10px; }
+        .avatar-canvas { border-radius: 50%; border: 3px solid #ff44aa88; box-shadow: 0 0 30px #ff44aa44; }
+        .avatar-upload-zone { border: 2px dashed #ff44aa33; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; color: #ff44aa66; font-size: 0.82em; transition: all 0.2s; }
+        .avatar-upload-zone:hover { border-color: #ff44aa; color: #ff44aa; background: #ff44aa08; }
+        .filter-btn { padding: 6px 10px; background: #ff44aa11; border: 1px solid #ff44aa33; color: #ff44aa; border-radius: 5px; cursor: pointer; font-size: 0.75em; font-family: monospace; transition: all 0.2s; margin: 2px; }
+        .filter-btn:hover,.filter-btn.active { background: #ff44aa33; border-color: #ff44aa; }
+        .avatar-slider { width: 100%; accent-color: #ff44aa; margin: 4px 0; }
+        .avatar-label { font-size: 0.75em; color: #ff44aa88; display: flex; justify-content: space-between; margin-bottom: 2px; }
+        /* EXPLORADOR */
         .explorer-layout { flex: 1; display: flex; overflow: hidden; }
-        .explorer-left { width: 340px; min-width: 260px; border-right: 1px solid #aa88ff22;
-                         display: flex; flex-direction: column; overflow: hidden; }
+        .explorer-left { width: 340px; min-width: 260px; border-right: 1px solid #aa88ff22; display: flex; flex-direction: column; overflow: hidden; }
         .explorer-right { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .explorer-header { padding: 8px 12px; background: #0d1117;
-                           border-bottom: 1px solid #aa88ff22;
-                           display: flex; gap: 6px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
-        .explorer-path { background: #0a0a0f; border: 1px solid #aa88ff44; color: #aa88ff;
-                         padding: 5px 8px; border-radius: 4px; font-family: monospace;
-                         font-size: 0.78em; flex: 1; min-width: 0; }
+        .explorer-header { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #aa88ff22; display: flex; gap: 6px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+        .explorer-path { background: #0a0a0f; border: 1px solid #aa88ff44; color: #aa88ff; padding: 5px 8px; border-radius: 4px; font-family: monospace; font-size: 0.78em; flex: 1; min-width: 0; }
         .explorer-path:focus { outline: none; border-color: #aa88ff; }
         .explorer-list { flex: 1; overflow-y: auto; }
-        .explorer-item { display: flex; align-items: center; gap: 8px;
-                         padding: 6px 12px; cursor: pointer; font-size: 0.8em;
-                         border-bottom: 1px solid #aa88ff11; transition: background 0.15s; }
+        .explorer-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px; cursor: pointer; font-size: 0.8em; border-bottom: 1px solid #aa88ff11; transition: background 0.15s; }
         .explorer-item:hover { background: #aa88ff11; }
-        .explorer-item.selected { background: #aa88ff22; }
         .explorer-icon { width: 18px; text-align: center; flex-shrink: 0; }
         .explorer-nombre { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .explorer-item.tipo-dir .explorer-nombre { color: #aa88ff; }
         .explorer-item.tipo-archivo .explorer-nombre { color: #cccccc; }
         .explorer-meta { color: #aa88ff44; font-size: 0.72em; white-space: nowrap; }
         .explorer-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-        .explorer-content-header { padding: 8px 12px; background: #0d1117;
-                                   border-bottom: 1px solid #aa88ff22;
-                                   display: flex; gap: 6px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
-        .explorer-content-title { flex: 1; color: #aa88ff99; font-size: 0.78em; overflow: hidden;
-                                  text-overflow: ellipsis; white-space: nowrap; }
-        .explorer-viewer { flex: 1; background: #050508; color: #e0e0e0; padding: 12px;
-                           font-family: monospace; font-size: 0.82em; overflow-y: auto;
-                           line-height: 1.6; white-space: pre-wrap; word-break: break-all; }
-        .explorer-search { padding: 8px 12px; background: #0d1117;
-                           border-bottom: 1px solid #aa88ff22; display: flex; gap: 6px; flex-shrink: 0; }
-        .explorer-search-input { flex: 1; background: #0a0a0f; border: 1px solid #aa88ff33;
-                                 color: #aa88ff; padding: 5px 8px; border-radius: 4px;
-                                 font-family: monospace; font-size: 0.8em; }
+        .explorer-content-header { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #aa88ff22; display: flex; gap: 6px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+        .explorer-content-title { flex: 1; color: #aa88ff99; font-size: 0.78em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .explorer-viewer { flex: 1; background: #050508; color: #e0e0e0; padding: 12px; font-family: monospace; font-size: 0.82em; overflow-y: auto; line-height: 1.6; white-space: pre-wrap; word-break: break-all; }
+        .explorer-search { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #aa88ff22; display: flex; gap: 6px; flex-shrink: 0; }
+        .explorer-search-input { flex: 1; background: #0a0a0f; border: 1px solid #aa88ff33; color: #aa88ff; padding: 5px 8px; border-radius: 4px; font-family: monospace; font-size: 0.8em; }
         .explorer-search-input:focus { outline: none; border-color: #aa88ff; }
-        .search-result { padding: 6px 12px; cursor: pointer; font-size: 0.78em;
-                         border-bottom: 1px solid #aa88ff11; }
+        .search-result { padding: 6px 12px; cursor: pointer; font-size: 0.78em; border-bottom: 1px solid #aa88ff11; }
         .search-result:hover { background: #aa88ff11; }
         .search-result-nombre { color: #aa88ff; }
         .search-result-ruta { color: #aa88ff44; font-size: 0.88em; }
-
         /* STATUSBAR */
-        .statusbar { background: #0d1117; border-top: 1px solid #00ffff22;
-                     padding: 4px 15px; display: flex; gap: 20px;
-                     font-size: 0.72em; color: #00ffff66; flex-shrink: 0; flex-wrap: wrap; }
+        .statusbar { background: #0d1117; border-top: 1px solid #00ffff22; padding: 4px 15px; display: flex; gap: 20px; font-size: 0.72em; color: #00ffff66; flex-shrink: 0; flex-wrap: wrap; }
         .statusbar .val { color: #00ff88; }
-
         /* MODAL */
-        .modal-overlay { display: none; position: fixed; inset: 0;
-                         background: #000000cc; z-index: 1000;
-                         align-items: center; justify-content: center; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: #000000cc; z-index: 1000; align-items: center; justify-content: center; }
         .modal-overlay.show { display: flex; }
-        .modal { background: #0d1117; border: 1px solid #ff880066; border-radius: 12px;
-                 padding: 24px; max-width: 480px; width: 90%;
-                 box-shadow: 0 0 30px #ff880033; }
+        .modal { background: #0d1117; border: 1px solid #ff880066; border-radius: 12px; padding: 24px; max-width: 480px; width: 90%; box-shadow: 0 0 30px #ff880033; }
         .modal h3 { color: #ff8800; margin-bottom: 12px; letter-spacing: 2px; }
-        .modal pre { background: #050508; padding: 12px; border-radius: 6px;
-                     font-size: 0.8em; color: #00ff88; margin: 12px 0;
-                     overflow-x: auto; max-height: 180px; overflow-y: auto; }
+        .modal pre { background: #050508; padding: 12px; border-radius: 6px; font-size: 0.8em; color: #00ff88; margin: 12px 0; overflow-x: auto; max-height: 180px; overflow-y: auto; }
         .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
-
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #0a0a0f; }
         ::-webkit-scrollbar-thumb { background: #00ffff33; border-radius: 2px; }
-
         .empty-state { text-align: center; color: #00ffff22; padding: 40px; font-size: 0.85em; }
     </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <h1><span class="status-dot" id="statusDot"></span>ARKANI NEXUS v3.0</h1>
     <div class="header-stats">
@@ -291,741 +242,672 @@
     </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
     <div class="tab active" id="tabChat" onclick="switchTab('chat')">💬 CHAT</div>
     <div class="tab" id="tabEditor" onclick="switchTab('editor')">⌨️ EDITOR</div>
     <div class="tab" id="tabErrores" onclick="switchTab('errores')">⚠️ ERRORES <span class="badge" id="badgeErrores" style="display:none">0</span></div>
     <div class="tab" id="tabIntro" onclick="switchTab('intro')">🧬 CAPACIDADES</div>
     <div class="tab" id="tabHipo" onclick="switchTab('hipocampo')">💾 HIPOCAMPO</div>
-    <div class="tab tab-explorer" id="tabExplorer" onclick="switchTab('explorer')">📂 EXPLORADOR</div>
+    <div class="tab tab-explorer" id="tabExplorer" onclick="switchTab('explorer')">📁 EXPLORADOR</div>
     <div class="tab tab-m2m" id="tabM2m" onclick="switchTab('m2m')">📡 COMPARTIR M2M <span class="badge badge-green" id="badgeNodos" style="display:none">0</span></div>
+    <div class="tab tab-llamada" id="tabLlamada" onclick="switchTab('llamada')">📞 LLAMADA M2M</div>
+    <div class="tab tab-avatar" id="tabAvatar" onclick="switchTab('avatar')">🎨 AVATAR</div>
 </div>
 
-<!-- BODY -->
 <div class="body-layout">
-
-    <!-- SIDEBAR -->
     <div class="sidebar">
         <div class="avatar-wrap">
-            <img id="avatarImg" src="/static/avatar.webp" onerror="this.src='/static/avatar.gif'">
-            <label for="avatarInput" class="avatar-btn" title="Cambiar avatar">📷</label>
-            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="cambiarAvatar(this)">
+            <img id="avatarImg" src="/static/avatar.png" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230d1117%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 font-size=%2240%22>🤖</text></svg>'" alt="Arkani">
+            <div class="avatar-btn" onclick="switchTab('avatar')" title="Personalizar Avatar">🎨</div>
         </div>
         <div class="arkani-name">ARKANI</div>
         <div class="arkani-status">● EN LÍNEA</div>
         <div class="conv-title">CONVERSACIONES</div>
-        <div id="sidebarConvs" style="width:100%"></div>
+        <div id="sidebarConvs"></div>
     </div>
 
-    <!-- MAIN -->
     <div class="main-area">
 
-        <!-- TAB CHAT -->
-        <div class="tab-panel active" id="panel-chat">
-            <div class="chat-messages" id="chatMessages">
-                <div class="msg msg-system">🧬 Arkani Nexus v3.0 — Motor Unificado + Hipocampo Activo</div>
+        <!-- CHAT -->
+        <div class="tab-panel active" id="panelChat">
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="typing-ind" id="typingInd" style="display:none">⟦ARKANI⟧ procesando...</div>
+            <div class="voz-bar">
+                <button class="btn-mic" id="btnMicPasivo" onclick="vozPasivoToggle()" title="Click para grabar">🎙️</button>
+                <button class="btn-mic btn-mic-activo" id="btnMicActivo" onclick="vozActivoToggle()" title="Modo escucha activa — wake word: Arkani">👂</button>
+                <span class="voz-status" id="vozStatus">🔇 Voz lista — 🎙️ Pasivo | 👂 Modo activo (wake word: Arkani)</span>
+                <audio id="vozAudio" autoplay style="display:none"></audio>
             </div>
-            <div id="typingInd" class="typing-ind" style="display:none">Arkani pensando...</div>
             <div class="chat-input-area">
-                <textarea class="chat-input" id="chatInput"
-                    placeholder="Escribe aquí... | autoprograma: [tarea] | evoluciona: [desc]"
-                    onkeydown="handleKey(event)"></textarea>
+                <textarea class="chat-input" id="chatInput" placeholder="Escribe aquí... | autoprograma: [tarea] | evoluciona: [desc]" onkeydown="chatKeyDown(event)"></textarea>
                 <div class="chat-btns">
                     <button class="btn btn-cyan" onclick="enviarMensaje()">ENVIAR</button>
-                    <button class="btn btn-orange" onclick="escanearErrores()">ESCANEAR</button>
+                    <button class="btn btn-orange btn-sm" onclick="escanearErrores()">ESCANEAR</button>
                 </div>
             </div>
         </div>
 
-        <!-- TAB EDITOR -->
-        <div class="tab-panel" id="panel-editor">
+        <!-- EDITOR -->
+        <div class="tab-panel" id="panelEditor">
             <div class="editor-header">
-                <span class="editor-title">⌨️ EDITOR</span>
-                <select class="file-selector" id="fileSelector" onchange="cargarArchivo()">
-                    <option value="">-- Seleccionar --</option>
+                <span class="editor-title">⌨️ CONSTRUCTOR DE CÓDIGO</span>
+                <select class="file-selector" id="fileSelector" onchange="cargarArchivoEditor()">
+                    <option value="">— nuevo archivo —</option>
                 </select>
-                <button class="btn btn-cyan" onclick="nuevoArchivo()">+ NUEVO</button>
-                <button class="btn btn-orange" onclick="probarCodigo()">▶ PROBAR</button>
+                <button class="btn btn-cyan btn-sm" onclick="nuevoArchivo()">+ NUEVO</button>
             </div>
-            <textarea class="code-editor" id="codeEditor"
-                placeholder="# Escribe código Python aquí&#10;def mi_funcion():&#10;    pass"></textarea>
+            <textarea class="code-editor" id="codeEditor" placeholder="# Escribe o genera código aquí..." spellcheck="false"></textarea>
             <div class="editor-footer">
+                <input class="nombre-input" id="nombreArchivo" placeholder="nombre_funcion" />
+                <button class="btn btn-green btn-sm" onclick="guardarCodigo()">💾 GUARDAR</button>
+                <button class="btn btn-cyan btn-sm" onclick="probarCodigo()">▶ PROBAR</button>
+                <button class="btn btn-orange btn-sm" onclick="pedirCodigo()">🤖 GENERAR</button>
                 <span class="editor-status" id="editorStatus">Listo</span>
-                <input class="nombre-input" type="text" id="nombreArchivo" placeholder="nombre_funcion">
-                <button class="btn btn-green" onclick="guardarCodigo()">💾 GUARDAR</button>
-                <button class="btn btn-cyan" onclick="enviarAlChat()">💬 AL CHAT</button>
             </div>
         </div>
 
-        <!-- TAB ERRORES -->
-        <div class="tab-panel" id="panel-errores">
+        <!-- ERRORES -->
+        <div class="tab-panel" id="panelErrores">
             <div class="panel-header">
-                <span class="panel-header-title" style="color:#ff4444">⚠️ ERRORES</span>
-                <button class="btn btn-orange" onclick="escanearErrores()">🔍 ESCANEAR</button>
-                <button class="btn btn-cyan" onclick="limpiarErrores()">🗑️ LIMPIAR</button>
+                <span class="panel-header-title">⚠️ DETECTOR DE ERRORES</span>
+                <button class="btn btn-orange btn-sm" onclick="escanearErrores()">🔍 ESCANEAR</button>
+                <button class="btn btn-cyan btn-sm" onclick="switchTab('editor')">+ NUEVO</button>
             </div>
             <div class="errores-lista" id="erroresLista">
-                <div class="empty-state">Presiona ESCANEAR para analizar autogen/</div>
+                <div class="empty-state">Presiona ESCANEAR para detectar errores</div>
             </div>
         </div>
 
-        <!-- TAB CAPACIDADES -->
-        <div class="tab-panel" id="panel-intro">
+        <!-- CAPACIDADES -->
+        <div class="tab-panel" id="panelIntro">
             <div class="panel-header">
-                <span class="panel-header-title" style="color:#00ff88">🧬 CAPACIDADES</span>
-                <button class="btn btn-green" onclick="cargarCapacidades()">🔄 ACTUALIZAR</button>
+                <span class="panel-header-title">🧬 CAPACIDADES AUTOGEN</span>
+                <button class="btn btn-green btn-sm" onclick="cargarCapacidades()">↺ RECARGAR</button>
+                <button class="btn btn-cyan btn-sm" onclick="switchTab('editor')">+ NUEVA</button>
             </div>
-            <div class="intro-grid" id="introGrid">
-                <div style="color:#00ffff33;padding:20px;grid-column:1/-1">Cargando...</div>
+            <div class="intro-grid" id="capacidadesGrid">
+                <div class="empty-state">Cargando capacidades...</div>
             </div>
         </div>
 
-        <!-- TAB HIPOCAMPO -->
-        <div class="tab-panel" id="panel-hipocampo">
+        <!-- HIPOCAMPO -->
+        <div class="tab-panel" id="panelHipocampo">
             <div class="panel-header">
-                <span class="panel-header-title">💾 HIPOCAMPO BINARIO</span>
-                <span id="hipoResumen" style="color:#00ff8899;font-size:0.75em"></span>
-                <button class="btn btn-cyan" onclick="cargarHipocampo()">🔄 ACTUALIZAR</button>
+                <span class="panel-header-title">💾 MEMORIA HIPOCAMPO</span>
+                <span id="hipoInfo" style="font-size:0.78em;color:#00ffff66"></span>
+                <button class="btn btn-cyan btn-sm" onclick="cargarHipocampo()">↺</button>
             </div>
-            <div class="hipo-panel" id="hipocampoPanel">
-                <div class="empty-state">Cargando...</div>
-            </div>
+            <div class="hipo-panel" id="hipocampoPanel"></div>
         </div>
 
-        <!-- TAB EXPLORADOR -->
-        <div class="tab-panel" id="panel-explorer">
+        <!-- EXPLORADOR -->
+        <div class="tab-panel" id="panelExplorer">
             <div class="explorer-layout">
-                <!-- Panel izquierdo: árbol + búsqueda -->
                 <div class="explorer-left">
                     <div class="explorer-header">
-                        <span style="color:#aa88ff;font-size:0.8em;letter-spacing:2px;flex-shrink:0">📂</span>
-                        <input class="explorer-path" id="explorerPath"
-                               value="/home/arkani/NEXUS" placeholder="/ruta/directorio"
-                               onkeydown="if(event.key==='Enter') explorerNavegar(this.value)">
+                        <input class="explorer-path" id="explorerPath" placeholder="~/NEXUS" onkeydown="if(event.key==='Enter')explorerNavegar(this.value)">
                         <button class="btn btn-purple btn-sm" onclick="explorerNavegar(document.getElementById('explorerPath').value)">IR</button>
-                        <button class="btn btn-purple btn-sm" onclick="explorerSubir()">↑</button>
+                        <button class="btn btn-purple btn-sm" onclick="explorerSubir()">⬆</button>
                     </div>
                     <div class="explorer-search">
-                        <input class="explorer-search-input" id="explorerBuscar"
-                               placeholder="Buscar archivos... (ej: *.py)"
-                               onkeydown="if(event.key==='Enter') explorerBuscar()">
+                        <input class="explorer-search-input" id="explorerBuscar" placeholder="buscar *.py, *.nxf..." onkeydown="if(event.key==='Enter')explorerBuscar()">
                         <button class="btn btn-purple btn-sm" onclick="explorerBuscar()">🔍</button>
                     </div>
-                    <div class="explorer-list" id="explorerList">
-                        <div class="empty-state">Cargando...</div>
-                    </div>
+                    <div class="explorer-list" id="explorerList"></div>
                 </div>
-                <!-- Panel derecho: visor de archivo -->
                 <div class="explorer-right">
                     <div class="explorer-content-header">
                         <span class="explorer-content-title" id="explorerContentTitle">Selecciona un archivo</span>
-                        <button class="btn btn-purple btn-sm" onclick="explorerEnviarChat()" id="btnExplorerChat" style="display:none">💬 Al Chat</button>
-                        <button class="btn btn-cyan btn-sm" onclick="explorerEnviarEditor()" id="btnExplorerEditor" style="display:none">✏️ Editar</button>
-                        <button class="btn btn-orange btn-sm" onclick="explorerEmpaquetar()" id="btnExplorerPack" style="display:none">📦 .nxf</button>
+                        <button class="btn btn-cyan btn-sm" id="btnExplorerChat" style="display:none" onclick="explorerEnviarChat()">💬 Chat</button>
+                        <button class="btn btn-green btn-sm" id="btnExplorerEditor" style="display:none" onclick="explorerEnviarEditor()">⌨️ Editor</button>
+                        <button class="btn btn-orange btn-sm" id="btnExplorerPack" style="display:none" onclick="explorerEmpaquetar()">📦 .nxf</button>
                     </div>
-                    <div class="explorer-viewer" id="explorerViewer">
-                        <span style="color:#aa88ff33">Selecciona un archivo para ver su contenido</span>
-                    </div>
+                    <div class="explorer-viewer" id="explorerViewer">Selecciona un archivo para ver su contenido</div>
                 </div>
             </div>
         </div>
 
-        <!-- TAB M2M COMPARTIR -->
-        <div class="tab-panel" id="panel-m2m">
+        <!-- M2M COMPARTIR -->
+        <div class="tab-panel" id="panelM2m">
             <div class="m2m-layout">
-                <!-- Columna izquierda: nodos + archivos -->
                 <div class="m2m-left">
-                    <!-- Conectar -->
                     <div class="m2m-section">
                         <div class="m2m-title">📡 CONECTAR NODO</div>
-                        <input class="m2m-input" id="m2mUrlInput"
-                               placeholder="https://otra-arkani.ngrok-free.dev">
+                        <input class="m2m-input" id="m2mUrlInput" placeholder="https://nodo.ngrok-free.app">
                         <button class="btn btn-orange" style="width:100%" onclick="m2mConectar()">⚡ CONECTAR</button>
                     </div>
-                    <!-- Nodos conectados -->
-                    <div class="m2m-section" style="flex-shrink:0">
-                        <div class="m2m-title">🌐 NODOS CONECTADOS</div>
-                    </div>
-                    <div class="m2m-nodos" id="m2mNodos">
-                        <div class="empty-state" style="color:#ff880033">Sin nodos conectados</div>
-                    </div>
-                    <!-- Archivos recibidos -->
-                    <div class="m2m-section" style="flex-shrink:0;border-top:1px solid #ff880033">
-                        <div class="m2m-title" style="margin-bottom:4px">📥 RECIBIDOS</div>
-                        <button class="btn btn-orange btn-sm" onclick="m2mCargarRecibidos()">🔄</button>
-                    </div>
-                    <div class="m2m-archivos" id="m2mRecibidos">
-                        <div class="empty-state" style="color:#ff880033;font-size:0.75em">Sin archivos recibidos</div>
+                    <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+                        <div class="m2m-title">🌐 NODOS ACTIVOS</div>
+                        <div class="m2m-nodos" id="m2mNodos">
+                            <div class="empty-state" style="color:#ff880033">Sin nodos conectados</div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Columna derecha: enviar + log -->
                 <div class="m2m-right">
-                    <!-- Área de envío -->
                     <div class="m2m-section">
                         <div class="m2m-title">📤 ENVIAR ARCHIVO .NXF</div>
-                        <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap">
-                            <input class="m2m-input" id="m2mArchivoPath"
-                                   placeholder="Ruta del .nxf a enviar" style="margin:0;flex:1">
-                            <button class="btn btn-orange btn-sm" onclick="m2mExplorarNxf()">📂</button>
-                        </div>
-                        <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap">
-                            <select id="m2mDestinoSelect" style="flex:1;background:#0a0a0f;border:1px solid #ff880044;color:#ff8800;padding:5px 8px;border-radius:4px;font-family:monospace;font-size:0.8em">
-                                <option value="">-- Seleccionar destino --</option>
-                            </select>
-                            <button class="btn btn-orange" onclick="m2mEnviar()">📤 ENVIAR</button>
-                        </div>
-                        <!-- Drop zone -->
-                        <div class="m2m-drop" id="m2mDrop"
-                             ondragover="event.preventDefault();this.classList.add('drag-over')"
-                             ondragleave="this.classList.remove('drag-over')"
-                             ondrop="m2mDrop(event)">
-                            📦 Arrastra un .nxf aquí para enviarlo<br>
-                            <span style="font-size:0.85em;opacity:0.6">(se enviará al nodo seleccionado)</span>
+                        <input class="m2m-input" id="m2mArchivoPath" placeholder="Ruta del archivo .nxf">
+                        <select class="m2m-input" id="m2mDestinoSelect" style="margin-bottom:6px">
+                            <option value="">-- Seleccionar destino --</option>
+                        </select>
+                        <div style="display:flex;gap:6px">
+                            <button class="btn btn-orange btn-sm" onclick="m2mEnviar()">📤 ENVIAR</button>
+                            <button class="btn btn-cyan btn-sm" onclick="m2mExplorarNxf()">📁 EXPLORAR</button>
                         </div>
                     </div>
-                    <!-- Log de actividad -->
-                    <div class="m2m-section" style="flex-shrink:0">
-                        <div class="m2m-title" style="margin-bottom:0">📋 ACTIVIDAD M2M</div>
+                    <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+                        <div class="m2m-title">📥 ARCHIVOS RECIBIDOS</div>
+                        <div class="m2m-archivos" id="m2mRecibidos"></div>
+                        <div class="m2m-drop" id="m2mDrop" ondrop="m2mDrop(event)" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')">
+                            📦 Arrastra un .nxf aquí
+                        </div>
                     </div>
-                    <div class="m2m-log" id="m2mLog">
-                        <div class="m2m-log-line">Sistema M2M listo. Conecta un nodo para empezar.</div>
-                    </div>
+                    <div class="m2m-log" id="m2mLog"></div>
                 </div>
             </div>
         </div>
 
-    </div><!-- fin main-area -->
-</div><!-- fin body-layout -->
+        <!-- LLAMADA M2M -->
+        <div class="tab-panel" id="panelLlamada">
+            <div class="llamada-layout">
+                <div class="llamada-header">
+                    <div class="llamada-estado" id="llamadaEstado">📞 Sin llamada activa — Conecta un nodo M2M primero</div>
+                    <select class="file-selector" id="llamadaNodoSelect" style="border-color:#00ff8844;color:#00ff88;background:#0a0a0f">
+                        <option value="">— Seleccionar nodo —</option>
+                    </select>
+                    <button class="btn btn-green btn-sm" onclick="llamadaIniciar('audio')">🎙️ AUDIO</button>
+                    <button class="btn btn-green btn-sm" onclick="llamadaIniciar('video')">📹 VIDEO</button>
+                    <button class="btn btn-red btn-sm" id="btnColgar" style="display:none" onclick="llamadaColgar()">📵 COLGAR</button>
+                </div>
+                <div class="llamada-videos">
+                    <div class="video-box">
+                        <div class="video-label">📹 TÚ (LOCAL)</div>
+                        <video id="videoLocal" autoplay muted playsinline></video>
+                    </div>
+                    <div class="video-box">
+                        <div class="video-label">📹 NODO REMOTO</div>
+                        <video id="videoRemoto" autoplay playsinline></video>
+                        <div class="video-placeholder" id="videoRemotoPlaceholder">👤</div>
+                    </div>
+                </div>
+                <div class="llamada-controles">
+                    <button class="btn btn-cyan btn-sm" id="btnMuteAudio" onclick="llamadaMuteAudio()">🎙️ MUTE</button>
+                    <button class="btn btn-cyan btn-sm" id="btnMuteVideo" onclick="llamadaMuteVideo()">📹 CAMARA</button>
+                    <div class="llamada-info">🔐 Codificación fractal .nxf — Canal M2M seguro</div>
+                    <div class="llamada-info" id="llamadaStats">⏱️ 00:00 | 🔐 fractal activo</div>
+                </div>
+            </div>
+        </div>
 
-<!-- STATUSBAR -->
-<div class="statusbar">
-    <span>🧠 <span class="val" id="sbEstado">ONLINE</span></span>
-    <span>💾 HIPOCAMPO <span class="val" id="sbHipo">0</span></span>
-    <span>🧬 EVOL <span class="val" id="sbEvol">0/10</span></span>
-    <span>📂 AUTOGEN <span class="val" id="sbAutogen">0</span></span>
-    <span>📡 M2M <span class="val" id="sbM2m">0</span> nodos</span>
-    <span style="margin-left:auto;color:#00ffff33" id="sbHora"></span>
+        <!-- AVATAR PERSONALIZADOR -->
+        <div class="tab-panel" id="panelAvatar">
+            <div class="avatar-layout">
+                <div class="avatar-left">
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">📸 SUBIR FOTO</div>
+                        <div class="avatar-upload-zone" onclick="document.getElementById('avatarFileInput').click()">
+                            📷 Click para subir foto<br><span style="font-size:0.85em;color:#ff44aa44">JPG, PNG, WEBP</span>
+                        </div>
+                        <input type="file" id="avatarFileInput" style="display:none" accept="image/*" onchange="avatarCargarFoto(event)">
+                    </div>
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">🎨 ESTILO</div>
+                        <div>
+                            <button class="filter-btn active" id="filtroNormal" onclick="avatarFiltro('normal')">Original</button>
+                            <button class="filter-btn" id="filtroCartoon" onclick="avatarFiltro('cartoon')">Cartoon</button>
+                            <button class="filter-btn" id="filtroNeon" onclick="avatarFiltro('neon')">Neón</button>
+                            <button class="filter-btn" id="filtroCyber" onclick="avatarFiltro('cyber')">Cyber</button>
+                            <button class="filter-btn" id="filtroPixel" onclick="avatarFiltro('pixel')">Pixel</button>
+                            <button class="filter-btn" id="filtroSketch" onclick="avatarFiltro('sketch')">Sketch</button>
+                        </div>
+                    </div>
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">⚙️ AJUSTES</div>
+                        <div class="avatar-label"><span>Brillo</span><span id="valBrillo">100%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderBrillo" min="0" max="200" value="100" oninput="avatarAplicarFiltros()">
+                        <div class="avatar-label"><span>Contraste</span><span id="valContraste">100%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderContraste" min="0" max="200" value="100" oninput="avatarAplicarFiltros()">
+                        <div class="avatar-label"><span>Saturación</span><span id="valSaturacion">100%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderSaturacion" min="0" max="200" value="100" oninput="avatarAplicarFiltros()">
+                        <div class="avatar-label"><span>Tono neón</span><span id="valNeon">0%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderNeon" min="0" max="100" value="0" oninput="avatarAplicarFiltros()">
+                    </div>
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">💾 GUARDAR</div>
+                        <button class="btn btn-pink" style="width:100%;margin-bottom:6px" onclick="avatarGuardar()">✅ ESTABLECER COMO AVATAR</button>
+                        <button class="btn btn-cyan btn-sm" style="width:100%" onclick="avatarDescargar()">⬇️ DESCARGAR</button>
+                    </div>
+                </div>
+                <div class="avatar-right">
+                    <div style="color:#ff44aa88;font-size:0.8em;letter-spacing:2px;margin-bottom:10px">VISTA PREVIA</div>
+                    <canvas id="avatarCanvas" class="avatar-canvas" width="300" height="300"></canvas>
+                    <div style="color:#ff44aa44;font-size:0.75em;text-align:center;margin-top:8px" id="avatarStatusMsg">Sube una foto para comenzar</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<!-- MODAL AUTORIZACIÓN -->
-<div class="modal-overlay" id="modalAuth">
+<div class="statusbar">
+    <span><span class="val" id="sbEstado">ONLINE</span></span>
+    <span>HIPOCAMPO <span class="val" id="sbHipo">—</span></span>
+    <span>EVOL <span class="val" id="sbEvol">0/10</span></span>
+    <span>AUTOGEN <span class="val" id="sbAutogen">—</span></span>
+    <span>M2M <span class="val" id="sbM2m">0</span> nodos</span>
+    <span>VOZ <span class="val" id="sbVoz">OFF</span></span>
+    <span style="margin-left:auto"><span class="val" id="sbHora">--:--:--</span></span>
+</div>
+
+<div class="modal-overlay" id="modalFix">
     <div class="modal">
-        <h3>⚠️ AUTORIZACIÓN REQUERIDA</h3>
-        <p style="color:#cccccc;font-size:0.85em" id="modalDesc">Fix propuesto:</p>
-        <pre id="modalCodigo"></pre>
-        <p style="color:#ff880099;font-size:0.78em">Se ejecutará en sandbox aislado primero.</p>
+        <h3>⚡ APLICAR FIX</h3>
+        <div id="modalFixDesc" style="font-size:0.82em;color:#cccccc;margin-bottom:8px"></div>
+        <pre id="modalFixCodigo"></pre>
         <div class="modal-btns">
-            <button class="btn btn-red" onclick="rechazarFix()">❌ RECHAZAR</button>
-            <button class="btn btn-green" onclick="autorizarFix()">✅ AUTORIZAR</button>
+            <button class="btn btn-red btn-sm" onclick="cerrarModal()">CANCELAR</button>
+            <button class="btn btn-green btn-sm" onclick="aplicarFix()">✅ APLICAR</button>
         </div>
     </div>
 </div>
 
 <script>
 const socket = io();
-let pendingFix = null;
-let erroresCount = 0;
-let explorerRutaActual = '/home/arkani/NEXUS';
-let explorerArchivoActual = null;
+let fixPendiente = null;
+let explorerRutaActual = '';
+let explorerArchivoActual = '';
 let explorerContenidoActual = '';
-
-// ── SOCKET ──────────────────────────────────────────────────
-socket.on('connect', () => {
-    addMsg('system','🔗 Conectado');
-    cargarCapacidades(); cargarHipocampo(); cargarArchivosEditor();
-    explorerNavegar(explorerRutaActual);
-    m2mActualizar();
-});
-socket.on('disconnect', () => { document.getElementById('statusDot').style.background='#ff4444'; });
-socket.on('status', d => addMsg('system', d.msg));
-socket.on('typing', d => { document.getElementById('typingInd').style.display = d.status?'block':'none'; });
-socket.on('respuesta', d => { addMsg('arkani', d.texto, d.timestamp); actualizarStats(); cargarSidebarConvs(); });
-
-// ── TABS ────────────────────────────────────────────────────
-function switchTab(nombre) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    const map = { chat:'tabChat', editor:'tabEditor', errores:'tabErrores',
-                  intro:'tabIntro', hipocampo:'tabHipo', explorer:'tabExplorer', m2m:'tabM2m' };
-    const tabEl = document.getElementById(map[nombre]);
-    if (tabEl) tabEl.classList.add('active');
-    document.getElementById('panel-' + nombre).classList.add('active');
-    if (nombre==='intro') cargarCapacidades();
-    if (nombre==='hipocampo') cargarHipocampo();
-    if (nombre==='editor') cargarArchivosEditor();
-    if (nombre==='explorer') explorerNavegar(explorerRutaActual);
-    if (nombre==='m2m') { m2mActualizar(); m2mCargarRecibidos(); }
-}
-
-// ── CHAT ────────────────────────────────────────────────────
-function addMsg(tipo, texto, tiempo) {
-    const div = document.getElementById('chatMessages');
-    const msg = document.createElement('div');
-    msg.className = 'msg msg-' + tipo;
-    msg.innerHTML = texto.replace(/\n/g,'<br>');
-    if (tiempo) { const t=document.createElement('div'); t.className='msg-time'; t.textContent=tiempo; msg.appendChild(t); }
-    div.appendChild(msg);
-    div.scrollTop = div.scrollHeight;
-}
-function handleKey(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensaje();} }
-function enviarMensaje() {
-    const input = document.getElementById('chatInput');
-    const texto = input.value.trim();
-    if (!texto) return;
-    addMsg('user', texto);
-    socket.emit('mensaje', {texto});
-    input.value = '';
-}
-
-// ── AVATAR ───────────────────────────────────────────────────
-async function cambiarAvatar(input) {
-    const file = input.files[0]; if (!file) return;
-    const form = new FormData(); form.append('file', file);
-    try {
-        const r = await fetch('/upload_avatar', {method:'POST', body:form});
-        const d = await r.json();
-        if (d.ok) { document.getElementById('avatarImg').src = d.url+'?t='+Date.now(); addMsg('system','✅ Avatar actualizado'); }
-        else addMsg('system','❌ '+d.error);
-    } catch(e) { addMsg('system','❌ Error al subir'); }
-}
-
-// ── SIDEBAR ─────────────────────────────────────────────────
-async function cargarSidebarConvs() {
-    try {
-        const r = await fetch('/status'); const d = await r.json();
-        const convs = d.ultimas_conversaciones || [];
-        const sidebar = document.getElementById('sidebarConvs');
-        if (!sidebar) return;
-        sidebar.innerHTML = convs.length === 0
-            ? '<div style="color:#00ffff22;font-size:0.72em;text-align:center">Sin conversaciones</div>'
-            : convs.map(c => {
-                const p = (c.pregunta||'').substring(0,28);
-                return '<div class="conv-item" onclick="document.getElementById(\'chatInput\').value=\''
-                    + (c.pregunta||'').replace(/'/g,"\\'").substring(0,50)+'\'">'+p+(p.length>=28?'...':'')+'</div>';
-            }).join('');
-    } catch(e) {}
-}
-
-// ── EDITOR ───────────────────────────────────────────────────
-async function cargarArchivosEditor() {
-    try {
-        const r = await fetch('/archivos'); const d = await r.json();
-        const sel = document.getElementById('fileSelector');
-        sel.innerHTML = '<option value="">-- Seleccionar --</option>';
-        (d.archivos||[]).forEach(f => { const o=document.createElement('option'); o.value=f; o.textContent=f; sel.appendChild(o); });
-        document.getElementById('sbAutogen').textContent = (d.archivos||[]).length + ' mód';
-    } catch(e) {}
-}
-async function cargarArchivo() {
-    const n = document.getElementById('fileSelector').value; if (!n) return;
-    const r = await fetch('/archivo?nombre='+encodeURIComponent(n));
-    const d = await r.json();
-    document.getElementById('codeEditor').value = d.contenido||'';
-    document.getElementById('nombreArchivo').value = n.replace('.py','').replace('fn_','');
-    document.getElementById('editorStatus').textContent = 'Cargado: ' + n;
-}
-function nuevoArchivo() {
-    document.getElementById('codeEditor').value = '# Nuevo módulo\ndef mi_funcion():\n    """Descripción"""\n    pass\n';
-    document.getElementById('nombreArchivo').value = '';
-    document.getElementById('editorStatus').textContent = 'Nuevo archivo';
-}
-async function guardarCodigo() {
-    const codigo = document.getElementById('codeEditor').value;
-    const nombre = document.getElementById('nombreArchivo').value.trim();
-    if (!nombre||!codigo.trim()) { alert('Falta nombre o código'); return; }
-    document.getElementById('editorStatus').textContent = 'Guardando...';
-    const r = await fetch('/guardar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nombre,codigo})});
-    const d = await r.json();
-    document.getElementById('editorStatus').textContent = d.ok ? '✅ '+d.mensaje : '❌ '+d.error;
-    if (d.ok) { cargarArchivosEditor(); addMsg('system','💾 '+d.mensaje); }
-}
-async function probarCodigo() {
-    const codigo = document.getElementById('codeEditor').value; if (!codigo.trim()) return;
-    document.getElementById('editorStatus').textContent = 'Probando...';
-    const r = await fetch('/probar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codigo})});
-    const d = await r.json();
-    document.getElementById('editorStatus').textContent = d.ok ? '✅ Sandbox OK' : '❌ '+d.error;
-    addMsg('system', d.ok ? '✅ Sandbox OK' : '❌ '+d.error);
-}
-function enviarAlChat() {
-    const codigo = document.getElementById('codeEditor').value;
-    if (!codigo.trim()) return;
-    document.getElementById('chatInput').value = 'Revisa este código:\n```python\n'+codigo+'\n```';
-    switchTab('chat');
-}
-
-// ── ERRORES ──────────────────────────────────────────────────
-async function escanearErrores() {
-    addMsg('system','🔍 Escaneando...');
-    const r = await fetch('/escanear_errores'); const d = await r.json();
-    const lista = document.getElementById('erroresLista');
-    lista.innerHTML = ''; erroresCount = 0;
-    if (!d.errores||d.errores.length===0) {
-        lista.innerHTML = '<div class="empty-state" style="color:#00ff8866">✅ Sin errores</div>';
-    } else { d.errores.forEach(e => agregarError(e)); }
-    actualizarBadge();
-    if (d.errores&&d.errores.length>0) switchTab('errores');
-}
-function agregarError(e) {
-    const lista = document.getElementById('erroresLista');
-    const card = document.createElement('div');
-    card.className = 'error-card ' + (e.tipo||'error');
-    card.innerHTML = '<div class="error-titulo">'+(e.tipo==='warning'?'⚠️':'❌')+' '+e.archivo+' — '+e.titulo+'</div>'+
-        '<div class="error-desc">'+e.descripcion+'</div>'+
-        (e.codigo_fix?'<div class="error-codigo">'+e.codigo_fix+'</div>':'')+
-        '<div class="error-acciones">'+
-        (e.codigo_fix?'<button class="btn btn-green" onclick=\'solicitarFix('+JSON.stringify(e)+')\'>🔧 FIX</button>':'')+
-        '<button class="btn btn-cyan" onclick=\'verEnEditor("'+e.archivo+'")\'>📝 VER</button>'+
-        '<button class="btn btn-red" onclick=\'this.closest(".error-card").remove();erroresCount--;actualizarBadge()\'>✕</button>'+
-        '</div>';
-    lista.appendChild(card);
-    erroresCount++; actualizarBadge();
-}
-function limpiarErrores() {
-    document.getElementById('erroresLista').innerHTML='<div class="empty-state">Sin errores.</div>';
-    erroresCount=0; actualizarBadge();
-}
-function actualizarBadge() {
-    const b=document.getElementById('badgeErrores');
-    b.textContent=erroresCount; b.style.display=erroresCount>0?'inline':'none';
-}
-function solicitarFix(e) {
-    pendingFix=e;
-    document.getElementById('modalDesc').textContent='Fix para: '+e.archivo+' — '+e.titulo;
-    document.getElementById('modalCodigo').textContent=e.codigo_fix;
-    document.getElementById('modalAuth').classList.add('show');
-}
-async function autorizarFix() {
-    if (!pendingFix) return;
-    document.getElementById('modalAuth').classList.remove('show');
-    addMsg('system','🔧 Aplicando fix...');
-    const r=await fetch('/aplicar_fix',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pendingFix)});
-    const d=await r.json();
-    addMsg('system', d.ok?'✅ '+d.mensaje:'❌ '+d.error);
-    if (d.ok) { escanearErrores(); cargarArchivosEditor(); }
-    pendingFix=null;
-}
-function rechazarFix() { document.getElementById('modalAuth').classList.remove('show'); addMsg('system','❌ Fix rechazado'); pendingFix=null; }
-async function verEnEditor(archivo) { document.getElementById('fileSelector').value=archivo; await cargarArchivo(); switchTab('editor'); }
-
-// ── CAPACIDADES ──────────────────────────────────────────────
-async function cargarCapacidades() {
-    const r = await fetch('/introspeccion'); const d = await r.json();
-    const grid = document.getElementById('introGrid'); grid.innerHTML = '';
-    (d.funciones||[]).forEach(fn => {
-        const card=document.createElement('div'); card.className='fn-card';
-        card.innerHTML='<div class="fn-nombre">⚡ '+fn.nombre+'</div>'+
-            '<div class="fn-desc">'+fn.descripcion+'</div>'+
-            '<div class="fn-status '+(fn.valido?'fn-ok':'fn-err')+'">'+(fn.valido?'✅':'❌')+' '+fn.lineas+' líneas · '+fn.fecha+'</div>';
-        card.onclick=()=>verEnEditor(fn.nombre);
-        grid.appendChild(card);
-    });
-    if (!d.funciones||d.funciones.length===0)
-        grid.innerHTML='<div class="empty-state">Sin módulos aún.</div>';
-}
-
-// ── HIPOCAMPO ────────────────────────────────────────────────
-async function cargarHipocampo() {
-    const r = await fetch('/hipocampo'); const d = await r.json();
-    document.getElementById('hipoResumen').textContent=d.resumen||'';
-    document.getElementById('sbHipo').textContent=d.total||0;
-    document.getElementById('statHipo').textContent=d.total||0;
-    const panel=document.getElementById('hipocampoPanel'); panel.innerHTML='';
-    (d.instrucciones||[]).forEach((inst,i)=>{
-        const row=document.createElement('div'); row.className='instr-row';
-        const m=inst.match(/[\u27e6⟦](\w+)[\u27e7⟧].*SCALE:(\d+)/);
-        row.innerHTML='<span class="instr-addr">Dir '+i+'</span>'+
-            '<span class="instr-op">⟦'+(m?m[1]:'?')+'⟧</span>'+
-            '<span class="instr-hex">'+inst.replace(/[\u27e6⟦]\w+[\u27e7⟧]\s*/,'')+'</span>';
-        panel.appendChild(row);
-    });
-}
-
-// ── STATS ────────────────────────────────────────────────────
-async function actualizarStats() {
-    try {
-        const r=await fetch('/status'); const d=await r.json();
-        document.getElementById('statConv').textContent=d.conversaciones||0;
-        document.getElementById('statEvol').textContent=d.evoluciones||0;
-        document.getElementById('statRam').textContent=Math.round(d.ram||0)+'%';
-        document.getElementById('statCpu').textContent=Math.round(d.cpu||0)+'%';
-        document.getElementById('sbEvol').textContent=(d.evol_sesion||0)+'/'+(d.evol_max_sesion||10);
-        document.getElementById('statusDot').style.background=d.arkani_ok?'#00ff88':'#ff4444';
-        document.getElementById('sbEstado').textContent=d.arkani_ok?'ONLINE':'ERROR';
-    } catch(e) {}
-}
-
-// ── EXPLORADOR ───────────────────────────────────────────────
-async function explorerNavegar(ruta) {
-    if (!ruta) return;
-    try {
-        const r = await fetch('/explorador/listar?ruta='+encodeURIComponent(ruta));
-        const d = await r.json();
-        if (d.error) { explorerLog('❌ '+d.error); return; }
-        explorerRutaActual = d.ruta;
-        document.getElementById('explorerPath').value = d.ruta;
-        const lista = document.getElementById('explorerList');
-        lista.innerHTML = '';
-        // Botón subir
-        if (d.padre) {
-            const up = document.createElement('div');
-            up.className = 'explorer-item tipo-dir';
-            up.innerHTML = '<span class="explorer-icon">⬆️</span><span class="explorer-nombre">.. (subir)</span>';
-            up.onclick = () => explorerNavegar(d.padre);
-            lista.appendChild(up);
-        }
-        d.entradas.forEach(e => {
-            const item = document.createElement('div');
-            item.className = 'explorer-item tipo-' + e.tipo;
-            const icon = e.tipo === 'dir' ? '📁' : explorerIcono(e.nombre);
-            const meta = e.tipo === 'archivo' ? formatBytes(e.tamaño) : '';
-            item.innerHTML = '<span class="explorer-icon">'+icon+'</span>'+
-                '<span class="explorer-nombre">'+e.nombre+'</span>'+
-                '<span class="explorer-meta">'+meta+'</span>';
-            if (e.tipo === 'dir') item.onclick = () => explorerNavegar(e.ruta);
-            else item.onclick = () => explorerAbrirArchivo(e.ruta, e.nombre);
-            lista.appendChild(item);
-        });
-    } catch(e) { explorerLog('❌ Error: '+e.message); }
-}
-function explorerIcono(nombre) {
-    if (nombre.endsWith('.py')) return '🐍';
-    if (nombre.endsWith('.nxf')) return '📦';
-    if (nombre.endsWith('.sh')) return '⚙️';
-    if (nombre.endsWith('.json')) return '📋';
-    if (nombre.endsWith('.html')) return '🌐';
-    if (nombre.endsWith('.bin')) return '💾';
-    if (nombre.endsWith('.log')) return '📜';
-    return '📄';
-}
-function explorerSubir() {
-    const padre = explorerRutaActual.split('/').slice(0,-1).join('/') || '/';
-    explorerNavegar(padre);
-}
-async function explorerAbrirArchivo(ruta, nombre) {
-    document.querySelectorAll('.explorer-item').forEach(i => i.classList.remove('selected'));
-    explorerArchivoActual = ruta;
-    document.getElementById('explorerContentTitle').textContent = nombre + ' — ' + ruta;
-    document.getElementById('btnExplorerChat').style.display = 'inline-block';
-    document.getElementById('btnExplorerEditor').style.display = nombre.endsWith('.py') ? 'inline-block' : 'none';
-    document.getElementById('btnExplorerPack').style.display = 'none';
-    try {
-        const r = await fetch('/explorador/leer?ruta='+encodeURIComponent(ruta));
-        const d = await r.json();
-        if (d.error) {
-            document.getElementById('explorerViewer').textContent = '❌ ' + d.error;
-            return;
-        }
-        explorerContenidoActual = d.contenido;
-        document.getElementById('explorerViewer').textContent = d.contenido + (d.truncado ? '\n\n[... archivo truncado ...]' : '');
-    } catch(e) {
-        document.getElementById('explorerViewer').textContent = '❌ Error leyendo archivo';
-    }
-}
-async function explorerBuscar() {
-    const patron = document.getElementById('explorerBuscar').value.trim();
-    if (!patron) return;
-    const lista = document.getElementById('explorerList');
-    lista.innerHTML = '<div class="empty-state">Buscando...</div>';
-    try {
-        const r = await fetch('/explorador/buscar?patron='+encodeURIComponent(patron)+'&directorio='+encodeURIComponent(explorerRutaActual));
-        const d = await r.json();
-        if (d.error) { lista.innerHTML = '<div class="empty-state">❌ '+d.error+'</div>'; return; }
-        lista.innerHTML = '';
-        if (d.resultados.length === 0) {
-            lista.innerHTML = '<div class="empty-state">Sin resultados para: '+patron+'</div>'; return;
-        }
-        // Botón volver
-        const volver = document.createElement('div');
-        volver.className = 'explorer-item tipo-dir';
-        volver.innerHTML = '<span class="explorer-icon">🔙</span><span class="explorer-nombre">← Volver al directorio</span>';
-        volver.onclick = () => explorerNavegar(explorerRutaActual);
-        lista.appendChild(volver);
-        d.resultados.forEach(e => {
-            const item = document.createElement('div');
-            item.className = 'search-result';
-            item.innerHTML = '<div class="search-result-nombre">'+explorerIcono(e.nombre)+' '+e.nombre+'</div>'+
-                '<div class="search-result-ruta">'+e.ruta+' · '+formatBytes(e.tamaño)+'</div>';
-            item.onclick = () => explorerAbrirArchivo(e.ruta, e.nombre);
-            lista.appendChild(item);
-        });
-    } catch(e) { lista.innerHTML = '<div class="empty-state">❌ Error buscando</div>'; }
-}
-function explorerEnviarChat() {
-    if (!explorerContenidoActual) return;
-    const nombre = (explorerArchivoActual||'').split('/').pop();
-    const ext = nombre.split('.').pop();
-    document.getElementById('chatInput').value = 'Revisa este archivo ('+nombre+'):\n```'+ext+'\n'+explorerContenidoActual.substring(0,3000)+'\n```';
-    switchTab('chat');
-}
-function explorerEnviarEditor() {
-    if (!explorerContenidoActual || !explorerArchivoActual) return;
-    document.getElementById('codeEditor').value = explorerContenidoActual;
-    const nombre = explorerArchivoActual.split('/').pop().replace('.py','').replace('fn_','');
-    document.getElementById('nombreArchivo').value = nombre;
-    document.getElementById('editorStatus').textContent = 'Cargado desde Explorador: '+explorerArchivoActual;
-    switchTab('editor');
-}
-function explorerEmpaquetar() {
-    document.getElementById('m2mArchivoPath').value = explorerArchivoActual || '';
-    switchTab('m2m');
-}
-function formatBytes(b) {
-    if (!b) return '';
-    if (b < 1024) return b+'B';
-    if (b < 1024*1024) return (b/1024).toFixed(1)+'K';
-    return (b/1024/1024).toFixed(1)+'M';
-}
-
-// ── M2M COMPARTIR ─────────────────────────────────────────────
+let vozModoActivo = false;
+let vozGrabando = false;
+let mediaRecorder = null;
+let audioChunks = [];
+let llamadaStream = null;
+let llamadaTimer = null;
+let llamadaSegundos = 0;
+let avatarFiltroActual = 'normal';
+let avatarImagenOriginal = null;
 let m2mNodos = {};
 
-async function m2mActualizar() {
+socket.on('connect', () => addMsg('system','🔗 Arkani Nexus v4.0 Conectado'));
+socket.on('status', d => addMsg('system', d.msg));
+socket.on('typing', d => document.getElementById('typingInd').style.display = d.status?'block':'none');
+socket.on('respuesta', d => { addMsg('arkani', d.texto, d.timestamp); vozReproducir(d.texto); });
+socket.on('voz_respuesta', d => {
+    addMsg('user','🎙️ '+d.texto_usuario);
+    addMsg('arkani', d.respuesta, d.timestamp);
+    if (d.audio_url) vozReproducirUrl(d.audio_url);
+});
+
+function addMsg(tipo, texto, hora) {
+    const box = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'msg msg-'+tipo;
+    const h = hora || new Date().toLocaleTimeString('es-MX');
+    div.innerHTML = texto.replace(/\n/g,'<br>')+'<div class="msg-time">'+h+'</div>';
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+}
+function enviarMensaje() {
+    const inp = document.getElementById('chatInput');
+    const txt = inp.value.trim();
+    if (!txt) return;
+    addMsg('user', txt);
+    socket.emit('mensaje',{texto:txt});
+    inp.value = '';
+}
+function chatKeyDown(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensaje();} }
+
+// VOZ PASIVO
+async function vozPasivoToggle() {
+    if (vozGrabando) { vozPararGrabacion(); return; }
     try {
-        const r = await fetch('/m2m/estado'); const d = await r.json();
-        m2mNodos = d.nodos || {};
-        const total = Object.keys(m2mNodos).length;
-        document.getElementById('sbM2m').textContent = total;
-        const badge = document.getElementById('badgeNodos');
-        badge.textContent = total; badge.style.display = total > 0 ? 'inline' : 'none';
-        renderNodos();
-        actualizarDestinosSelect();
-    } catch(e) {}
+        const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = async () => {
+            stream.getTracks().forEach(t=>t.stop());
+            const blob = new Blob(audioChunks,{type:'audio/webm'});
+            await vozEnviarAudio(blob);
+        };
+        mediaRecorder.start();
+        vozGrabando = true;
+        document.getElementById('btnMicPasivo').classList.add('grabando');
+        document.getElementById('btnMicPasivo').textContent = '⏹️';
+        document.getElementById('vozStatus').textContent = '🔴 Grabando... (click para detener)';
+        document.getElementById('sbVoz').textContent = 'REC';
+    } catch(e) { document.getElementById('vozStatus').textContent = '❌ Sin micrófono: '+e.message; }
+}
+function vozPararGrabacion() {
+    if (mediaRecorder && vozGrabando) {
+        mediaRecorder.stop(); vozGrabando = false;
+        document.getElementById('btnMicPasivo').classList.remove('grabando');
+        document.getElementById('btnMicPasivo').textContent = '🎙️';
+        document.getElementById('vozStatus').textContent = '⏳ Procesando voz...';
+    }
+}
+async function vozEnviarAudio(blob) {
+    try {
+        const fd = new FormData(); fd.append('audio', blob, 'voz.webm');
+        const r = await fetch('/voz/transcribir',{method:'POST',body:fd});
+        const d = await r.json();
+        if (d.ok && d.texto) {
+            document.getElementById('vozStatus').textContent = '✅ '+d.texto;
+            document.getElementById('chatInput').value = d.texto;
+            enviarMensaje();
+        } else { document.getElementById('vozStatus').textContent = '❌ No se entendió'; }
+    } catch(e) { document.getElementById('vozStatus').textContent = '❌ '+e.message; }
 }
 
-function renderNodos() {
-    const cont = document.getElementById('m2mNodos');
-    if (Object.keys(m2mNodos).length === 0) {
-        cont.innerHTML = '<div class="empty-state" style="color:#ff880033">Sin nodos conectados</div>'; return;
+// VOZ ACTIVO
+async function vozActivoToggle() {
+    const btn = document.getElementById('btnMicActivo');
+    if (vozModoActivo) {
+        await fetch('/voz/modo_activo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accion:'desactivar'})});
+        vozModoActivo = false; btn.classList.remove('activo'); btn.textContent = '👂';
+        document.getElementById('vozStatus').textContent = '🔇 Modo activo OFF';
+        document.getElementById('sbVoz').textContent = 'OFF';
+    } else {
+        await fetch('/voz/modo_activo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accion:'activar'})});
+        vozModoActivo = true; btn.classList.add('activo'); btn.textContent = '🟢';
+        document.getElementById('vozStatus').textContent = '👂 Escuchando... di "Arkani" para activar';
+        document.getElementById('sbVoz').textContent = 'ACTIVO';
     }
-    cont.innerHTML = '';
-    Object.entries(m2mNodos).forEach(([nid, info]) => {
-        const card = document.createElement('div'); card.className = 'nodo-card';
-        card.innerHTML = '<div class="nodo-nombre"><span class="nodo-dot"></span>'+info.nombre+'</div>'+
-            '<div class="nodo-url">'+info.url+'</div>'+
-            '<div style="font-size:0.72em;color:#ff880066;margin-bottom:6px">ID: '+nid+'</div>'+
-            '<div class="nodo-acciones">'+
-            '<button class="btn btn-orange btn-sm" onclick="m2mPing(\''+nid+'\')">📡 PING</button>'+
-            '<button class="btn btn-red btn-sm" onclick="m2mDesconectar(\''+nid+'\')">✕</button>'+
-            '</div>';
+}
+
+// TTS
+async function vozReproducir(texto) {
+    try {
+        const r = await fetch('/voz/generar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({texto})});
+        const d = await r.json();
+        if (d.ok) vozReproducirUrl(d.url);
+    } catch(e){}
+}
+function vozReproducirUrl(url) {
+    const audio = document.getElementById('vozAudio');
+    audio.src = url+'?t='+Date.now();
+    audio.style.display='block';
+    audio.play().catch(()=>{});
+}
+
+// LLAMADA M2M
+async function llamadaIniciar(modo) {
+    const nid = document.getElementById('llamadaNodoSelect').value;
+    if (!nid) { addMsg('system','❌ Selecciona un nodo primero'); return; }
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(modo==='video'?{audio:true,video:true}:{audio:true,video:false});
+        llamadaStream = stream;
+        document.getElementById('videoLocal').srcObject = stream;
+        document.getElementById('btnColgar').style.display = 'inline-block';
+        document.getElementById('llamadaEstado').textContent = '📞 Llamada activa — '+nid+' | '+modo.toUpperCase()+' | 🔐 Fractal activo';
+        llamadaSegundos = 0;
+        llamadaTimer = setInterval(()=>{
+            llamadaSegundos++;
+            const m=String(Math.floor(llamadaSegundos/60)).padStart(2,'0');
+            const s=String(llamadaSegundos%60).padStart(2,'0');
+            document.getElementById('llamadaStats').textContent='⏱️ '+m+':'+s+' | 🔐 M2M fractal';
+        },1000);
+        addMsg('system','📞 Llamada M2M '+modo.toUpperCase()+' iniciada');
+    } catch(e) { addMsg('system','❌ Error: '+e.message); }
+}
+function llamadaColgar() {
+    if (llamadaStream) { llamadaStream.getTracks().forEach(t=>t.stop()); llamadaStream=null; }
+    if (llamadaTimer) { clearInterval(llamadaTimer); llamadaTimer=null; }
+    document.getElementById('videoLocal').srcObject = null;
+    document.getElementById('btnColgar').style.display = 'none';
+    document.getElementById('llamadaEstado').textContent = '📞 Llamada terminada';
+    addMsg('system','📵 Llamada terminada');
+}
+function llamadaMuteAudio() {
+    if (!llamadaStream) return;
+    llamadaStream.getAudioTracks().forEach(t=>t.enabled=!t.enabled);
+    const on = llamadaStream.getAudioTracks()[0]?.enabled;
+    document.getElementById('btnMuteAudio').textContent = on?'🎙️ MUTE':'🔇 SILENCIO';
+}
+function llamadaMuteVideo() {
+    if (!llamadaStream) return;
+    llamadaStream.getVideoTracks().forEach(t=>t.enabled=!t.enabled);
+    const on = llamadaStream.getVideoTracks()[0]?.enabled;
+    document.getElementById('btnMuteVideo').textContent = on?'📹 CAMARA':'🚫 CAMARA';
+}
+function actualizarNodosLlamada() {
+    const sel = document.getElementById('llamadaNodoSelect');
+    sel.innerHTML = '<option value="">— Seleccionar nodo —</option>';
+    Object.entries(m2mNodos).forEach(([nid,info])=>{
+        const o=document.createElement('option'); o.value=nid; o.textContent=info.nombre; sel.appendChild(o);
+    });
+}
+
+// AVATAR
+function avatarCargarFoto(event) {
+    const file = event.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+        const img = new Image();
+        img.onload = () => { avatarImagenOriginal=img; avatarAplicarFiltros(); document.getElementById('avatarStatusMsg').textContent='✅ Foto cargada'; };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+function avatarFiltro(f) {
+    avatarFiltroActual = f;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('filtro'+f.charAt(0).toUpperCase()+f.slice(1)).classList.add('active');
+    avatarAplicarFiltros();
+}
+function avatarAplicarFiltros() {
+    if (!avatarImagenOriginal) return;
+    const canvas = document.getElementById('avatarCanvas');
+    const ctx = canvas.getContext('2d');
+    const b=document.getElementById('sliderBrillo').value;
+    const c=document.getElementById('sliderContraste').value;
+    const s=document.getElementById('sliderSaturacion').value;
+    const n=document.getElementById('sliderNeon').value;
+    document.getElementById('valBrillo').textContent=b+'%';
+    document.getElementById('valContraste').textContent=c+'%';
+    document.getElementById('valSaturacion').textContent=s+'%';
+    document.getElementById('valNeon').textContent=n+'%';
+    ctx.clearRect(0,0,300,300);
+    ctx.save();
+    ctx.beginPath(); ctx.arc(150,150,148,0,Math.PI*2); ctx.clip();
+    const sz=Math.min(avatarImagenOriginal.width,avatarImagenOriginal.height);
+    const ox=(avatarImagenOriginal.width-sz)/2, oy=(avatarImagenOriginal.height-sz)/2;
+    let filt=`brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
+    if(avatarFiltroActual==='cartoon') filt+=' saturate(200%) contrast(150%)';
+    if(avatarFiltroActual==='neon') filt+=' saturate(300%) brightness(120%) hue-rotate(90deg)';
+    if(avatarFiltroActual==='cyber') filt+=' hue-rotate(180deg) saturate(200%) contrast(120%)';
+    if(avatarFiltroActual==='sketch') filt+=' grayscale(100%) contrast(200%)';
+    ctx.filter=filt;
+    if(avatarFiltroActual==='pixel'){ctx.imageSmoothingEnabled=false;ctx.drawImage(avatarImagenOriginal,ox,oy,sz,sz,0,0,30,30);ctx.drawImage(canvas,0,0,30,30,0,0,300,300);ctx.restore();return;}
+    ctx.drawImage(avatarImagenOriginal,ox,oy,sz,sz,0,0,300,300);
+    ctx.restore();
+    if(parseInt(n)>0){const g=ctx.createRadialGradient(150,150,80,150,150,150);g.addColorStop(0,'transparent');g.addColorStop(1,`rgba(0,255,255,${n/200})`);ctx.globalCompositeOperation='screen';ctx.fillStyle=g;ctx.beginPath();ctx.arc(150,150,148,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation='source-over';}
+}
+async function avatarGuardar() {
+    document.getElementById('avatarCanvas').toBlob(async blob=>{
+        const fd=new FormData(); fd.append('file',blob,'avatar.png');
+        const r=await fetch('/upload_avatar',{method:'POST',body:fd});
+        const d=await r.json();
+        if(d.ok){document.getElementById('avatarImg').src=d.url+'?t='+Date.now();document.getElementById('avatarStatusMsg').textContent='✅ Avatar guardado';addMsg('system','🎨 Avatar actualizado');}
+    },'image/png');
+}
+function avatarDescargar(){const a=document.createElement('a');a.download='arkani_avatar.png';a.href=document.getElementById('avatarCanvas').toDataURL();a.click();}
+
+// EDITOR
+async function cargarListaArchivos() {
+    try {
+        const r=await fetch('/archivos');const d=await r.json();
+        const sel=document.getElementById('fileSelector');
+        sel.innerHTML='<option value="">— nuevo archivo —</option>';
+        (d.archivos||[]).forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;sel.appendChild(o);});
+        document.getElementById('sbAutogen').textContent=(d.archivos||[]).length+' mód';
+    }catch(e){}
+}
+async function cargarArchivoEditor(){
+    const nombre=document.getElementById('fileSelector').value;
+    if(!nombre){document.getElementById('codeEditor').value='';document.getElementById('nombreArchivo').value='';return;}
+    const r=await fetch('/archivo?nombre='+encodeURIComponent(nombre));const d=await r.json();
+    if(d.contenido!==undefined){document.getElementById('codeEditor').value=d.contenido;document.getElementById('nombreArchivo').value=nombre.replace('.py','').replace('fn_','');document.getElementById('editorStatus').textContent='Cargado: '+nombre;}
+}
+function nuevoArchivo(){document.getElementById('codeEditor').value='';document.getElementById('nombreArchivo').value='';document.getElementById('fileSelector').value='';document.getElementById('editorStatus').textContent='Nuevo archivo';}
+async function guardarCodigo(){
+    const codigo=document.getElementById('codeEditor').value.trim();const nombre=document.getElementById('nombreArchivo').value.trim();
+    if(!codigo||!nombre){document.getElementById('editorStatus').textContent='❌ Completa nombre y código';return;}
+    const r=await fetch('/guardar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nombre,codigo})});
+    const d=await r.json();document.getElementById('editorStatus').textContent=d.ok?'✅ '+d.mensaje:'❌ '+d.error;
+    if(d.ok)cargarListaArchivos();
+}
+async function probarCodigo(){
+    const codigo=document.getElementById('codeEditor').value.trim();if(!codigo)return;
+    const r=await fetch('/probar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codigo})});
+    const d=await r.json();document.getElementById('editorStatus').textContent=d.ok?'✅ '+d.mensaje:'❌ '+d.error;
+}
+function pedirCodigo(){const n=document.getElementById('nombreArchivo').value||'nueva funcion';document.getElementById('chatInput').value='autoprograma: crear funcion python llamada '+n+' que haga: ';switchTab('chat');document.getElementById('chatInput').focus();}
+
+// ERRORES
+async function escanearErrores(){
+    switchTab('errores');document.getElementById('erroresLista').innerHTML='<div class="empty-state">🔍 Escaneando...</div>';
+    const r=await fetch('/escanear_errores');const d=await r.json();
+    const lista=document.getElementById('erroresLista');const badge=document.getElementById('badgeErrores');
+    badge.textContent=d.total||0;badge.style.display=d.total>0?'inline':'none';
+    if(!d.errores||d.errores.length===0){lista.innerHTML='<div class="empty-state">✅ Sin errores</div>';return;}
+    lista.innerHTML='';
+    d.errores.forEach(e=>{
+        const card=document.createElement('div');card.className='error-card '+e.tipo;
+        card.innerHTML='<div class="error-titulo">'+e.archivo+' — '+e.titulo+'</div>'+
+            '<div class="error-desc">'+e.descripcion+'</div>'+
+            (e.codigo_fix?'<div class="error-codigo">'+e.codigo_fix+'</div>':'')+
+            '<div class="error-acciones">'+(e.codigo_fix?'<button class="btn btn-green btn-sm" onclick="mostrarFix(\''+e.archivo+'\',\''+encodeURIComponent(e.codigo_fix)+'\',\''+e.titulo+'\')">⚡ FIX</button>':'')+'</div>';
+        lista.appendChild(card);
+    });
+}
+function mostrarFix(archivo,codigo,titulo){fixPendiente={archivo,codigo:decodeURIComponent(codigo)};document.getElementById('modalFixDesc').textContent=titulo+' en '+archivo;document.getElementById('modalFixCodigo').textContent=decodeURIComponent(codigo);document.getElementById('modalFix').classList.add('show');}
+async function aplicarFix(){if(!fixPendiente)return;const r=await fetch('/aplicar_fix',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fixPendiente)});const d=await r.json();cerrarModal();addMsg('system',d.ok?'✅ '+d.mensaje:'❌ '+d.error);escanearErrores();}
+function cerrarModal(){document.getElementById('modalFix').classList.remove('show');fixPendiente=null;}
+
+// CAPACIDADES
+async function cargarCapacidades(){
+    const r=await fetch('/introspeccion');const d=await r.json();
+    const grid=document.getElementById('capacidadesGrid');
+    if(!d.funciones||d.funciones.length===0){grid.innerHTML='<div class="empty-state">Sin capacidades</div>';return;}
+    grid.innerHTML='';
+    d.funciones.forEach(fn=>{
+        const card=document.createElement('div');card.className='fn-card';
+        card.innerHTML='<div class="fn-nombre">⚙️ '+fn.nombre+'</div><div class="fn-desc">'+fn.descripcion+'</div><div class="fn-status '+(fn.valido?'fn-ok':'fn-err')+'">'+(fn.valido?'✅':'❌')+' '+fn.lineas+' líneas — '+fn.fecha+'</div>';
+        card.onclick=()=>{document.getElementById('fileSelector').value=fn.nombre;cargarArchivoEditor();switchTab('editor');};
+        grid.appendChild(card);
+    });
+}
+
+// HIPOCAMPO
+async function cargarHipocampo(){
+    const r=await fetch('/hipocampo');const d=await r.json();
+    document.getElementById('statHipo').textContent=d.total||0;document.getElementById('sbHipo').textContent=d.total||0;
+    const panel=document.getElementById('hipocampoPanel');panel.innerHTML='';
+    (d.instrucciones||[]).forEach((inst,i)=>{
+        const row=document.createElement('div');row.className='instr-row';
+        const m=inst.match(/[\u27e6\u27e7](\w+)[\u27e7]\s*.*SCALE:(\d+)/);
+        row.innerHTML='<span class="instr-addr">Dir '+i+'</span><span class="instr-op">⟦'+(m?m[1]:'?')+'⟧</span><span class="instr-hex">'+inst.replace(/[\u27e6\u27e7]\w+[\u27e7]\s*/,'')+'</span>';
+        panel.appendChild(row);
+    });
+    document.getElementById('hipoInfo').textContent=(d.total||0)+' instrucciones — '+(d.bytes||0)+' bytes';
+}
+
+// SIDEBAR
+async function cargarSidebarConvs(){
+    try{const r=await fetch('/status');const d=await r.json();const cont=document.getElementById('sidebarConvs');const convs=d.ultimas_conversaciones||[];cont.innerHTML='';convs.forEach(c=>{const div=document.createElement('div');div.className='conv-item';div.textContent=c.pregunta||'...';div.title=c.fecha||'';div.onclick=()=>{document.getElementById('chatInput').value=c.pregunta||'';switchTab('chat');};cont.appendChild(div);});}catch(e){}
+}
+
+// TABS
+function switchTab(tab){
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const pid='panel'+tab.charAt(0).toUpperCase()+tab.slice(1);
+    const tid='tab'+tab.charAt(0).toUpperCase()+tab.slice(1);
+    if(document.getElementById(pid))document.getElementById(pid).classList.add('active');
+    if(document.getElementById(tid))document.getElementById(tid).classList.add('active');
+    if(tab==='intro')cargarCapacidades();
+    if(tab==='hipocampo')cargarHipocampo();
+    if(tab==='editor')cargarListaArchivos();
+    if(tab==='explorer'&&!explorerRutaActual)explorerNavegar('~/NEXUS');
+    if(tab==='m2m'){m2mActualizar();m2mCargarRecibidos();}
+    if(tab==='llamada')actualizarNodosLlamada();
+}
+
+// STATS
+async function actualizarStats(){
+    try{const r=await fetch('/status');const d=await r.json();
+    document.getElementById('statConv').textContent=d.conversaciones||0;document.getElementById('statEvol').textContent=d.evoluciones||0;
+    document.getElementById('statRam').textContent=Math.round(d.ram||0)+'%';document.getElementById('statCpu').textContent=Math.round(d.cpu||0)+'%';
+    document.getElementById('sbEvol').textContent=(d.evol_sesion||0)+'/'+(d.evol_max_sesion||10);
+    document.getElementById('statusDot').style.background=d.arkani_ok?'#00ff88':'#ff4444';
+    document.getElementById('sbEstado').textContent=d.arkani_ok?'ONLINE':'ERROR';}catch(e){}
+}
+
+// EXPLORADOR
+async function explorerNavegar(ruta){
+    if(!ruta)return;
+    try{const r=await fetch('/explorador/listar?ruta='+encodeURIComponent(ruta));const d=await r.json();if(d.error)return;
+    explorerRutaActual=d.ruta;document.getElementById('explorerPath').value=d.ruta;
+    const lista=document.getElementById('explorerList');lista.innerHTML='';
+    if(d.padre){const up=document.createElement('div');up.className='explorer-item tipo-dir';up.innerHTML='<span class="explorer-icon">⬆️</span><span class="explorer-nombre">.. (subir)</span>';up.onclick=()=>explorerNavegar(d.padre);lista.appendChild(up);}
+    d.entradas.forEach(e=>{const item=document.createElement('div');item.className='explorer-item tipo-'+e.tipo;const icon=e.tipo==='dir'?'📁':explorerIcono(e.nombre);item.innerHTML='<span class="explorer-icon">'+icon+'</span><span class="explorer-nombre">'+e.nombre+'</span><span class="explorer-meta">'+(e.tipo==='archivo'?formatBytes(e.tamaño):'')+'</span>';if(e.tipo==='dir')item.onclick=()=>explorerNavegar(e.ruta);else item.onclick=()=>explorerAbrirArchivo(e.ruta,e.nombre);lista.appendChild(item);});
+    }catch(e){}
+}
+function explorerIcono(n){if(n.endsWith('.py'))return'🐍';if(n.endsWith('.nxf'))return'📦';if(n.endsWith('.sh'))return'⚙️';if(n.endsWith('.json'))return'📋';if(n.endsWith('.html'))return'🌐';if(n.endsWith('.log'))return'📜';return'📄';}
+function explorerSubir(){const p=explorerRutaActual.split('/').slice(0,-1).join('/')||'/';explorerNavegar(p);}
+async function explorerAbrirArchivo(ruta,nombre){
+    explorerArchivoActual=ruta;document.getElementById('explorerContentTitle').textContent=nombre+' — '+ruta;
+    document.getElementById('btnExplorerChat').style.display='inline-block';document.getElementById('btnExplorerEditor').style.display=nombre.endsWith('.py')?'inline-block':'none';
+    try{const r=await fetch('/explorador/leer?ruta='+encodeURIComponent(ruta));const d=await r.json();explorerContenidoActual=d.contenido||'';document.getElementById('explorerViewer').textContent=d.error||d.contenido+(d.truncado?'\n[truncado]':'');}catch(e){}
+}
+async function explorerBuscar(){
+    const patron=document.getElementById('explorerBuscar').value.trim();if(!patron)return;
+    const lista=document.getElementById('explorerList');lista.innerHTML='<div class="empty-state">Buscando...</div>';
+    const r=await fetch('/explorador/buscar?patron='+encodeURIComponent(patron)+'&directorio='+encodeURIComponent(explorerRutaActual));const d=await r.json();lista.innerHTML='';
+    if(!d.resultados||d.resultados.length===0){lista.innerHTML='<div class="empty-state">Sin resultados</div>';return;}
+    const v=document.createElement('div');v.className='explorer-item tipo-dir';v.innerHTML='<span class="explorer-icon">🔙</span><span class="explorer-nombre">← Volver</span>';v.onclick=()=>explorerNavegar(explorerRutaActual);lista.appendChild(v);
+    d.resultados.forEach(e=>{const item=document.createElement('div');item.className='search-result';item.innerHTML='<div class="search-result-nombre">'+explorerIcono(e.nombre)+' '+e.nombre+'</div><div class="search-result-ruta">'+e.ruta+' · '+formatBytes(e.tamaño)+'</div>';item.onclick=()=>explorerAbrirArchivo(e.ruta,e.nombre);lista.appendChild(item);});
+}
+function explorerEnviarChat(){if(!explorerContenidoActual)return;const n=(explorerArchivoActual||'').split('/').pop();document.getElementById('chatInput').value='Revisa este archivo ('+n+'):\n```'+n.split('.').pop()+'\n'+explorerContenidoActual.substring(0,3000)+'\n```';switchTab('chat');}
+function explorerEnviarEditor(){if(!explorerContenidoActual||!explorerArchivoActual)return;document.getElementById('codeEditor').value=explorerContenidoActual;document.getElementById('nombreArchivo').value=explorerArchivoActual.split('/').pop().replace('.py','').replace('fn_','');switchTab('editor');}
+function explorerEmpaquetar(){document.getElementById('m2mArchivoPath').value=explorerArchivoActual||'';switchTab('m2m');}
+function formatBytes(b){if(!b)return'';if(b<1024)return b+'B';if(b<1048576)return(b/1024).toFixed(1)+'K';return(b/1048576).toFixed(1)+'M';}
+
+// M2M
+async function m2mActualizar(){
+    try{const r=await fetch('/m2m/estado');const d=await r.json();m2mNodos=d.nodos||{};const total=Object.keys(m2mNodos).length;document.getElementById('sbM2m').textContent=total;const badge=document.getElementById('badgeNodos');badge.textContent=total;badge.style.display=total>0?'inline':'none';renderNodos();actualizarDestinosSelect();actualizarNodosLlamada();}catch(e){}
+}
+function renderNodos(){
+    const cont=document.getElementById('m2mNodos');
+    if(Object.keys(m2mNodos).length===0){cont.innerHTML='<div class="empty-state" style="color:#ff880033">Sin nodos</div>';return;}
+    cont.innerHTML='';
+    Object.entries(m2mNodos).forEach(([nid,info])=>{
+        const card=document.createElement('div');card.className='nodo-card';
+        card.innerHTML='<div class="nodo-nombre"><span class="nodo-dot"></span>'+info.nombre+'</div><div class="nodo-url">'+info.url+'</div><div style="font-size:0.72em;color:#ff880066;margin-bottom:6px">ID: '+nid+'</div><div class="nodo-acciones"><button class="btn btn-orange btn-sm" onclick="m2mPing(\''+nid+'\')">📡 PING</button><button class="btn btn-green btn-sm" onclick="switchTab(\'llamada\')">📞 LLAMAR</button><button class="btn btn-red btn-sm" onclick="m2mDesconectar(\''+nid+'\')">✕</button></div>';
         cont.appendChild(card);
     });
 }
+function actualizarDestinosSelect(){const sel=document.getElementById('m2mDestinoSelect');sel.innerHTML='<option value="">-- Destino --</option>';Object.entries(m2mNodos).forEach(([nid,info])=>{const o=document.createElement('option');o.value=nid;o.textContent=info.nombre;sel.appendChild(o);});}
+async function m2mConectar(){const url=document.getElementById('m2mUrlInput').value.trim();if(!url){m2mLog('❌ Ingresa URL','err');return;}m2mLog('⏳ Conectando...');const r=await fetch('/m2m/conectar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});const d=await r.json();if(d.ok){m2mLog('✅ '+d.nombre,'ok');document.getElementById('m2mUrlInput').value='';await m2mActualizar();}else m2mLog('❌ '+d.error,'err');}
+async function m2mDesconectar(nid){await fetch('/m2m/desconectar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({node_id:nid})});m2mLog('⚡ Desconectado');await m2mActualizar();}
+async function m2mPing(nid){m2mLog('📡 Ping...');try{const r=await fetch(m2mNodos[nid].url+'/ping');if(r.ok)m2mLog('✅ Pong','ok');else m2mLog('❌ Sin respuesta','err');}catch(e){m2mLog('❌ '+e.message,'err');}}
+async function m2mEnviar(){const ruta=document.getElementById('m2mArchivoPath').value.trim();const nid=document.getElementById('m2mDestinoSelect').value;if(!ruta||!nid){m2mLog('❌ Completa campos','err');return;}m2mLog('📤 Enviando...');const r=await fetch('/m2m/enviar_archivo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({node_id:nid,ruta})});const d=await r.json();if(d.ok)m2mLog('✅ Enviado','ok');else m2mLog('❌ '+d.error,'err');}
+function m2mExplorarNxf(){switchTab('explorer');}
+function m2mDrop(e){e.preventDefault();document.getElementById('m2mDrop').classList.remove('drag-over');const f=e.dataTransfer.files[0];if(f&&!f.name.endsWith('.nxf'))m2mLog('❌ Solo .nxf','err');}
+async function m2mCargarRecibidos(){const r=await fetch('/m2m/archivos_recibidos');const d=await r.json();const cont=document.getElementById('m2mRecibidos');if(!d.archivos||d.archivos.length===0){cont.innerHTML='<div class="empty-state" style="color:#ff880033;font-size:0.75em">Sin recibidos</div>';return;}cont.innerHTML='';d.archivos.forEach(a=>{const card=document.createElement('div');card.className='nxf-card';card.innerHTML='<span class="nxf-nombre">📦 '+a.nombre+'</span><span class="nxf-meta">'+formatBytes(a.tamaño)+'</span>';cont.appendChild(card);});}
+function m2mLog(msg,tipo){const log=document.getElementById('m2mLog');const line=document.createElement('div');line.className='m2m-log-line'+(tipo?' '+tipo:'');line.textContent='['+new Date().toLocaleTimeString('es-MX')+'] '+msg;log.appendChild(line);log.scrollTop=log.scrollHeight;}
 
-function actualizarDestinosSelect() {
-    const sel = document.getElementById('m2mDestinoSelect');
-    sel.innerHTML = '<option value="">-- Seleccionar destino --</option>';
-    Object.entries(m2mNodos).forEach(([nid, info]) => {
-        const o = document.createElement('option'); o.value = nid; o.textContent = info.nombre;
-        sel.appendChild(o);
-    });
-}
-
-async function m2mConectar() {
-    const url = document.getElementById('m2mUrlInput').value.trim();
-    if (!url) { m2mLog('❌ Ingresa una URL', 'err'); return; }
-    m2mLog('⏳ Conectando a '+url+'...');
-    try {
-        const r = await fetch('/m2m/conectar', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({url})});
-        const d = await r.json();
-        if (d.ok) {
-            m2mLog('✅ Conectado: '+d.nombre+' ('+d.node_id+')', 'ok');
-            document.getElementById('m2mUrlInput').value = '';
-            await m2mActualizar();
-        } else { m2mLog('❌ Error: '+d.error, 'err'); }
-    } catch(e) { m2mLog('❌ '+e.message, 'err'); }
-}
-
-async function m2mDesconectar(nid) {
-    await fetch('/m2m/desconectar', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({node_id:nid})});
-    m2mLog('⚡ Nodo desconectado: '+nid);
-    await m2mActualizar();
-}
-
-async function m2mPing(nid) {
-    m2mLog('📡 Ping a '+nid+'...');
-    try {
-        const info = m2mNodos[nid];
-        const r = await fetch(info.url+'/ping');
-        if (r.ok) { m2mLog('✅ Pong de '+info.nombre, 'ok'); }
-        else { m2mLog('❌ Sin respuesta', 'err'); }
-    } catch(e) { m2mLog('❌ '+e.message, 'err'); }
-}
-
-async function m2mEnviar() {
-    const ruta = document.getElementById('m2mArchivoPath').value.trim();
-    const nid = document.getElementById('m2mDestinoSelect').value;
-    if (!ruta) { m2mLog('❌ Ingresa ruta del .nxf', 'err'); return; }
-    if (!nid) { m2mLog('❌ Selecciona un destino', 'err'); return; }
-    m2mLog('📤 Enviando '+ruta.split('/').pop()+' a '+m2mNodos[nid].nombre+'...');
-    try {
-        const r = await fetch('/m2m/enviar_archivo', {
-            method:'POST', headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({node_id:nid, ruta})
-        });
-        const d = await r.json();
-        if (d.ok) m2mLog('✅ Enviado correctamente', 'ok');
-        else m2mLog('❌ '+d.error, 'err');
-    } catch(e) { m2mLog('❌ '+e.message, 'err'); }
-}
-
-function m2mExplorarNxf() {
-    switchTab('explorer');
-    addMsg('system', '📂 Busca el .nxf en el Explorador y usa "📦 .nxf" para seleccionarlo');
-}
-
-function m2mDrop(e) {
-    e.preventDefault();
-    document.getElementById('m2mDrop').classList.remove('drag-over');
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        const f = files[0];
-        if (!f.name.endsWith('.nxf')) { m2mLog('❌ Solo archivos .nxf', 'err'); return; }
-        m2mLog('📦 Archivo seleccionado: '+f.name);
-        // Para drag & drop real necesitaría subida multipart, lo dejamos como nota visual
-        m2mLog('ℹ️ Usa el campo de ruta para enviar por ruta de disco', 'err');
-    }
-}
-
-async function m2mCargarRecibidos() {
-    try {
-        const r = await fetch('/m2m/archivos_recibidos'); const d = await r.json();
-        const cont = document.getElementById('m2mRecibidos');
-        if (!d.archivos || d.archivos.length === 0) {
-            cont.innerHTML = '<div class="empty-state" style="color:#ff880033;font-size:0.75em">Sin archivos recibidos</div>'; return;
-        }
-        cont.innerHTML = '';
-        d.archivos.forEach(a => {
-            const card = document.createElement('div'); card.className = 'nxf-card';
-            card.innerHTML = '<span class="nxf-nombre">📦 '+a.nombre+'</span>'+
-                '<span class="nxf-meta">'+formatBytes(a.tamaño)+'<br>'+a.fecha+'</span>';
-            cont.appendChild(card);
-        });
-    } catch(e) {}
-}
-
-function m2mLog(msg, tipo) {
-    const log = document.getElementById('m2mLog');
-    const line = document.createElement('div');
-    line.className = 'm2m-log-line' + (tipo?' '+tipo:'');
-    const hora = new Date().toLocaleTimeString('es-MX');
-    line.textContent = '['+hora+'] '+msg;
-    log.appendChild(line);
-    log.scrollTop = log.scrollHeight;
-}
-
-// ── HORA + INIT ──────────────────────────────────────────────
-function actualizarHora() { document.getElementById('sbHora').textContent = new Date().toLocaleTimeString('es-MX'); }
+function actualizarHora(){document.getElementById('sbHora').textContent=new Date().toLocaleTimeString('es-MX');}
 
 actualizarStats();
 cargarCapacidades();
 cargarSidebarConvs();
-setInterval(actualizarStats, 5000);
-setInterval(cargarSidebarConvs, 8000);
-setInterval(actualizarHora, 1000);
-setInterval(m2mActualizar, 15000);
+explorerNavegar('~/NEXUS');
+setInterval(actualizarStats,5000);
+setInterval(cargarSidebarConvs,8000);
+setInterval(actualizarHora,1000);
+setInterval(m2mActualizar,15000);
 actualizarHora();
 </script>
 </body>
