@@ -1,0 +1,266 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                        ARKANI NEXUS v4.0 — MANUAL DE USUARIO                ║
+║                         Protocolo Wardenclyffe · Elías Hernández             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ¿QUÉ ES ARKANI?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARKANI es un asistente de inteligencia artificial local basado en el
+Protocolo Wardenclyffe — transmisión de inteligencia sin pérdida entre nodos.
+
+Concepto original: El Bibliotecario Perfecto.
+No necesita almacenar trillones de datos porque sabe exactamente dónde buscar.
+Corre completamente en tu hardware, sin enviar datos a servidores externos.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BARRA DE NAVEGACIÓN — PESTAÑAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  💬 CHAT
+  ─────────────────────────────────────────────────────────────────────────────
+  Ventana principal de conversación con ARKANI.
+
+  → Escribe tu mensaje y presiona ENVIAR o la tecla Enter.
+  → Shift+Enter para salto de línea sin enviar.
+  → Comandos especiales en el campo de texto:
+       autoprograma: [describe la función que necesitas]
+         Ejemplo: "autoprograma: función que convierta PDF a texto"
+       evoluciona: [describe qué mejorar]
+         Ejemplo: "evoluciona: la función de búsqueda es muy lenta"
+
+  → Órdenes directas del sistema (no pasan por IA, respuesta instantánea):
+       "abre youtube"              Abre YouTube en el navegador
+       "abre gmail"                Abre Gmail
+       "abre github"               Abre el repositorio de ARKANI
+       "busca en google [término]" Hace una búsqueda
+       "busca en youtube [término]" Busca en YouTube
+       "qué hora es"               Dice la hora actual
+       "qué día es hoy"            Dice la fecha
+       "cuánto es [operación]"     Calculadora rápida (ej: "cuánto es 145*37")
+       "anota que [texto]"         Guarda una nota rápida
+       "muéstrame mis notas"       Muestra las últimas 5 notas
+       "clima en xalapa"           Abre el clima de Xalapa
+       "muéstrame el hipocampo"    Navega al tab Hipocampo
+       "muéstrame el explorador"   Navega al tab Explorador
+
+  ⌨️ EDITOR
+  ─────────────────────────────────────────────────────────────────────────────
+  Constructor de código con integración a ARKANI.
+
+  → Escribe código Python directamente o selecciona un archivo existente.
+  → Botones:
+       💾 GUARDAR  — guarda el módulo en la carpeta autogen/
+       ▶ PROBAR   — ejecuta el código en modo seguro y muestra resultado
+       🤖 GENERAR — abre el chat con el prompt listo para pedir código a ARKANI
+  → Los módulos guardados aparecen automáticamente en CAPACIDADES.
+
+  ⚠️ ERRORES
+  ─────────────────────────────────────────────────────────────────────────────
+  Detector automático de errores en los módulos autogen.
+
+  → ESCANEAR — analiza todos los archivos .py en busca de:
+       • Errores de sintaxis
+       • Funciones vacías (solo tienen pass)
+       • Módulos casi vacíos
+  → Para cada error encontrado puedes:
+       ⚡ FIX — aplica la corrección propuesta automáticamente
+  → El contador rojo en la pestaña muestra cuántos errores hay.
+
+  🧬 CAPACIDADES
+  ─────────────────────────────────────────────────────────────────────────────
+  Vista de todos los módulos que ARKANI ha aprendido (autogenerados).
+
+  → Muestra nombre, descripción, líneas de código y fecha de cada módulo.
+  → Click en cualquier módulo → lo abre en el EDITOR para modificarlo.
+  → ↺ RECARGAR — actualiza la lista.
+  → + NUEVA — abre el editor para crear un módulo nuevo.
+
+  💾 HIPOCAMPO
+  ─────────────────────────────────────────────────────────────────────────────
+  Memoria binaria fractal de ARKANI (sistema de neuronas SPAWN).
+
+  → Muestra todas las instrucciones almacenadas en memoria binaria.
+  → Cada fila: Dirección | Operación fractal | Contenido hex
+  → El contador en la esquina superior derecha muestra neuronas activas.
+  → Esta memoria crece automáticamente conforme ARKANI aprende.
+
+  📁 EXPLORADOR
+  ─────────────────────────────────────────────────────────────────────────────
+  Navegador de archivos del sistema host.
+
+  → Navega por las carpetas de tu sistema desde la interfaz web.
+  → Barra de ruta: escribe una ruta y presiona IR o Enter.
+  → ⬆ — sube un nivel en el árbol de directorios.
+  → 🔍 Buscar — busca archivos por patrón (ej: *.py, *.nxf, *.json)
+  → Al seleccionar un archivo:
+       💬 Chat   — envía el contenido al chat de ARKANI para analizarlo
+       ⌨️ Editor  — abre el archivo en el editor de código
+       📦 .nxf   — empaqueta el archivo para enviarlo por M2M
+
+  📡 COMUNICACIÓN M2M
+  ─────────────────────────────────────────────────────────────────────────────
+  Canal de comunicación entre nodos ARKANI (Máquina a Máquina).
+  Contiene dos sub-pestañas:
+
+  [COMPARTIR]
+  → Conectar nodo: ingresa la URL de otro ARKANI (ej: https://nodo.ngrok-free.app)
+  → NODOS ACTIVOS: lista de máquinas conectadas con opciones PING / LLAMAR / ✕
+  → Enviar archivo .nxf: transfiere paquetes fractal comprimidos (~37% compresión)
+  → Archivos recibidos: muestra los .nxf que han llegado a este nodo
+  → Puedes arrastrar un .nxf directamente a la zona de drop
+
+  [LLAMADA M2M]
+  → Requiere al menos un nodo conectado en la pestaña COMPARTIR.
+  → 🎙️ AUDIO — inicia canal de voz con el nodo remoto
+  → 📹 VIDEO — inicia canal de video + voz con el nodo remoto
+  → 📵 COLGAR — termina la llamada
+  → 🎙️ MUTE / 📹 CAMARA — silencia audio o video durante la llamada
+  → El canal usa codificación fractal .nxf para mayor seguridad
+
+  🎨 AVATAR
+  ─────────────────────────────────────────────────────────────────────────────
+  Personalización visual y de identidad de ARKANI.
+
+  [Panel izquierdo]
+  → 📸 SUBIR FOTO — carga una imagen JPG/PNG/WEBP como avatar
+  → 🎨 ESTILO — filtros visuales:
+       Original · Cartoon · Neón · Cyber · Pixel · Sketch
+  → ⚙️ AJUSTES — sliders de Brillo, Contraste, Saturación y Tono neón
+  → 💾 GUARDAR — establece el avatar o descarga la imagen
+
+  [Panel derecho — debajo de la vista previa]
+  → ✏️ PERSONALIZAR — Nombre del asistente:
+       Escribe el nombre que quieras darle (máximo 20 caracteres).
+       Ejemplos: JARVIS, PEPE, NOVA, HAL
+       Una vez guardado, ese nombre funciona como wake word:
+         "Jarvis abre youtube" → ejecuta la acción directamente
+         "Jarvis, ¿qué hora es?" → ARKANI responde como Jarvis
+  → 💾 GUARDAR NOMBRE — aplica el cambio en toda la interfaz
+
+  ❓ HELP
+  ─────────────────────────────────────────────────────────────────────────────
+  Este manual. Siempre disponible desde la barra de navegación.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BARRA DE VOZ (bajo el chat)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  🎙️ (botón izquierdo) — MODO PASIVO
+       Click → graba tu voz → click de nuevo → transcribe y envía al chat.
+       Útil para dictar mensajes sin escribir.
+
+  👂 (botón derecho) — MODO ACTIVO (wake word)
+       Activa escucha continua en segundo plano.
+       Di el nombre de tu asistente para activar: "Arkani..." o el que hayas configurado.
+       ARKANI responde con voz sintetizada (Piper TTS, voz es_MX).
+       Para desactivar: click de nuevo en el botón.
+
+  Indicador VOZ en la barra inferior:
+       OFF    — voz inactiva
+       REC    — grabando en modo pasivo
+       ACTIVO — modo activo escuchando
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BARRA LATERAL (sidebar)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  → La imagen circular es el avatar actual de ARKANI.
+     Click en 🎨 (esquina inferior derecha) → abre el tab Avatar para personalizar.
+  → El nombre bajo la imagen es clicable → lleva directo a Personalizar.
+  → CONVERSACIONES — últimas 5 conversaciones recientes.
+     Click en cualquiera → carga esa pregunta en el chat para continuar.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BARRA DE ESTADO INFERIOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ONLINE / ERROR  — estado del motor ARKANI
+  HIPOCAMPO N     — número de neuronas en memoria binaria
+  EVOL N/10       — evoluciones aplicadas esta sesión / máximo
+  AUTOGEN N mód   — módulos de capacidades cargados
+  M2M N nodos     — nodos M2M conectados actualmente
+  VOZ OFF/REC/ACTIVO — estado del sistema de voz
+  HH:MM:SS        — hora actual (actualiza cada segundo)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ESTADÍSTICAS (esquina superior derecha)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  CONV      — total de conversaciones en memoria
+  EVOL      — evoluciones fractal acumuladas
+  HIPOCAMPO — neuronas activas en memoria binaria
+  RAM       — uso de RAM del sistema
+  CPU       — uso de CPU del sistema
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  OPERACIONES FRACTALES INTERNAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ARKANI usa 7 operaciones fractales internamente al razonar:
+
+  SUM(A,B)              Integra dos conceptos preservando ambos
+  IF(cond,A,B)          Bifurca el razonamiento según contexto
+  LOOP(n,op)            Itera un proceso refinándolo n veces
+  SPAWN(entidad,ctx)    Crea sub-agentes especializados de razonamiento
+  FOLD(lista,fn)        Reduce múltiples ideas a una síntesis
+  LINK(nodo_A,nodo_B)   Conecta conceptos distantes semánticamente
+  EVOLVE(code,err,fix)  Aprende de errores y auto-corrige
+
+  Puedes pedirle explícitamente que use estas operaciones:
+    "Usa FOLD para resumir estos 5 puntos en uno"
+    "Haz SPAWN de dos perspectivas sobre este problema"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  MOTOR DE EVOLUCIÓN — 13 TIPOS DE ERROR RECONOCIDOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Lógicos:       logic_error · type_error · null_reference · index_out_of_bounds
+  Integración:   import_error · dependency_missing · version_conflict
+  Ejecución:     timeout · memory_overflow · infinite_loop
+  Fractales:     spawn_collision · fold_divergence · link_cycle
+
+  Cuando ARKANI detecta alguno de estos en código o en sus respuestas,
+  activa EVOLVE() y propone corrección automática.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ARQUITECTURA DE RED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Modo BETA (instalación actual):
+    → Corre en tu PC, recibe actualizaciones del servidor Alpha
+    → Acceso local: http://localhost:8081
+    → Acceso remoto: túnel ngrok activo en puerto 8081
+
+  Formato de transferencia: .nxf (Nexus Fractal Package, ~37% compresión)
+  Protocolo: Wardenclyffe M2M — conexión directa entre nodos sin intermediarios
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SOLUCIÓN DE PROBLEMAS COMUNES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Timeout Ollama
+    El modelo tardó más de lo esperado. Causas comunes:
+    · Pregunta muy larga o compleja para el hardware actual
+    · Poco RAM disponible (cierra otras aplicaciones)
+    · Solución: divide la pregunta en partes más pequeñas
+
+  ARKANI no responde (ERROR en barra inferior)
+    · Verifica que Ollama esté corriendo: el ícono verde debe estar activo
+    · Reinicia con: bash ~/NEXUS/arrancar_arkani.sh
+
+  La voz no funciona
+    · Verifica que Piper esté instalado en ~/NEXUS/piper/
+    · Verifica permisos de micrófono en el navegador (ícono en barra URL)
+
+  No conecta con nodo M2M remoto
+    · Verifica que la URL del nodo remoto sea accesible
+    · El nodo remoto debe tener ngrok activo
+    · Usa el botón PING para verificar conectividad
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ARKANI NEXUS v4.0 — Protocolo Wardenclyffe
+  Desarrollado por el Barto Hernandez orgullosamente Méxicano
+  github.com/elbartohernandez182-sudo/arkani-nexus
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

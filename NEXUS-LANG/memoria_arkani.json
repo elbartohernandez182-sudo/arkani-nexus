@@ -289,6 +289,41 @@
       "fecha": "2026-06-09 00:39",
       "pregunta": "Arkani, ¿qué fue el padre de la patria?",
       "respuesta": "El padre de la patria es un título honorífico que se le ha otorgado a varios líderes en diferentes países. En Mexico, se refiere a Benito Juárez."
+    },
+    {
+      "fecha": "2026-06-09 23:58",
+      "pregunta": "como estara el clima el dia de manana en xalapa",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 00:00",
+      "pregunta": "leyes en afganistan",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 00:54",
+      "pregunta": "Arkaneavra youtube",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 01:05",
+      "pregunta": "abre youtube",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 03:53",
+      "pregunta": "marzo你",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 03:54",
+      "pregunta": "abre youtube",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 04:00",
+      "pregunta": "abre youtube",
+      "respuesta": "Timeout Ollama"
     }
   ],
   "pendientes": [],
@@ -297,7 +332,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 64,
+    "preguntas": 71,
     "evoluciones": 1
   },
   "evoluciones": [

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARKANI NEXUS v4.0</title>
+    <title>ARKANI NEXUS v3.0</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,21 +29,20 @@
         .tab.active { color: #00ffff; border-bottom-color: #00ffff; }
         .tab.tab-m2m.active { border-bottom-color: #ff8800; color: #ff8800; }
         .tab.tab-explorer.active { border-bottom-color: #aa88ff; color: #aa88ff; }
+        .tab.tab-llamada.active { border-bottom-color: #00ff88; color: #00ff88; }
         .tab.tab-avatar.active { border-bottom-color: #ff44aa; color: #ff44aa; }
         .badge { background: #ff4444; color: white; border-radius: 10px; padding: 1px 5px; font-size: 0.78em; margin-left: 4px; }
         .badge-green { background: #00aa44; }
         .body-layout { display: flex; flex: 1; overflow: hidden; }
         .sidebar { width: 170px; min-width: 170px; background: #06060a; border-right: 1px solid #00ffff22;
                    display: flex; flex-direction: column; align-items: center; padding: 15px 8px; overflow-y: auto; flex-shrink: 0; }
-        .avatar-wrap { position: relative; margin-bottom: 6px; }
+        .avatar-wrap { position: relative; margin-bottom: 10px; }
         .avatar-wrap img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ffff88;
                            box-shadow: 0 0 25px #00ffff55; object-fit: cover; display: block; }
         .avatar-btn { position: absolute; bottom: 6px; right: 6px; background: #0d1117; border: 1px solid #00ffff66;
                       border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center;
                       justify-content: center; cursor: pointer; font-size: 13px; }
-        /* nombre editable en sidebar */
-        .arkani-name-display { color: #00ffff; font-size: 0.88em; letter-spacing: 3px; margin-bottom: 2px; font-weight: bold; cursor: pointer; }
-        .arkani-name-display:hover { color: #ff44aa; }
+        .arkani-name { color: #00ffff; font-size: 0.88em; letter-spacing: 3px; margin-bottom: 3px; font-weight: bold; }
         .arkani-status { color: #00ff88; font-size: 0.7em; margin-bottom: 15px; }
         .conv-title { color: #00ffff44; font-size: 0.68em; letter-spacing: 2px; margin-bottom: 8px;
                       text-align: center; width: 100%; border-top: 1px solid #00ffff22; padding-top: 10px; }
@@ -68,6 +67,7 @@
                       font-size: 0.88em; resize: none; height: 58px; }
         .chat-input:focus { outline: none; border-color: #00ffff88; }
         .chat-btns { display: flex; flex-direction: column; gap: 5px; }
+        /* VOZ */
         .voz-bar { background: #0d1117; border-top: 1px solid #00ffff11; padding: 6px 10px;
                    display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
         .btn-mic { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #00ffff44;
@@ -80,6 +80,7 @@
         .btn-mic-activo.activo { background: #00ff8833; border-color: #00ff88; animation: pulseGreen 2s infinite; }
         @keyframes pulseGreen { 0%,100%{box-shadow:0 0 5px #00ff88} 50%{box-shadow:0 0 15px #00ff88} }
         .voz-status { flex: 1; font-size: 0.75em; color: #00ffff66; }
+        /* BOTONES */
         .btn { padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer;
                font-family: 'Courier New', monospace; font-size: 0.8em; font-weight: bold;
                letter-spacing: 1px; transition: all 0.2s; }
@@ -96,6 +97,7 @@
         .btn-pink { background: #ff44aa22; color: #ff44aa; border: 1px solid #ff44aa44; }
         .btn-pink:hover { background: #ff44aa33; }
         .btn-sm { padding: 4px 10px; font-size: 0.75em; }
+        /* EDITOR */
         .editor-header { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #00ffff22;
                          display: flex; align-items: center; gap: 8px; flex-wrap: wrap; flex-shrink: 0; }
         .editor-title { color: #00ffff99; font-size: 0.8em; letter-spacing: 2px; flex: 1; }
@@ -109,6 +111,7 @@
         .editor-status { flex: 1; font-size: 0.75em; color: #00ffff66; }
         .nombre-input { background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
                         padding: 5px 8px; border-radius: 4px; font-family: monospace; font-size: 0.8em; width: 160px; }
+        /* PANELS */
         .panel-header { padding: 10px 12px; background: #0d1117; border-bottom: 1px solid #00ffff22;
                         display: flex; gap: 8px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
         .panel-header-title { flex: 1; font-size: 0.85em; letter-spacing: 2px; }
@@ -134,7 +137,7 @@
         .instr-addr { color: #00ffff66; width: 40px; }
         .instr-op { color: #00ff88; width: 80px; }
         .instr-hex { color: #ffffff33; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        /* M2M unificado */
+        /* M2M */
         .m2m-layout { flex: 1; display: flex; overflow: hidden; }
         .m2m-left { width: 320px; min-width: 280px; border-right: 1px solid #ff880022; display: flex; flex-direction: column; overflow: hidden; }
         .m2m-right { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
@@ -160,16 +163,7 @@
         .m2m-log-line { padding: 3px 0; border-bottom: 1px solid #ff880011; color: #ff880099; }
         .m2m-log-line.ok { color: #00ff88; }
         .m2m-log-line.err { color: #ff4444; }
-        /* sub-tabs dentro de COMUNICACIÓN M2M */
-        .m2m-subtabs { display: flex; background: #0d1117; border-bottom: 1px solid #ff880022; flex-shrink: 0; }
-        .m2m-subtab { padding: 6px 14px; cursor: pointer; font-size: 0.75em; color: #ff880066;
-                      border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 1px; }
-        .m2m-subtab:hover { color: #ff8800; }
-        .m2m-subtab.active { color: #ff8800; border-bottom-color: #ff8800; }
-        .m2m-subtab.sub-llamada.active { color: #00ff88; border-bottom-color: #00ff88; }
-        .m2m-subpanel { display: none; flex: 1; overflow: hidden; flex-direction: column; }
-        .m2m-subpanel.active { display: flex; }
-        /* llamada (dentro de subpanel) */
+        /* LLAMADA M2M */
         .llamada-layout { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 15px; gap: 12px; }
         .llamada-header { display: flex; gap: 10px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
         .llamada-estado { flex: 1; padding: 10px 14px; background: #00ff8808; border: 1px solid #00ff8833; border-radius: 8px; font-size: 0.82em; color: #00ff88; }
@@ -183,7 +177,7 @@
         /* AVATAR */
         .avatar-layout { flex: 1; display: flex; overflow: hidden; }
         .avatar-left { width: 300px; min-width: 260px; border-right: 1px solid #ff44aa22; display: flex; flex-direction: column; overflow-y: auto; padding: 12px; gap: 10px; }
-        .avatar-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 10px; overflow: hidden; }
+        .avatar-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 14px; overflow: hidden; }
         .avatar-section { background: #ff44aa08; border: 1px solid #ff44aa22; border-radius: 8px; padding: 12px; }
         .avatar-section-title { color: #ff44aa; font-size: 0.78em; letter-spacing: 2px; margin-bottom: 10px; }
         .avatar-canvas { border-radius: 50%; border: 3px solid #ff44aa88; box-shadow: 0 0 30px #ff44aa44; }
@@ -193,11 +187,6 @@
         .filter-btn:hover,.filter-btn.active { background: #ff44aa33; border-color: #ff44aa; }
         .avatar-slider { width: 100%; accent-color: #ff44aa; margin: 4px 0; }
         .avatar-label { font-size: 0.75em; color: #ff44aa88; display: flex; justify-content: space-between; margin-bottom: 2px; }
-        /* input nombre en avatar */
-        .nombre-arkani-input { background: #0a0a0f; border: 1px solid #ff44aa44; color: #ff44aa;
-                               padding: 6px 10px; border-radius: 5px; font-family: 'Courier New', monospace;
-                               font-size: 0.85em; width: 100%; letter-spacing: 2px; text-transform: uppercase; }
-        .nombre-arkani-input:focus { outline: none; border-color: #ff44aa; }
         /* EXPLORADOR */
         .explorer-layout { flex: 1; display: flex; overflow: hidden; }
         .explorer-left { width: 340px; min-width: 260px; border-right: 1px solid #aa88ff22; display: flex; flex-direction: column; overflow: hidden; }
@@ -224,8 +213,10 @@
         .search-result:hover { background: #aa88ff11; }
         .search-result-nombre { color: #aa88ff; }
         .search-result-ruta { color: #aa88ff44; font-size: 0.88em; }
+        /* STATUSBAR */
         .statusbar { background: #0d1117; border-top: 1px solid #00ffff22; padding: 4px 15px; display: flex; gap: 20px; font-size: 0.72em; color: #00ffff66; flex-shrink: 0; flex-wrap: wrap; }
         .statusbar .val { color: #00ff88; }
+        /* MODAL */
         .modal-overlay { display: none; position: fixed; inset: 0; background: #000000cc; z-index: 1000; align-items: center; justify-content: center; }
         .modal-overlay.show { display: flex; }
         .modal { background: #0d1117; border: 1px solid #ff880066; border-radius: 12px; padding: 24px; max-width: 480px; width: 90%; box-shadow: 0 0 30px #ff880033; }
@@ -241,7 +232,7 @@
 <body>
 
 <div class="header">
-    <h1><span class="status-dot" id="statusDot"></span>ARKANI NEXUS v4.0</h1>
+    <h1><span class="status-dot" id="statusDot"></span>ARKANI NEXUS v3.0</h1>
     <div class="header-stats">
         <div class="stat-item"><span class="stat-val" id="statConv">0</span><span>CONV</span></div>
         <div class="stat-item"><span class="stat-val" id="statEvol">0</span><span>EVOL</span></div>
@@ -251,7 +242,6 @@
     </div>
 </div>
 
-<!-- BARRA DE TABS: 8 → 7 (LLAMADA M2M absorbida en COMUNICACIÓN M2M) -->
 <div class="tabs">
     <div class="tab active" id="tabChat" onclick="switchTab('chat')">💬 CHAT</div>
     <div class="tab" id="tabEditor" onclick="switchTab('editor')">⌨️ EDITOR</div>
@@ -259,21 +249,18 @@
     <div class="tab" id="tabIntro" onclick="switchTab('intro')">🧬 CAPACIDADES</div>
     <div class="tab" id="tabHipo" onclick="switchTab('hipocampo')">💾 HIPOCAMPO</div>
     <div class="tab tab-explorer" id="tabExplorer" onclick="switchTab('explorer')">📁 EXPLORADOR</div>
-    <div class="tab tab-m2m" id="tabM2m" onclick="switchTab('m2m')">📡 COMUNICACIÓN M2M <span class="badge badge-green" id="badgeNodos" style="display:none">0</span></div>
+    <div class="tab tab-m2m" id="tabM2m" onclick="switchTab('m2m')">📡 COMPARTIR M2M <span class="badge badge-green" id="badgeNodos" style="display:none">0</span></div>
+    <div class="tab tab-llamada" id="tabLlamada" onclick="switchTab('llamada')">📞 LLAMADA M2M</div>
     <div class="tab tab-avatar" id="tabAvatar" onclick="switchTab('avatar')">🎨 AVATAR</div>
-    <div class="tab" id="tabHelp" onclick="switchTab('help')">❓ HELP</div>
 </div>
 
 <div class="body-layout">
     <div class="sidebar">
         <div class="avatar-wrap">
-            <img id="avatarImg" src="/static/avatar.png"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230d1117%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 font-size=%2240%22>🤖</text></svg>'"
-                 alt="Avatar">
-            <div class="avatar-btn" onclick="switchTab('avatar')" title="Personalizar">🎨</div>
+            <img id="avatarImg" src="/static/avatar.png" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230d1117%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 font-size=%2240%22>🤖</text></svg>'" alt="Arkani">
+            <div class="avatar-btn" onclick="switchTab('avatar')" title="Personalizar Avatar">🎨</div>
         </div>
-        <!-- Nombre clicable — abre avatar para editar -->
-        <div class="arkani-name-display" id="sidebarNombre" onclick="switchTab('avatar')" title="Cambiar nombre">ARKANI</div>
+        <div class="arkani-name">ARKANI</div>
         <div class="arkani-status">● EN LÍNEA</div>
         <div class="conv-title">CONVERSACIONES</div>
         <div id="sidebarConvs"></div>
@@ -286,15 +273,13 @@
             <div class="chat-messages" id="chatMessages"></div>
             <div class="typing-ind" id="typingInd" style="display:none">⟦ARKANI⟧ procesando...</div>
             <div class="voz-bar">
-                <button class="btn-mic" id="btnMicPasivo" onclick="vozPasivoToggle()" title="Grabar">🎙️</button>
-                <button class="btn-mic btn-mic-activo" id="btnMicActivo" onclick="vozActivoToggle()" title="Modo activo">👂</button>
-                <span class="voz-status" id="vozStatus">🔇 Voz lista</span>
+                <button class="btn-mic" id="btnMicPasivo" onclick="vozPasivoToggle()" title="Click para grabar">🎙️</button>
+                <button class="btn-mic btn-mic-activo" id="btnMicActivo" onclick="vozActivoToggle()" title="Modo escucha activa — wake word: Arkani">👂</button>
+                <span class="voz-status" id="vozStatus">🔇 Voz lista — 🎙️ Pasivo | 👂 Modo activo (wake word: Arkani)</span>
                 <audio id="vozAudio" autoplay style="display:none"></audio>
             </div>
             <div class="chat-input-area">
-                <textarea class="chat-input" id="chatInput"
-                    placeholder="Escribe aquí... | autoprograma: [tarea] | evoluciona: [desc]"
-                    onkeydown="chatKeyDown(event)"></textarea>
+                <textarea class="chat-input" id="chatInput" placeholder="Escribe aquí... | autoprograma: [tarea] | evoluciona: [desc]" onkeydown="chatKeyDown(event)"></textarea>
                 <div class="chat-btns">
                     <button class="btn btn-cyan" onclick="enviarMensaje()">ENVIAR</button>
                     <button class="btn btn-orange btn-sm" onclick="escanearErrores()">ESCANEAR</button>
@@ -360,14 +345,12 @@
             <div class="explorer-layout">
                 <div class="explorer-left">
                     <div class="explorer-header">
-                        <input class="explorer-path" id="explorerPath" placeholder="~/NEXUS"
-                               onkeydown="if(event.key==='Enter')explorerNavegar(this.value)">
+                        <input class="explorer-path" id="explorerPath" placeholder="~/NEXUS" onkeydown="if(event.key==='Enter')explorerNavegar(this.value)">
                         <button class="btn btn-purple btn-sm" onclick="explorerNavegar(document.getElementById('explorerPath').value)">IR</button>
                         <button class="btn btn-purple btn-sm" onclick="explorerSubir()">⬆</button>
                     </div>
                     <div class="explorer-search">
-                        <input class="explorer-search-input" id="explorerBuscar" placeholder="buscar *.py, *.nxf..."
-                               onkeydown="if(event.key==='Enter')explorerBuscar()">
+                        <input class="explorer-search-input" id="explorerBuscar" placeholder="buscar *.py, *.nxf..." onkeydown="if(event.key==='Enter')explorerBuscar()">
                         <button class="btn btn-purple btn-sm" onclick="explorerBuscar()">🔍</button>
                     </div>
                     <div class="explorer-list" id="explorerList"></div>
@@ -384,95 +367,82 @@
             </div>
         </div>
 
-        <!-- COMUNICACIÓN M2M (compartir + llamada unificados) -->
+        <!-- M2M COMPARTIR -->
         <div class="tab-panel" id="panelM2m">
-            <!-- SUB-TABS -->
-            <div class="m2m-subtabs">
-                <div class="m2m-subtab active" id="subTabCompartir" onclick="switchM2mSub('compartir')">📡 COMPARTIR</div>
-                <div class="m2m-subtab sub-llamada" id="subTabLlamada" onclick="switchM2mSub('llamada')">📞 LLAMADA M2M</div>
-            </div>
-
-            <!-- SUB-PANEL: COMPARTIR -->
-            <div class="m2m-subpanel active" id="subPanelCompartir">
-                <div class="m2m-layout">
-                    <div class="m2m-left">
-                        <div class="m2m-section">
-                            <div class="m2m-title">📡 CONECTAR NODO</div>
-                            <input class="m2m-input" id="m2mUrlInput" placeholder="https://nodo.ngrok-free.app">
-                            <button class="btn btn-orange" style="width:100%" onclick="m2mConectar()">⚡ CONECTAR</button>
-                        </div>
-                        <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
-                            <div class="m2m-title">🌐 NODOS ACTIVOS</div>
-                            <div class="m2m-nodos" id="m2mNodos">
-                                <div class="empty-state" style="color:#ff880033">Sin nodos conectados</div>
-                            </div>
-                        </div>
+            <div class="m2m-layout">
+                <div class="m2m-left">
+                    <div class="m2m-section">
+                        <div class="m2m-title">📡 CONECTAR NODO</div>
+                        <input class="m2m-input" id="m2mUrlInput" placeholder="https://nodo.ngrok-free.app">
+                        <button class="btn btn-orange" style="width:100%" onclick="m2mConectar()">⚡ CONECTAR</button>
                     </div>
-                    <div class="m2m-right">
-                        <div class="m2m-section">
-                            <div class="m2m-title">📤 ENVIAR ARCHIVO .NXF</div>
-                            <input class="m2m-input" id="m2mArchivoPath" placeholder="Ruta del archivo .nxf">
-                            <select class="m2m-input" id="m2mDestinoSelect" style="margin-bottom:6px">
-                                <option value="">-- Seleccionar destino --</option>
-                            </select>
-                            <div style="display:flex;gap:6px">
-                                <button class="btn btn-orange btn-sm" onclick="m2mEnviar()">📤 ENVIAR</button>
-                                <button class="btn btn-cyan btn-sm" onclick="m2mExplorarNxf()">📁 EXPLORAR</button>
-                            </div>
+                    <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+                        <div class="m2m-title">🌐 NODOS ACTIVOS</div>
+                        <div class="m2m-nodos" id="m2mNodos">
+                            <div class="empty-state" style="color:#ff880033">Sin nodos conectados</div>
                         </div>
-                        <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
-                            <div class="m2m-title">📥 ARCHIVOS RECIBIDOS</div>
-                            <div class="m2m-archivos" id="m2mRecibidos"></div>
-                            <div class="m2m-drop" id="m2mDrop"
-                                 ondrop="m2mDrop(event)"
-                                 ondragover="event.preventDefault();this.classList.add('drag-over')"
-                                 ondragleave="this.classList.remove('drag-over')">
-                                📦 Arrastra un .nxf aquí
-                            </div>
-                        </div>
-                        <div class="m2m-log" id="m2mLog"></div>
                     </div>
                 </div>
-            </div>
-
-            <!-- SUB-PANEL: LLAMADA -->
-            <div class="m2m-subpanel" id="subPanelLlamada">
-                <div class="llamada-layout">
-                    <div class="llamada-header">
-                        <div class="llamada-estado" id="llamadaEstado">📞 Sin llamada activa — Conecta un nodo primero</div>
-                        <select class="file-selector" id="llamadaNodoSelect" style="border-color:#00ff8844;color:#00ff88;background:#0a0a0f">
-                            <option value="">— Seleccionar nodo —</option>
+                <div class="m2m-right">
+                    <div class="m2m-section">
+                        <div class="m2m-title">📤 ENVIAR ARCHIVO .NXF</div>
+                        <input class="m2m-input" id="m2mArchivoPath" placeholder="Ruta del archivo .nxf">
+                        <select class="m2m-input" id="m2mDestinoSelect" style="margin-bottom:6px">
+                            <option value="">-- Seleccionar destino --</option>
                         </select>
-                        <button class="btn btn-green btn-sm" onclick="llamadaIniciar('audio')">🎙️ AUDIO</button>
-                        <button class="btn btn-green btn-sm" onclick="llamadaIniciar('video')">📹 VIDEO</button>
-                        <button class="btn btn-red btn-sm" id="btnColgar" style="display:none" onclick="llamadaColgar()">📵 COLGAR</button>
-                    </div>
-                    <div class="llamada-videos">
-                        <div class="video-box">
-                            <div class="video-label">📹 TÚ (LOCAL)</div>
-                            <video id="videoLocal" autoplay muted playsinline></video>
-                        </div>
-                        <div class="video-box">
-                            <div class="video-label">📹 NODO REMOTO</div>
-                            <video id="videoRemoto" autoplay playsinline></video>
-                            <div class="video-placeholder" id="videoRemotoPlaceholder">👤</div>
+                        <div style="display:flex;gap:6px">
+                            <button class="btn btn-orange btn-sm" onclick="m2mEnviar()">📤 ENVIAR</button>
+                            <button class="btn btn-cyan btn-sm" onclick="m2mExplorarNxf()">📁 EXPLORAR</button>
                         </div>
                     </div>
-                    <div class="llamada-controles">
-                        <button class="btn btn-cyan btn-sm" id="btnMuteAudio" onclick="llamadaMuteAudio()">🎙️ MUTE</button>
-                        <button class="btn btn-cyan btn-sm" id="btnMuteVideo" onclick="llamadaMuteVideo()">📹 CAMARA</button>
-                        <div class="llamada-info">🔐 Codificación fractal .nxf — Canal M2M seguro</div>
-                        <div class="llamada-info" id="llamadaStats">⏱️ 00:00 | 🔐 fractal activo</div>
+                    <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+                        <div class="m2m-title">📥 ARCHIVOS RECIBIDOS</div>
+                        <div class="m2m-archivos" id="m2mRecibidos"></div>
+                        <div class="m2m-drop" id="m2mDrop" ondrop="m2mDrop(event)" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')">
+                            📦 Arrastra un .nxf aquí
+                        </div>
                     </div>
+                    <div class="m2m-log" id="m2mLog"></div>
                 </div>
             </div>
         </div>
 
-        <!-- AVATAR — "Personalizar" movido debajo de la imagen, campo Nombre agregado -->
+        <!-- LLAMADA M2M -->
+        <div class="tab-panel" id="panelLlamada">
+            <div class="llamada-layout">
+                <div class="llamada-header">
+                    <div class="llamada-estado" id="llamadaEstado">📞 Sin llamada activa — Conecta un nodo M2M primero</div>
+                    <select class="file-selector" id="llamadaNodoSelect" style="border-color:#00ff8844;color:#00ff88;background:#0a0a0f">
+                        <option value="">— Seleccionar nodo —</option>
+                    </select>
+                    <button class="btn btn-green btn-sm" onclick="llamadaIniciar('audio')">🎙️ AUDIO</button>
+                    <button class="btn btn-green btn-sm" onclick="llamadaIniciar('video')">📹 VIDEO</button>
+                    <button class="btn btn-red btn-sm" id="btnColgar" style="display:none" onclick="llamadaColgar()">📵 COLGAR</button>
+                </div>
+                <div class="llamada-videos">
+                    <div class="video-box">
+                        <div class="video-label">📹 TÚ (LOCAL)</div>
+                        <video id="videoLocal" autoplay muted playsinline></video>
+                    </div>
+                    <div class="video-box">
+                        <div class="video-label">📹 NODO REMOTO</div>
+                        <video id="videoRemoto" autoplay playsinline></video>
+                        <div class="video-placeholder" id="videoRemotoPlaceholder">👤</div>
+                    </div>
+                </div>
+                <div class="llamada-controles">
+                    <button class="btn btn-cyan btn-sm" id="btnMuteAudio" onclick="llamadaMuteAudio()">🎙️ MUTE</button>
+                    <button class="btn btn-cyan btn-sm" id="btnMuteVideo" onclick="llamadaMuteVideo()">📹 CAMARA</button>
+                    <div class="llamada-info">🔐 Codificación fractal .nxf — Canal M2M seguro</div>
+                    <div class="llamada-info" id="llamadaStats">⏱️ 00:00 | 🔐 fractal activo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AVATAR PERSONALIZADOR -->
         <div class="tab-panel" id="panelAvatar">
             <div class="avatar-layout">
                 <div class="avatar-left">
-                    <!-- FOTO primero -->
                     <div class="avatar-section">
                         <div class="avatar-section-title">📸 SUBIR FOTO</div>
                         <div class="avatar-upload-zone" onclick="document.getElementById('avatarFileInput').click()">
@@ -480,7 +450,6 @@
                         </div>
                         <input type="file" id="avatarFileInput" style="display:none" accept="image/*" onchange="avatarCargarFoto(event)">
                     </div>
-                    <!-- ESTILO -->
                     <div class="avatar-section">
                         <div class="avatar-section-title">🎨 ESTILO</div>
                         <div>
@@ -492,7 +461,6 @@
                             <button class="filter-btn" id="filtroSketch" onclick="avatarFiltro('sketch')">Sketch</button>
                         </div>
                     </div>
-                    <!-- AJUSTES -->
                     <div class="avatar-section">
                         <div class="avatar-section-title">⚙️ AJUSTES</div>
                         <div class="avatar-label"><span>Brillo</span><span id="valBrillo">100%</span></div>
@@ -504,52 +472,18 @@
                         <div class="avatar-label"><span>Tono neón</span><span id="valNeon">0%</span></div>
                         <input type="range" class="avatar-slider" id="sliderNeon" min="0" max="100" value="0" oninput="avatarAplicarFiltros()">
                     </div>
-                    <!-- GUARDAR -->
                     <div class="avatar-section">
                         <div class="avatar-section-title">💾 GUARDAR</div>
                         <button class="btn btn-pink" style="width:100%;margin-bottom:6px" onclick="avatarGuardar()">✅ ESTABLECER COMO AVATAR</button>
                         <button class="btn btn-cyan btn-sm" style="width:100%" onclick="avatarDescargar()">⬇️ DESCARGAR</button>
                     </div>
                 </div>
-
-                <!-- DERECHA: imagen + personalizar DEBAJO -->
                 <div class="avatar-right">
-                    <div style="color:#ff44aa88;font-size:0.8em;letter-spacing:2px">VISTA PREVIA</div>
+                    <div style="color:#ff44aa88;font-size:0.8em;letter-spacing:2px;margin-bottom:10px">VISTA PREVIA</div>
                     <canvas id="avatarCanvas" class="avatar-canvas" width="300" height="300"></canvas>
-                    <div style="color:#ff44aa44;font-size:0.75em;text-align:center" id="avatarStatusMsg">Sube una foto para comenzar</div>
-
-                    <!-- PERSONALIZAR — debajo de la imagen -->
-                    <div style="width:100%;max-width:340px;background:#ff44aa08;border:1px solid #ff44aa22;border-radius:8px;padding:14px;margin-top:4px">
-                        <div style="color:#ff44aa;font-size:0.78em;letter-spacing:2px;margin-bottom:10px">✏️ PERSONALIZAR</div>
-
-                        <!-- Nombre -->
-                        <div class="avatar-label" style="margin-bottom:4px">
-                            <span>Nombre del asistente</span>
-                        </div>
-                        <input class="nombre-arkani-input" id="inputNombreArkani"
-                               placeholder="ARKANI"
-                               value="ARKANI"
-                               maxlength="20"
-                               oninput="previewNombreArkani(this.value)">
-                        <div style="font-size:0.7em;color:#ff44aa44;margin:4px 0 10px">
-                            Por defecto: "Arkani abre youtube" · Personalizado: "Jarvis abre youtube"
-                        </div>
-
-                        <button class="btn btn-pink" style="width:100%" onclick="guardarNombreArkani()">
-                            💾 GUARDAR NOMBRE
-                        </button>
-                    </div>
+                    <div style="color:#ff44aa44;font-size:0.75em;text-align:center;margin-top:8px" id="avatarStatusMsg">Sube una foto para comenzar</div>
                 </div>
             </div>
-        </div>
-
-        <!-- HELP -->
-        <div class="tab-panel" id="panelHelp">
-            <div class="panel-header">
-                <span class="panel-header-title">❓ MANUAL DE USUARIO</span>
-                <button class="btn btn-cyan btn-sm" onclick="helpDescargar()">⬇️ DESCARGAR TXT</button>
-            </div>
-            <div style="flex:1;overflow-y:auto;padding:20px;font-family:'Courier New',monospace;font-size:0.82em;line-height:1.7;color:#cccccc;background:#050508;white-space:pre-wrap" id="helpContent">Cargando manual...</div>
         </div>
 
     </div>
@@ -594,70 +528,10 @@ let avatarFiltroActual = 'normal';
 let avatarImagenOriginal = null;
 let m2mNodos = {};
 
-// ── NOMBRE ARKANI ────────────────────────────
-const NOMBRE_KEY = 'arkani_nombre_asistente';
-
-function cargarNombreGuardado() {
-    const n = localStorage.getItem(NOMBRE_KEY) || 'ARKANI';
-    document.getElementById('sidebarNombre').textContent = n.toUpperCase();
-    document.getElementById('inputNombreArkani').value = n.toUpperCase();
-    // actualiza placeholder del chat con el nombre actual
-    document.getElementById('chatInput').placeholder =
-        'Escribe aquí... | ' + n + ' abre youtube | autoprograma: [tarea]';
-    // actualiza indicador de voz
-    document.getElementById('vozStatus').textContent =
-        '🔇 Voz lista — di "' + n + '" para activar';
-}
-
-function previewNombreArkani(val) {
-    // muestra preview en tiempo real en sidebar
-    if (val.trim()) {
-        document.getElementById('sidebarNombre').textContent = val.toUpperCase();
-    }
-}
-
-function guardarNombreArkani() {
-    const n = document.getElementById('inputNombreArkani').value.trim().toUpperCase();
-    if (!n) return;
-    localStorage.setItem(NOMBRE_KEY, n);
-    cargarNombreGuardado();
-    addMsg('system', '✏️ Nombre actualizado a: ' + n + ' — di "' + n + ' abre youtube" para probar');
-    // Notifica al backend para actualizar el wake word
-    fetch('/config/nombre', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({nombre: n})
-    }).catch(() => {});
-}
-
-// ── SUB-TABS M2M ─────────────────────────────
-function switchM2mSub(sub) {
-    document.querySelectorAll('.m2m-subtab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.m2m-subpanel').forEach(p => p.classList.remove('active'));
-    document.getElementById('subTab' + sub.charAt(0).toUpperCase() + sub.slice(1)).classList.add('active');
-    document.getElementById('subPanel' + sub.charAt(0).toUpperCase() + sub.slice(1)).classList.add('active');
-    if (sub === 'compartir') { m2mActualizar(); m2mCargarRecibidos(); }
-    if (sub === 'llamada') actualizarNodosLlamada();
-}
-
-// ── SOCKET ───────────────────────────────────
 socket.on('connect', () => addMsg('system','🔗 Arkani Nexus v4.0 Conectado'));
 socket.on('status', d => addMsg('system', d.msg));
 socket.on('typing', d => document.getElementById('typingInd').style.display = d.status?'block':'none');
-socket.on('respuesta', d => {
-    addMsg('arkani', d.texto, d.timestamp);
-    vozReproducir(d.texto);
-    if (d.action === 'open_url' || d.action === 'open_url_dynamic') {
-        window.open(d.param, '_blank');
-    }
-    if (d.action === 'search_google' || d.action === 'search_youtube') {
-        window.open(d.param, '_blank');
-    }
-    if (d.nav_tab) {
-        const tabEl = document.getElementById('tab' + d.nav_tab.charAt(0).toUpperCase() + d.nav_tab.slice(1));
-        if (tabEl) tabEl.click();
-    }
-});
+socket.on('respuesta', d => { addMsg('arkani', d.texto, d.timestamp); vozReproducir(d.texto); });
 socket.on('voz_respuesta', d => {
     addMsg('user','🎙️ '+d.texto_usuario);
     addMsg('arkani', d.respuesta, d.timestamp);
@@ -673,7 +547,6 @@ function addMsg(tipo, texto, hora) {
     box.appendChild(div);
     box.scrollTop = box.scrollHeight;
 }
-
 function enviarMensaje() {
     const inp = document.getElementById('chatInput');
     const txt = inp.value.trim();
@@ -684,7 +557,7 @@ function enviarMensaje() {
 }
 function chatKeyDown(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensaje();} }
 
-// ── VOZ PASIVO ───────────────────────────────
+// VOZ PASIVO
 async function vozPasivoToggle() {
     if (vozGrabando) { vozPararGrabacion(); return; }
     try {
@@ -726,7 +599,7 @@ async function vozEnviarAudio(blob) {
     } catch(e) { document.getElementById('vozStatus').textContent = '❌ '+e.message; }
 }
 
-// ── VOZ ACTIVO ───────────────────────────────
+// VOZ ACTIVO
 async function vozActivoToggle() {
     const btn = document.getElementById('btnMicActivo');
     if (vozModoActivo) {
@@ -737,12 +610,12 @@ async function vozActivoToggle() {
     } else {
         await fetch('/voz/modo_activo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accion:'activar'})});
         vozModoActivo = true; btn.classList.add('activo'); btn.textContent = '🟢';
-        const n = localStorage.getItem(NOMBRE_KEY) || 'Arkani';
-        document.getElementById('vozStatus').textContent = '👂 Escuchando... di "'+n+'" para activar';
+        document.getElementById('vozStatus').textContent = '👂 Escuchando... di "Arkani" para activar';
         document.getElementById('sbVoz').textContent = 'ACTIVO';
     }
 }
 
+// TTS
 async function vozReproducir(texto) {
     try {
         const r = await fetch('/voz/generar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({texto})});
@@ -757,18 +630,16 @@ function vozReproducirUrl(url) {
     audio.play().catch(()=>{});
 }
 
-// ── LLAMADA M2M ──────────────────────────────
+// LLAMADA M2M
 async function llamadaIniciar(modo) {
     const nid = document.getElementById('llamadaNodoSelect').value;
     if (!nid) { addMsg('system','❌ Selecciona un nodo primero'); return; }
     try {
-        const stream = await navigator.mediaDevices.getUserMedia(
-            modo==='video'?{audio:true,video:true}:{audio:true,video:false});
+        const stream = await navigator.mediaDevices.getUserMedia(modo==='video'?{audio:true,video:true}:{audio:true,video:false});
         llamadaStream = stream;
         document.getElementById('videoLocal').srcObject = stream;
         document.getElementById('btnColgar').style.display = 'inline-block';
-        document.getElementById('llamadaEstado').textContent =
-            '📞 Llamada activa — '+nid+' | '+modo.toUpperCase()+' | 🔐 Fractal activo';
+        document.getElementById('llamadaEstado').textContent = '📞 Llamada activa — '+nid+' | '+modo.toUpperCase()+' | 🔐 Fractal activo';
         llamadaSegundos = 0;
         llamadaTimer = setInterval(()=>{
             llamadaSegundos++;
@@ -807,7 +678,7 @@ function actualizarNodosLlamada() {
     });
 }
 
-// ── AVATAR ───────────────────────────────────
+// AVATAR
 function avatarCargarFoto(event) {
     const file = event.target.files[0]; if (!file) return;
     const reader = new FileReader();
@@ -862,7 +733,7 @@ async function avatarGuardar() {
 }
 function avatarDescargar(){const a=document.createElement('a');a.download='arkani_avatar.png';a.href=document.getElementById('avatarCanvas').toDataURL();a.click();}
 
-// ── EDITOR ───────────────────────────────────
+// EDITOR
 async function cargarListaArchivos() {
     try {
         const r=await fetch('/archivos');const d=await r.json();
@@ -893,7 +764,7 @@ async function probarCodigo(){
 }
 function pedirCodigo(){const n=document.getElementById('nombreArchivo').value||'nueva funcion';document.getElementById('chatInput').value='autoprograma: crear funcion python llamada '+n+' que haga: ';switchTab('chat');document.getElementById('chatInput').focus();}
 
-// ── ERRORES ──────────────────────────────────
+// ERRORES
 async function escanearErrores(){
     switchTab('errores');document.getElementById('erroresLista').innerHTML='<div class="empty-state">🔍 Escaneando...</div>';
     const r=await fetch('/escanear_errores');const d=await r.json();
@@ -914,7 +785,7 @@ function mostrarFix(archivo,codigo,titulo){fixPendiente={archivo,codigo:decodeUR
 async function aplicarFix(){if(!fixPendiente)return;const r=await fetch('/aplicar_fix',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fixPendiente)});const d=await r.json();cerrarModal();addMsg('system',d.ok?'✅ '+d.mensaje:'❌ '+d.error);escanearErrores();}
 function cerrarModal(){document.getElementById('modalFix').classList.remove('show');fixPendiente=null;}
 
-// ── CAPACIDADES ──────────────────────────────
+// CAPACIDADES
 async function cargarCapacidades(){
     const r=await fetch('/introspeccion');const d=await r.json();
     const grid=document.getElementById('capacidadesGrid');
@@ -928,7 +799,7 @@ async function cargarCapacidades(){
     });
 }
 
-// ── HIPOCAMPO ────────────────────────────────
+// HIPOCAMPO
 async function cargarHipocampo(){
     const r=await fetch('/hipocampo');const d=await r.json();
     document.getElementById('statHipo').textContent=d.total||0;document.getElementById('sbHipo').textContent=d.total||0;
@@ -942,12 +813,12 @@ async function cargarHipocampo(){
     document.getElementById('hipoInfo').textContent=(d.total||0)+' instrucciones — '+(d.bytes||0)+' bytes';
 }
 
-// ── SIDEBAR CONVS ────────────────────────────
+// SIDEBAR
 async function cargarSidebarConvs(){
     try{const r=await fetch('/status');const d=await r.json();const cont=document.getElementById('sidebarConvs');const convs=d.ultimas_conversaciones||[];cont.innerHTML='';convs.forEach(c=>{const div=document.createElement('div');div.className='conv-item';div.textContent=c.pregunta||'...';div.title=c.fecha||'';div.onclick=()=>{document.getElementById('chatInput').value=c.pregunta||'';switchTab('chat');};cont.appendChild(div);});}catch(e){}
 }
 
-// ── TABS ─────────────────────────────────────
+// TABS
 function switchTab(tab){
     document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -960,9 +831,10 @@ function switchTab(tab){
     if(tab==='editor')cargarListaArchivos();
     if(tab==='explorer'&&!explorerRutaActual)explorerNavegar('~/NEXUS');
     if(tab==='m2m'){m2mActualizar();m2mCargarRecibidos();}
+    if(tab==='llamada')actualizarNodosLlamada();
 }
 
-// ── STATS ────────────────────────────────────
+// STATS
 async function actualizarStats(){
     try{const r=await fetch('/status');const d=await r.json();
     document.getElementById('statConv').textContent=d.conversaciones||0;document.getElementById('statEvol').textContent=d.evoluciones||0;
@@ -972,7 +844,7 @@ async function actualizarStats(){
     document.getElementById('sbEstado').textContent=d.arkani_ok?'ONLINE':'ERROR';}catch(e){}
 }
 
-// ── EXPLORADOR ───────────────────────────────
+// EXPLORADOR
 async function explorerNavegar(ruta){
     if(!ruta)return;
     try{const r=await fetch('/explorador/listar?ruta='+encodeURIComponent(ruta));const d=await r.json();if(d.error)return;
@@ -1002,7 +874,7 @@ function explorerEnviarEditor(){if(!explorerContenidoActual||!explorerArchivoAct
 function explorerEmpaquetar(){document.getElementById('m2mArchivoPath').value=explorerArchivoActual||'';switchTab('m2m');}
 function formatBytes(b){if(!b)return'';if(b<1024)return b+'B';if(b<1048576)return(b/1024).toFixed(1)+'K';return(b/1048576).toFixed(1)+'M';}
 
-// ── M2M ──────────────────────────────────────
+// M2M
 async function m2mActualizar(){
     try{const r=await fetch('/m2m/estado');const d=await r.json();m2mNodos=d.nodos||{};const total=Object.keys(m2mNodos).length;document.getElementById('sbM2m').textContent=total;const badge=document.getElementById('badgeNodos');badge.textContent=total;badge.style.display=total>0?'inline':'none';renderNodos();actualizarDestinosSelect();actualizarNodosLlamada();}catch(e){}
 }
@@ -1012,7 +884,7 @@ function renderNodos(){
     cont.innerHTML='';
     Object.entries(m2mNodos).forEach(([nid,info])=>{
         const card=document.createElement('div');card.className='nodo-card';
-        card.innerHTML='<div class="nodo-nombre"><span class="nodo-dot"></span>'+info.nombre+'</div><div class="nodo-url">'+info.url+'</div><div style="font-size:0.72em;color:#ff880066;margin-bottom:6px">ID: '+nid+'</div><div class="nodo-acciones"><button class="btn btn-orange btn-sm" onclick="m2mPing(\''+nid+'\')">📡 PING</button><button class="btn btn-green btn-sm" onclick="switchM2mSub(\'llamada\')">📞 LLAMAR</button><button class="btn btn-red btn-sm" onclick="m2mDesconectar(\''+nid+'\')">✕</button></div>';
+        card.innerHTML='<div class="nodo-nombre"><span class="nodo-dot"></span>'+info.nombre+'</div><div class="nodo-url">'+info.url+'</div><div style="font-size:0.72em;color:#ff880066;margin-bottom:6px">ID: '+nid+'</div><div class="nodo-acciones"><button class="btn btn-orange btn-sm" onclick="m2mPing(\''+nid+'\')">📡 PING</button><button class="btn btn-green btn-sm" onclick="switchTab(\'llamada\')">📞 LLAMAR</button><button class="btn btn-red btn-sm" onclick="m2mDesconectar(\''+nid+'\')">✕</button></div>';
         cont.appendChild(card);
     });
 }
@@ -1028,25 +900,6 @@ function m2mLog(msg,tipo){const log=document.getElementById('m2mLog');const line
 
 function actualizarHora(){document.getElementById('sbHora').textContent=new Date().toLocaleTimeString('es-MX');}
 
-async function cargarHelp(){
-    try {
-        const r = await fetch('/help');
-        const txt = await r.text();
-        document.getElementById('helpContent').textContent = txt;
-    } catch(e) {
-        document.getElementById('helpContent').textContent = 'No se pudo cargar el manual.';
-    }
-}
-function helpDescargar(){
-    const txt = document.getElementById('helpContent').textContent;
-    const a = document.createElement('a');
-    a.download = 'ARKANI_HELP.txt';
-    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt);
-    a.click();
-}
-
-// ── INIT ─────────────────────────────────────
-cargarNombreGuardado();
 actualizarStats();
 cargarCapacidades();
 cargarSidebarConvs();
@@ -1056,7 +909,7 @@ setInterval(cargarSidebarConvs,8000);
 setInterval(actualizarHora,1000);
 setInterval(m2mActualizar,15000);
 actualizarHora();
-cargarHelp();
 </script>
 </body>
 </html>
+

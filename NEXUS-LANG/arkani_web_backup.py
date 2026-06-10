@@ -10,8 +10,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 BASE_DIR = os.path.expanduser("~/NEXUS/NEXUS-LANG")
 AUTOGEN_DIR = os.path.join(BASE_DIR, "autogen")
 sys.path.insert(0, BASE_DIR)
-from nexus_commander import commander
-from nexus_evolve_v2 import evolve_engine
 
 try:
     from arkani_engine import ArkaniEngine, verificar_codigo_seguro, exec_seguro
@@ -264,6 +262,7 @@ def logs():
     except:
         return jsonify({"logs": ["Sin logs"]})
 
+
 ALLOWED_EXT = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
 @app.route('/upload_avatar', methods=['POST'])
@@ -299,39 +298,37 @@ def on_mensaje(data):
 
     def procesar():
         socketio.emit('typing', {'status': True}, room=sid, namespace='/')
-        # Commander: intercepta comandos del sistema antes de Ollama
-        cmd = commander.match_and_execute(texto)
-        if cmd["executed"]:
-            socketio.emit('respuesta', {
-                'texto': cmd["response"],
-                'action': cmd.get("action", ""),
-                'param': cmd.get("param", ""),
-                'nav_tab': cmd.get("nav_tab", ""),
-                'timestamp': datetime.datetime.now().strftime('%H:%M:%S')
-            }, room=sid, namespace='/')
-            socketio.emit('typing', {'status': False}, room=sid, namespace='/')
-            return
         try:
             from arkani_bridge import procesar as bridge_procesar
             respuesta = bridge_procesar(texto, engine=arkani)
         except Exception:
             respuesta = arkani.chat(texto) if arkani else "Motor no disponible"
-        # Evolve: analiza la respuesta
-        evolve_result = evolve_engine.process_chat_response(texto, respuesta)
-        respuesta = evolve_result["response"]
         socketio.emit('respuesta', {
             'texto': respuesta,
-            'action': '',
-            'param': '',
-            'nav_tab': '',
             'timestamp': datetime.datetime.now().strftime('%H:%M:%S')
         }, room=sid, namespace='/')
         socketio.emit('typing', {'status': False}, room=sid, namespace='/')
 
     socketio.start_background_task(procesar)
 
+    print("\n" + "=" * 50)
+    print(" ARKANI WEB v4.0 - Panel de Control")
+    print(f" Engine: {'OK' if ARKANI_OK else 'ERROR'}")
+    print(" http://0.0.0.0:8081")
+    print("=" * 50 + "\n")
+    os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
+    os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
+    cargar_rag()
+    if UPDATER_OK:
+        updater_rutas(app)
+    socketio.run(app, host="0.0.0.0", port=8081, debug=False, allow_unsafe_werkzeug=True)
+
+
+# ── EXPLORADOR DE ARCHIVOS ───────────────────────────────────
+
 @app.route('/explorador/listar')
 def explorador_listar():
+    import datetime
     ruta = request.args.get('ruta', os.path.expanduser('~/NEXUS'))
     try:
         ruta_abs = os.path.realpath(os.path.expanduser(ruta))
@@ -342,7 +339,7 @@ def explorador_listar():
             try:
                 stat = item.stat()
                 entradas.append({"nombre": item.name, "tipo": "dir" if item.is_dir() else "archivo",
-                    "tamanio": stat.st_size if item.is_file() else None,
+                    "tamaño": stat.st_size if item.is_file() else None,
                     "fecha": datetime.datetime.fromtimestamp(stat.st_mtime).strftime('%d/%m %H:%M'),
                     "ruta": item.path})
             except:
@@ -387,7 +384,7 @@ def explorador_buscar():
                     ruta_completa = os.path.join(root, f)
                     try:
                         stat = os.stat(ruta_completa)
-                        resultados.append({"nombre": f, "ruta": ruta_completa, "tamanio": stat.st_size})
+                        resultados.append({"nombre": f, "ruta": ruta_completa, "tamaño": stat.st_size})
                     except:
                         pass
             if len(resultados) >= 200:
@@ -467,15 +464,26 @@ def m2m_recibir_archivo():
 
 @app.route('/m2m/archivos_recibidos')
 def m2m_archivos_recibidos():
+    import datetime
     destino_dir = os.path.expanduser('~/NEXUS/recibidos')
     os.makedirs(destino_dir, exist_ok=True)
     archivos = []
     for f in sorted(os.listdir(destino_dir)):
         if f.endswith('.nxf'):
             ruta = os.path.join(destino_dir, f)
-            archivos.append({"nombre": f, "ruta": ruta, "tamanio": os.path.getsize(ruta)})
+            archivos.append({"nombre": f, "ruta": ruta, "tamaño": os.path.getsize(ruta)})
     return jsonify({"archivos": archivos})
+if __name__ == '__main__':
+    print("\n" + "=" * 50)
+    print("  ARKANI WEB v4.0 - Panel de Control")
+    print(f"  Engine: {'OK' if ARKANI_OK else 'ERROR'}")
+    print("  http://0.0.0.0:8081")
+    print("=" * 50 + "\n")
+    os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
+    os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
+    cargar_rag()
 
+# ── FRACTAL VM INTEGRATION ──────────────────
 @app.route('/fractal/ejecutar', methods=['POST'])
 def fractal_ejecutar():
     try:
@@ -495,8 +503,16 @@ def fractal_estado():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+# ── RUTAS DE VOZ - agregar en arkani_web.py ─────────────────
+# Pegar ANTES del ultimo bloque if __name__ == '__main__'
+# También agregar al inicio: from nexus_voz import texto_a_voz, audio_a_texto, grabador
+#                                                   iniciar_escucha_activa, detener_escucha_activa
+#                                                   escucha_activa_estado
+
 @app.route('/voz/generar', methods=['POST'])
 def voz_generar():
+    """TTS: recibe texto, devuelve URL del WAV generado por Piper."""
     from nexus_voz import texto_a_voz
     texto = (request.json or {}).get('texto', '').strip()
     if not texto:
@@ -508,6 +524,7 @@ def voz_generar():
 
 @app.route('/voz/transcribir', methods=['POST'])
 def voz_transcribir():
+    """STT: recibe WAV del navegador, devuelve texto transcrito por Whisper."""
     from nexus_voz import audio_a_texto
     if 'audio' not in request.files:
         return jsonify({"ok": False, "error": "Sin archivo audio"})
@@ -521,15 +538,19 @@ def voz_transcribir():
 
 @app.route('/voz/modo_activo', methods=['POST'])
 def voz_modo_activo():
+    """Activa/desactiva modo escucha activa (wake word 'Arkani')."""
     from nexus_voz import iniciar_escucha_activa, detener_escucha_activa, escucha_activa_estado
     accion = (request.json or {}).get('accion', '')
 
     def on_comando(texto):
+        """Callback: cuando se detecta comando por voz, lo manda a Arkani y genera respuesta."""
         if not arkani:
             return
         respuesta = arkani.chat(texto)
+        # Genera audio de respuesta
         from nexus_voz import texto_a_voz
         url_audio = texto_a_voz(respuesta, nombre="respuesta_activa")
+        # Emite por websocket a todos los clientes
         socketio.emit('voz_respuesta', {
             'texto_usuario': texto,
             'respuesta':     respuesta,
@@ -548,6 +569,7 @@ def voz_modo_activo():
 
 @app.route('/voz/estado')
 def voz_estado():
+    """Devuelve estado actual del sistema de voz."""
     from nexus_voz import escucha_activa_estado
     piper_ok  = os.path.exists(os.path.expanduser("~/NEXUS/piper/piper"))
     modelo_ok = os.path.exists(os.path.expanduser("~/NEXUS/piper/es_MX-claude-high.onnx"))
@@ -563,21 +585,9 @@ def voz_estado():
         "escucha_activa": escucha_activa_estado()
     })
 
-@app.route('/help')
-def help_manual():
-    ruta = os.path.join(BASE_DIR, 'ARKANI_HELP.txt')
-    try:
-        with open(ruta, 'r', encoding='utf-8') as f:
-            return f.read(), 200, {'Content-Type': 'text/plain; charset=utf-8'}
-    except:
-        return 'Manual no disponible.', 404
+
 
 if __name__ == '__main__':
-    print("\n" + "=" * 50)
-    print("  ARKANI WEB v4.0 - Panel de Control")
-    print(f"  Engine: {'OK' if ARKANI_OK else 'ERROR'}")
-    print("  http://0.0.0.0:8081")
-    print("=" * 50 + "\n")
     os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
     os.makedirs(os.path.expanduser("~/NEXUS/recibidos"), exist_ok=True)
