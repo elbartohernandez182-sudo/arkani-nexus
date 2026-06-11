@@ -324,6 +324,46 @@
       "fecha": "2026-06-10 04:00",
       "pregunta": "abre youtube",
       "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 21:12",
+      "pregunta": "¡So, táso, activa youtube!",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 22:20",
+      "pregunta": "activa youtube",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 22:31",
+      "pregunta": "primer hombre en la luna?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 23:09",
+      "pregunta": "el padre de la patria?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 23:26",
+      "pregunta": "¿Ac các tipo de YouTube?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-10 23:40",
+      "pregunta": "año de la revolucion mexicana?",
+      "respuesta": "Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "fecha": "2026-06-10 23:51",
+      "pregunta": "año de la revolucion mexicana?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-11 00:01",
+      "pregunta": "el padre de la patria?",
+      "respuesta": "Timeout Ollama"
     }
   ],
   "pendientes": [],
@@ -332,7 +372,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 71,
+    "preguntas": 79,
     "evoluciones": 1
   },
   "evoluciones": [

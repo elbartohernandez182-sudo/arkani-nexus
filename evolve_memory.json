@@ -1,0 +1,51 @@
+{
+  "total_evolutions": 7,
+  "errors_by_type": {
+    "timeout": 7
+  },
+  "evolution_log": [
+    {
+      "timestamp": "2026-06-10T21:12:12.247674",
+      "error_type": "timeout",
+      "user_message_preview": "¡So, táso, activa youtube!",
+      "auto_fixed": false
+    },
+    {
+      "timestamp": "2026-06-10T22:20:41.881031",
+      "error_type": "timeout",
+      "user_message_preview": "activa youtube",
+      "auto_fixed": false
+    },
+    {
+      "timestamp": "2026-06-10T22:31:25.612720",
+      "error_type": "timeout",
+      "user_message_preview": "primer hombre en la luna?",
+      "auto_fixed": false
+    },
+    {
+      "timestamp": "2026-06-10T23:09:00.626882",
+      "error_type": "timeout",
+      "user_message_preview": "el padre de la patria?",
+      "auto_fixed": false
+    },
+    {
+      "timestamp": "2026-06-10T23:26:05.630617",
+      "error_type": "timeout",
+      "user_message_preview": "¿Ac các tipo de YouTube?",
+      "auto_fixed": false
+    },
+    {
+      "timestamp": "2026-06-10T23:51:03.315732",
+      "error_type": "timeout",
+      "user_message_preview": "año de la revolucion mexicana?",
+      "auto_fixed": false
+    },
+    {
+      "timestamp": "2026-06-11T00:01:57.311739",
+      "error_type": "timeout",
+      "user_message_preview": "el padre de la patria?",
+      "auto_fixed": false
+    }
+  ],
+  "last_updated": "2026-06-11T00:01:57.311912"
+}
