@@ -445,53 +445,6 @@ class MemoriaEvolutiva:
                 pass
         return default
 
-
-    def memoria_corto_plazo(self, n: int = 3) -> str:
-        """Últimas N conversaciones — van directo al prompt."""
-        convs = self.memoria.get("conversaciones", [])[-n:]
-        if not convs:
-            return ""
-        lineas = []
-        for c in convs:
-            p = c.get("pregunta", "")[:80]
-            r = c.get("respuesta", "")[:120]
-            lineas.append(f"U: {p}\nA: {r}")
-        return "\n---\n".join(lineas)
-
-    def memoria_largo_plazo(self, pregunta: str, n_resultados: int = 2) -> str:
-        """Búsqueda semántica por keywords en conversaciones antiguas."""
-        convs = self.memoria.get("conversaciones", [])
-        if len(convs) <= 3:
-            return ""
-        # Solo buscar en las conversaciones viejas (excluyendo las últimas 3)
-        antiguas = convs[:-3]
-        # Extraer keywords de la pregunta (palabras > 3 chars)
-        stopwords = {"que", "quien", "como", "cual", "donde", "cuando",
-                     "para", "por", "con", "sin", "una", "uno", "los",
-                     "las", "del", "fue", "son", "eres", "tienes"}
-        keywords = {p.lower().strip("?¿.,") for p in pregunta.split()
-                    if len(p) > 3 and p.lower() not in stopwords}
-        if not keywords:
-            return ""
-        # Buscar coincidencias
-        resultados = []
-        for c in antiguas:
-            texto = (c.get("pregunta","") + " " + c.get("respuesta","")).lower()
-            score = sum(1 for k in keywords if k in texto)
-            if score >= 1:
-                resultados.append((score, c))
-        if not resultados:
-            return ""
-        # Top N por relevancia
-        resultados.sort(key=lambda x: x[0], reverse=True)
-        top = resultados[:n_resultados]
-        lineas = []
-        for _, c in top:
-            p = c.get("pregunta","")[:60]
-            r = c.get("respuesta","")[:100]
-            lineas.append(f"[Memoria] {p} → {r}")
-        return "\n".join(lineas)
-
     def guardar(self):
         for path, datos in [(MEMORIA_PATH, self.memoria),
                             (CONOCIMIENTO_PATH, self.conocimiento)]:
@@ -829,15 +782,6 @@ class ArkaniEngine:
         elif ctx_ext:
             ctx_rag = f"\nINFO ({fuente}):\n{ctx_ext}\n"
 
-        # ── MEMORIA HUMANA ──────────────────────────────────────
-        mem_corto = self.mem.memoria_corto_plazo(n=3)
-        mem_largo = self.mem.memoria_largo_plazo(pregunta, n_resultados=2)
-        bloque_memoria = ""
-        if mem_largo:
-            bloque_memoria += f"\nRECUERDOS RELEVANTES:\n{mem_largo}\n"
-        if mem_corto:
-            bloque_memoria += f"\nCONVERSACION RECIENTE:\n{mem_corto}\n"
-        # ──────────────────────────────────────────────────────
         pends = self.mem.memoria.get("pendientes", [])
         pend_str = "\n".join(f"  {i+1}. {p}"
                              for i, p in enumerate(pends)) or "  (ninguno)"
@@ -848,7 +792,7 @@ class ArkaniEngine:
             "Constructor: Medico Radiologo.\n"
             "REGLAS: 1)Siempre en espanol. 2)Max 4 oraciones. "
             "3)Usa INFO si hay. 4)No repitas instrucciones.\n"
-            f"{bloque_memoria}"
+            f"\nPENDIENTES:\n{pend_str}\n"
             f"{ctx_rag}"
             "<|im_end|>\n"
             "<|im_start|>user\n"

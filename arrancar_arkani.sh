@@ -32,3 +32,7 @@ echo "LISTO"
 
 # Auto-actualizar contexto para Claude
 bash ~/NEXUS/scripts/update_context.sh &
+
+# Guardian — mantiene modelo en RAM
+nohup bash ~/NEXUS/mantener_ollama.sh > ~/NEXUS/guardian.log 2>&1 &
+echo 'Guardian Ollama iniciado'

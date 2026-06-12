@@ -364,6 +364,26 @@
       "fecha": "2026-06-11 00:01",
       "pregunta": "el padre de la patria?",
       "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-11 23:50",
+      "pregunta": "quien fue el primer hombre en la luna?",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-12 00:08",
+      "pregunta": "quien fue el primer hombre en la luna?",
+      "respuesta": "Fue Neil Armstrong en 1969. Fue un momento histórico para la humanidad."
+    },
+    {
+      "fecha": "2026-06-12 00:44",
+      "pregunta": "recuerdas cuando te pregunté sobre el padre de la patria?",
+      "respuesta": "Sí, recordó que anteriormente se trató el tema del \"padre de la patria\" como un título honorífico. Timeout Ollama."
+    },
+    {
+      "fecha": "2026-06-12 00:56",
+      "pregunta": "año de la independencia de Mexico?",
+      "respuesta": "La Independencia de México fue declarada en 1821. Info: Este evento marcó el fin del dominio español y el inicio de la historia mexicana como nación libre."
     }
   ],
   "pendientes": [],
@@ -372,7 +392,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 79,
+    "preguntas": 83,
     "evoluciones": 1
   },
   "evoluciones": [
