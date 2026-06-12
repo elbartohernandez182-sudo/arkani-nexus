@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-06-11 23:58:18
-Último commit: 6622961 - Dataset fractal + finetune + installer + launcher v1.0
+Actualizado: 2026-06-12 00:35:34
+Último commit: 19b1914 - Auto: Contexto actualizado 2026-06-11 23:58:18
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,6 +11,7 @@ Actualizado: 2026-06-11 23:58:18
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+19b1914 Auto: Contexto actualizado 2026-06-11 23:58:18
 6622961 Dataset fractal + finetune + installer + launcher v1.0
 2fa7589 Auto: Contexto actualizado 2026-06-10 23:40:52
 089bf1d v4.0 - Commander, Evolve, Modelfile fractal, UI HELP, Comunicacion M2M, Avatar personalizable
@@ -20,7 +21,6 @@ f4747c9 docs: ROADMAP Protocolo Wardenclyffe 2.0 - plan completo 4 meses
 9716d1c feat: voz bidireccional Piper+Whisper, llamada M2M, avatar personalizador
 db5825f feat: instalador Windows, acceso directo escritorio
 1f8fc78 Auto: Contexto actualizado 2026-06-08 02:43:08
-3de42f1 context: sesion 08jun2026 - packager, updater, repo publico
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
