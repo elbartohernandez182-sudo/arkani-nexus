@@ -36,3 +36,7 @@ bash ~/NEXUS/scripts/update_context.sh &
 # Guardian — mantiene modelo en RAM
 nohup bash ~/NEXUS/mantener_ollama.sh > ~/NEXUS/guardian.log 2>&1 &
 echo 'Guardian Ollama iniciado'
+
+# ARKANI Server - Motor Fractal (puerto 11435, paralelo)
+cd ~/NEXUS/NEXUS-LANG/fractal_motor && nohup python3 servidor.py --puerto 11435 --config nano > ~/NEXUS/fractal_server.log 2>&1 &
+echo 'ARKANI Fractal Server iniciado en puerto 11435'
