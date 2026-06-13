@@ -2,3 +2,12 @@ NEXUS-LANG/venv/
 __pycache__/
 *.pyc
 *.log
+# Checkpoints pesados — usar Git LFS o excluir
+NEXUS-LANG/arkani-fractal-lora/
+NEXUS-LANG/fractal_motor/*_test/
+NEXUS-LANG/fractal_motor/fractal_tokenizer/
+NEXUS-LANG/fractal_motor/ffn_test/
+NEXUS-LANG/fractal_motor/attn_test/
+*.pt
+*.npy
+*.safetensors
