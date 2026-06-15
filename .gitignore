@@ -11,3 +11,4 @@ NEXUS-LANG/fractal_motor/attn_test/
 *.pt
 *.npy
 *.safetensors
+*.gguf
