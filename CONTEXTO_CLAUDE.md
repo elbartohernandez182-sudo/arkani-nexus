@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-06-16 00:16:44
-Último commit: 34ae8d1 - Auto: Contexto actualizado 2026-06-16 00:04:35
+Actualizado: 2026-06-16 00:22:20
+Último commit: 2691101 - Auto: Contexto actualizado 2026-06-16 00:16:44
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,6 +11,7 @@ Actualizado: 2026-06-16 00:16:44
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+2691101 Auto: Contexto actualizado 2026-06-16 00:16:44
 34ae8d1 Auto: Contexto actualizado 2026-06-16 00:04:35
 21982c6 chore: gitignore *.gguf (modelos grandes)
 0267dc6 feat: Motor Fractal COMPLETO 9/9 - entrenamiento.py con backprop+Adam validado (loss 17.78->1.74, 90% mejora en 50 steps)
@@ -20,7 +21,6 @@ Actualizado: 2026-06-16 00:16:44
 8ad7124 Auto: Contexto actualizado 2026-06-12 19:33:35
 2c10b05 chore: gitignore para checkpoints y archivos pesados
 77ecaa2 feat: Motor Fractal — tokenizer + embeddings + attention + ffn listos
-4aeb9a8 feat: Motor Fractal v1.0 — operaciones.py + finetune_v2 + memoria humana + dataset 1016 ejemplos + guardian Ollama
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
