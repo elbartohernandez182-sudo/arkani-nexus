@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-06-18 10:15:10
-Último commit: 6396ec0 - v4.4 — decoradores python aprendidos + archivos memoria_permanente
+Actualizado: 2026-06-18 11:58:11
+Último commit: e005702 - Auto: Contexto actualizado 2026-06-18 10:15:10
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,6 +11,7 @@ Actualizado: 2026-06-18 10:15:10
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+e005702 Auto: Contexto actualizado 2026-06-18 10:15:10
 6396ec0 v4.4 — decoradores python aprendidos + archivos memoria_permanente
 1cabb53 Auto: Contexto actualizado 2026-06-18 08:29:42
 089f26f fix: corregir SyntaxError en tarea_entrenar del daemon
@@ -20,7 +21,6 @@ f9871d1 v4.3 — manual instrucciones aprendizaje + fix aprende internet sin tim
 be3b168 gitignore: excluir checkpoints LoRA, binarios y logs
 5c9d645 v4.1 — FractalVM Paso1 + aprendizaje internet + daemon nocturno + upload archivos + digestion fractal
 409192c Auto: Contexto actualizado 2026-06-16 00:39:25
-2784500 Auto: Contexto actualizado 2026-06-16 00:22:20
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
