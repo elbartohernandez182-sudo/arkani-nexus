@@ -235,7 +235,7 @@ def descargar_url(url: str, max_chars: int = 15000) -> str:
 # ══════════════════════════════════════════════
 
 def aprender_tema(tema: str, max_fuentes: int = 4,
-                  usar_digestor: bool = True) -> dict:
+                  usar_digestor: bool = False) -> dict:  # False = no llama Ollama en tiempo real
     """
     Pipeline completo: buscar → descargar → guardar → digerir.
     Retorna resumen de lo aprendido.
