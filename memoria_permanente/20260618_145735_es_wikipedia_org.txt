@@ -1,0 +1,179 @@
+FUENTE: https://es.wikipedia.org/wiki/Red_neuronal_artificial
+TEMA: 
+============================================================
+
+Red neuronal artificial - Wikipedia, la enciclopedia libre
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+Ir al contenido
+
+	
+
+	
+		
+			
+		
+		
+			
+		
+			
+		
+	
+	
+				
+			
+		
+		
+			
+				
+				
+					
+						
+							
+						
+						
+							
+				
+							
+						
+					
+				
+				
+					
+						
+						
+						
+					
+				
+				
+					
+							
+		
+
+						De Wikipedia, la enciclopedia libre
+					
+					
+					
+					
+					Este artículo trata sobre red neuronal artificial. Para otros usos de este término, véase red neuronal biológica.
+
+Este artículo o sección tiene referencias, pero necesita más para complementar su verificabilidad. 
+
+Busca fuentes: «Red neuronal artificial» – noticias · libros · académico · imágenesEste aviso fue puesto el 7 de abril de 2025.
+• 
+• 
+
+Este artículo o sección necesita ser wikificado, por favor, edítalo para que cumpla con las convenciones de estilo.Este aviso fue puesto el 7 de abril de 2025.
+• 
+• 
+
+El texto que sigue es una traducción defectuosa. Si quieres colaborar con Wikipedia, busca el artículo original y mejora esta traducción.Copia y pega el siguiente código en la página de discusión del autor de este artículo: {{subst:Aviso mal traducido|Red neuronal artificial}} ~~~~
+
+• 
+
+Una red neuronal artificial es un grupo interconectado de nodos similar a la vasta red de neuronas en un cerebro biológico. Cada nodo circular representa una neurona artificial y cada flecha representa una conexión desde la salida de una neurona a la entrada de otra.
+
+En el aprendizaje automático, una red neuronal artificial (abreviada ANN o NN) es un modelo dentro de los llamados sistemas conexionistas, inspirado en la estructura y función de las redes neuronales biológicas en los cerebros animales. Una ANN consta de unidades o nodos conectados llamados neuronas artificiales, que modelan vagamente las neuronas del cerebro. Estas están conectadas por aristas, que modelan las sinapsis del cerebro. Cada neurona artificial recibe «señales» de las neuronas conectadas, luego las procesa y envía una señal a otras neuronas conectadas. La «señal» es un número real, y la salida de cada neurona se calcula mediante una función no lineal de la suma de sus entradas, llamada función de activación. La fuerza de la señal en cada conexión está determinada por un peso, que se ajusta durante el proceso de aprendizaje. 
+
+Por lo general, las neuronas se agrupan en capas. Las diferentes capas pueden realizar diferentes transformaciones en sus entradas. Las señales viajan desde la primera capa (la capa de entrada) hasta la última capa (la capa de salida), posiblemente pasando por múltiples capas intermedias (capas ocultas). Una red se denomina típicamente red neuronal profunda si tiene al menos dos capas ocultas. 
+
+Capacitación[editar]
+
+Las redes neuronales se entrenan típicamente a través de la minimización de riesgos empíricos. Este método se basa en la idea de optimizar los parámetros de la red para minimizar la diferencia, o riesgo empírico, entre el resultado previsto y los valores objetivo reales en un conjunto de datos determinado. Los métodos basados en gradientes, como la Retropropagacion o Propagación hacia atrás, se utilizan generalmente para estimar los parámetros de la red.  Durante la fase de entrenamiento, las ANN aprenden de los datos de entrenamiento etiquetados, actualizando iterativamente sus parámetros para minimizar una Función de pérdida definida.  Las redes neuronales artificiales se utilizan para diversas tareas, como el modelado predictivo, el control adaptativo y la resolución de problemas en el ámbito de la inteligencia artificial. Pueden aprender de la experiencia y extraer conclusiones de un conjunto de información complejo y aparentemente no relacionado. Sobresalen en áreas donde la detección de soluciones o características es difícil de expresar con la programación convencional. Para realizar este aprendizaje automático, normalmente, se intenta minimizar una función de pérdida que evalúa la red en su total. Los valores de los pesos de las neuronas se van actualizando buscando reducir el valor de la función de pérdida. Este proceso se realiza mediante la propagación hacia atrás.
+
+Las redes neuronales actuales suelen contener desde unos miles a unos pocos millones de unidades neuronales.
+
+Nuevas investigaciones sobre el cerebro a menudo estimulan la creación de nuevos patrones en las redes neuronales[cita requerida]
+• . Un nuevo enfoque [cita requerida]
+• está utilizando conexiones que se extienden mucho más allá y capas de procesamiento de enlace en lugar de estar siempre localizado en las neuronas adyacentes. Otra investigación[cita requerida]
+• está estudiando los diferentes tipos de señal en el tiempo que los axones se propagan, como el aprendizaje profundo, interpola una mayor complejidad que un conjunto de variables booleanas que son simplemente encendido o apagado.
+
+Las redes neuronales se han utilizado para resolver una amplia variedad de tareas, como la visión por computador y el reconocimiento de voz, que son difíciles de resolver usando la ordinaria programación basada en reglas. Históricamente, el uso de modelos de redes neuronales marcó un cambio de dirección a finales de los años ochenta de alto nivel, que se caracteriza por sistemas expertos con conocimiento incorporado en si-entonces las reglas, a bajo nivel de aprendizaje automático, caracterizado por el conocimiento incorporado en los parámetros de un modelo cognitivo con algún sistema dinámico.
+
+Historia[editar]
+
+Warren McCulloch y Walter Pitts[1] (1943) crearon un modelo informático para redes neuronales, que se llama lógica umbral, que se basa en las matemáticas y los algoritmos. Este modelo señaló el camino para que la investigación de redes neuronales se divida en dos enfoques distintos. Un enfoque se centró en los procesos biológicos en el cerebro y el otro se centró en la aplicación de redes neuronales para la inteligencia artificial.
+
+Aprendizaje de Hebb[editar]
+
+A finales de la década de 1940 el psicólogo Donald Hebb[2][3] creó una hipótesis de aprendizaje basado en el mecanismo de plasticidad neuronal que ahora se conoce como aprendizaje de Hebb. Aprendizaje de Hebb se considera que es un «típico» de aprendizaje no supervisado y sus variantes posteriores fueron los primeros modelos de la potenciación a largo plazo. Los investigadores empezaron a aplicar estas ideas a los modelos computacionales en 1948 con la sugerencia de Turing, que el córtex humano infantil es lo que llamaba «máquina desorganizada» (también conocido como «máquina Turing Tipo B»).[4][5]
+
+Farley y Wesley A. Clark[6] (1954) al principio utilizaron máquinas computacionales, que entonces se llamaban «calculadoras», para simular una red de Hebb en el MIT. Otras simulaciones de redes neuronales por computadora han sido creadas por Rochester, Holland, Habit y Duda (1956).[7]
+
+Frank Rosenblatt[8][9] (1958) creó el perceptrón, un algoritmo de reconocimiento de patrones basado en una red de aprendizaje de computadora de dos capas, que utilizaba adición y sustracción simples. Con la notación matemática, Rosenblatt también describe circuitería que no está en el perceptrón básico, tal como el circuito de o-exclusiva, un circuito que no se pudo procesar por redes neuronales antes de la creación del algoritmo de propagación hacia atrás por Paul Werbos (1975).[10]
+
+En 1959, un modelo biológico propuesto por dos laureados de los Premios Nobel, David H. Hubel y Torsten Wiesel, estaba basado en su descubrimiento de dos tipos de células en la corteza visual primaria: células simples y células complejas.[11]
+
+El primer reporte sobre redes funcionales multicapas fue publicado en 1965 por Ivakhnenko y Lapa, y se conoce como el método de agrupamiento para el manejo de datos.[12][13][14]
+
+La investigación de redes neuronales se estancó después de la publicación de la investigación de aprendizaje automático por Marvin Minsky y Seymour Papert (1969),[15] que descubrió dos cuestiones fundamentales con las máquinas computacionales que procesan las redes neuronales. La primera fue que los perceptrones básicos eran incapaces de procesar el circuito de o-exclusivo. La segunda cuestión importante era que los ordenadores no tenían suficiente poder de procesamiento para manejar eficazmente el gran tiempo de ejecución requerido por las grandes redes neuronales.
+
+Propagación hacia atrás y el resurgimiento[editar]
+
+Un avance clave posterior fue el algoritmo de propagación hacia atrás (en inglés, backpropagation) que resuelve eficazmente el problema de o-exclusivo, y en general el problema de la formación rápida de redes neuronales de múltiples capas (Werbos 1975). El proceso de propagación hacia atrás utiliza la diferencia entre el resultado producido y el resultado deseado para cambiar los «pesos» de las conexiones entre las neuronas artificiales.[10]
+
+A mediados de la década de 1980, el procesamiento distribuido en paralelo se hizo popular con el nombre conexionismo. El libro de David E. Rumelhart y James McClelland (1986) proporciona una exposición completa de la utilización de conexionismo en los ordenadores para simular procesos neuronales.[16]
+
+Las redes neuronales, tal como se utilizan en la inteligencia artificial, han sido consideradas tradicionalmente como modelos simplificados de procesamiento neuronal en el cerebro, a pesar de que la relación entre este modelo y la arquitectura biológica del cerebro se debate; no está claro en qué medida las redes neuronales artificiales reflejan el funcionamiento cerebral. 
+
+Máquinas de soporte vectorial y otros métodos mucho más simples, tales como los clasificadores lineales, alcanzaron gradualmente popularidad en el aprendizaje automático. No obstante, el uso de redes neuronales ha cambiado algunos campos, tales como la predicción de las estructuras de las proteínas.[17][18]
+
+En 1992,fue introducido el max-pooling (una forma de submuestreo, en la que se divide los datos en grupos de tamaños iguales, que no tienen elementos en común, y se transmite solamente el valor máximo de cada grupo)para ayudar con el reconocimiento de objetos tri-dimensionales.[19]
+[20]
+[21]
+
+En 2010, el uso de max-pooling en la formación por propagación hacia atrás fue acelerado por los GPUs, y se demostró que ofrece mejor rendimiento que otros tipos de agrupamiento.[22]
+
+El problema del desvanecimiento del gradiente afecta las redes neuronales prealimentadas de múltiples capas, que usan la propagación hacia atrás, y también los redes neuronales recurrentes (RNNs).[23][24] Aunque los errores se propagan de una capa a otra, disminuyen exponencialmente con el número de capas, y eso impide el ajuste hacia atrás de los pesos de las neuronas basado en esos errores. Las redes profundas se ven particularmente afectadas.
+
+Para vencer este problema, Schmidhuber adoptaba una jerarquía multicapa de redes (1992) preformadas, una capa a la vez, por aprendizaje no supervisado, y refinado por propagación hacia atrás.[25] Behnke (2003) contaba solamente con el signo del gradiente (Rprop)[26] tratándose de problemas tales como la reconstrucción de imágenes y la localización de caras.
+
+Como retos anteriores en redes neuronales profundas de capacitación se resolvieron con métodos como preformación no supervisada y potencia de cálculo incrementada a través del uso de las GPU y la computación distribuida, las redes neuronales se desplegaron de nuevo a gran escala, sobre todo en problemas de procesamiento de imágenes y de reconocimiento visual. Esto se conoció como «aprendizaje profundo», aunque el aprendizaje profundo no es estrictamente sinónimo de redes neuronales profundas.
+
+Diseños basados en hardware[editar]
+
+Se crearon en CMOS dispositivos de cómputo para la simulación biofísica al igual que para la cómputo neuromórfico. Nanodispositivos[27] para análisis de componentes principales de escala muy grande y convolución pueden crear una clase nueva de cómputo neuronal, porque son fundamentalmente analógicos en vez de digitales (aunque las primeras implementaciones puedan utilizar dispositivos digitales).[28] Ciresan y sus colegas (2010)[29] en el grupo de Schmidhuber mostraron que, a pesar del problema del desvanecimiento del gradiente, los GPUs hacen factible la propagación hacia atrás para las redes neuronales prealimentadas con múltiples capas.
+
+Mejoras desde 2006[editar]
+Diagrama de una red neuronal artificial con una capa y conexiones recurrentes (se emplea D para el delay).
+
+Se han creado dispositivos computacionales en el CMOS, tanto para la simulación biofísica como para computación neuromórfica. Los esfuerzos más recientes se muestran prometedores para la creación de nanodispositivos[30] para análisis de componentes principales de gran escala. Si tiene éxito, se crearía una nueva clase de computación neuronal, ya que depende de aprendizaje automático en lugar de la programación y porque es fundamentalmente analógico en lugar de digital a pesar de que las primeras instancias pueden ser de hecho con los dispositivos digitales CMOS.[31]
+
+Entre 2009 y 2012, las redes neuronales recurrentes y redes neuronales profundas feedforward desarrolladas en el grupo de investigación de Jürgen Schmidhuber en el laboratorio suizo de IA IDSIA han ganado ocho concursos internacionales de reconocimiento de patrones y aprendizaje automático. Por ejemplo, la memoria bidireccional y multidimensional de largo a corto plazo (LSTM) de Alex Graves ha ganado tres competiciones en el reconocimiento de escritura conectada en Conferencia Internacional sobre Análisis de documentos y Reconocimiento (ICDAR) del 2009, sin ningún conocimiento previo acerca de los tres idiomas diferentes que se pueden aprender.
+
+Implementaciones de este método basadas en unidades de procesamiento gráfico rápidas, hechos por Dan Ciresan y sus colegas de IDSIA han ganado varios concursos de reconocimiento de patrones, incluyendo la Competición de Reconocimiento de Señales de Tráfico del 2011,[32] el desafío de ISBI 2012 de segmentación de estructuras neuronales en series de imágenes de Microscopía Electrónica,[33] y otros. Sus redes neuronales también fueron las primeras reconocedoras artificiales de patrones en lograr un rendimiento superior al humano en los puntos de referencia importantes, tales como el reconocimiento de señales de tráfico (IJCNN 2012) o el problema de clasificación de dígitos escritos a mano.
+
+Arquitecturas profundas altamente no lineales similares a las del 1980 Neocognitrón por Kunihiko Fukushima y la «arquitectura estándar de la visión», inspirados en las células simples y complejas identificadas por David H. Hubel y Torsten Wiesel en la corteza visual, pueden también ser preformados por métodos no supervisados en el laboratorio de la universidad de Toronto. Un equipo de este laboratorio ganó un concurso en 2012 patrocinado por Merck para el diseño de software para ayudar a encontrar moléculas que podrían conducir a nuevos medicamentos.
+
+Modelos[editar]
+
+Los modelos de redes neuronales en la inteligencia artificial se re
