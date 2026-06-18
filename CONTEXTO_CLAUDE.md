@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-06-17 22:00:01
-Último commit: be3b168 - gitignore: excluir checkpoints LoRA, binarios y logs
+Actualizado: 2026-06-18 08:29:42
+Último commit: 089f26f - fix: corregir SyntaxError en tarea_entrenar del daemon
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,16 +11,16 @@ Actualizado: 2026-06-17 22:00:01
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+089f26f fix: corregir SyntaxError en tarea_entrenar del daemon
+f9871d1 v4.3 — manual instrucciones aprendizaje + fix aprende internet sin timeout
+22b76b8 v4.2 — daemon nocturno activo + manuales Python y Radiologia PACS + fix entrenamiento
+9d0be35 Auto: Contexto actualizado 2026-06-17 22:00:01
 be3b168 gitignore: excluir checkpoints LoRA, binarios y logs
 5c9d645 v4.1 — FractalVM Paso1 + aprendizaje internet + daemon nocturno + upload archivos + digestion fractal
 409192c Auto: Contexto actualizado 2026-06-16 00:39:25
 2784500 Auto: Contexto actualizado 2026-06-16 00:22:20
 2691101 Auto: Contexto actualizado 2026-06-16 00:16:44
 34ae8d1 Auto: Contexto actualizado 2026-06-16 00:04:35
-21982c6 chore: gitignore *.gguf (modelos grandes)
-0267dc6 feat: Motor Fractal COMPLETO 9/9 - entrenamiento.py con backprop+Adam validado (loss 17.78->1.74, 90% mejora en 50 steps)
-2189f49 feat: Motor Fractal COMPLETO 9/9 - entrenamiento.py con backprop+Adam validado (loss 17.78->1.74, 90% mejora en 50 steps)
-4ef6787 feat: Motor Fractal completo - 8 archivos (operaciones a servidor) + integracion paralela puerto 11435
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
