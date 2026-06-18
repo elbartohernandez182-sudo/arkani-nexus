@@ -1,0 +1,204 @@
+FUENTE: https://es.wikipedia.org/wiki/Tomograf%C3%ADa%20computarizada
+TEMA: TAC tomografia computarizada radiologia
+FECHA: 2026-06-18T13:55:38.980933
+============================================================
+
+Tomografía computarizada - Wikipedia, la enciclopedia libre
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+Ir al contenido
+
+	
+
+	
+		
+			
+		
+		
+			
+		
+			
+		
+	
+	
+				
+			
+		
+		
+			
+				
+				
+					
+						
+							
+						
+						
+							
+				
+							
+						
+					
+				
+				
+					
+						
+						
+						
+					
+				
+				
+					
+							
+		
+
+						De Wikipedia, la enciclopedia libre
+					
+					
+					
+					
+					
+
+Este artículo o sección tiene referencias, pero necesita más para complementar su verificabilidad. 
+
+Busca fuentes: «Tomografía computarizada» – noticias · libros · académico · imágenesEste aviso fue puesto el 28 de diciembre de 2017.
+• 
+• 
+
+Este artículo o sección sobre medicina necesita ser wikificado, por favor, edítalo para que cumpla con las convenciones de estilo.Este aviso fue puesto el 8 de noviembre de 2011.
+• 
+• 
+
+Escáner de tomografía. 
+Escáner de tomografía de Siemens.
+
+La tomografía (del griego τομή, tomé, "corte, sección", y de γραφή, "grafé", "imagen, gráfico") computarizada[1] (antes, tomografía axial computarizada - TAC) es la obtención de imágenes con rayos X de cortes o secciones de algún objeto. La posibilidad de obtener imágenes de cortes tomográficos reconstruidas en planos no transversales ha hecho que en la actualidad se prefiera denominar a esta técnica tomografía computarizada (TC), en lugar de TAC. En lugar de obtener una imagen de proyección, como en la radiografía convencional, la TC obtiene múltiples imágenes, pues la fuente de rayos X y los detectores de radiación realizan movimientos de rotación alrededor del cuerpo. La representación final de la imagen tomográfica se obtiene mediante la captura de las señales mediante detectores y su posterior proceso a través de algoritmos de reconstrucción.
+
+Historia[editar]
+El prototipo de los tomógrafos computados
+Este tomógrafo computado histórico fue manufacturado por la compañía británica EMI.
+
+En los fundamentos de esta técnica trabajaron de forma independiente el físico y cristalógrafo sudafricano nacionalizado estadounidense Allan McLeod Cormack y el ingeniero electrónico inglés Sir Godfrey Newbold Hounsfield, que dirigía la sección médica del Laboratorio Central de Investigación de la compañía EMI. Ambos obtuvieron de forma compartida el Premio Nobel de Fisiología o Medicina, en 1979.
+
+En 1967, Cormack publica sus trabajos sobre la TC siendo el punto de partida de los trabajos de Hounsfield, que diseña su primera unidad. En 1972 comenzaron los ensayos clínicos cuyos resultados sorprendieron a la comunidad médica, si bien la primera imagen craneal se obtuvo un año antes.
+
+Los primeros cinco aparatos se instalaron en Reino Unido y los Estados Unidos; la primera TC de un cuerpo entero se consiguió en 1974.
+
+En el discurso de presentación del comité del Premio Nobel se destacó que previo al escáner, “las radiografías de la cabeza mostraban solo los huesos del cráneo, pero el cerebro permanecía como un área gris, cubierto por la neblina. Súbitamente la neblina se ha disipado”.
+
+En recuerdo y como homenaje a Hounsfield, las unidades que definen las distintas atenuaciones de los tejidos estudiadas en TC se denominan unidades Hounsfield o número TC (CT number), donde el agua corresponde a 0HU,algunos tejidos blandos de 30 a 60 HU, o la grasa, que está entre -40 y -120 HU.
+
+Principio de funcionamiento[editar]
+Interior de un tomógrafo axial computarizado. Leyenda:
+
+D: detectores de radiación.
+
+T: tubo emisor de rayos X.
+
+X: haz de rayos X.
+
+R: rotación del "gantry".
+
+El aparato de TC emite un haz colimado de rayos X que incide sobre el objeto que se estudia. La radiación que no ha sido absorbida por el objeto es recogida por los detectores. Luego el emisor del haz, que tenía una orientación determinada (por ejemplo, estrictamente vertical a 90º) cambia su orientación (por ejemplo, haz oblicuo a 95º). Este espectro también es recogido por los detectores. El ordenador 'suma' las imágenes, promediándolas. Nuevamente, el emisor cambia su orientación (según el ejemplo, unos 100º de inclinación). Los detectores recogen este nuevo espectro, lo 'suman' a los anteriores y 'promedian' los datos. Esto se repite hasta que el tubo de rayos y los detectores han dado una vuelta completa, momento en el que se dispone de una imagen tomográfica definitiva y fiable.
+
+Para comprender qué hace el ordenador con los datos que recibe, lo mejor es examinar el diagrama que se aprecia líneas abajo.
+
+La figura '1' representa el resultado en imagen de una sola incidencia o proyección (vertical, a 90º). Se trata de una representación esquemática de un miembro, por ejemplo un muslo. El color negro representa una densidad elevada, la del hueso. El color gris representa una densidad media, los tejidos blandos (músculos).
+
+En la figura '4', el ordenador dispone de datos de cuatro incidencias: 45º, 90º, 135º y 180º. Los perfiles de la imagen son ortogonales, lo que la aproximan mucho más a los contornos circulares del objeto real.
+
+Una vez que ha sido reconstruido el primer corte, la mesa donde el objeto reposa avanza (o retrocede) una unidad de medida (hasta menos de un milímetro) y el ciclo vuelve a empezar. Así se obtiene un segundo corte (es decir, una segunda imagen tomográfica) que corresponde a un plano situado a una unidad de medida del corte anterior.
+
+A partir de todas esas imágenes transversales (axiales), un computador reconstruye una imagen bidimensional que permite ver secciones de la pierna (o el objeto de estudio) desde cualquier ángulo. Los equipos modernos permiten incluso hacer reconstrucciones tridimensionales. Estas reconstrucciones son muy útiles en determinadas circunstancias, pero no se emplean en todos los estudios, como podría parecer. Esto es así debido a que el manejo de imágenes tridimensionales no deja de tener sus inconvenientes.
+
+Un ejemplo de imagen tridimensional es la imagen 'real'. Como casi todos los cuerpos son opacos, la interposición de casi cualquier cuerpo entre el observador y el objeto que se desea examinar hace que la visión de este se vea obstaculizada. La representación de las imágenes tridimensionales sería inútil si no fuera posible lograr que cualquier tipo de densidad que se elija no se vea representada, con lo que determinados tejidos se comportan como transparentes. Aun así, para ver completamente un órgano determinado es necesario mirarlo desde diversos ángulos o hacer girar la imagen. Pero incluso entonces veríamos su superficie, no su interior. Para ver su interior debemos hacerlo a través de una imagen de corte asociada al volumen y aun así parte del interior no siempre sería visible. Por esa razón, en general, es más útil estudiar una a una todas las imágenes consecutivas de una secuencia de cortes que recurrir a reconstrucciones en bloque de volúmenes, aunque a primera vista sean más espectaculares.
+
+Fundamento técnico[editar]
+
+La TC se basa en el trabajo desarrollado en 1917 por Johann Radon, quien demostró que es posible reconstruir una imagen a partir de múltiples proyecciones de estas a diferentes ángulos, esta operación matemática usada en la TC es conocida como transformada de Radon.
+
+El tubo de rayos X que gira alrededor del objeto a escanear captura diferentes tomas en su rotación, y del número de estas depende en gran parte la calidad la resolución del escaneo (plano XY), el otro factor de hardware que afecta este ítem es el número de detectores (pixeles). Al tiempo que el tubo y el detector giran respecto al paciente, se mueven longitudinalmente para cubrir la superficie a estudiar y las imágenes pueden ser más "gruesas" (>5 mm) o "delgadas" (<5 mm) (más resolución) según el número de líneas de detectores, que en los equipos más modernos pueden ser superiores a 128.
+
+Las múltiples proyecciones obtenidas son almacenadas en una única matriz llamada sinograma, a la cual se le aplica un algoritmo de reconstrucción llamado retroproyección filtrada que igualmente está basado en la transformada de Radon.
+
+Para aplicarlo a la medicina hubo que esperar al desarrollo de la computación y del equipo adecuado que mezclase la capacidad de obtener múltiples imágenes axiales separadas por pequeñas distancias, almacenar electrónicamente los resultados y tratarlos. Todo esto lo hizo posible el británico G. H. Hounsfield en la década de 1970.
+
+Usos de la TC[editar]
+Pantalla típica del software de diagnóstico, que muestra una vista 3D y tres vistas MPR.
+Una radiografía digital obtenida con el escáner de TC, tal como se usa para planificar el barrido de cortes tomográficos.
+Huesos reconstruidos en 3D. Un gráfico de volumen muestra claramente los huesos de gran densidad. Después de usar una herramienta de segmentación para ocultar los huesos, los vasos sanguíneos, anteriormente ocultos, quedan expuestos.
+
+La TC permite estudiar casi todos los órganos internos del cuerpo, desde la cabeza hasta las extremidades, incluyendo los huesos, tejidos blandos, corazón y vasos sanguíneos. La TC es una exploración o prueba radiológica muy útil para el estadiaje o estudio de extensión de los cánceres en especial en la zona craneal, como el cáncer de mama, cáncer de pulmón y cáncer de próstata. Asimismo, la TC es de gran utilidad en los servicios de emergencia, por su gran velocidad de barrido de cuerpo entero, que permite detectar eficazmente fracturas, hemorragias y lesiones de órganos en pocos segundos o minutos. En los últimos años, se ha mejorado su capacidad diagnóstica para el sistema cardiocirculatorio, pudiendo evaluar eficazmente enfermedades agudas y crónicas del corazón y de los vasos sanguíneos.
+
+Otro uso es la simulación virtual y planificación de un tratamiento del cáncer con radioterapia, para lo cual es imprescindible el uso de imágenes en tres dimensiones que se obtienen de la TC.
+
+Las primeras TC se instalaron en España a finales de los años 1970. Los primeros TC servían solamente para estudiar el cráneo, y fue con posteriores generaciones de equipos cuando pudo estudiarse el cuerpo completo. Al principio era una exploración cara y con pocas indicaciones de uso. Actualmente es una exploración de rutina de cualquier hospital, habiéndose abaratado mucho los costos. Con el desarrollo de la TC helicoidal, los cortes son más finos, incluso submilimétricos y la velocidad de barrido mayor. La nuevas TC multicorte incorporan varios anillos de detectores (típicamente entre 16 y 320), lo que permite la adquisición de múltiples cortes simultáneos en cada rotación del tubo de rayos X, lo aumenta aún más la rapidez, logrando imágenes volumétricas en tiempo real.
+
+Ventajas[editar]
+
+Entre las ventajas de la TC se encuentra que es una prueba rápida de realizar y que se encuentra ampliamente disponible en la mayoría de los hospitales de mediana y alta complejidad. Por medio de la visualización a través de la exploración por TC un médico radiólogo experto puede diagnosticar numerosas causas de dolor abdominal con una alta precisión, lo cual permite aplicar un tratamiento rápido y con frecuencia elimina la necesidad de procedimientos de diagnóstico adicionales y más invasivos.
+
+Cuando el dolor se produce a causa de una infección e inflamación, la velocidad, facilidad y precisión de un examen por TC puede reducir el riesgo de complicaciones graves causadas por la perforación del apéndice o la rotura del divertículo y la consecuente propagación de la infección.
+Las imágenes por TC son exactas, no son invasivas y no provocan dolor.
+
+Una ventaja importante de la TC es su capacidad de obtener imágenes de huesos, tejidos blandos y vasos sanguíneos al mismo tiempo. A diferencia de los rayos X convencionales, la exploración por TC brinda imágenes detalladas de numerosos tipos de tejido así como también de los pulmones, huesos y vasos sanguíneos.
+
+Los exámenes por TC son rápidos y sencillos; en casos de emergencia, pueden revelar lesiones y hemorragias internas lo suficientemente rápido como para ayudar a salvar vidas.
+
+La TC es menos sensible al movimiento de pacientes que la resonancia magnética nuclear (RMN), por lo que en los equipos más modernos es posible hacer tomografía cardíaca de alta calidad aún con el movimiento del corazón.
+
+La TC se puede realizar si el paciente tiene implante de dispositivo médico de cualquier tipo, a diferencia de la RMN.
+
+En equipos de TC muy avanzados, es posible obtener imágenes en tiempo real, haciendo de este una buena herramienta para guiar procedimientos mínimamente invasivos, tales como biopsias por aspiración y aspiraciones por aguja de numerosas áreas del cuerpo, particularmente los pulmones, el abdomen, la pelvis y los huesos.
+
+Un diagnóstico determinado por medio de una exploración por TC puede eliminar la necesidad de una cirugía exploratoria y una biopsia quirúrgica.
+
+Desventajas[editar]
+
+Entre sus inconvenientes se cita que algunas veces es necesaria la inyección de medio de contraste intravenoso, que implica una punción y riesgo de reacciones adversas en pacientes susceptibles. Por otra parte, al utilizar rayos X, se reciben dosis de radiación ionizante, mayores que las obtenidas en exámenes más simples como radiografías. La dosis efectiva de radiación a partir de este procedimiento es diferente según la máquina, los parámetros introducidos por el operador, el tamaño o contextura del paciente y la parte del cuerpo escaneada y varía en algunas máquinas probadas de aproximadamente 1 a 10 mSv. A veces, más de una exploración se realiza a la vez, una con y otra sin agente de contraste, lo que duplica la dosis recibida por el paciente. La dosis efectiva recibida por un adulto en una exploración del abdomen y la pelvis es de aproximadamente la misma proporción que una persona promedio recibe de radiación natural o de fondo en tres años.
+
+Las mujeres siempre deben informar a su médico y al tecnólogo de rayos X o TC si existe la posibilidad de que estén embarazadas. En estos casos, debe realizarse un análisis de beneficio versus riesgo antes de someter al feto a los rayos X.
+
+Una tomografía computarizada, sin o con inyección de medio de contraste no contraindica la lactancia materna, pues no hay paso de radiación ni de volúmenes significativos de medio de contraste a la leche materna.
+
+Antes de realizar un estudio con contraste, el paciente debe de llenar un cuestionario en donde se le realizan preguntas acerca de su historial de salud como: alergias, síntomas y razón por la que se le va a practicar el examen. El riesgo de una reacción alérgica grave al material de contraste yodado, muy rara vez ocurre, y los departamentos de radiología deben de poseer el entrenamiento y los medios necesarios en caso de que ocurra un evento como este. 
+
+Debido a que los niños son más sensibles a la radiación, se les debe someter a un estudio por TC únicamente si es fundamental para realizar un diagnóstico, y no se les debe realizar estudios por TC en forma repetida a menos que sea absolutamente necesario.
+
+Véase también[editar]
+
+• Imagen médica
+
+• Tecnología sanitaria
+
+• Tomografía de haz electrónico ultrarrápida
+
+Referencia

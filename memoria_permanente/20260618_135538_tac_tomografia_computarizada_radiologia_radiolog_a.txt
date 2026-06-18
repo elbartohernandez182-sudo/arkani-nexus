@@ -1,0 +1,275 @@
+FUENTE: https://es.wikipedia.org/wiki/Radiolog%C3%ADa
+TEMA: TAC tomografia computarizada radiologia
+FECHA: 2026-06-18T13:55:40.861066
+============================================================
+
+Radiología - Wikipedia, la enciclopedia libre
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+Ir al contenido
+
+	
+
+	
+		
+			
+		
+		
+			
+		
+			
+		
+	
+	
+				
+			
+		
+		
+			
+				
+				
+					
+						
+							
+						
+						
+							
+
+							
+						
+					
+				
+				
+					
+						
+						
+						
+					
+				
+				
+					
+							
+		
+
+						De Wikipedia, la enciclopedia libre
+					
+					
+					
+					
+					\n[[angiografía por tomografía computarizada]]<br />\n[[colangiografía]]<br />\n[[coronariografía]]<br />\n[[densitometría ósea]]<br />\n[[diagnósticos asistidos por ordenador]]<br />\n[[ecocardiografía]]<br />\n[[ecografía]]<br />\n[[fluoroscopia]]<br />\n[[gammagrafía]]<br />\n[[gammagrafía ósea]]<br />\n[[imagen médica]]<br />\n[[imagen por resonancia magnética]]<br />\n[[neurorradiología]]<br />\n[[mamografía]]<br />\n[[medicina nuclear]]<br />\n[[ortopantomografía]]<br />\n[[radiografía]]<br />\n[[radiología digital]]<br />\n[[radiología intervencionista]]<br />\n[[resonancia magnética nuclear]]<br />\n[[técnica de Seldinger]]<br />\n[[tomografía|tomografía axial computarizada]]<br />\n[[tomografía por emisión de positrones]]<br />\n[[tomografía computarizada de emisión monofotónica]]<br />[[urografía]]"},"especialista":{"wt":"radiólogo y [[técnico en radiología]]"}},"i":0}}]}'>Radiología
+
+Examen de una radiografíaCaracterísticas técnicasPruebas significativas
+
+angiografía
+
+angiografía por tomografía computarizada
+
+colangiografía
+
+coronariografía
+
+densitometría ósea
+
+diagnósticos asistidos por ordenador
+
+ecocardiografía
+
+ecografía
+
+fluoroscopia
+
+gammagrafía
+
+gammagrafía ósea
+
+imagen médica
+
+imagen por resonancia magnética
+
+neurorradiología
+
+mamografía
+
+medicina nuclear
+
+ortopantomografía
+
+radiografía
+
+radiología digital
+
+radiología intervencionista
+
+resonancia magnética nuclear
+
+técnica de Seldinger
+
+tomografía axial computarizada
+
+tomografía por emisión de positrones
+
+tomografía computarizada de emisión monofotónica
+urografíaEspecialista
+radiólogo y técnico en radiología[editar datos en Wikidata]
+El film del Dr. Macintyre X-Ray (1896)
+
+La radiología es la especialidad médica que se ocupa de generar imágenes del interior del cuerpo mediante diferentes agentes físicos (rayos X, ultrasonidos, campos magnéticos, entre otros) y de utilizar estas imágenes para el diagnóstico y, en menor medida, para el pronóstico y el tratamiento de las enfermedades.[1] También se le denomina genéricamente radiodiagnóstico o diagnóstico por imagen. La radiología debe distinguirse de la radioterapia, que no utiliza imágenes, sino que emplea directamente la radiación ionizante (rayos X de mayor energía que los usados para el diagnóstico, y también radiaciones de otro tipo) para el tratamiento de las enfermedades (por ejemplo, para detener o frenar el crecimiento de los tumoresque son sensibles a la radiación).
+
+Clasificación[editar]
+
+Según el órgano, el sistema o la parte del cuerpo que se estudia[editar]
+
+• radiología neurológica o neurorradiología
+
+• radiología de cabeza y cuello
+
+• radiología odontológica
+
+• radiología torácica
+
+• radiología cardíaca
+
+• radiología abdominal
+
+• radiología gastrointestinal
+
+• radiología genitourinaria
+
+• radiología de la mama
+
+• radiología ginecológica
+
+• radiología vascular
+
+• radiología musculoesquelética
+
+• radiología pediátrica
+
+• radiología podológica
+
+• radiología geriátrica
+
+• radiología maxilofacial
+
+Según su actividad principal[editar]
+
+• Medicina nuclear: genera imágenes mediante el uso de trazadores radiactivos que se fijan con diferente afinidad a los distintos tipos de tejidos. Es una rama exclusivamente diagnóstica y en algunos países se constituye en especialidad médica aparte.
+
+• Radiología diagnóstica o radiodiagnóstico: se centra principalmente en diagnosticar las enfermedades mediante la imagen.
+
+• Radiología intervencionista: se centra principalmente en el tratamiento de las enfermedades, mediante el empleo de procedimientos quirúrgicos mínimamente invasivos guiados mediante técnicas de imagen.
+
+La frontera entre radiología diagnóstica e intervencionista no está perfectamente definida: los especialistas en diagnóstico también suelen realizar procedimientos intervencionistas en su área respectiva y los especialistas en tratamiento (los radiólogos intervencionistas) suelen encargarse del diagnóstico de las enfermedades del sistema circulatorio periférico. En la actualidad, en muchos países, la subespecialidad de radiología vascular e intervencionista está integrada con el resto de la radiología en una única especialidad, aunque hay controversia sobre si deberían separarse como especialidades oficiales.
+
+Clásicamente se emplearon los rayos X. Los rayos X (o rayos Röntgen) fueron descubiertos hace más de cien años por Wilhelm Conrad Röntgen, científico alemán que estudió los efectos de los tubos de Crookes sobre ciertas placas fotográficas cuando los sometía al paso de una corriente eléctrica.
+
+Modalidades[editar]
+
+Radiología convencional: se emplea radiación ionizante para la captura de imágenes de cualquier parte del cuerpo con un mayor énfasis en huesos y articulaciones. 
+
+Sonografía: ecografía o ultrasonografía, mediante el uso de los ultrasonidos se obtienen imágenes del interior del cuerpo específicamente órganos blandos que no son visibles mediante la radiología convencional. Los huesos y el gas son barreras que impiden el paso eficaz de los ultrasonidos y limitan su empleo. Es el método idóneo para evaluar pacientes embarazadas ya que las ondas de ultrasonido no afectan el feto.
+
+Tomografía computarizada: tomografía computarizada (TAC), permite realizar exploraciones tridimensionales de todos los órganos del cuerpo incorporando a un tubo de rayos X giratorio un potente ordenador que es capaz de reconstruir las imágenes. Recientemente se está incorporando a las técnicas de la radiología la tomografía por emisión de positrones (PET o TEP). Se trata de una tecnología que utiliza isótopos radiactivos que se introducen en moléculas orgánicas o radiofármacos que son inyectados al paciente y posteriormente se analiza la emisión radiactiva de los diferentes tejidos según la captación del radiofármaco que presenten. Generalmente se utiliza glucosa marcada con flúor-18, por lo que existe mayor afinidad por parte de las lesiones tumorales o inflamatorias. Se pueden realizar estudios combinando TAC y PET, lo que permite mayor resolución espacial junto con imágenes funcionales.
+
+Resonancia magnética: Los equipos contienen potentes dispositivos capaces de generar campos magnéticos de hasta más de 3 teslas. Los campos así generados son capaces de alinear ordenadamente el momento magnético nuclear de los átomos con un número impar de nucleones del organismo que se estudia. Mediante antenas de radiofrecuencia, los momentos de ciertos átomos del organismo se desalinean, orientándose cada uno en una dirección distinta, al azar; cuando se dejan de emitir estas radiaciones electromagnéticas, los momentos se vuelven a alinear y emiten esa energía de radiofrecuencia antes recibida. Estas radiaciones, recogidas y procesadas por ordenador, se emplean para reconstruir imágenes del interior del cuerpo en cualquier dirección del espacio. La intensidad mayor o menor de la imagen resultante corresponde a la facilidad para liberar esa energía de cada tejido. Así pues, cada tejido se verá de distinta y particular forma.
+Véase también: Imagen por resonancia magnética
+
+Mamografía: Utiliza una dosis baja de radiación y a su vez se comprime el seno, en la obtención de imágenes diagnósticas de las mamas o glándulas mamarias y tejido de las axilas. Esencial en el diagnóstico de cáncer de seno.
+
+Angiografía: se estudian los vasos sanguíneos del cuerpo a través de imágenes obtenidas empleando el uso de radiación y un catéter por el cual se introduce un contraste radiopaco que permite la visualización de los vasos sanguíneos para su estudio y diagnóstico de una condición.
+
+El profesional médico encargado de supervisar el examen radiológico e interpretar la imagen médica es el médico radiólogo o el médico nucleísta, en el caso de la medicina nuclear. El profesional encargado de la obtención de imágenes médicas es el técnico en radiología.
+
+Radiología en odontología[editar]
+
+En el área odontológica se distingue entre técnicas radiográficas intraorales y extraorales.
+
+Técnicas intraorales[editar]
+
+Las técnicas intraorales pueden ser:
+
+• técnicas periapicales: en ellas es posible observar tanto la corona como el tejido óseo periapical;
+
+• técnicas coronales: permiten observar la corona del diente;
+
+• técnicas oclusales: por oclusión.
+
+Técnicas extraorales[editar]
+
+Permiten observar lesiones fuera de la cavidad bucal, a nivel de senos paranasales, ATM, fracturas en huesos maxilares, entre otros.
+
+Análisis de imágenes[editar]
+Un radiólogo interpreta imágenes médicas en una moderna estación de trabajo del sistema de comunicación y archivo de imágenes (PACS). San Diego, California, 2010.
+
+Radiografía general[editar]
+
+La técnica básica es la evaluación de la densidad óptica (es decir, el análisis del histograma). Una región que tiene una densidad óptica diferente, por ejemplo, una metástasis de cáncer en el hueso, puede causar radiolucencia. El desarrollo de esta técnica es la sustracción radiológica digital. Consiste en superponer dos radiografías de la misma región examinada y sustraer las densidades ópticas.[2] 
+La imagen resultante sólo contiene las diferencias dependientes del tiempo entre las dos radiografías examinadas. La ventaja de esta técnica es la determinación precisa de la dinámica de los cambios de densidad y el lugar de su aparición. Sin embargo, previamente debe realizarse el ajuste geométrico y la alineación general de la densidad óptica.[3] Otra posibilidad del análisis de imágenes radiográficas es el estudio de características de segundo orden, por ejemplo, el análisis de textura digital[4] (enlace roto disponible en Internet Archive; véase el historial, la primera versión y la última).
+• o la dimensión fractal.[5] Sobre esta base, es posible evaluar los lugares en los que se implantan biomateriales en el hueso con fines de regeneración ósea guiada. Tomando una muestra de imagen de hueso intacto (región de interés, ROI, lugar de referencia) y una muestra del lugar de implantación (segundo ROI, lugar de prueba) se puede evaluar numérica/objetivamente hasta qué punto el lugar de implantación imita a un hueso sano y lo avanzado que está el proceso de regeneración ósea.[6][7] También es posible comprobar si el proceso de cicatrización ósea está influido por algunos factores sistémicos.[8]
+
+Radiografía de una mano con un cálculo del análisis de la edad ósea.
+
+Telerradiología[editar]
+
+La telerradiología es la transmisión de imágenes radiográficas de un lugar a otro para su interpretación por un profesional debidamente formado, normalmente un radiólogo o un radiógrafo. Se utiliza sobre todo para permitir una interpretación rápida de los exámenes de urgencias, UCI y otros exámenes urgentes fuera de las horas de funcionamiento habitual, por la noche y los fines de semana. En estos casos, las imágenes pueden enviarse a través de zonas horarias (por ejemplo, a España, Australia, India) con el médico receptor trabajando en su horario diurno normal. Sin embargo, en la actualidad, las grandes empresas privadas de telerradiología de EE. UU. proporcionan la mayor parte de la cobertura fuera del horario laboral empleando a radiólogos que trabajan de noche en EE. UU. La telerradiología también puede utilizarse para obtener la consulta de un experto o subespecialista sobre un caso complicado o desconcertante. En EE. UU., muchos hospitales subcontratan sus departamentos de radiología a radiólogos de la India por el bajo coste y la disponibilidad de acceso a Internet de alta velocidad.
+
+La telerradiología requiere una estación emisora, una conexión a Internet de alta velocidad y una estación receptora de alta calidad. En la estación emisora, las radiografías simples pasan por una máquina digitalizadora antes de su transmisión, mientras que las tomografías computarizadas, resonancias magnéticas, ecografías y exploraciones de medicina nuclear pueden enviarse directamente, pues ya son datos digitales. El ordenador receptor debe tener una pantalla de alta calidad que haya sido probada y autorizada para fines clínicos. A continuación, los informes se transmiten al médico solicitante.
+
+La principal ventaja de la telerradiología es la posibilidad de utilizar distintas zonas horarias para prestar servicios radiológicos de urgencia en tiempo real las 24 horas del día. Las desventajas incluyen costes más elevados, contacto limitado entre el remitente y el clínico informante, y la incapacidad de cubrir procedimientos que requieren un clínico informante in situ. Las leyes y normativas relativas al uso de la telerradiología varían de un estado a otro, y algunas exigen una licencia para ejercer la medicina en el estado que envía el examen radiológico. En EE. UU., algunos estados exigen que el informe de telerradiología sea preliminar al informe oficial emitido por un radiólogo de plantilla del hospital. Por último, una posible ventaja de la teleradiología es que podría automatizarse con modernas técnicas de aprendizaje automático.[9][10][11]
+
+Formación[editar]
+
+La radiología es un campo de la medicina que se ha expandido rápidamente desde el año 2000 debido a los avances de la tecnología informática, estrechamente ligada a las modernas técnicas de imagen. Generalmente en todos los países la formación se realiza en residencia de varios años después de la formación como médico.
+
+Operación[editar]
+
+La práctica moderna de la radiología implica a varias profesiones sanitarias diferentes que trabajan en equipo. El radiólogo es un médico que ha completado la formación de posgrado adecuada e interpreta imágenes médicas, comunica estos hallazgos a otros médicos mediante un informe o verbalmente, y utiliza la imagen para realizar procedimientos médicos mínimamente invasivos.[12][13] El enfermero participa en el cuidado de los pacientes antes y después de la obtención de imágenes o de los procedimientos, incluida la administración de medicamentos, la monitorización de las constantes vitales y la monitorización de los pacientes sedados.[14] El radiógrafo, también conocido como "tecnólogo radiológico" en algunos países como Estados Unidos y Canadá, es un profesional sanitario especialmente formado que utiliza tecnología sofisticada y técnicas de posicionamiento para producir imágenes médicas que interpreta el radiólogo. Dependiendo de su formación y del país en el que ejerza, el radiógrafo puede especializarse en una de las modalidades de diagnóstico por imagen antes mencionadas o desempeñar funciones más amplias en la obtención de imágenes.[15]
+
+Véase también[editar]
+
+• Contraste radiológico
+
+• Fluoroscopia
+
+• Imagen médica
+
+• Imagen por resonancia magnética
+
+• Medicina nuclear
+
+• Neurorradiología
+
+• Producto sanitario
+
+• Tecnología sanitaria
+
+• Tomografía ax

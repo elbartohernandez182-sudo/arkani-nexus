@@ -1,0 +1,257 @@
+FUENTE: https://es.wikipedia.org/wiki/Mojo%20%28lenguaje%20de%20programaci%C3%B3n%29
+TEMA: python decoradores avanzados
+FECHA: 2026-06-18T12:43:43.335235
+============================================================
+
+Mojo (lenguaje de programación) - Wikipedia, la enciclopedia libre
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+Ir al contenido
+
+	
+
+	
+		
+			
+		
+		
+			
+		
+			
+		
+	
+	
+				
+			
+		
+		
+			
+				
+				
+					
+						
+							
+						
+						
+							
+
+							
+						
+					
+				
+				
+					
+						
+						
+						
+					
+				
+				
+					
+							
+		
+
+						De Wikipedia, la enciclopedia libre
+					
+					
+					
+					
+					.mojo</code>, <code>.🔥</code> (El [[emoji]] del fuego / carácter [[Unicode]] U+1F525)"},"paradigma":{"wt":"[[Lenguaje de programación multiparadigma|Multiparadigma]]: [[Programación orientada a objetos|orientado a objetos]], [[Programación imperativa|imperativo]], [[Programación funcional|funcional]], [[Reflexión (informática)|reflexivo]], [[Inteligencia Artificial]]"},"año":{"wt":"2023"},"diseñador":{"wt":"[[Chris Lattner]]"},"desarrollador":{"wt":"[[Modular Inc.]]"},"última_versión":{"wt":"0.2.1 (64d14e85)"},"fecha_última_versión":{"wt":"{{fecha de lanzamiento|2|5|2023}}"},"tipo_dato":{"wt":"[[Tipado fuerte|Fuertemente tipado]], [[Tipado dinámico|dinámico]]"},"influido_por":{"wt":"[[Python (lenguaje de programación)|Python]], [[Rust (lenguaje de programación)|Rust]], [[Swift (lenguaje de programación)|Swift]]"},"sistema_operativo":{"wt":"[[Multiplataforma]]"},"sitio_web":{"wt":"[https://www.modular.com/mojo Sitio web oficial]"},"licencia":{"wt":"Lenguaje: Modular Community License;<ref>{{cite web|url=https://www.modular.com/legal/community|title=Modular: Community License}}</ref> Biblioteca estándar: [[Apache License]] 2.0 (con excepciones LLVM)<ref>{{cite web|url=https://github.com/modular/modular/blob/main/mojo/stdlib/README.md#license|title=Welcome to the Mojo standard library}}</ref>"}},"i":0}}]}'>MojoDesarrollador(es)
+Modular Inc.
+Sitio web oficialInformación generalExtensiones comunes
+.mojo, .🔥 (El emoji del fuego / carácter Unicode U+1F525)Paradigma
+Multiparadigma: orientado a objetos, imperativo, funcional, reflexivo, Inteligencia ArtificialApareció en
+2023Diseñado por
+Chris LattnerÚltima versión estable
+0.2.1 (64d14e85) (2 de mayo de 2023 (3 años, 1 mes y 16 días))Sistema de tipos
+Fuertemente tipado, dinámicoInfluido por
+Python, Rust, SwiftSistema operativo
+MultiplataformaLicencia
+Lenguaje: Modular Community License;[1] Biblioteca estándar: Apache License 2.0 (con excepciones LLVM)[2][editar datos en Wikidata]
+
+Mojo es un lenguaje de programación desarrollado por Modular Inc.[3][4][5] Se hizo accesible a través del navegador en mayo de 2023[3][6] y localmente en Linux en septiembre de 2023. El lenguaje es capaz de ejecutar algunos programas en Python.[7] Los desarrolladores tienen varios objetivos para mejorar Mojo.[3][6]
+
+Origen, diseño y desarrollo[editar]
+
+En el año 2022, Chris Lattner, el arquitecto original del lenguaje de programación Swift, y Tim Davis, un reconocido ingeniero en Machine Learning en Google, fundan la compañía Modular Inc.[8]
+
+En septiembre de 2022, se lanzó internamente una versión inicial de Mojo por parte de Modular Inc,[9] con características avanzadas de compilación impulsadas por MLIR (Multi-Level Intermediate Representation).[10][3][11]
+
+Su sistema de tipos es híbrido (algo entre estático y dinámico), ya que el desarrollador puede optar por la escritura de tipos estáticos de alto rendimiento al elegir la palabra clave fn o def para definir su función.
+
+El Motor de Inferencia Modular compañero incluye un compilador y un tiempo de ejecución.[12]
+
+Comparación con Python[editar]
+
+El lenguaje de programación Mojo tiene como objetivo ser completamente compatible con el ecosistema del Proyecto Jupyter. Aún no es completamente compatible a nivel de código fuente con Python 3.x, proporcionando solo un subconjunto de su sintaxis, como la falta de argumentos en las funciones, la palabra clave global, comprensiones de listas y diccionarios, y soporte para clases. Además, Mojo también agrega características que permiten la programación de bajo nivel con alto rendimiento: fn para crear funciones con tipos y struct para alternativas optimizadas en memoria a las clases. Un struct en Mojo es similar a una clase en Python: ambos admiten métodos, campos, sobrecarga de operadores y decoradores para la meta-programación. Mojo puede llamar a código existente de Python 3.x reutilizando el tiempo de ejecución de CPython. Modular planea agregar integración para importar de manera transparente módulos C/C++ de Clang y generar una interfaz de función externa entre C/C++ y Mojo.
+
+Mojo tiene un borrow checker, una influencia de Rust, y en ese sentido es diferente de Python.
+
+Ejemplo[editar]
+
+Programa Hola mundo:
+print('Hola mundo!')
+
+Véase también[editar]
+
+• Lista de lenguajes de programación para Inteligencia Artificial
+
+Referencias[editar]
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• ↑ «Modular: Community License». 
+
+• ↑ «Welcome to the Mojo standard library». 
+
+• 1 2 3 4 Krill, Paul (4 de mayo de 2023). «Mojo language marries Python and MLIR for AI development». InfoWorld (en inglés). 
+
+• ↑ Claburn, Thomas (5 de mayo de 2023). «Modular reveals Mojo, Python superset with C-level speed». The Register (en inglés). 
+
+• ↑ Pandey, Mohit (3 de mayo de 2023). «This New Programming Language is Likely to Replace Python». Analytics India Magazine. 
+
+• 1 2 Yegulalp, Serdar (7 de junio de 2023). «A first look at the Mojo language». InfoWorld (en inglés). 
+
+• ↑ Deutscher, Maria (7 de septiembre de 2023). «Modular makes its AI-optimized Mojo programming language generally available». Silicon Angle (en inglés). Consultado el 11 de septiembre de 2023. 
+
+• ↑ Claburn, Thomas (5 de mayo de 2023). «Modular finds its Mojo, a Python superset with C-level speed». The Register. Consultado el 8 de agosto de 2023. 
+
+• ↑ «Mojo🔥 changelog». 
+
+• ↑ Lattner, Chris; Pienaar, Jacques (2019), MLIR Primer: A Compiler Infrastructure for the End of Moore's Law, consultado el 30 de septiembre de 2022 .
+
+• ↑ Lattner, Chris; Amini, Mehdi; Bondhugula, Uday; Cohen, Albert; Davis, Andy; Pienaar, Jacques; Riddle, River; Shpeisman, Tatiana et ál. (2020-02-29). «MLIR: A Compiler Infrastructure for the End of Moore's Law». arXiv:2002.11054
+ [cs.PL]. 
+
+• ↑ «Modular Inference Engine». 
+Control de autoridades
+
+• Proyectos Wikimedia
+
+• Datos: Q118152673
+
+• Datos: Q118152673
+
+Obtenido de «https://es.wikipedia.org/w/index.php?title=Mojo_(lenguaje_de_programación)&oldid=172135487»
+					Categorías: 
+• Lenguajes de programación orientada a objetos
+• Lenguajes de programación de alto nivel
+• Lenguajes de programación dinámicamente tipados
+• Lenguajes de programación educativos
+• Software de 2023
+• Ciencia y tecnología
+• Inteligencia artificial
+				
+			
+			
+		
+		
+			
+
+		
+	 
+ 
+
+	
+		
+			
+				
+
+Buscar
+			
+		
+			
+		
+			
+				
+					
+						
+							
+								
+								
+							
+							
+						
+						Buscar
+					
+				
+			
+		
+		
+				
+				Mojo (lenguaje de programación)
+			
+		
+		
+			
+				
+
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+
+			
+			
+
+			
+		
+			
+				
+
+13 idiomas
+			
+			
+
+Añadir tema

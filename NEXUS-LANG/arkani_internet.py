@@ -110,6 +110,31 @@ def buscar_duckduckgo(query: str, max_resultados: int = 5) -> list:
         return []
 
 
+
+def buscar_google(query: str, max_resultados: int = 5) -> list:
+    """Busca usando Google Custom Search API."""
+    API_KEY = "AIzaSyCWC26GRNqKSCkAXh8IMl_ai8GeqV3uZBE"
+    CX      = "520fc5d96d92d4d3c"
+    try:
+        url = (f"https://www.googleapis.com/customsearch/v1"
+               f"?key={API_KEY}&cx={CX}&q={urllib.parse.quote(query)}"
+               f"&num={min(max_resultados,10)}&lr=lang_es&gl=mx")
+        req = urllib.request.Request(url, headers=HEADERS)
+        with urllib.request.urlopen(req, timeout=TIMEOUT_HTTP) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+        resultados = []
+        for item in data.get("items", []):
+            resultados.append({
+                "titulo":  item.get("title","")[:80],
+                "url":     item.get("link",""),
+                "snippet": item.get("snippet","")[:200]
+            })
+        print(f"  [Google] {len(resultados)} resultados para: {query}")
+        return resultados
+    except Exception as e:
+        print(f"  [Google] Error: {e}")
+        return []
+
 def buscar_wikipedia(tema: str) -> list:
     """Busca directamente en Wikipedia en espanol e ingles."""
     resultados = []
@@ -249,8 +274,9 @@ def aprender_tema(tema: str, max_fuentes: int = 4,
     print(f"\n[SPAWN] Buscando fuentes para: {tema}")
     resultados = []
     resultados += construir_urls_directas(tema)
+    resultados += buscar_google(tema, max_resultados=5)  # Google primero
     resultados += buscar_wikipedia(tema)
-    resultados += buscar_duckduckgo(tema, max_resultados=3)
+    resultados += buscar_duckduckgo(tema, max_resultados=2)
 
     # Deduplicar por URL
     vistas = set()

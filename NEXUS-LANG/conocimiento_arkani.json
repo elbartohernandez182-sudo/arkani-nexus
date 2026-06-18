@@ -409,6 +409,21 @@
       "respuesta": "Entendido. Vamos a buscar el ejemplo de decoradores en Python. Descargando \"Decoradores en Python\" de Platzi...\n\n```python\n# Ejemplo básico de decorador\ndef mi_decorador(func):\n    def wrapper():\n        print(\"Antes de la función\")\n        func()\n        print(\"Después de la función\")\n    return wrapper\n\n@mi_decorador\ndef saludo():\n    print(\"¡Hola!\")\n\nsaludo()\n```\n\nArchivos bajados y listos para revisión. ¿Qué te parece este ejemplo?",
       "fecha": "2026-06-18T08:42:52.858998",
       "usos": 0
+    },
+    "auditar: archivos": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-18T12:11:09.096387",
+      "usos": 0
+    },
+    "auditar: todo": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-18T11:03:55.427038",
+      "usos": 0
+    },
+    "olvida: auditar: archivos": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-18T12:24:17.151715",
+      "usos": 0
     }
   },
   "sinonimos": {},

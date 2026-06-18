@@ -424,6 +424,26 @@
       "fecha": "2026-06-18 08:42",
       "pregunta": "si dame el ejemplo, bajalos manuales en  Decoradores en Python de Platzi y apendelos",
       "respuesta": "Entendido. Vamos a buscar el ejemplo de decoradores en Python. Descargando \"Decoradores en Python\" de Platzi...\n\n```python\n# Ejemplo básico de decorador\ndef mi_decorador(func):\n    def wrapper():\n        print(\"Antes de la función\")\n        func()\n        print(\"Después de la función\")\n    return wrapper\n\n@mi_decorador\ndef saludo():\n    print(\"¡Hola!\")\n\nsaludo()\n```\n\nArchivos bajados y listos para revisión. ¿Qué te parece este ejemplo?"
+    },
+    {
+      "fecha": "2026-06-18 10:26",
+      "pregunta": "auditar: archivos",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-18 11:03",
+      "pregunta": "auditar: todo",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-18 12:11",
+      "pregunta": "auditar: archivos",
+      "respuesta": "Timeout Ollama"
+    },
+    {
+      "fecha": "2026-06-18 12:24",
+      "pregunta": "olvida: auditar: archivos",
+      "respuesta": "Timeout Ollama"
     }
   ],
   "pendientes": [],
@@ -432,7 +452,7 @@
   "estadisticas": {
     "total_preguntas": 4,
     "errores": 0,
-    "preguntas": 91,
+    "preguntas": 95,
     "evoluciones": 1
   },
   "evoluciones": [

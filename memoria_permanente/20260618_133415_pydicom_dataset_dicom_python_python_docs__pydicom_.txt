@@ -1,0 +1,256 @@
+FUENTE: https://docs.python.org/3/search.html?q=pydicom%20dataset%20DICOM%20python
+TEMA: pydicom dataset DICOM python
+FECHA: 2026-06-18T13:34:15.724953
+============================================================
+
+Search — Python 3.14.6 documentation
+ 
+ 
+• 
+ 
+• 
+ 
+• 
+ 
+• 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+ 
+• 
+ 
+• 
+ 
+• 
+ 
+• 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+ 
+ 
+
+ 
+ 
+
+• 
+ 
+• 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+Navigation
+ 
+ 
+• 
+ index
+ 
+• 
+ modules |
+
+ 
+• 
+ 
+• Python »
+ 
+• 
+ 
+ 
+ 
+ 
+• 
+ 
+ 
+ 
+• 
+ 3.14.6 Documentation »
+ 
+
+ 
+• Search
+ 
+• 
+
+ Theme
+ 
+ Auto
+ Light
+ Dark
+ 
+ |
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+Search
+ 
+ 
+ 
+ 
+
+ Please activate JavaScript to enable the search
+ functionality.
+ 
+ 
+ 
+ 
+ 
+ 
+
+ Searching for multiple words only shows matches that contain
+ all words.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+«
+
+ 
+ 
+ 
+ 
+ 
+Navigation
+ 
+ 
+• 
+ index
+ 
+• 
+ modules |
+
+ 
+• 
+ 
+• Python »
+ 
+• 
+ 
+ 
+ 
+ 
+• 
+ 
+ 
+ 
+• 
+ 3.14.6 Documentation »
+ 
+
+ 
+• Search
+ 
+• 
+
+ Theme
+ 
+ Auto
+ Light
+ Dark
+ 
+ |
+ 
+ 
+ 
+ 
+ © Copyright 2001 Python Software Foundation.
+ 
+
+ This page is licensed under the Python Software Foundation License Version 2.
+ 
+
+ Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+ 
+
+ 
+ See History and License for more information.
+
+ 
+ 
+ 
+
+ The Python Software Foundation is a non-profit corporation.
+Please donate.
+
+ 
+
+ Last updated on Jun 18, 2026 (14:50 UTC).
+ 
+ Found a bug?
+ 
+ 
+
+ Created using Sphinx 8.2.3.

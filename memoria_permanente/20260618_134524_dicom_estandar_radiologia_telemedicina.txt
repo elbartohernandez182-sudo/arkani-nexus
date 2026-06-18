@@ -1,0 +1,255 @@
+FUENTE: https://es.wikipedia.org/wiki/Telemedicina
+TEMA: DICOM estandar radiologia
+FECHA: 2026-06-18T13:45:27.803062
+============================================================
+
+Telemedicina - Wikipedia, la enciclopedia libre
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+Ir al contenido
+
+	
+
+	
+		
+			
+		
+		
+			
+		
+			
+		
+	
+	
+				
+			
+		
+		
+			
+				
+				
+					
+						
+							
+						
+						
+							
+
+							
+						
+					
+				
+				
+					
+						
+						
+						
+					
+				
+				
+					
+							
+		
+
+						De Wikipedia, la enciclopedia libre
+					
+					
+					
+					
+					
+
+Este artículo o sección necesita referencias que aparezcan en una publicación acreditada. 
+
+Busca fuentes: «Telemedicina» – noticias · libros · académico · imágenesEste aviso fue puesto el 2 de abril de 2015.
+• 
+• 
+
+Conferencia de teleasistencia.
+
+La telemedicina (griego τελε (tele) que significa 'distancia' + medicina) es la prestación de servicios médicos a distancia. Para su implantación se emplean tecnologías de la información y las comunicaciones. Es importante entender que la telemedicina es un proceso para recibir la atención médica que un enfermo necesita mientras practica distanciamiento social,[1] no una tecnología. Sin embargo este proceso ha sido más factible y viable en los últimos años gracias a los avances tecnológicos.[2] La telemedicina puede ser tan simple como dos profesionales de la salud discutiendo un caso por teléfono, hasta la utilización de avanzada tecnología en comunicaciones e informática para realizar consultas, diagnósticos o cirugías a distancia y en tiempo real. Y como servicio, puede beneficiar a todos los pacientes de un sistema sanitario, pero sobre todo a las personas mayores y los pacientes crónicos.
+
+Últimamente está dándose lugar a una revisión conceptual del término "telemedicina". Se entiende que el término "eSalud" es mucho más apropiado, en tanto que abarca un campo de actuación más amplio, y algunos especialistas empiezan a considerar la telemedicina como un pilar de esta.
+
+Definición[editar]
+
+La telemedicina incluye tanto prevención, diagnóstico, tratamiento y rehabilitación, como también la educación médica. Es un recurso tecnológico que posibilita la optimización de los servicios de atención en salud, ahorrando tiempo y dinero y facilitando el acceso a zonas distantes para tener atención de especialistas.[2]
+Otra de las utilidades que presta el uso de la transmisión de datos médicos sobre redes adecuadas es la educación, donde los alumnos de medicina y enfermería pueden aprender semiología remotamente, apoyados por su profesor y con la presencia del paciente. Los siguientes servicios que presta la telemedicina son:
+
+• Servicios complementarios e instantáneos a la atención de un especialista (obtención de una segunda opinión médica).
+
+• Diagnósticos inmediatos por parte de un médico especialista en un área determinada.
+
+• Educación remota de alumnos de las escuelas de enfermería y medicina.
+
+• Servicios de archivo digital de exámenes radiológicos, ecografías y otros.
+
+• Apoyo en vivo por parte de un médico especialista.
+
+Todo esto disminuye el tiempo entre la toma de exámenes y la obtención de resultados, o entre la atención y el diagnóstico del especialista, el cual no debe viajar o el paciente no tiene que ir a examinarse, reduciendo costos de tiempo y dinero.
+
+Aplicaciones en telemedicina[editar]
+
+En la actualidad, dentro del campo de la telemedicina, podemos encontrar que se usa básicamente en 2 áreas de trabajo: la práctica clínica y la educación sanitaria.
+
+Dentro de la práctica clínica hay las siguientes formas:
+
+• Telediagnóstico.
+
+• Teleconsulta.
+
+• Monitorización remota o telemonitoreo.
+
+• Reuniones médicas para obtener segundas opiniones (Teleinterconsulta).
+
+• Almacenamiento digital de datos o fichas médicas.
+
+Dentro del área educativa destaca las clases a distancia desde centros médicos (educación en línea por medio de videoconferencia). Básicamente, la educación médica hace uso de las técnicas de videoconferencia, ya que de esta manera se saca mayor provecho a los recursos educativos y las experiencias presentadas en la exposición.
+
+Conceptos[editar]
+
+• Telediagnóstico: Diagnóstico a distancia o diagnóstico remoto, es la técnica que mayor impacto causa, dadas las múltiples ventajas con que se presenta y el amplio aprovechamiento de la tecnología. Consiste en evaluar o asistir en la evaluación médica de un paciente desde un centro hospitalario que se encuentre distante, haciendo uso de las telecomunicaciones para llevar a cabo esta acción.
+
+• Teleinterconsulta: Por medio de videoconferencia, es factible convocar una reunión de especialistas que estén en diferentes locaciones (sin límites geográficos), a fin de debatir diferentes situaciones, la única limitancia está en los recursos tecnológicos y de telecomunicaciones.
+
+• Telenutrición: Administrar terapia nutricional a pacientes distantes por parte de dietistas y médicos apoyados en las TIC.[3]
+
+• Monitoreo remoto de pacientes: Existe la posibilidad de medir y monitorear algunos parámetros del organismo de los pacientes a través de medios electrónicos y de comunicación remota. Entre estos parámetros se encuentran la glucosa, la presión arterial, etc.
+
+• Almacenamiento digital (Ficha electrónica): Consiste en la implementación del respaldo digital de documentos tales como fichas médicas (documentos clínicos electrónicos CDA HL7), placas radiológicas o exámenes, de manera de agilizar procesos internos y disminuir el espacio físico de almacenamiento de los mismos. Además esto abre posibilidades de obtención de diagnósticos que no sea en tiempo real por medio de correo electrónico, o la publicación de resultados de exámenes vía web para ser consultados por los pacientes.
+
+• Clases a distancia (educación en línea): Es el uso académico de la videoconferencia médica, usando la misma tecnología, un docente puede impartir clases a un grupo o varios grupos de estudiantes que se encuentren distantes.
+
+Funcionamiento de un sistema de telemedicina[editar]
+
+Un sistema de telemedicina, según su definición, es un sistema complementario para las actividades médicas. En la actualidad, el “medio de apoyo”, son las telecomunicaciones y las ciencias informáticas, ya que lo que hoy en día encontramos en esta naciente área, son sistemas capaces de transmitir audio, video, imágenes y documentos por medio de diversos sistemas de telecomunicaciones.
+
+En el mercado, existen diversas compañías que han dedicado tiempo y recursos al desarrollo de implementos capaces de apoyar labores médicas a distancia, ya sea a través de la creación de una nueva línea de productos o por medio de instaurar una empresa dedicada exclusivamente a este mercado, el cual por cierto es bastante exclusivo.
+
+Un sistema de telemedicina opera básicamente de la siguiente manera:
+Existe un centro hospitalario menor que presenta una carencia de profesionales en un(as) área(s) específica(s), dicho centro será asistido por uno de mayor envergadura, el cual dispondrá de los especialistas y el tiempo necesario para la atención de los pacientes de manera “remota”, quienes se encontrarán físicamente en la ciudad donde esté el centro de menor tamaño. Esto conlleva beneficios de ahorro de tiempo y dinero para los pacientes y mejora la gestión de los centros de salud más apartados.
+
+Para que un sistema de estas características funcione bien, se debe contar con los siguientes elementos:
+
+• Equipos capaces de comunicarse (preferiblemente videoconferencia).
+
+• Medio de comunicación (satelital, Internet, etc.).
+
+• Estándares y protocolos de interoperabilidad de información (HL7 y DICOM).
+
+• El hospital o clínica de apoyo que debe gestionar los recursos necesarios (infraestructura, tiempo y especialmente especialistas) para prestar los servicios médicos.
+
+En lo referente a la telemedicina en sus formas de teleconferencia (conferencias médicas a distancia) y Educación a distancia, el sistema debe ser similar al de telediagnosis, siendo imperativo la capacidad de montar una videoconferencia.
+
+Si se habla de telemedicina como medio de almacenamiento digital, esta se presenta como una manera de apoyar la labor de los médicos de manera de la obtención de información de manera rápida y eficiente, permitiendo la manipulación de la misma para poder llevar registros actualizados y requerir, de ser necesario, una segunda opinión en una forma más fácil y expedita. Además el mantener fichas o registros digitales, conlleva la capacidad de manejar volúmenes de información mayores en menor espacio físico, permite la agilización de procesos internos, lo que entrega como resultado una mejora en la gestión del servicio.
+
+Estándares informáticos[editar]
+
+Entre los estándares que hacen posible el intercambio electrónico de información durante los procesos de telediagnósis, teleconsulta, procesamiento, transmisión y almacenamiento de registros médicos e imágenes diagnósticas se destacan HL7 y DICOM. El uso de estos estándares garantiza la integridad y legibilidad de la información entre sistemas de información heterogéneos que intervienen en este tipo de procesos.
+
+Ventajas.[editar]
+
+• Disponibilidad.[4] La tele-salud permite prestar asistencia médica a distancia a los pacientes que están en las regiones remotas.[5] También la tele-salud facilita la vigilancia de los pacientes con una movilidad reducida.[2]
+
+• Reducción de los gastos de salud pública. El monitoreo a distancia de los pacientes con ayuda de las tecnologías móviles puede disminuir la necesidad de visitas de ambulatorio y garantizar la verificación a distancia de las recetas y el control de prescripción de medicamentos. Así que, se reduce significativamente el coste total de asistencia médica.[6]
+
+• Intercambio de experiencia. Las tecnologías móviles permiten a los trabajadores sanitarios realizar consultas e intercambiar de experiencia, observar a los peritos e interactuar con ellos estando a una distancia unos de otros.[7]
+
+• Reducción del riesgo de propagación de las enfermedades infecciosas. La tele-salud excluye la posibilidad de transmisión de las enfermedades infecciosas o los parásitos entre los pacientes y el personal médico.
+
+• Reducción de estigma. Algunos pacientes se sienten incómodos durante consulta.[8]
+
+Inconvenientes[editar]
+
+• La telemedicina no puede sustituir por completo el examen físico, lo que condiciona un diagnóstico certero o concluyente.[2]
+
+• La telemedicina tiene limitada capacidad resolutiva en pacientes con necesidades clínicas complejas o que requieren tratamientos riesgosos.[2]
+
+• La telemedicina no asegura que los pacientes tengan toda la información que desean y necesitan sobre una opción de tratamiento.[2]
+
+• La telemedicina requiere de médicos entrenados para realizar adecuadamente una atención a distancia; sin embargo, la mayoría de médicos no cuentan con las competencias y habilidades necesarias. No obstante, cada vez hay más iniciativas dentro de las universidades que viene estableciendo cursos de entrenamiento en telemedicina.[9]
+
+• La telemedicina no es una práctica aceptada en algunos países, en algunos casos está contra las normas de ley. Surge la necesidad de actualización de las actas normativas, los principios rectores y la legislación.
+
+• La telemedicina crea una vulnerabilidad potencial a la confidencialidad, la seguridad, el licenciamiento médico y la compensación de los gastos.[10]
+
+• La telemedicina requiere más tiempo del médico. Si una consulta común ocupa 15 minutos, la a distancia - hasta una media hora.[11]
+
+• Además, aumenta el riesgo de un error durante prestación de servicios médicos.[11] Es posible la aparición de problemas técnicos, tales como los errores de transmisión o alteración de seguridad o de almacenamiento de datos que influyen sobre la calidad de comunicación.
+ 
+
+Cuestiones éticas[editar]
+
+Con el uso de tele-salud están relacionadas varias cuestiones éticas.[2] La cuestión principal es ¿si debe el paciente dar consentimiento informado para recepción de asistencia online antes de su comienzo? ¿O esto se va a sobreentender, ya que la tele-salud es posible sólo a distancia? Durante el proceso de uso de la telemedicina están hechos participar no sólo el paciente y su médico de cabecera, sino los proveedores de tecnologías. Por eso el consentimiento se puede extender a cualquier persona que participa en la transmisión de información y seguridad, lo que puede llevar a los casos de negligencia jurídica.[12][13] Puede ser que sería razonable recibir el consentimiento informado en persona, bien como tener los métodos alternativos de comunicación con el paciente.
+
+Legislación Informática con la telemedicina en España[editar]
+
+En España, la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPD-GDD), establece un marco normativo para la protección de los datos personales, incluidos los datos médicos. Establece una serie de obligaciones para los responsables del tratamiento de datos personales,[14] entre las que se encuentran las siguientes:
+
+• Adoptar las medidas técnicas y organizativas necesarias para garantizar la seguridad de los datos personales.
+
+• Informar a los interesados sobre el tratamiento de sus datos personales.
+
+• Obtener el consentimiento de los interesados para el tratamiento de sus datos personales.
+
+En el caso de los datos médicos, establece las siguientes medidas específicas de seguridad:
+
+• El tratamiento de datos médicos debe realizarse de forma segura y conforme a las medidas de seguridad técnicas y organizativas establecidas en el Reglamento General de Protección de Datos (RGPD).
+
+• Los datos médicos deben ser tratados de forma confidencial.
+
+• Los datos médicos deben procesarse de forma lícita y transparente.
+
+En la Unión Europea, la protección ética de los datos médicos está regulada por el Reglamento General de Protección de Datos (RGPD), que establece los principios y las obligaciones que deben respetar los responsables del tratamiento de datos personales, incluidos los datos médicos.
+
+Según lo acordado en el artículo 5 de la RGPD los datos personales serán:
+
+• Deben ser tratados de manera lícita, leal y transparente.
+
+• Solo pueden ser tratados para los fines específicos para los que fueron recogidos.
+
+• Solo deben recopilarse los necesarios para los fines específicos para los que fueron recogidos.
+
+• Deben ser exactos y actualizados.
+
+• Solo deben conservarse durante el tiempo necesario para los fines específicos para los que fueron recogidos.
+
+• Deben ser tratados de forma segura para protegerlos contra el acceso no autorizado o la alteración, divulgación, pérdida o destrucción accidental.
+
+Además de estos principios, el RGPD también establece una serie de obligaciones específicas para los responsables del tratamiento de datos médicos, tales como:
+
+• Obtener el consentimiento del paciente para el tratamiento de sus datos médicos.
+
+• Informar al paciente sobre el tratamiento de sus datos médicos.
+
+• Garantizar la seguridad de los datos médicos.
+
+Para garantizar la seguridad y la protección ética de los datos médicos, es necesario que los responsables del tratamiento de datos médicos deben d

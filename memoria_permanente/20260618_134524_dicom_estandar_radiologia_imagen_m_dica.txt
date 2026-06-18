@@ -1,0 +1,199 @@
+FUENTE: https://es.wikipedia.org/wiki/Imagen%20m%C3%A9dica
+TEMA: DICOM estandar radiologia
+FECHA: 2026-06-18T13:45:24.889304
+============================================================
+
+Imagen médica - Wikipedia, la enciclopedia libre
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+• 
+
+Ir al contenido
+
+	
+
+	
+		
+			
+		
+		
+			
+		
+			
+		
+	
+	
+				
+			
+		
+		
+			
+				
+				
+					
+						
+							
+						
+						
+							
+
+							
+						
+					
+				
+				
+					
+						
+						
+						
+					
+				
+				
+					
+							
+		
+
+						De Wikipedia, la enciclopedia libre
+					
+					
+					
+					
+					
+
+Este artículo o sección tiene referencias, pero necesita más para complementar su verificabilidad. 
+
+Busca fuentes: «Imagen médica» – noticias · libros · académico · imágenesEste aviso fue puesto el 6 de junio de 2017.
+• 
+• 
+
+Imagen médica en medicina nuclear.
+
+Se llama imagen médica al conjunto de técnicas y procesos usados para crear imágenes del cuerpo humano, o partes de él, con propósitos clínicos (procedimientos médicos que buscan revelar, diagnosticar o examinar enfermedades) o para la ciencia médica (incluyendo el estudio de la anatomía normal y función).
+
+Como disciplina en su sentido más amplio, es parte de la imagen biológica e incorpora la radiología, las ciencias radiológicas, la endoscopia, la termografía médica, la fotografía médica y la microscopía (por ejemplo, para investigaciones patológicas humanas). Las técnicas de medida y grabación, que no están diseñadas en principio para producir imágenes, tales como la electroencefalografía (EEG) y la magnetoencefalografía (MEG) y otras que, sin embargo, producen datos susceptibles de ser representados como mapas (pues contienen información relacionada con la posición), pueden considerarse también imágenes médicas.
+
+En el contexto clínico, la imagen médica se equipara generalmente a la radiología o a la "imagen clínica" y al profesional de la medicina responsable de interpretar (y a veces de adquirir) las imágenes, que es el radiólogo. La radiografía de diagnóstico designa a los aspectos técnicos de la imagen médica y en particular la adquisición de imágenes médicas. El radiógrafo o el tecnólogo de radiología es responsable normalmente de adquirir las imágenes médicas con calidad de diagnóstico, aunque algunas intervenciones radiológicas son desarrolladas por radiólogos.
+
+Como campo de investigación científica, la imagen médica constituye una subdisciplina de la ingeniería biomédica, la física médica o medicina, dependiendo del contexto: investigación y desarrollo en el área de instrumentación, adquisición de imágenes (e.g. radiografía), el modelado y la cuantificación son normalmente reservadas para la ingeniería biomédica, física médica y ciencias de la computación; la investigación en la aplicación e interpretación de las imágenes médicas se reserva normalmente a la radiología y a las subdisciplinas médicas relevantes en la enfermedad médica o área de ciencia médica (neurociencia, cardiología, psiquiatría, psicología, etc.) bajo investigación. Muchas de las técnicas desarrolladas para la imagen médica son también aplicaciones científicas e industriales.
+
+La imagen médica a menudo se usa para designar al conjunto de técnicas que producen imágenes de aspectos internos del cuerpo (sin tener que abrirlo). En este sentido restringido, las imágenes médicas pueden ser vistas como la solución del problema inverso matemático. Esto significa que la causa (las propiedades del tejido viviente) se deducen del efecto (la señal observada). En el caso de la ultrasonografía la sonda es el conjunto de ondas de presión ultrasónicas que se reflejan en el tejido, y que muestran su estructura interna. En el caso de la radiografía de proyección, la sonda es radiación de rayos X, que son absorbidos en diferente proporción por distintos tipos de tejidos, tales como los huesos, músculos o grasa.
+
+Tecnología de imagen moderna[editar]
+
+Fluoroscopía[editar]
+Artículo principal: Fluoroscopia
+
+La fluoroscopía produce imágenes en tiempo real de estructuras internas del cuerpo; esto se produce de una manera similar a la radiografía, pero emplea una entrada constante de rayos X. Los medios de contraste, tales como el bario o el iodo, y el aire son usados para visualizar cómo trabajan órganos internos. La fluoroscopía es utilizada también en procedimientos guiados por imagen cuando durante el proceso se requiere una realimentación constante.
+
+Imagen de resonancia magnética (IRM)[editar]
+Artículo principal: Imagen por resonancia magnética
+Cerebro explorado con MRI.
+Imagen combinada IRM/PET de la cabeza.
+
+Un instrumento de imágenes por resonancia magnética (Scanner MRI) usa imanes de elevada potencia para polarizar y excitar núcleos de hidrógeno (protón único) en moléculas de agua en tejidos humanos, produciendo una señal detectable que está codificada espacialmente produciendo imágenes del cuerpo. Resumiendo, MRI implica el uso de tres clases de campos electromagnéticos: un campo magnético estático muy fuerte para polarizar los núcleos de hidrógeno, llamado el campo estático, de un orden de unidad de teslas; un campo variante (en el tiempo, del orden de 1 kHz) más débil para la codificación espacial, llamado el campo de gradiente; y un campo de radiofrecuencia débil para la manipulación de los núcleos de hidrógeno para producir señales medibles, recogidas mediante una antena de radiofrecuencia. Como CT, MRI crea normalmente una imagen 2D de una "rebanada" delgada del cuerpo y por tanto es considerada una técnica de imagen tomográfica.
+
+Los instrumentos modernos de MRI son capaces de producir imágenes en forma de bloques 3D, que se pueden considerar una generalización del concepto tomográfico de la "rebanada" individual. A diferencia del CT, MRI no implica el uso de radiación ionizante y no está por tanto asociada con los mismos riesgos para la salud; por ejemplo, no hay efectos conocidos a largo plazo por la exposición a campos estáticos fuertes (esto es materia de algunos debates; vea 'Seguridad' en MRI) y por tanto no hay límite en el número de exploraciones a las que una persona puede ser expuesto, en contrates con los rayos X y CT. Sin embargo, hay asociados riesgos conocidos para la salud con el calentamiento de tejidos por la exposición a campos de radiofrecuencia y la presencia de dispositivos implantado en el cuerpo, tales como marca-pasos. Estos riesgos están estrictamente controlados tanto en la parte de diseño de los instrumentos como en los protocolos de exploración utilizados. Debido a que CT y MRI son sensibles a diferentes propiedades de los tejidos, la aparición de imágenes obtenidas con las dos técnicas difieren considerablemente. En CT, rayos X deben ser bloqueados por alguna forma de tejido denso para crear una imagen, por lo tanto la calidad de la imagen en tejidos blandos será pobre. Un MRI puede "ver" únicamente objetos basados en hidrógeno, así que los huesos, que está basados en calcio, serán anulados en la imagen, y no tendrán efectos en la visión de tejidos blandos. Esto lo hace excelente para examinar el interior del cerebro y las articulaciones.
+
+La MRI (conocido originalmente como NMR imaging) solo ha sido usado desde principios de los 80. Efectos a largo plazo, o exposición repetida, a los campos magnéticos estáticos intensos no son conocidos.
+
+Medicina nuclear[editar]
+Artículo principal: Medicina nuclear
+Imagen obtenida en un cintigrama óseo utilizando como radiotrazador Tc-99m MDP.
+
+Área de la imagen médica que utiliza isótopos, para la obtención de imágenes clínicas. Para su obtención se asocia un isótopo, generalmente emisores gamma de vida media corta a un fármaco de absorción biológica específica, esta asociación es conocida como radiofármacos o radiotrazador.
+
+Posteriormente el paciente es inyectado (generalmente vía intravenosa) con un radiofármaco el cual, luego de un tiempo determinado, se depositará y fijará en una región específica del cuerpo. La dosis administradas al paciente se determinan con un activímetro, el cual debe estar bien calibrado y su respuesta debe ser fidedigna.
+
+Para su detección se utiliza un equipo llamado cámara gamma el cual detecta la distribución las desintegraciones del radiotrazador dentro del organismo. Esta técnica diagnóstica presenta alta sensibilidad fisiológica, sin embargo, baja especificidad anatómica. Esto permite detectar cambios metabólicos antes que estos tengan manifestaciones detectables por otras técnicas imagenológicas. Un estudio frecuente es el cintigrama óseo el cual se usa a fin de detectar transformaciones en el metabolismo óseo, permitiendo un análisis funcional de la matriz mineral, utilizado frecuente para determinar alteraciones de patrones normales a fin de realizar una evaluación correcta.
+
+Para su realización se utiliza el isótopo tecnecio99 meta estable el cual se une al fármaco llamado MDP (Metilendifosfonato), la intensidad de fijación es proporcional al grado de actividad osteoblástica, la cual está aumentada en toda lesión ósea. Otros estudios de uso frecuente son: cintigrama tiroideo, cintigrama pulmonar y función renal, entre otros.
+
+Imagen del cerebro.
+
+La imagen anterior es una imagen del cerebro. Es una prueba que permite el diagnóstico del trastorno de Parkinson. Se trata de una imagen tomográfica (SPECT).
+
+Desde el punto de vista de protección radiológica se debe considerar que para este tipo técnica imagenológica el paciente es la fuente radiactiva por tanto se deben tomar las precauciones a fin de no exponer de forma innecesaria a miembros del público.
+
+Con el objeto de obtener una imagen médica confiable que permita minimizar errores diagnósticos asociados al proceso de adquisición de imagen así como diferentes parámetros de funcionamiento de la instrumentación en medicina nuclear, se hace indispensable contar con un sistema de control de calidad, el cual implica trabajar con imágenes digitales cuya evaluación y prueba supone el procesado y análisis de las imágenes. Este análisis puede ser realizado con los programas que incorpora cada marca comercial en los equipos (paquetes comerciales) lo que conlleva algunos inconvenientes prácticos, esto basado principalmente al no ser comparables los resultados entre diferentes equipos. Sin embargo, este estudio también puede ser realizado con sistemas de análisis de imagen externos, de distribución gratuita tales como el ImageJ. Este último es un programa Java desarrollado en el National Institutes of Health, el que permite ampliar su funcionalidad mediante la instalación de plugins y macros grabables, ofreciendo una diversidad de funciones que han tenido de gran aceptación en el mundo clínico. Esto es posible gracias a que hoy en día la mayoría de las gamma cámaras permiten realizar la exportación de las imágenes, permitiendo con esto un post proceso de estas. Ello ha permitido disminuir los costo de implementación de pruebas de control calidad tales como; uniformidad planar, tamaño de pixel, resolución espacial, entre otros, optimizando la seguridad de los procesos diagnósticos asociados a esta técnica imagenológica. Para mayor información sobre pruebas recomendadas se sugiere revisar el documento TEC-DOC-602 de IAEA (International Atomic Energy Agency).
+
+A modo se muestran distintos análisis que pueden ser realizados programa imageJ, tendientes a mejorar la imagen y la eliminación del ruido producido en el proceso de realización del examen mismo.
+
+• Ajuste de brillo de imagen realizado con programa ImageJ.
+
+• Histograma de Imagen obtenido con ImageJ.
+
+Gammacámara[editar]
+
+La Gammacámara permite obtener imágenes morfológicas y funcionales a partir de la detección de radiación gamma procedente del interior del paciente. Se basa en un detector de centelleo sólido y proporciona imágenes bidimensionales. La Gamacámara en modo SPECT consiste en una Gammacámara con uno o más cabezales detectores giratorios que permiten la adquisición de proyecciones desde distintos ángulos alrededor de un eje central. A partir de las proyecciones, mediante algoritmos de reconstrucción, se obtiene la distribución tridimensional del trazador en el organismo.
+
+Tomografía por emisión de positrones (PET)[editar]
+
+La tomografía por emisión de positrones (PET) se usa generalmente para detectar ciertas enfermedades del cerebro. Similarmente a los procedimientos de medicina nuclear, un isótopo de vida media corta, como el 18F se incorpora a una sustancia metabolizable por el organismo (como la glucosa), la cual es absorbida por un tumor o un grupo celular de interés. Los muestreos usando PET son a menudo mostrados en paralelo a muestreos de tomografía computada, los cuales son realizados por el mismo equipo sin movilizar al paciente. Esto permite que los tumores detectados por muestreo con PET puedan ser vistos con referencias anatómicas provistas por el muestreo de la tomografía computada.
+
+Existen dos modos de adquisición en PET:
+
+• Adquisición 2D:
+
+Se introducen septa (colimadores) de modo que se seleccionan fotones de incidencia normal con respecto al cristal.
+
+Disminuye la sensibilidad del escáner y se pierde información potencialmente útil.
+
+Se reducen las coincidencias aleatorias y de dispersión.
+
+Se reduce la tasa de cuentas por lo que se reducen las pérdidas debidas al tiempo muerto del detector.
+
+La reconstrucción de la imagen consiste en una serie de imágenes 2D.
+Imagen en 2D.
+
+• Adquisición 3D:
+
+No hay septa (colimadores).
+
+Todas las incidencias son aceptadas.
+
+Aumenta la sensibilidad del escáner y se obtiene más información útil.
+
+Aumentan las coincidencias aleatorias y de dispersión.
+
+Aumenta la tasa de cuentas y por tanto pueden aparecer más problemas de tiempo muerto.
+
+La reconstrucción es más compleja.
+
+La reconstrucción ahora es directamente una imagen en 3D.
+Imagen en 3D.
+
+La mejora de los sistemas de detección, correcciones y algoritmos de reconstrucción ha supuesto que el modo 2D esté cada día más en desuso. La principal ventaja del modo 3D es el aumento de la sensibilidad del sistema.
+
+Radiografía[editar]
+Artículo principal: Radiología digital
+
+En este segmento de las imágenes médicas se puede encontrar desde los más simples exámenes de rayos X hasta estudios complejos como el sistema digestivo. Las imágenes son obtenidas gracias a las diferentes capacidades que poseen los tejidos de atenuar las radiaciones X, han sido utilizados en el ámbito médico desde su descubrimiento en 1895 por Wilhelm Conrad Röntgen y hasta nuestros días son ampliamente utilizados para realizar diagnósticos diferenciales en el área de la traumatología (pesquisa de fracturas, alteraciones de los huesos y malformaciones), a la vez permiten visualizar algunos órganos de menor densidad como los pulmones, en cuyo caso es posible detectar diferentes patologías que afectan a este órgano cono es el caso de la acumulación de polvos que al ser inhalados causan enfermedades definidas como silicosis. Todo estudio radiográfico está compuesto, a lo menos, por dos proyecciones lo que permite visualizar la estructura estudiada en dos planos perpendiculares.
+
+Este método de adquisición de imágenes puede ser asociado con el uso de medios de contrastes, hidrosolubles sobre la base de bario o yod
