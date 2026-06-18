@@ -12,3 +12,24 @@ NEXUS-LANG/fractal_motor/attn_test/
 *.npy
 *.safetensors
 *.gguf
+
+# Checkpoints LoRA (binarios grandes, no van en GitHub)
+NEXUS-LANG/arkani-fractal-lora/
+NEXUS-LANG/arkani-fractal-merged/
+NEXUS-LANG/fractal_motor/fractal_model_v1/
+
+# Backups locales
+*_BACKUP*.py
+*_BACKUP*.html
+*.backup_memoria
+
+# Logs y memoria dinámica
+NEXUS-LANG/daemon_guardian.log
+NEXUS-LANG/memoria_arkani.json
+NEXUS-LANG/conocimiento_arkani.json
+NEXUS-LANG/hipocampo.bin
+papelera/
+indice_archivos.json
+
+# Audio generado
+NEXUS-LANG/static/audio/
