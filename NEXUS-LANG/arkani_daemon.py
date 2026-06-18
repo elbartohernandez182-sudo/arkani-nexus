@@ -225,7 +225,7 @@ def tarea_entrenar(estado: dict) -> bool:
     try:
         result = subprocess.run(
             [sys.executable, str(ENTRENAMIENTO_PY),
-             "--epochs", "1",    # solo 1 epoca por noche en CPU
+             "--epochs", "1"],   # solo 1 epoca por noche en CPU
             capture_output=True, text=True,
             timeout=7200  # max 2 horas
         )
