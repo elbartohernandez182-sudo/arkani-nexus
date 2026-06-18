@@ -374,6 +374,36 @@
       "respuesta": "La Independencia de México fue declarada en 1821. Info: Este evento marcó el fin del dominio español y el inicio de la historia mexicana como nación libre.",
       "fecha": "2026-06-12T00:56:47.154202",
       "usos": 0
+    },
+    "puedes analizar tu propio codigo?": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-15T22:44:40.377892",
+      "usos": 0
+    },
+    "estado,listaar y ejecutar": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-15T22:54:40.727228",
+      "usos": 0
+    },
+    "estado": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-15T23:04:41.084211",
+      "usos": 0
+    },
+    "muestra mid tus archivos": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-15T23:23:14.714453",
+      "usos": 0
+    },
+    "muestrame tus archivos": {
+      "respuesta": "No puedo mostrar tus archivos directamente, pero puedes usar `ls` en tu terminal para ver los archivos en el directorio actual. ¿Necesitas ayuda con un comando específico?",
+      "fecha": "2026-06-15T23:51:56.254163",
+      "usos": 0
+    },
+    "aprende internet: python decoradores": {
+      "respuesta": "Timeout Ollama",
+      "fecha": "2026-06-17T21:52:30.238590",
+      "usos": 0
     }
   },
   "sinonimos": {},

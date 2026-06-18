@@ -1,31 +1,49 @@
+# CONTEXTO_CLAUDE.md — Estado de ARKANI NEXUS
+Generado automaticamente: 2026-06-17 21:59
 
-## Sesión 05/Jun/2026
-### Completado:
-- Pestaña Explorador en UI web (navega disco completo)
-- Pestaña Compartir M2M en UI web (conectar nodos, enviar .nxf)
-- Modelfile actualizado (arkani:latest sobre qwen2.5:7b, responde 7 ops correctas)
-- nexus_evolve v2.0 (13 tipos error, memoria JSON, usa Ollama para fixes)
-- Bridge modo EVOLVE (keywords sin acento, escanea autogen real)
-- Brain+Hipocampo conectados (autoprograma agrega neurona SPAWN)
-- Hipocampo: 3→4 instrucciones, AUTOGEN: 20→21 módulos
-- Fix remote_script.py eliminado (texto chat, no era código)
-- timeout Ollama: 400→600 segundos
+## Estado del Sistema
+- Modelo principal  : arkani:latest (qwen2.5:7b + Protocolo Wardenclyffe)
+- Motor fractal     : FractalVM ONLINE
+- Hipocampo         : 5 instrucciones
+- Dataset fractal   : 1016 ejemplos
+- Conversaciones    : 83
+- Aprendizajes      : 0
+- Evoluciones       : 1
 
-### Pendiente siguiente sesión:
-- Compresor/Descompresor .nxf (usar nexus_fractal_compiler.py)
-- Instalador para primos
-- Arkani recuerde en contexto lo que ejecutó
-- Botón ACTUALIZAR hipocampo (no recarga)
+## Sesion Nocturna — 2026-06-17
+- Ejemplos digeridos   : 0
+- Neuronas agregadas   : 0
+- Entrenamiento        : ⏭️ saltado
+- Total digestiones    : 0
+- Total entrenamientos : 0
 
-## Sesión 08/Jun/2026
-### Completado:
-- nexus_fractal_packager v1.0 (compresor/descompresor .nxf)
-- arkani_setup.nxf (99 archivos, 1.2MB)
-- nexus_updater v1.0 (GitHub, backup, background)
-- version.json en GitHub, repo publico
-- Updater en arkani_web.py y arrancar_arkani.sh
+## GitHub
+- Repo: https://github.com/elbartohernandez182-sudo/arkani-nexus
+- Branch: master
 
-### Pendiente:
-- Instalador Windows siguiente-siguiente (PyInstaller + Inno Setup)
-- Probar M2M entre dos computadoras
-- Videollamada P2P fractal (despues servidor GPU)
+## Proximas Prioridades
+1. Servidor GPU (Radeon 12GB) — LLaVA para radiografias
+2. Instalador Windows para primos
+3. M2M entre dos PCs reales
+4. Expandir dataset fractal (target: 1000 ejemplos)
+
+## Componentes Activos
+- arkani_web.py       : Flask + SocketIO, puerto 8081
+- arkani_engine.py    : Motor unificado v2.0 con FractalVM
+- nexus_fractal_vm.py : VM fractal (ejecutar_todo, ejecutar_una, estado)
+- digestion_fractal.py: Tuberia de digestion semantica
+- arkani_daemon.py    : Modo nocturno automatico
+
+## Comandos Utiles
+```
+vm: estado              # estado de FractalVM
+vm: ejecutar            # ejecutar todas las instrucciones
+vm: listar              # listar neuronas del hipocampo
+evoluciona: [desc]      # auto-evolucion con nuevo modulo
+autoprograma: [tarea]   # agente ReAct autonomo
+aprender: [archivo]     # mover archivo a memoria permanente
+```
+
+## Notas del Daemon
+None
+Archivos procesados: 0

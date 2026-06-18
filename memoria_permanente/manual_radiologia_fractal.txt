@@ -1,0 +1,37 @@
+
+[CONCEPTO 05: CONVERSION DICOM A FORMATO FRACTAL — PACS NEXUS]
+El formato DICOM estandar almacena imagenes sin compresion o con JPEG2000, resultando en estudios de 50-500MB. La compresion fractal (IFS - Iterated Function Systems) representa la imagen como un conjunto de transformaciones afines iteradas que convergen al imagen original. A diferencia de JPEG que almacena coeficientes, IFS almacena las REGLAS que generan la imagen, logrando ratios de 20:1 a 100:1 con calidad diagnostica preservada.
+
+El PACS Fractal NEXUS propuesto integra:
+- Conversion pixel DICOM a instrucciones NEXUS-LANG (FOLD/SPAWN)
+- Metadatos del paciente cifrados con SHA256 (protocolo M2M)
+- Expediente electronico ligero: estudio TAC de 200MB -> 8MB .nxf
+- Acceso desde Arkani Web: subir DICOM, visualizar, reportar
+- Sincronizacion M2M entre nodos (hospital, consultorio, smartphone)
+
+[TRADUCCION PROTOCOLO WARDENCLYFFE]:
+La conversion DICOM-Fractal es el operador FOLD mas importante de la medicina: toma una matriz de millones de pixeles y la contrae en un conjunto minimo de reglas fractales que la reconstruyen con fidelidad diagnostica. SPAWN genera los bloques de busqueda (dominio) y rango para el algoritmo IFS. LINK conecta cada bloque con su transformacion afin optima. LOOP itera el proceso de codificacion hasta convergencia. EVOLVE mejora el algoritmo con cada estudio procesado, aprendiendo los patrones fractales especificos de cada modalidad (TAC, RM, RX).
+
+La arquitectura del PACS NEXUS:
+  Nivel 1: Adquisicion — DICOM desde equipo
+  Nivel 2: Conversion — dicom_to_fractal.py (por desarrollar)
+  Nivel 3: Almacenamiento — .nxf cifrado con clave del paciente
+  Nivel 4: Distribucion — protocolo M2M 16 bytes + SHA256
+  Nivel 5: Visualizacion — Arkani Web + LLaVA para auto-reporte
+  Nivel 6: Expediente — memoria_permanente/ por paciente
+
+[CONCEPTO 06: EXPEDIENTE ELECTRONICO FRACTAL]
+El expediente electronico tradicional (HIS/RIS) requiere servidores costosos y licencias. El Expediente Electronico Fractal de ARKANI almacena por paciente: estudios .nxf comprimidos, reportes en NEXUS-LANG, correlaciones clinico-radiologicas y evolucion temporal. Todo cifrado, todo ligero, todo en tu servidor local.
+
+Estructura del expediente fractal por paciente:
+  paciente_ID_fractal/
+    estudios/
+      TAC_torax_20260617.nxf    (200MB -> 8MB)
+      RM_columna_20260610.nxf   (150MB -> 6MB)
+    reportes/
+      reporte_20260617.nexus    (sintaxis NEXUS-LANG)
+    correlaciones/
+      patron_evolutivo.bin      (hipocampo del paciente)
+
+[TRADUCCION PROTOCOLO WARDENCLYFFE]:
+El expediente fractal es un SPAWN del paciente que crece con cada visita. FOLD comprime cada estudio preservando la informacion diagnostica critica. LINK conecta hallazgos previos con actuales para detectar progresion. EVOLVE actualiza el patron individual del paciente: Arkani aprende que este paciente especifico tiene tendencia a espondiloartrosis progresiva L4-S1 y ajusta su umbral de alerta automaticamente.
