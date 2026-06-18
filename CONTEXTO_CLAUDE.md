@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-06-16 00:39:25
-Último commit: 2784500 - Auto: Contexto actualizado 2026-06-16 00:22:20
+Actualizado: 2026-06-17 22:00:01
+Último commit: be3b168 - gitignore: excluir checkpoints LoRA, binarios y logs
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,6 +11,9 @@ Actualizado: 2026-06-16 00:39:25
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+be3b168 gitignore: excluir checkpoints LoRA, binarios y logs
+5c9d645 v4.1 — FractalVM Paso1 + aprendizaje internet + daemon nocturno + upload archivos + digestion fractal
+409192c Auto: Contexto actualizado 2026-06-16 00:39:25
 2784500 Auto: Contexto actualizado 2026-06-16 00:22:20
 2691101 Auto: Contexto actualizado 2026-06-16 00:16:44
 34ae8d1 Auto: Contexto actualizado 2026-06-16 00:04:35
@@ -18,9 +21,6 @@ Actualizado: 2026-06-16 00:39:25
 0267dc6 feat: Motor Fractal COMPLETO 9/9 - entrenamiento.py con backprop+Adam validado (loss 17.78->1.74, 90% mejora en 50 steps)
 2189f49 feat: Motor Fractal COMPLETO 9/9 - entrenamiento.py con backprop+Adam validado (loss 17.78->1.74, 90% mejora en 50 steps)
 4ef6787 feat: Motor Fractal completo - 8 archivos (operaciones a servidor) + integracion paralela puerto 11435
-3e5848b feat: Motor Fractal completo - 8 archivos (operaciones a servidor) + integracion paralela puerto 11435
-8ad7124 Auto: Contexto actualizado 2026-06-12 19:33:35
-2c10b05 chore: gitignore para checkpoints y archivos pesados
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
