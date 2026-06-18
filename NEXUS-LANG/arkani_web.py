@@ -1,4 +1,4 @@
-import os, sys, json, ast, datetime
+import os, sys, json, ast, datetime, base64
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from flask_socketio import SocketIO, emit
 
@@ -47,6 +47,52 @@ def cargar_rag():
         arkani.set_contexto_propio(ctx)
     print(f"RAG: {len(frags)} archivos, {len(ctx)} chars")
     return ctx
+
+
+# ── Directorios de memoria por archivo ────────────────────────────────────
+MEMORIA_PERM_DIR = os.path.expanduser("~/NEXUS/memoria_permanente/")
+PAPELERA_DIR     = os.path.expanduser("~/NEXUS/papelera/")
+INDICE_PATH      = os.path.expanduser("~/NEXUS/indice_archivos.json")
+for _d in [MEMORIA_PERM_DIR, PAPELERA_DIR]:
+    os.makedirs(_d, exist_ok=True)
+
+def _cargar_indice():
+    try:
+        with open(INDICE_PATH) as f: return json.load(f)
+    except Exception: return {"permanentes": [], "papelera": []}
+
+def _guardar_indice(idx):
+    with open(INDICE_PATH, 'w') as f:
+        json.dump(idx, f, indent=2, ensure_ascii=False)
+
+def _leer_contenido(ruta: str, nombre: str) -> str:
+    ext = os.path.splitext(nombre)[1].lower()
+    if ext in ('.txt', '.py', '.md', '.json', '.nl'):
+        try:
+            with open(ruta, 'r', errors='ignore') as f: return f.read(50000)
+        except Exception as e: return f"[Error: {e}]"
+    if ext == '.pdf':
+        try:
+            import subprocess
+            r = subprocess.run(['pdftotext', ruta, '-'],
+                               capture_output=True, text=True, timeout=15)
+            if r.returncode == 0 and r.stdout.strip(): return r.stdout[:50000]
+            return "[PDF sin texto extraible]"
+        except Exception as e: return f"[Error PDF: {e}]"
+    if ext in ('.png', '.jpg', '.jpeg', '.webp', '.gif'):
+        try:
+            size_kb = round(os.path.getsize(ruta) / 1024, 1)
+            return (f'[Imagen: {nombre} — {size_kb} KB]\n'
+                    f'Archivo guardado. Para analisis visual: ollama pull llava\n'
+                    f'Ruta: {ruta}')
+        except Exception as e: return f'[Error imagen: {e}]'
+    if ext == '.docx':
+        try:
+            from docx import Document
+            d = Document(ruta)
+            return '\n'.join(p.text for p in d.paragraphs)[:50000]
+        except Exception as e: return f"[DOCX error: {e}]"
+    return f"[Tipo {ext} no soportado]"
 
 @app.route('/')
 def index():
@@ -478,9 +524,11 @@ def m2m_archivos_recibidos():
 
 @app.route('/fractal/ejecutar', methods=['POST'])
 def fractal_ejecutar():
+    # Usar vm persistente de ArkaniEngine (Paso 1)
+    vm = arkani.vm if arkani and arkani.vm else None
+    if not vm:
+        return jsonify({"status": "ERROR", "error": "FractalVM no disponible"}), 500
     try:
-        from nexus_fractal_vm import FractalVM
-        vm = FractalVM()
         resultado = vm.ejecutar_todo()
         return jsonify({"status": "OK", "resultado": resultado})
     except Exception as e:
@@ -488,9 +536,11 @@ def fractal_ejecutar():
 
 @app.route('/fractal/estado', methods=['GET'])
 def fractal_estado():
+    # Usar vm persistente de ArkaniEngine (Paso 1)
+    vm = arkani.vm if arkani and arkani.vm else None
+    if not vm:
+        return jsonify({"error": "FractalVM no disponible"}), 500
     try:
-        from nexus_fractal_vm import FractalVM
-        vm = FractalVM()
         return jsonify(vm.estado())
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -572,6 +622,98 @@ def help_manual():
     except:
         return 'Manual no disponible.', 404
 
+
+@app.route('/subir_archivo', methods=['POST'])
+def subir_archivo():
+    if 'archivo' not in request.files:
+        return jsonify({"ok": False, "error": "Sin archivo"}), 400
+    archivo = request.files['archivo']
+    aprende = request.form.get('aprende', 'false').lower() == 'true'
+    nombre  = archivo.filename or 'sin_nombre'
+    ext     = os.path.splitext(nombre)[1].lower()
+    PERMITIDOS = {'.txt', '.py', '.md', '.pdf', '.png', '.jpg', '.jpeg', '.gif',
+                  '.webp', '.docx', '.json', '.nl'}
+    if ext not in PERMITIDOS:
+        return jsonify({"ok": False,
+                        "error": f"Extension {ext} no soportada. Permitidos: {', '.join(sorted(PERMITIDOS))}"}), 400
+    destino_dir = MEMORIA_PERM_DIR if aprende else PAPELERA_DIR
+    timestamp   = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    nombre_safe = f"{timestamp}_{nombre.replace(' ', '_')}"
+    ruta_final  = os.path.join(destino_dir, nombre_safe)
+    archivo.save(ruta_final)
+    contenido = _leer_contenido(ruta_final, nombre)
+    chars     = len(contenido)
+    idx  = _cargar_indice()
+    meta = {
+        "nombre":  nombre,
+        "archivo": nombre_safe,
+        "ruta":    ruta_final,
+        "fecha":   datetime.datetime.now().isoformat(),
+        "chars":   chars,
+        "aprende": aprende,
+        "expira":  None if aprende else (
+            datetime.datetime.now() + datetime.timedelta(days=30)).isoformat()
+    }
+    if aprende:
+        idx["permanentes"].append(meta)
+        if arkani:
+            arkani.mem.aprender(f"archivo:{nombre}", contenido[:500])
+            arkani.set_contexto_propio(
+                arkani.ctx_propio + f"\n\n### APRENDIDO: {nombre}\n{contenido[:500]}"
+            )
+    else:
+        idx["papelera"].append(meta)
+    _guardar_indice(idx)
+    return jsonify({
+        "ok":      True,
+        "modo":    "permanente" if aprende else "papelera_30dias",
+        "archivo": nombre_safe,
+        "chars":   chars,
+        "preview": contenido[:300],
+        "mensaje": (f"Arkani aprendio: {nombre} ({chars} chars)"
+                    if aprende else f"Temporal: {nombre} (borra en 30 dias)")
+    })
+
+@app.route('/archivos_memoria')
+def archivos_memoria():
+    idx = _cargar_indice()
+    return jsonify({
+        "permanentes": idx.get("permanentes", []),
+        "papelera":    idx.get("papelera", []),
+        "total_perm":  len(idx.get("permanentes", [])),
+        "total_pap":   len(idx.get("papelera", []))
+    })
+
+@app.route('/vaciar_papelera', methods=['POST'])
+def vaciar_papelera():
+    idx   = _cargar_indice()
+    ahora = datetime.datetime.now()
+    validos, borrados = [], 0
+    for item in idx.get("papelera", []):
+        try:
+            if datetime.datetime.fromisoformat(item.get("expira","")) < ahora:
+                try: os.remove(item["ruta"])
+                except Exception: pass
+                borrados += 1
+                continue
+        except Exception: pass
+        validos.append(item)
+    idx["papelera"] = validos
+    _guardar_indice(idx)
+    return jsonify({"ok": True, "borrados": borrados, "restantes": len(validos)})
+
+@app.route('/leer_archivo_memoria')
+def leer_archivo_memoria():
+    nombre = request.args.get('nombre', '')
+    aprende = request.args.get('aprende', 'true').lower() == 'true'
+    if not nombre or '..' in nombre:
+        return jsonify({"error": "Nombre invalido"}), 400
+    ruta = os.path.join(MEMORIA_PERM_DIR if aprende else PAPELERA_DIR, nombre)
+    if not os.path.exists(ruta):
+        return jsonify({"error": "No encontrado"}), 404
+    contenido = _leer_contenido(ruta, nombre)
+    return jsonify({"nombre": nombre, "contenido": contenido, "chars": len(contenido)})
+
 if __name__ == '__main__':
     print("\n" + "=" * 50)
     print("  ARKANI WEB v4.0 - Panel de Control")
@@ -581,6 +723,8 @@ if __name__ == '__main__':
     os.makedirs(os.path.expanduser("~/NEXUS/logs"), exist_ok=True)
     os.makedirs(os.path.join(BASE_DIR, 'templates'), exist_ok=True)
     os.makedirs(os.path.expanduser("~/NEXUS/recibidos"), exist_ok=True)
+    os.makedirs(MEMORIA_PERM_DIR, exist_ok=True)
+    os.makedirs(PAPELERA_DIR, exist_ok=True)
     cargar_rag()
     if UPDATER_OK:
         updater_rutas(app)

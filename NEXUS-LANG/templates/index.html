@@ -70,6 +70,35 @@
         .chat-btns { display: flex; flex-direction: column; gap: 5px; }
         .voz-bar { background: #0d1117; border-top: 1px solid #00ffff11; padding: 6px 10px;
                    display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+        /* ── SUBIR ARCHIVO ── */
+        .btn-upload { width:42px; height:42px; border-radius:50%; border:2px solid #ff88ff44;
+            background:transparent; color:#ff88ff; font-size:18px; cursor:pointer;
+            transition:all .2s; display:flex; align-items:center; justify-content:center; }
+        .btn-upload:hover { background:#ff88ff22; border-color:#ff88ff; }
+        .upload-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:#000000cc; z-index:9999; align-items:center; justify-content:center; }
+        .upload-modal.active { display:flex; }
+        .upload-box { background:#0d1117; border:1px solid #ff88ff44; border-radius:12px;
+            padding:24px; width:340px; max-width:90vw; }
+        .upload-box h3 { color:#ff88ff; margin:0 0 16px; font-size:14px; letter-spacing:2px; }
+        .upload-drop { border:2px dashed #ff88ff44; border-radius:8px; padding:32px 16px;
+            text-align:center; color:#888; cursor:pointer; transition:all .2s; margin-bottom:14px; }
+        .upload-drop:hover, .upload-drop.dragover { border-color:#ff88ff; color:#ff88ff;
+            background:#ff88ff11; }
+        .upload-drop span { font-size:32px; display:block; margin-bottom:8px; }
+        .upload-modo { display:flex; gap:10px; margin-bottom:14px; }
+        .upload-modo label { flex:1; display:flex; align-items:center; gap:6px; cursor:pointer;
+            background:#ffffff08; border:1px solid #ffffff11; border-radius:6px;
+            padding:8px 10px; color:#ccc; font-size:12px; transition:all .2s; }
+        .upload-modo label:hover { border-color:#ff88ff44; }
+        .upload-modo input[type=radio]:checked + label,
+        .upload-modo label:has(input:checked) { border-color:#ff88ff; color:#ff88ff;
+            background:#ff88ff11; }
+        .upload-preview { background:#ffffff08; border-radius:6px; padding:10px;
+            font-size:11px; color:#aaa; margin-bottom:14px; display:none;
+            max-height:80px; overflow:hidden; white-space:pre-wrap; word-break:break-all; }
+        .upload-btns { display:flex; gap:8px; }
         .btn-mic { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #00ffff44;
                    background: #00ffff11; color: #00ffff; font-size: 1.2em; cursor: pointer;
                    display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
@@ -286,6 +315,7 @@
             <div class="chat-messages" id="chatMessages"></div>
             <div class="typing-ind" id="typingInd" style="display:none">⟦ARKANI⟧ procesando...</div>
             <div class="voz-bar">
+                <button class="btn-upload" onclick="uploadAbrir()" title="Subir archivo">📎</button>
                 <button class="btn-mic" id="btnMicPasivo" onclick="vozPasivoToggle()" title="Grabar">🎙️</button>
                 <button class="btn-mic btn-mic-activo" id="btnMicActivo" onclick="vozActivoToggle()" title="Modo activo">👂</button>
                 <span class="voz-status" id="vozStatus">🔇 Voz lista</span>
@@ -1057,6 +1087,119 @@ setInterval(actualizarHora,1000);
 setInterval(m2mActualizar,15000);
 actualizarHora();
 cargarHelp();
+
+// ════════════════════════════════════════════
+// SUBIR ARCHIVO
+// ════════════════════════════════════════════
+let _uploadFile = null;
+
+function uploadAbrir() {
+    document.getElementById('uploadModal').classList.add('active');
+    _uploadFile = null;
+    document.getElementById('btnUploadEnviar').disabled = true;
+    document.getElementById('uploadPreview').style.display = 'none';
+    document.getElementById('uploadPreview').textContent = '';
+    document.getElementById('uploadInput').value = '';
+    document.getElementById('uploadDrop').querySelector('span').textContent = '📂';
+}
+
+function uploadCerrar() {
+    document.getElementById('uploadModal').classList.remove('active');
+}
+
+function uploadCerrarFuera(e) {
+    if (e.target.id === 'uploadModal') uploadCerrar();
+}
+
+function uploadDragOver(e) {
+    e.preventDefault();
+    document.getElementById('uploadDrop').classList.add('dragover');
+}
+
+function uploadDragLeave(e) {
+    document.getElementById('uploadDrop').classList.remove('dragover');
+}
+
+function uploadDrop(e) {
+    e.preventDefault();
+    document.getElementById('uploadDrop').classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) uploadProcesarArchivo(file);
+}
+
+function uploadSeleccionar(input) {
+    if (input.files[0]) uploadProcesarArchivo(input.files[0]);
+}
+
+function uploadProcesarArchivo(file) {
+    _uploadFile = file;
+    const drop = document.getElementById('uploadDrop');
+    drop.querySelector('span').textContent = '✅';
+    drop.innerHTML = `<span>✅</span>${file.name}<br><small style="color:#666">${(file.size/1024).toFixed(1)} KB</small>`;
+    document.getElementById('btnUploadEnviar').disabled = false;
+    const prev = document.getElementById('uploadPreview');
+    prev.style.display = 'block';
+    prev.textContent = 'Listo para subir: ' + file.name;
+}
+
+async function uploadEnviar() {
+    if (!_uploadFile) return;
+    const aprende = false;  // por defecto temporal; usa 'aprender: archivo' en chat
+    const btn   = document.getElementById('btnUploadEnviar');
+    btn.textContent = 'SUBIENDO...';
+    btn.disabled = true;
+
+    const fd = new FormData();
+    fd.append('archivo', _uploadFile);
+    fd.append('aprende', aprende ? 'true' : 'false');
+
+    try {
+        const r = await fetch('/subir_archivo', { method: 'POST', body: fd });
+        const d = await r.json();
+        uploadCerrar();
+        if (d.ok) {
+            const modo_txt = aprende ? '🧠 Aprendido' : '👁️ Analizado (temporal)';
+            addMsg('bot', '📎 ' + _uploadFile.name + '\n' + (d.preview || d.mensaje || ''));
+            addMsg('bot', '💡 Para memoria permanente escribe: aprender: ' + _uploadFile.name);
+        } else {
+            addMsg('bot', '⚠️ Error: ' + (d.error || 'desconocido'));
+        }
+    } catch(e) {
+        addMsg('bot', '⚠️ Error de conexión: ' + e);
+    } finally {
+        btn.textContent = 'SUBIR';
+        btn.disabled = false;
+    }
+}
 </script>
+
+    <!-- MODAL SUBIR ARCHIVO -->
+    <div class="upload-modal" id="uploadModal" onclick="uploadCerrarFuera(event)">
+        <div class="upload-box">
+            <h3>📎 SUBIR ARCHIVO</h3>
+            <div class="upload-drop" id="uploadDrop"
+                 onclick="document.getElementById('uploadInput').click()"
+                 ondragover="uploadDragOver(event)"
+                 ondragleave="uploadDragLeave(event)"
+                 ondrop="uploadDrop(event)">
+                <span>📂</span>
+                Arrastra aquí o haz clic<br>
+                <small style="color:#666">txt, py, md, pdf, png, jpg, docx</small>
+            </div>
+            <input type="file" id="uploadInput" style="display:none"
+                   accept=".txt,.py,.md,.pdf,.png,.jpg,.jpeg,.webp,.docx,.json,.nl"
+                   onchange="uploadSeleccionar(this)">
+            <div style="font-size:10px;color:#555;text-align:center;padding:4px 0">
+                Para guardar permanente escribe en el chat: <span style="color:#ff88ff">aprender: nombre_archivo</span>
+            </div>
+            <div class="upload-preview" id="uploadPreview"></div>
+            <div class="upload-btns">
+                <button class="btn btn-cyan" onclick="uploadEnviar()" id="btnUploadEnviar" disabled>
+                    SUBIR
+                </button>
+                <button class="btn btn-orange" onclick="uploadCerrar()">CANCELAR</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

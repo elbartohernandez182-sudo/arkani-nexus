@@ -1,16 +1,21 @@
 """
-ARKANI ENGINE v1.0
-Fusion completa: FractalCompiler + NexusCompiler + AutoEvolucion
+ARKANI ENGINE v2.0
+Fusion completa: FractalCompiler + NexusCompiler + AutoEvolucion + FractalVM
 Con protecciones anti-loop y sandbox seguro
 
 Constructor: Medico Radiologo, Xalapa
-Fecha: 27 mayo 2026
-Clave: Arkani1979
+Fecha: 15 junio 2026
+Paso 1 REAL: FractalVM integrada con API exacta de nexus_fractal_vm.py
+  - vm.estado()           → dict: neuronas, bytes, ejecuciones, evoluciones, uptime_s, status
+  - vm.ejecutar_todo()    → dict: ejecutadas, evoluciones, nuevas, tiempo_s, neuronas_total
+  - vm.ejecutar_una(dir)  → Any (resultado de una instruccion por direccion)
+  - vm.listar()           → imprime instrucciones (sin return util)
 """
 
 import os
 import re
 import sys
+import io
 import json
 import struct
 import hashlib
@@ -40,26 +45,25 @@ for d in [BASE_DIR, AUTOGEN_DIR, SCRIPTS_DIR]:
 
 
 # ══════════════════════════════════════════════
-# PROTECCIONES ANTI-LOOP (lo más importante)
+# PROTECCIONES ANTI-LOOP
 # ══════════════════════════════════════════════
 
-MAX_PROFUNDIDAD_EVOLVE  = 3    # máximo 3 niveles de auto-modificación anidada
-MAX_EVOLUCIONES_SESION  = 10   # máximo 10 evoluciones por sesión
-MAX_PASOS_REACT         = 3    # máximo 3 pasos del agente ReAct
-MAX_SEGUNDOS_EXEC       = 10   # timeout para exec() de código mutado
-MAX_SEGUNDOS_SCRIPT     = 15   # timeout para subprocess de scripts generados
+MAX_PROFUNDIDAD_EVOLVE  = 3
+MAX_EVOLUCIONES_SESION  = 10
+MAX_PASOS_REACT         = 3
+MAX_SEGUNDOS_EXEC       = 10
+MAX_SEGUNDOS_SCRIPT     = 15
 
-# Patrones prohibidos en código autogenerado
 PATRONES_PROHIBIDOS = [
-    r"while\s+True",           # loop infinito
-    r"exec\s*\(",              # exec anidado
-    r"eval\s*\(",              # eval anidado
-    r"os\.system\s*\(",        # shell directo
-    r"subprocess\.Popen",      # proceso sin timeout
-    r"__import__\s*\(",        # importación dinámica
-    r"open\s*\(.+['\"]w['\"]", # escritura fuera de autogen
-    r"self_modify",            # recursión de mutación
-    r"correr_agente",          # agente llamándose a sí mismo
+    r"while\s+True",
+    r"exec\s*\(",
+    r"eval\s*\(",
+    r"os\.system\s*\(",
+    r"subprocess\.Popen",
+    r"__import__\s*\(",
+    r"open\s*\(.+['\"]w['\"]",
+    r"self_modify",
+    r"correr_agente",
 ]
 
 _profundidad_evolve_actual = 0
@@ -67,75 +71,46 @@ _evoluciones_esta_sesion   = 0
 
 
 def verificar_codigo_seguro(codigo: str) -> Tuple[bool, str]:
-    """
-    Verifica que el código no tenga patrones peligrosos.
-    Retorna (es_seguro, motivo).
-    """
     for patron in PATRONES_PROHIBIDOS:
         if re.search(patron, codigo, re.IGNORECASE):
-            return False, f"Patrón prohibido detectado: {patron}"
-
-    # Verificar sintaxis Python
+            return False, f"Patron prohibido: {patron}"
     try:
         import ast
         ast.parse(codigo)
     except SyntaxError as e:
         return False, f"Error de sintaxis: {e}"
-
     return True, "OK"
 
 
 def timeout_handler(signum, frame):
-    raise TimeoutError("Ejecución cancelada: timeout de seguridad")
+    raise TimeoutError("Ejecucion cancelada: timeout de seguridad")
 
 
 def exec_seguro(codigo: str, contexto_permitido: dict = None) -> Tuple[bool, str]:
-    """
-    Ejecuta código en un namespace AISLADO con timeout.
-    NO usa globals() — protección contra acceso al sistema.
-    """
-    global _profundidad_evolve_actual
+    global _profundidad_evolve_actual, _evoluciones_esta_sesion
 
-    # 1. Verificar profundidad de recursión
     if _profundidad_evolve_actual >= MAX_PROFUNDIDAD_EVOLVE:
-        return False, f"⛔ Profundidad máxima de evolución ({MAX_PROFUNDIDAD_EVOLVE}) alcanzada"
-
-    # 2. Verificar límite de sesión
-    global _evoluciones_esta_sesion
+        return False, f"⛔ Profundidad maxima ({MAX_PROFUNDIDAD_EVOLVE}) alcanzada"
     if _evoluciones_esta_sesion >= MAX_EVOLUCIONES_SESION:
-        return False, f"⛔ Límite de evoluciones por sesión ({MAX_EVOLUCIONES_SESION}) alcanzado"
+        return False, f"⛔ Limite de sesion ({MAX_EVOLUCIONES_SESION}) alcanzado"
 
-    # 3. Verificar patrones peligrosos
     seguro, motivo = verificar_codigo_seguro(codigo)
     if not seguro:
-        return False, f"⛔ Código bloqueado: {motivo}"
+        return False, f"⛔ Codigo bloqueado: {motivo}"
 
-    # 4. Namespace aislado — solo lo que explícitamente permitimos
     namespace = {
         "__builtins__": {
-            "print": print,
-            "len": len,
-            "range": range,
-            "str": str,
-            "int": int,
-            "float": float,
-            "list": list,
-            "dict": dict,
-            "bool": bool,
-            "abs": abs,
-            "round": round,
-            "min": min,
-            "max": max,
-            "sum": sum,
-            "sorted": sorted,
-            "enumerate": enumerate,
-            "zip": zip,
+            "print": print, "len": len, "range": range,
+            "str": str, "int": int, "float": float,
+            "list": list, "dict": dict, "bool": bool,
+            "abs": abs, "round": round, "min": min,
+            "max": max, "sum": sum, "sorted": sorted,
+            "enumerate": enumerate, "zip": zip,
         }
     }
     if contexto_permitido:
         namespace.update(contexto_permitido)
 
-    # 5. Ejecutar con timeout
     try:
         _profundidad_evolve_actual += 1
         signal.signal(signal.SIGALRM, timeout_handler)
@@ -144,13 +119,13 @@ def exec_seguro(codigo: str, contexto_permitido: dict = None) -> Tuple[bool, str
         signal.alarm(0)
         _profundidad_evolve_actual -= 1
         _evoluciones_esta_sesion += 1
-        return True, "Ejecutado con éxito en sandbox"
+        return True, "Ejecutado con exito en sandbox"
     except TimeoutError:
         _profundidad_evolve_actual -= 1
-        return False, f"⛔ Timeout: el código tardó más de {MAX_SEGUNDOS_EXEC}s"
+        return False, f"⛔ Timeout: mas de {MAX_SEGUNDOS_EXEC}s"
     except Exception as e:
         _profundidad_evolve_actual -= 1
-        return False, f"⛔ Error en ejecución: {e}"
+        return False, f"⛔ Error en ejecucion: {e}"
     finally:
         signal.alarm(0)
 
@@ -160,18 +135,16 @@ def exec_seguro(codigo: str, contexto_permitido: dict = None) -> Tuple[bool, str
 # ══════════════════════════════════════════════
 
 class FractalOp(Enum):
-    SUM    = 0xA0  # Suma multi-escala
-    IF     = 0xA1  # Condicional fractal
-    LOOP   = 0xA3  # Iteración auto-similar
-    SPAWN  = 0xA5  # Crear nueva instrucción
-    FOLD   = 0xA7  # Plegar datos
-    LINK   = 0xA9  # Conectar instrucciones
-    EVOLVE = 0xF1  # Auto-modificación
+    SUM    = 0xA0
+    IF     = 0xA1
+    LOOP   = 0xA3
+    SPAWN  = 0xA5
+    FOLD   = 0xA7
+    LINK   = 0xA9
+    EVOLVE = 0xF1
 
 
 class FractalInstruction:
-    """16 bytes exactos: firma + op + escala + flags + fold + link + hash"""
-
     FRACTAL_ID = 0x7C
     MAX_SCALE  = 31
 
@@ -181,14 +154,14 @@ class FractalInstruction:
         self.op          = op
         self.scale       = min(scale, self.MAX_SCALE)
         self.fold_target = fold_target
-        self.link_to     = link_to  # None ≠ 0 (0 es la primera instrucción)
+        self.link_to     = link_to
         self.address     = None
 
     def to_bytes(self) -> bytes:
         b0, b1, b2 = self.FRACTAL_ID, self.op.value, self.scale
         flags = 0
         if self.fold_target:              flags |= 0x01
-        if self.link_to is not None:      flags |= 0x02  # 0 es dirección válida
+        if self.link_to is not None:      flags |= 0x02
         if self.op == FractalOp.EVOLVE:   flags |= 0x80
         fold_addr = (0xFFFFFFFF if self.fold_target == "self"
                      else hash(self.fold_target) & 0xFFFFFFFF if self.fold_target
@@ -205,8 +178,6 @@ class FractalInstruction:
 
 
 class Hipocampo:
-    """Memoria binaria persistente de Arkani."""
-
     def __init__(self):
         self.path = HIPOCAMPO
         self.instructions: List[FractalInstruction] = []
@@ -276,139 +247,110 @@ class Hipocampo:
 
 
 # ══════════════════════════════════════════════
-# MOTOR FRACTAL — une los dos compiladores
+# MOTOR FRACTAL
 # ══════════════════════════════════════════════
 
 class FractalEngine:
-    """
-    Motor unificado:
-    - FractalCompiler (96 bytes, firma 1979, exec seguro)
-    - NexusCompiler   (16 bytes, Hipocampo binario)
-    Con todas las protecciones anti-loop.
-    """
-
     def __init__(self, mem=None):
         self.hipocampo = Hipocampo()
-        self.mem       = mem          # MemoriaEvolutiva (opcional)
+        self.mem       = mem
+        self.vm        = None   # FractalVM — asignada por ArkaniEngine.__init__
         self.primitives = {
             '⟦SUM⟧':    lambda a, b: a + b,
             '⟦EVOLVE⟧': self._mutar,
             '⟦FOLD⟧':   self._plegar,
         }
-        self.op_map = {n: o for n, o in
-                       [(o.name, o) for o in FractalOp]}
-
-    # ── Mutación segura (reemplaza exec en globals()) ──
+        self.op_map = {o.name: o for o in FractalOp}
 
     def _mutar(self, codigo: str) -> str:
-        print(f"🧬 ⟦EVOLVE⟧: iniciando mutación segura...")
         ok, msg = exec_seguro(codigo)
-        if ok:
-            print(f"   ✅ {msg}")
-            return "EVOLVED"
-        print(f"   {msg}")
-        return f"BLOCKED: {msg}"
+        return "EVOLVED" if ok else f"BLOCKED: {msg}"
 
     def _plegar(self, data, fold_fn=None) -> str:
         return "COMPRESSED_NEXUS_DATA"
 
-    # ── Compilar a binario 96 bytes con firma 1979 ──
-
     def compilar_96(self, descripcion: str) -> bytes:
-        """Genera binario de 96 bytes con firma \x19\x79 (1979)."""
-        firma    = b'\x19\x79'
+        firma     = b'\x19\x79'
         hash_desc = hashlib.sha256(descripcion.encode()).digest()[:30]
         timestamp = struct.pack('<Q', int(time.time()))[:8]
         padding   = os.urandom(96 - 2 - 30 - 8)
         return firma + hash_desc + timestamp + padding
 
-    # ── Compilar a instrucción de 16 bytes para Hipocampo ──
-
     def compilar_16(self, linea: str) -> Optional[FractalInstruction]:
-        """Compila una línea .nl a FractalInstruction de 16 bytes."""
         linea = linea.strip()
         if not linea or linea.startswith('#'):
             return None
         op_m = re.search(r'⟦(\w+)⟧', linea)
         if not op_m or op_m.group(1) not in self.op_map:
             return None
-        op      = self.op_map[op_m.group(1)]
-        scale   = int(s.group(1)) if (s := re.search(r'\[SCALE:(\d+)\]', linea)) else 1
-        fold    = f.group(1) if (f := re.search(r'\[FOLD:([^\]]+)\]', linea)) else None
-        link    = int(lk.group(1)) if (lk := re.search(r'\[LINK:(\d+)\]', linea)) else None
+        op    = self.op_map[op_m.group(1)]
+        scale = int(s.group(1)) if (s := re.search(r'\[SCALE:(\d+)\]', linea)) else 1
+        fold  = f.group(1) if (f := re.search(r'\[FOLD:([^\]]+)\]', linea)) else None
+        link  = int(lk.group(1)) if (lk := re.search(r'\[LINK:(\d+)\]', linea)) else None
         return FractalInstruction(op, scale, fold, link)
 
-    # ── Evolución completa (el proceso principal) ──
-
     def evolucionar(self, descripcion: str, codigo_python: str) -> str:
-        """
-        Proceso completo de auto-evolución con todas las protecciones:
-        1. Verifica código
-        2. Exec en sandbox
-        3. Guarda en autogen/ como .py
-        4. Genera binario 96 bytes con firma 1979
-        5. Registra instrucción en Hipocampo (16 bytes)
-        6. Registra en memoria evolutiva
-        """
         global _evoluciones_esta_sesion
 
-        # Verificar límites
         if _evoluciones_esta_sesion >= MAX_EVOLUCIONES_SESION:
-            return f"⛔ Límite de {MAX_EVOLUCIONES_SESION} evoluciones por sesión alcanzado"
+            return f"⛔ Limite de {MAX_EVOLUCIONES_SESION} evoluciones por sesion alcanzado"
 
-        # 1. Verificar seguridad del código
         seguro, motivo = verificar_codigo_seguro(codigo_python)
         if not seguro:
-            return f"⛔ Evolución bloqueada: {motivo}"
+            return f"⛔ Evolucion bloqueada: {motivo}"
 
-        # 2. Exec en sandbox
         ok, msg = exec_seguro(codigo_python)
-        estado_exec = "✅ mutación en memoria" if ok else f"⚠️ sandbox bloqueó ({msg})"
+        estado_exec = "✅ mutacion en memoria" if ok else f"⚠️ sandbox bloqueo ({msg})"
 
-        # 3. Guardar en autogen/
-        nombre = re.sub(r'[^a-z0-9_]', '_',
-                        descripcion.lower().replace(' ', '_'))[:40]
+        nombre = re.sub(r'[^a-z0-9_]', '_', descripcion.lower().replace(' ', '_'))[:40]
         if not nombre.startswith(('fn_', 'node_')):
             nombre = f"fn_{nombre}"
         ruta_py = os.path.join(AUTOGEN_DIR, f"{nombre}.py")
         header  = (f"# ARKANI AUTO-GEN — {descripcion}\n"
                    f"# Generado: {datetime.datetime.now().isoformat()}\n"
-                   f"# Evoluciones sesión: {_evoluciones_esta_sesion + 1}"
+                   f"# Evoluciones sesion: {_evoluciones_esta_sesion + 1}"
                    f"/{MAX_EVOLUCIONES_SESION}\n\n")
         with open(ruta_py, 'w') as f:
             f.write(header + codigo_python)
 
-        # 4. Binario 96 bytes con firma 1979
         binario  = self.compilar_96(descripcion)
         ruta_bin = ruta_py.replace('.py', '.bin')
         with open(ruta_bin, 'wb') as f:
             f.write(binario)
 
-        # 5. Instrucción en Hipocampo
         inst = FractalInstruction(FractalOp.EVOLVE, scale=min(
             _evoluciones_esta_sesion + 1, FractalInstruction.MAX_SCALE
         ), fold_target="self")
         addr = self.hipocampo.agregar(inst)
 
-        # 6. Registrar en memoria evolutiva
         if self.mem:
             self.mem.registrar_evolucion(descripcion, ruta_py)
 
+        # Sincronizar FractalVM: recargar hipocampo.bin con la nueva instruccion
+        vm_nota = ""
+        if self.vm:
+            try:
+                self.vm._cargar()   # recarga desde hipocampo.bin actualizado
+                e = self.vm.estado()
+                vm_nota = f"\n   🖥️  VM sincronizada: {e['neuronas']} neuronas"
+            except Exception as ex:
+                vm_nota = f"\n   🖥️  VM sync error: {ex}"
+
         _evoluciones_esta_sesion += 1
 
-        return (f"🧬 Evolución #{_evoluciones_esta_sesion} completada:\n"
+        return (f"🧬 Evolucion #{_evoluciones_esta_sesion} completada:\n"
                 f"   {estado_exec}\n"
                 f"   📄 {os.path.basename(ruta_py)}\n"
                 f"   🔵 {os.path.basename(ruta_bin)} (96B, firma \\x19\\x79)\n"
                 f"   💾 Hipocampo dir {addr}: {inst}\n"
-                f"   📊 {self.hipocampo.resumen()}")
+                f"   📊 {self.hipocampo.resumen()}"
+                f"{vm_nota}")
 
     def listar_capacidades(self) -> str:
         try:
-            archivos = sorted([f for f in os.listdir(AUTOGEN_DIR)
-                               if f.endswith('.py')])
+            archivos = sorted([f for f in os.listdir(AUTOGEN_DIR) if f.endswith('.py')])
             if not archivos:
-                return "Sin módulos autogenerados aún."
+                return "Sin modulos autogenerados aun."
             return (f"Capacidades ({len(archivos)}):\n"
                     + "\n".join(f"  - {a}" for a in archivos))
         except Exception as e:
@@ -445,9 +387,7 @@ class MemoriaEvolutiva:
                 pass
         return default
 
-
     def memoria_corto_plazo(self, n: int = 3) -> str:
-        """Últimas N conversaciones — van directo al prompt."""
         convs = self.memoria.get("conversaciones", [])[-n:]
         if not convs:
             return ""
@@ -459,21 +399,17 @@ class MemoriaEvolutiva:
         return "\n---\n".join(lineas)
 
     def memoria_largo_plazo(self, pregunta: str, n_resultados: int = 2) -> str:
-        """Búsqueda semántica por keywords en conversaciones antiguas."""
         convs = self.memoria.get("conversaciones", [])
         if len(convs) <= 3:
             return ""
-        # Solo buscar en las conversaciones viejas (excluyendo las últimas 3)
         antiguas = convs[:-3]
-        # Extraer keywords de la pregunta (palabras > 3 chars)
-        stopwords = {"que", "quien", "como", "cual", "donde", "cuando",
-                     "para", "por", "con", "sin", "una", "uno", "los",
-                     "las", "del", "fue", "son", "eres", "tienes"}
+        stopwords = {"que","quien","como","cual","donde","cuando",
+                     "para","por","con","sin","una","uno","los",
+                     "las","del","fue","son","eres","tienes"}
         keywords = {p.lower().strip("?¿.,") for p in pregunta.split()
                     if len(p) > 3 and p.lower() not in stopwords}
         if not keywords:
             return ""
-        # Buscar coincidencias
         resultados = []
         for c in antiguas:
             texto = (c.get("pregunta","") + " " + c.get("respuesta","")).lower()
@@ -482,11 +418,9 @@ class MemoriaEvolutiva:
                 resultados.append((score, c))
         if not resultados:
             return ""
-        # Top N por relevancia
         resultados.sort(key=lambda x: x[0], reverse=True)
-        top = resultados[:n_resultados]
         lineas = []
-        for _, c in top:
+        for _, c in resultados[:n_resultados]:
             p = c.get("pregunta","")[:60]
             r = c.get("respuesta","")[:100]
             lineas.append(f"[Memoria] {p} → {r}")
@@ -608,7 +542,7 @@ class RAGBuscador:
 
 
 # ══════════════════════════════════════════════
-# AGENTE REACT con protecciones
+# AGENTE REACT — herramientas VM reales
 # ══════════════════════════════════════════════
 
 SYSTEM_PROMPT_REACT = """Eres Arkani, agente autonomo con memoria evolutiva.
@@ -621,6 +555,12 @@ HERRAMIENTAS:
 - listar_archivos(directorio)
 - buscar_en_nexus(termino)
 - guardar_reporte(titulo, contenido)
+- vm_estado()                  — dict con neuronas/ejecuciones/evoluciones/uptime
+- vm_ejecutar_todo()           — ejecuta todas las instrucciones del hipocampo
+- vm_ejecutar_una(direccion)   — ejecuta una instruccion por numero de direccion
+- vm_listar()                  — lista todas las instrucciones cargadas en VM
+- aprender_internet(tema)      — busca y descarga conocimiento de la web
+- crear_programa(descripcion)  — genera un programa Python completo
 
 FORMATO (elige UNO):
 
@@ -686,18 +626,76 @@ def llamar_ollama(prompt: str, temp: float = 0.7,
         return f"Error: {e}"
 
 
+def _capturar_stdout(fn, *args, **kwargs) -> str:
+    """Captura lo que una funcion imprime en lugar de retornar."""
+    buf = io.StringIO()
+    old = sys.stdout
+    sys.stdout = buf
+    try:
+        fn(*args, **kwargs)
+    finally:
+        sys.stdout = old
+    return buf.getvalue()
+
+
 def correr_agente(objetivo: str, mem: MemoriaEvolutiva = None,
                   motor: 'FractalEngine' = None) -> str:
-    """Bucle ReAct con límite estricto de pasos."""
     try:
         from arkani_tools import HERRAMIENTAS
     except Exception:
         HERRAMIENTAS = {}
 
+    # ── Inyectar herramientas reales de FractalVM ──
+    vm = motor.vm if motor and motor.vm else None
+    if vm:
+        def _vm_estado(**kw):
+            try:
+                r = vm.estado()
+                # estado() retorna: neuronas, bytes, ejecuciones, evoluciones, uptime_s, status
+                return (f"neuronas:{r['neuronas']} | "
+                        f"bytes:{r['bytes']} | "
+                        f"ejecuciones:{r['ejecuciones']} | "
+                        f"evoluciones:{r['evoluciones']} | "
+                        f"uptime:{r['uptime_s']}s | "
+                        f"status:{r['status']}")
+            except Exception as e:
+                return f"Error vm_estado: {e}"
+
+        def _vm_ejecutar_todo(**kw):
+            try:
+                # ejecutar_todo() retorna: ejecutadas, evoluciones, nuevas, tiempo_s, neuronas_total
+                r = vm.ejecutar_todo()
+                return (f"ejecutadas:{r.get('ejecutadas',0)} | "
+                        f"evoluciones:{r.get('evoluciones',0)} | "
+                        f"nuevas_neuronas:{r.get('nuevas',0)} | "
+                        f"tiempo:{r.get('tiempo_s',0)}s | "
+                        f"neuronas_total:{r.get('neuronas_total',0)}")
+            except Exception as e:
+                return f"Error vm_ejecutar_todo: {e}"
+
+        def _vm_ejecutar_una(direccion=0, **kw):
+            try:
+                resultado = vm.ejecutar_una(int(direccion))
+                return f"Dir {direccion} → {str(resultado)[:200]}"
+            except Exception as e:
+                return f"Error vm_ejecutar_una: {e}"
+
+        def _vm_listar(**kw):
+            try:
+                # listar() solo imprime, capturamos stdout
+                return _capturar_stdout(vm.listar)
+            except Exception as e:
+                return f"Error vm_listar: {e}"
+
+        HERRAMIENTAS['vm_estado']        = {'fn': _vm_estado}
+        HERRAMIENTAS['vm_ejecutar_todo'] = {'fn': _vm_ejecutar_todo}
+        HERRAMIENTAS['vm_ejecutar_una']  = {'fn': _vm_ejecutar_una}
+        HERRAMIENTAS['vm_listar']        = {'fn': _vm_listar}
+
     historial = []
 
     for paso in range(MAX_PASOS_REACT):
-        ctx = SYSTEM_PROMPT_REACT
+        ctx  = SYSTEM_PROMPT_REACT
         ctx += f"\n\nOBJETIVO: {objetivo}\n"
         if historial:
             ctx += "\nHISTORIAL:\n"
@@ -717,17 +715,15 @@ def correr_agente(objetivo: str, mem: MemoriaEvolutiva = None,
             return parsed["respuesta_final"]
 
         if not parsed["accion"]:
-            return "Agente sin acción definida."
+            return "Agente sin accion definida."
 
-        # Ejecutar herramienta
         if parsed["accion"] == "evolucionar" and motor:
             desc   = parsed["parametros"].get("descripcion", objetivo)
             codigo = parsed["parametros"].get("codigo", "pass")
             resultado = motor.evolucionar(desc, codigo)
         elif parsed["accion"] in HERRAMIENTAS:
             try:
-                resultado = HERRAMIENTAS[parsed["accion"]]["fn"](
-                    **parsed["parametros"])
+                resultado = HERRAMIENTAS[parsed["accion"]]["fn"](**parsed["parametros"])
             except Exception as e:
                 resultado = f"Error: {e}"
         else:
@@ -741,95 +737,160 @@ def correr_agente(objetivo: str, mem: MemoriaEvolutiva = None,
         })
         time.sleep(1)
 
-    # Forzar cierre al llegar al límite
-    return (f"Agente completó {MAX_PASOS_REACT} pasos máximos. "
-            f"Último resultado: {historial[-1]['resultado'][:200] if historial else 'sin pasos'}")
+    return (f"Agente completo {MAX_PASOS_REACT} pasos maximos. "
+            f"Ultimo resultado: {historial[-1]['resultado'][:200] if historial else 'sin pasos'}")
 
 
 # ══════════════════════════════════════════════
-# CLASE PRINCIPAL — importada por arkani_web.py
+# CLASE PRINCIPAL
 # ══════════════════════════════════════════════
 
 class ArkaniEngine:
     """
-    Clase principal unificada.
-    arkani_web.py solo necesita importar esta.
+    Arkani Engine v2.0 — FractalVM integrada con API real.
 
-    Uso:
-        arkani = ArkaniEngine()
-        arkani.chat("hola")
-        arkani.agente("lista archivos py")
-        arkani.evolucionar("calcular volumen nodulo", codigo_python)
+    Comandos de chat:
+      vm: estado          → neuronas, bytes, ejecuciones, evoluciones, uptime
+      vm: ejecutar        → ejecutar_todo() — corre todas las instrucciones
+      vm: ejecutar 3      → ejecutar_una(3) — corre instruccion en dir 3
+      vm: listar          → lista todas las instrucciones del hipocampo
+      autoprograma: ...   → agente ReAct (con vm_estado/vm_ejecutar_todo/etc)
+      evoluciona: ...     → auto-evolucion (sincroniza VM automaticamente)
     """
+
+    _PALABRAS_VM = [
+        'vm:', 'vm fractal', 'fractal vm', 'iniciar vm',
+        'estado vm', 'vm estado', 'ejecuta fractal',
+        'listar vm', 'vm listar',
+    ]
 
     def __init__(self):
         self.mem    = MemoriaEvolutiva()
         self.rag    = RAGBuscador()
         self.motor  = FractalEngine(mem=self.mem)
-        self.ctx_propio = ""  # RAG de sus propios archivos
-        print(f"🧠 [ARKANI ENGINE]: {self.mem.resumen()}")
+        self.ctx_propio = ""
+
+        # ── FractalVM persistente ──
+        self.vm = None
+        try:
+            from nexus_fractal_vm import FractalVM
+            self.vm       = FractalVM()
+            self.motor.vm = self.vm     # motor tambien la referencia
+            e = self.vm.estado()
+            print(f"🖥️  [FRACTAL VM]: Online — "
+                  f"{e['neuronas']} neuronas | "
+                  f"{e['ejecuciones']} ejecuciones | "
+                  f"status:{e['status']}")
+        except ImportError:
+            print("⚠️  [FRACTAL VM]: nexus_fractal_vm.py no encontrado en PATH")
+        except Exception as e:
+            print(f"⚠️  [FRACTAL VM]: Error al iniciar — {e}")
+
+        print(f"🧠 [ARKANI ENGINE v2.0]: {self.mem.resumen()}")
         print(f"🧬 [HIPOCAMPO]: {self.motor.hipocampo.resumen()}")
 
     def set_contexto_propio(self, contexto: str):
         self.ctx_propio = contexto
 
-    # ── Decidir modo según el texto ──────────
-
     def _decidir_modo(self, texto: str) -> str:
-        # Detectar preguntas sobre archivos propios
-        palabras_rag = ['archivo','codigo','autogen','mapa','funcion','modulo','nexus','brain','engine','tools']
-        if any(p in texto.lower() for p in palabras_rag):
-            return 'RAG'
         t = texto.lower()
-        if texto.startswith("autoprograma:"):      return "AGENTE"
-        if texto.startswith("evoluciona:"):        return "EVOLUCION"
+        if any(p in t for p in self._PALABRAS_VM):
+            return "VM"
+        palabras_rag = ['archivo','codigo','autogen','mapa','funcion',
+                        'modulo','nexus','brain','engine','tools']
+        if any(p in t for p in palabras_rag):
+            return 'RAG'
+        if texto.startswith("autoprograma:"):    return "AGENTE"
+        if texto.startswith("evoluciona:"):      return "EVOLUCION"
         if any(p in t for p in [
-            "tu codigo", "tus archivos", "quien eres",
-            "que puedes", "como funciona", "tus capacidades"
-        ]):                                         return "RAG"
+            "tu codigo","tus archivos","quien eres",
+            "que puedes","como funciona","tus capacidades"
+        ]):                                       return "RAG"
         return "CHAT"
 
-    # ── Chat normal ──────────────────────────
+    def _manejar_vm(self, pregunta: str) -> str:
+        """
+        Despacha comandos a FractalVM usando su API REAL:
+          estado()              → dict
+          ejecutar_todo()       → dict
+          ejecutar_una(dir)     → Any
+          listar()              → imprime (capturado con _capturar_stdout)
+        """
+        if not self.vm:
+            return ("⚠️ FractalVM no disponible.\n"
+                    "Asegurate de que nexus_fractal_vm.py este en el mismo directorio.")
+
+        t = texto_lower = pregunta.lower()
+
+        # Extraer numero de direccion si viene "vm: ejecutar 3"
+        dir_match = re.search(r'ejecutar\s+(\d+)', t)
+        direccion = int(dir_match.group(1)) if dir_match else None
+
+        try:
+            # ── vm: estado ──
+            if any(x in t for x in ['estado', 'status', 'info']):
+                e = self.vm.estado()
+                return (
+                    f"🖥️  FRACTAL VM\n"
+                    f"   Neuronas   : {e['neuronas']}  ({e['bytes']} bytes)\n"
+                    f"   Ejecuciones: {e['ejecuciones']}\n"
+                    f"   Evoluciones: {e['evoluciones']}\n"
+                    f"   Uptime     : {e['uptime_s']}s\n"
+                    f"   Status     : {e['status']}"
+                )
+
+            # ── vm: listar ──
+            if 'listar' in t or 'lista' in t:
+                salida = _capturar_stdout(self.vm.listar)
+                return f"🖥️  Instrucciones en hipocampo:\n{salida}"
+
+            # ── vm: ejecutar 3 (una sola) ──
+            if direccion is not None:
+                resultado = self.vm.ejecutar_una(direccion)
+                return f"🖥️  Dir {direccion} ejecutada:\n   resultado → {str(resultado)[:300]}"
+
+            # ── vm: ejecutar (todas) ──
+            if 'ejecutar' in t or 'ejecuta' in t or 'correr' in t or 'correr' in t:
+                r = self.vm.ejecutar_todo()
+                return (
+                    f"🖥️  ejecutar_todo() completado:\n"
+                    f"   Ejecutadas      : {r.get('ejecutadas', 0)}\n"
+                    f"   Evoluciones     : {r.get('evoluciones', 0)}\n"
+                    f"   Nuevas neuronas : {r.get('nuevas', 0)}\n"
+                    f"   Tiempo          : {r.get('tiempo_s', 0)}s\n"
+                    f"   Neuronas total  : {r.get('neuronas_total', 0)}"
+                )
+
+            # ── fallback: estado ──
+            e = self.vm.estado()
+            return (f"🖥️  VM {e['status']} — {e['neuronas']} neuronas | "
+                    f"Comandos: vm: estado / vm: ejecutar / vm: ejecutar N / vm: listar")
+
+        except Exception as ex:
+            return f"🖥️  Error VM: {ex}"
 
     def chat(self, pregunta: str) -> str:
         modo = self._decidir_modo(pregunta)
+
+        if modo == "VM":
+            return self._manejar_vm(pregunta)
 
         if modo == "AGENTE":
             return self.agente(pregunta[13:].strip())
 
         if modo == "EVOLUCION":
-            # Sin código explícito — pedir a Ollama que lo genere
             desc   = pregunta[11:].strip()
             codigo = self._generar_codigo(desc)
             return self.motor.evolucionar(desc, codigo)
 
-        # 0. Detección fractal
-        palabras_fractal = ['ejecuta fractal', 'vm fractal', 'iniciar vm', 'estado vm']
-        if any(p in pregunta.lower() for p in palabras_fractal):
-            try:
-                from nexus_fractal_vm import FractalVM
-                vm = FractalVM()
-                r = vm.estado()
-                return f"VM Fractal activa: {r.get('neuronas',0)} neuronas, {r.get('evoluciones',0)} evoluciones. Estado: {r.get('status','ONLINE')}"
-            except Exception as e:
-                return f"Error VM fractal: {e}"
-
-        # Intentar memoria - desactivado para evitar respuestas incorrectas
-        # recordado = self.mem.recordar(pregunta)
-        # if recordado and "Error" not in recordado:
-        #     return recordado
-
-        # RAG externo
         fuente, ctx_ext = self.rag.buscar(pregunta)
 
-        # Construir prompt según modo
         ctx_rag = ""
         if modo == "RAG" and self.ctx_propio:
             ctx_rag = f"\nTU CODIGO:\n{self.ctx_propio[:800]}\n"
         elif ctx_ext:
             ctx_rag = f"\nINFO ({fuente}):\n{ctx_ext}\n"
 
-        # ── MEMORIA HUMANA ──────────────────────────────────────
         mem_corto = self.mem.memoria_corto_plazo(n=3)
         mem_largo = self.mem.memoria_largo_plazo(pregunta, n_resultados=2)
         bloque_memoria = ""
@@ -837,10 +898,6 @@ class ArkaniEngine:
             bloque_memoria += f"\nRECUERDOS RELEVANTES:\n{mem_largo}\n"
         if mem_corto:
             bloque_memoria += f"\nCONVERSACION RECIENTE:\n{mem_corto}\n"
-        # ──────────────────────────────────────────────────────
-        pends = self.mem.memoria.get("pendientes", [])
-        pend_str = "\n".join(f"  {i+1}. {p}"
-                             for i, p in enumerate(pends)) or "  (ninguno)"
 
         prompt = (
             "<|im_start|>system\n"
@@ -862,17 +919,15 @@ class ArkaniEngine:
             stop=["<|im_start|>", "<|im_end|>", "Constructor:"]
         )
 
-        # Limpiar basura del modelo
         for basura in ("Eres Arkani", "<|im_start|>", "REGLAS", "system"):
             if respuesta.startswith(basura):
                 respuesta = ""
 
-        # Solo aprender respuestas buenas
-        palabras_malas = ["lo siento","no tengo acceso","listando","autogen_dir","os.listdir","este codigo","alibaba","conexion segura"]
+        palabras_malas = ["lo siento","no tengo acceso","listando","autogen_dir",
+                          "os.listdir","este codigo","alibaba","conexion segura"]
         if respuesta and not any(p in respuesta.lower() for p in palabras_malas):
             self.mem.aprender(pregunta, respuesta)
 
-        # Guardar conversación
         self.mem.memoria["conversaciones"].append({
             "fecha": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
             "pregunta": pregunta,
@@ -884,19 +939,13 @@ class ArkaniEngine:
 
         return respuesta or "No pude generar respuesta. Intenta de nuevo."
 
-    # ── Agente ReAct ─────────────────────────
-
     def agente(self, objetivo: str) -> str:
         return correr_agente(objetivo, mem=self.mem, motor=self.motor)
-
-    # ── Evolución con código explícito ───────
 
     def evolucionar(self, descripcion: str, codigo: str = None) -> str:
         if not codigo:
             codigo = self._generar_codigo(descripcion)
         return self.motor.evolucionar(descripcion, codigo)
-
-    # ── Generar código con Ollama ─────────────
 
     def _generar_codigo(self, descripcion: str) -> str:
         prompt = (
@@ -913,9 +962,24 @@ class ArkaniEngine:
         m = re.search(r'```python\n(.*?)\n```', raw, re.DOTALL)
         return m.group(1) if m else raw[:500]
 
-    # ── Estado del sistema ────────────────────
-
     def resumen(self) -> dict:
+        vm_info = {"disponible": False}
+        if self.vm:
+            try:
+                e = self.vm.estado()
+                # Mapeo exacto de los campos reales de FractalVM.estado()
+                vm_info = {
+                    "disponible":  True,
+                    "neuronas":    e["neuronas"],
+                    "bytes":       e["bytes"],
+                    "ejecuciones": e["ejecuciones"],
+                    "evoluciones": e["evoluciones"],
+                    "uptime_s":    e["uptime_s"],
+                    "status":      e["status"],
+                }
+            except Exception as ex:
+                vm_info = {"disponible": True, "error": str(ex)}
+
         return {
             "conversaciones":  len(self.mem.memoria["conversaciones"]),
             "pendientes":      len(self.mem.memoria["pendientes"]),
@@ -924,25 +988,35 @@ class ArkaniEngine:
             "hipocampo_instr": len(self.motor.hipocampo.instructions),
             "evol_sesion":     _evoluciones_esta_sesion,
             "evol_max_sesion": MAX_EVOLUCIONES_SESION,
-            "rag_chars":       len(self.ctx_propio)
+            "rag_chars":       len(self.ctx_propio),
+            "fractal_vm":      vm_info,
         }
 
     def capacidades(self) -> str:
-        return self.motor.listar_capacidades()
+        base = self.motor.listar_capacidades()
+        if self.vm:
+            e = self.vm.estado()
+            vm_cap = (f"\n\n🖥️  FractalVM ONLINE ({e['neuronas']} neuronas):\n"
+                      f"  vm: estado\n"
+                      f"  vm: ejecutar         (ejecutar_todo)\n"
+                      f"  vm: ejecutar N       (ejecutar_una dir N)\n"
+                      f"  vm: listar           (listar instrucciones)")
+        else:
+            vm_cap = "\n\n🖥️  FractalVM: no disponible"
+        return base + vm_cap
 
 
 # ══════════════════════════════════════════════
-# MAIN — prueba en consola
+# MAIN
 # ══════════════════════════════════════════════
 
 if __name__ == "__main__":
     arkani = ArkaniEngine()
-    print("\nModo consola. Comandos:")
-    print("  'agente: [tarea]'")
-    print("  'evoluciona: [descripcion]'")
-    print("  'capacidades'")
-    print("  'resumen'")
-    print("  'salir'\n")
+    print("\nModo consola — Comandos:")
+    print("  vm: estado | vm: ejecutar | vm: ejecutar N | vm: listar")
+    print("  autoprograma: [tarea]")
+    print("  evoluciona: [descripcion]")
+    print("  capacidades | resumen | salir\n")
 
     while True:
         try:
