@@ -35,9 +35,9 @@ OLLAMA_URL   = "http://localhost:11434/api/generate"
 MODELO       = "arkani:latest"   # 7B maestro con Protocolo Wardenclyffe
 
 # ── Configuracion ─────────────────────────────────────────────────────────────
-MAX_CHARS_FRAGMENTO = 1500   # chars por bloque conceptual
-PAUSA_ENTRE_BLOQUES = 1.0    # segundos entre llamadas a Ollama
-TIMEOUT_OLLAMA      = 120    # segundos por fragmento
+MAX_CHARS_FRAGMENTO = 3000   # chars por bloque (subido: menos llamadas Ollama)
+PAUSA_ENTRE_BLOQUES = 0.3    # segundos entre llamadas (reducido)
+TIMEOUT_OLLAMA      = 150    # segundos por fragmento (un poco mas margen)
 
 
 def leer_archivo(ruta: Path) -> str:

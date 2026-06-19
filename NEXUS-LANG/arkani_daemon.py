@@ -120,12 +120,23 @@ def tarea_digerir_archivos(estado: dict) -> int:
         return 0
 
     MEMORIA_PERM.mkdir(parents=True, exist_ok=True)
-    archivos = sorted(MEMORIA_PERM.iterdir()) if MEMORIA_PERM.exists() else []
+    # Ordenar por fecha de modificacion DESCENDENTE (mas recientes primero)
+    archivos = sorted(MEMORIA_PERM.iterdir(),
+                      key=lambda p: p.stat().st_mtime if p.exists() else 0,
+                      reverse=True) if MEMORIA_PERM.exists() else []
     archivos_texto = [
         a for a in archivos
         if a.suffix.lower() in ('.txt', '.md', '.py', '.json')
         and str(a) not in estado.get("archivos_procesados", [])
+        and 'manual_' not in a.name.lower()  # manuales se procesan aparte, siempre
     ]
+    # Los manuales (instrucciones base) van primero siempre, sin importar fecha
+    manuales = [
+        a for a in archivos
+        if a.suffix.lower() == '.txt' and 'manual_' in a.name.lower()
+        and str(a) not in estado.get("archivos_procesados", [])
+    ]
+    archivos_texto = manuales + archivos_texto
 
     if not archivos_texto:
         log("ℹ️  Sin archivos nuevos para digerir")
@@ -142,7 +153,7 @@ def tarea_digerir_archivos(estado: dict) -> int:
                  "--libro", str(archivo),
                  "--silencioso"],
                 capture_output=True, text=True,
-                timeout=600  # 10 min max por archivo
+                timeout=1200  # 20 min max por archivo (subido por archivos grandes)
             )
             if result.returncode == 0:
                 # Extraer numero de ejemplos del output
