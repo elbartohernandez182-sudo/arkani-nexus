@@ -37,7 +37,7 @@ MODELO       = "qwen2.5:3b"
 # ── Configuracion ─────────────────────────────────────────────────────────────
 MAX_CHARS_FRAGMENTO = 400   # chars por bloque (subido: menos llamadas Ollama)
 PAUSA_ENTRE_BLOQUES = 0.3    # segundos entre llamadas (reducido)
-TIMEOUT_OLLAMA      = 90    # segundos por fragmento (un poco mas margen)
+TIMEOUT_OLLAMA      = 180    # segundos por fragmento (un poco mas margen)
 
 
 def leer_archivo(ruta: Path) -> str:
@@ -101,36 +101,23 @@ def traducir_a_fractal(fragmento: str, indice: int, total: int) -> dict:
     LINK: Envia el fragmento al modelo maestro (7B) para que lo
     traduzca al Protocolo Wardenclyffe en formato instruccion/output.
     """
-    system_prompt = (
-        "Eres el motor de traduccion fractal de ARKANI. "
-        "Tu UNICA tarea: convertir texto tecnico en un par JSON con llaves 'instruction' y 'output'. "
-        "El output DEBE usar operaciones fractales: SPAWN, FOLD, LINK, EVOLVE, LOOP, SUM, IF. "
-        "Devuelve SOLO JSON valido, sin markdown, sin explicaciones."
-    )
     prompt = (
-        f"Fragmento tecnico [{indice}/{total}]:\n"
-        f"{fragmento[:2000]}\n\n"
-        f"Convierte en JSON con instruction y output fractal."
+        f"Texto: {fragmento[:400]}\n\n"
+        f"Crea un JSON con instruction y output. Solo el JSON."
     )
     payload = {
         "model":   MODELO,
-        "system":  system_prompt,
         "prompt":  prompt,
         "stream":  False,
         "format":  "json",
-        "options": {"temperature": 0.1, "num_predict": 60}
+        "options": {"temperature": 0.1, "num_predict": 500}
     }
 
     try:
-        req = urllib.request.Request(
-            OLLAMA_URL,
-            data=json.dumps(payload).encode('utf-8'),
-            headers={'Content-Type': 'application/json'}
-        )
-        with urllib.request.urlopen(req, timeout=TIMEOUT_OLLAMA) as resp:
-            res = json.loads(resp.read().decode('utf-8'))
-            raw = res.get("response", "{}").strip()
-            # Limpiar posible markdown
+        import requests as req_lib
+        r = req_lib.post(OLLAMA_URL, json=payload, timeout=TIMEOUT_OLLAMA)
+        if r.status_code == 200:
+            raw = r.json().get("response", "{}").strip()
             if raw.startswith("```"):
                 raw = raw.split("```")[1]
                 if raw.startswith("json"):
@@ -138,9 +125,9 @@ def traducir_a_fractal(fragmento: str, indice: int, total: int) -> dict:
             par = json.loads(raw)
             if "instruction" in par and "output" in par:
                 return par
-            return None
+        return None
     except json.JSONDecodeError as e:
-        print(f"  [WARN] JSON malformado del modelo: {e}")
+        print(f"  [WARN] JSON malformado: {e}")
         return None
     except Exception as e:
         print(f"  [ERROR] Ollama: {e}")

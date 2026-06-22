@@ -4062,5 +4062,522 @@
   {
     "instruction": "Crea repetition penalty para evitar loops compatible con el sistema ARKANI",
     "output": "SPAWN(repetition_penalty_para_evitar_loops):\n  SPAWN(implementacion):\n    import numpy as np\n\n    def repetition_penalty_para_evitar_loops(config: dict) -> np.ndarray:\n        \"\"\"\n        EVOLVE: implementación de repetition penalty para evitar loops para el motor fractal ARKANI\n        Optimizado para CPU — sin dependencias de GPU\n        \"\"\"\n        # Configuración fractal\n        d_model = config.get('d_model', 2048)\n        n_heads = config.get('n_heads', 16)\n\n        # Implementación núcleo\n        resultado = np.zeros((1, d_model), dtype=np.float32)\n\n        LOOP(n_heads):\n            componente = np.random.randn(d_model // n_heads).astype(np.float32)\n            resultado += np.pad(componente, (0, d_model - len(componente)))[:d_model]\n\n        return resultado / n_heads  # normalizar\n\nFOLD(repetition_penalty_para_evitar_loops): Implementación completa de repetition penalty para evitar loops — lista para integrar en FractalLM.\nEVOLVE(repetition_penalty_para_evitar_loops_v1, optimizacion='perfilar con cProfile para identificar bottleneck')\nLINK(repetition_penalty_para_evitar_loops, arkani_motor): Componente repetition penalty para evitar loops integrado al stack del motor fractal ARKANI."
+  },
+  {
+    "instruction": "Crear un manual de programación e ingeniería de software basado en la frase 'MANUAL CORE DE PROGRAMACION E INGENIERIA DE SOFTWARE FRACTAL' utilizando como fuente principal el texto 'ARKANI NEXUS - Protocolo Wardenclyffe v4.0'. El manual debe incluir una introducción, secciones sobre conceptos básicos de programación e ingeniería de software fractal, ejemplos prácticos y un resumen.",
+    "output": ""
+  },
+  {
+    "instruction": "Crear un manual de programación e ingeniería de software basado en la frase 'MANUAL CORE DE PROGRAMACION E INGENIERIA DE SOFTWARE FRACTAL' utilizando como fuente principal el texto 'ARKANI NEXUS - Protocolo Wardenclyffe v4.0'. El manual debe incluir una introducción, secciones sobre conceptos básicos de programación e ingeniería de software fractal, ejemplos prácticos y un resumen.",
+    "output": ""
+  },
+  {
+    "instruction": "Crear un ejemplo de código en Python que utiliza la estructura try-except para manejar excepciones.",
+    "output": {
+      "try_block": "try:\n    x = 1 / 0",
+      "except_block": "except ZeroDivisionError as e:\n    print(f'Error: {e}')"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la estructura del control de excepciones en términos de la interacción entre IF y EVOLVE operadores.",
+    "output": {
+      "controlFlow": [
+        {
+          "operation": "IF",
+          "condition": "El flujo estándar encuentra una resistencia o fallo"
+        },
+        {
+          "operation": "EVOLVE",
+          "subPerspective": "Sub-perspectiva de diagnóstico",
+          "evaluation": "Evaluar el error y aplicar corrección en caliente"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que exprese cómo aplicar una reparación lógica basada en un traceback capturado.",
+    "output": {
+      "repair_plan": [
+        {
+          "issue_detected": "El traceback capturado indica que hubo un error en la línea 12 del archivo 'codigo.py'.",
+          "potential_causes": [
+            "Un argumento faltante en una llamada a función"
+          ],
+          "suggested_repair": "Agregue el argumento faltante al llamado de función.",
+          "repair_code_snippet": "def my_function(arg1, arg2):\n    # Código original\nmy_function('arg1_value')\n# El traceback capturado indica que falta 'arg2' en la llamada anterior."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que explica la relación entre algoritmos no optimizados o sin caso base estricto y el desbordamiento de pila.",
+    "output": {
+      "ejecucion": {
+        "Stack Frame": "Cuando un algoritmo no está optimizado o carece de un caso base estricto, puede requerir una gran cantidad de memoria RAM para almacenar los datos temporales y las funciones recursivas. Esto puede llevar a la saturación de la memoria RAM, lo que provoca un desbordamiento de pila (Stack Overflow)."
+      }
+    }
+  },
+  {
+    "instruction": "Criar um JSON com a instrução e o output conforme solicitado",
+    "output": {
+      "instruction": "Utilizar o operador LOOP combinado com um peso de contração FOLD em cada iteração para reduzir a dimensionalidade do problema, evitando o desbordamento de hilo no hardware local modesto.",
+      "result": null
+    }
+  },
+  {
+    "instruction": "Consolidar los datos intermedios en una única matriz de salida sintética, liberando los buffers de la CPU de manera inmediata.",
+    "output": {
+      "consolidated_matrix": [
+        [
+          "data1",
+          "data2"
+        ],
+        [
+          "data3",
+          "data4"
+        ]
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un sandbox en Python para ejecutar scripts de prueba sin comprometer el sistema operativo anfitron, utilizando el módulo sys.",
+    "output": {
+      "code_snippet": "import sys\n\n# Capturar la salida estándar y los mensajes de error del sistema\nsys.stdout = open('/tmp/stdout.log', 'w')\nsys.stderr = open('/tmp/error.log', 'w')"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa la situación descrita en el texto proporcionado.",
+    "output": {
+      "situacion": {
+        "subprocess_falló": true,
+        "codigo_salida_diferente_de_cero": true,
+        "traceback_error": {
+          "tipo": "Error sintáctico o semántico",
+          "detalles": ""
+        }
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa el ciclo de retroalimentación cerrada para la auto-corrección del código generado por el sub-agente.",
+    "output": {
+      "ciclo_de_retroalimentacion_cerrado": [
+        {
+          "paso_1": "El código se ejecuta dentro de un nodo SPAWN aislado",
+          "paso_2": "Si se detecta un parámetro err no nulo, la matriz activa ejecuta una sub-rutina de corrección del error"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que exprese la idea del texto proporcionado.",
+    "output": {
+      "concept": "Reducir drásticamente los ciclos de reloj asignados por el procesador a nivel de C subyacente",
+      "context": "Esta frase sugiere una optimización en el código de bajo nivel, específicamente enfocándose en la configuración del procesador para que realice menos operaciones por ciclo de reloj. Esto puede implicar técnicas como la desactivación de ciertas funciones del procesador o la reducción de las instrucciones ejecutadas durante cada ciclo de reloj."
+    }
+  },
+  {
+    "instruction": "Crear un texto de explicación basado en la instrucción proporcionada",
+    "output": "La instrucción 'error. 4) Modificación quirúrgica del bloque afectado sin alterar los componentes que ya funcionan' sugiere una intervención médica o técnica donde se realiza una modificación directa sobre un bloque específico de un sistema, pero sin interferir en las funciones y operaciones de otros componentes que están funcionando correctamente. Este tipo de procedimiento podría ser aplicado en diversas áreas como la cirugía, el software, o sistemas industriales."
+  },
+  {
+    "instruction": "Crear un JSON que represente las instrucciones dadas, donde la clave 'error' tiene el valor '0' y la clave 'restored_link' está inicializada a null.",
+    "output": {
+      "error": 0,
+      "restored_link": null
+    }
+  },
+  {
+    "instruction": "Crear un JSON con instrucción y salida basado en el texto proporcionado, donde la salida es un JSON que explica las reglas generadoras de una imagen con ratios de 20:1 a 100:1 manteniendo la calidad diagnóstica.",
+    "output": {
+      "instruction": "Explicar cómo generar imágenes con ratios de 20:1 a 100:1 mientras se preserva la calidad diagnóstica",
+      "output_example": [
+        {
+          "ratio": "20:1",
+          "description": "Generación de una imagen grande (20x el tamaño original) manteniendo la calidad diagnóstica"
+        },
+        {
+          "ratio": "100:1",
+          "description": "Generación de una imagen muy grande (100x el tamaño original) manteniendo la calidad diagnóstica"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa los cambios implementados en el sistema PACS Fractal NEXUS.",
+    "output": {
+      "conversion_pixel_dicom_to_nexus_lang": true,
+      "metadata_encryption_sha256_m2m_protocol": true,
+      "light_electronic_medical_record_tac_studies_reduction": true,
+      "arkani_web_accessibility": true,
+      "dicom_file_upload_and_visualization_reporting": true,
+      "node_sync_m2m_between_nodes": true
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la arquitectura del PACS NEXUS dividida en niveles.",
+    "output": {
+      "Nivel 1": "Adquisición — DICOM desde equipo",
+      "Nivel 2": "Conversion — dicom_to_fractal.py (por desarrollar)",
+      "Nivel 3": "Almacenamiento — .nxf cifrado con clave del paciente",
+      "Nivel 4": "Distribución — protocolo M2M 16 bytes + SHA256",
+      "Nivel 5": "Visualización — Arkani Web + LLaVA para auto-reporte",
+      "Nivel 6": "Expediente — memoria_permanente/ por paciente"
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en la descripción proporcionada del protocolo Wardenclyffe.",
+    "output": {
+      "expedienteFractal": {
+        "tipo": "SPAWN",
+        "desarrollo": "con cada visita"
+      },
+      "fold": {
+        "funcion": "comprime cada estudio",
+        "preserva": "información diagnóstica crítica"
+      },
+      "link": {
+        "función": "conecta hallazgos previos con actuales",
+        "objetivo": "detectar progresión"
+      },
+      "evolve": {
+        "actualiza": "patrón individual del paciente",
+        "información adicional": {
+          "Arkani": {
+            "tendencia": "espondiloartrosis"
+          }
+        }
+      }
+    }
+  },
+  {
+    "instruction": "aprende internet: [tema]",
+    "output": {
+      "instruction": "Identificar el tema central",
+      "sources": [
+        {
+          "priority": 1,
+          "source": "docs.python.org"
+        },
+        {
+          "priority": 2,
+          "source": "flask.palletsprojects.com"
+        },
+        {
+          "priority": 3,
+          "source": "developer.mozilla.org"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Descargar los tutoriales de alta calidad de realpython.com y python-guide.org, y guardarlos en memoria_permanente con nombres descriptivos.",
+    "output": {
+      "realpython_tutorials": [
+        "realpython.com/tutorials/first-tutorial"
+      ],
+      "python_guide_tutorials": [
+        "python-guide.org/tutorial1",
+        "python-guide.org/tutorial2"
+      ]
+    }
+  },
+  {
+    "instruction": "Responder: \"Descargado [N] fuentes sobre [tema]. Se digeriran esta noche.\"",
+    "output": "Descargado 3 fuentes sobre Python. Se digerirán esta noche."
+  },
+  {
+    "instruction": "CREA: PROGRAMA QUE CALCULA LA SUMA DE DOS NUMEROS",
+    "output": {
+      "code": "def suma_dos_numeros(num1, num2):\n    # Esta función toma dos números como entrada y devuelve su suma\n    return num1 + num2\n\nif __name__ == '__main__':\n    import json\n    with open('resultado.json', 'w') as file:\n        numeros = [int(x) for x in input().split()]\n        resultado = suma_dos_numeros(numeros[0], numeros[1])\n        json.dump({'suma': resultado}, file)\n",
+      "name": "programa_suma.py"
+    }
+  },
+  {
+    "instruction": "[INSTRUCCION 03: FUENTES PARA TEMAS DE RADIOLOGIA]",
+    "output": {
+      "PRIORIDAD_1": [
+        "radiopaedia.org",
+        "rsna.org",
+        "acr.org",
+        "fleischner.org"
+      ],
+      "PRIORIDAD_2": [
+        "medlineplus.gov"
+      ]
+    }
+  },
+  {
+    "instruction": "ORGANIZAR EL CONOCIMIENTO APRENDIDO",
+    "output": {
+      "NIVEL_1": [
+        {
+          "tema": "uptodate.com (si hay acceso)",
+          "fuente": "uptodate.com",
+          "fecha": ""
+        },
+        {
+          "tema": "Wikipedia medica: Radiologia",
+          "fuente": "es.wikipedia.org/wiki/Radiologia",
+          "fecha": ""
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "NIVEL 3 — Hipocampo (hipocampo.bin): Neuronas binarias de 16 bytes, una neurona EVOLVE por cada 5 conceptos aprendidos, memoria a largo plazo inviolable",
+    "output": "Neuronas binarias de 16 bytes. Una neurona EVOLVE por cada 5 conceptos aprendidos. Memoria a largo plazo inviolable."
+  },
+  {
+    "instruction": "INSTRUCCION 05: QUE APRENDER Y EN QUE ORDEN",
+    "output": {
+      "URGENTE (esta semana)": [
+        {
+          "topic": "Python avanzado",
+          "skills": [
+            "decoradores",
+            "generadores",
+            "async/await"
+          ]
+        },
+        {
+          "topic": "Flask",
+          "skills": [
+            "rutas",
+            "websockets",
+            "autenticación"
+          ]
+        },
+        {
+          "topic": "Compresión de datos",
+          "skills": [
+            "algoritmos",
+            "IFS fractal"
+          ]
+        },
+        {
+          "topic": "DICOM",
+          "skills": [
+            "estructura",
+            "metadatos",
+            "pixel data",
+            "pydicom"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga los temas mencionados en el texto junto con sus respectivas descripciones.",
+    "output": {
+      "Machine learning": {
+        "PyTorch": null,
+        "fine-tuning": null,
+        "LoRA": null
+      },
+      "Radiologia diagnostica": {
+        "TC": null,
+        "RM": null,
+        "RX": null,
+        "protocolos": null
+      },
+      "Seguridad": {
+        "cifrado": null,
+        "SHA256": null,
+        "tokens": null
+      },
+      "M2M networking": {
+        "sockets": null,
+        "protocolos": null,
+        "sincronizacion": null
+      }
+    }
+  },
+  {
+    "instruction": "Crear un sistema que combine la compresión fractal para imágenes médicas, una solución PACS personalizada con almacenamiento, distribución y visualización, autoprogramación mediante evolución genética (EVOLVE) sobre su propio código, y LLaMA para el análisis automático de radiografías.",
+    "output": "{}"
+  },
+  {
+    "instruction": "Crea un JSON con instruction y output.",
+    "output": {
+      "instruction": "Crea un JSON con instruction y output.",
+      "output": "{'instruction': 'Crea un JSON con instruction y output.', 'output': '{}'}"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que exprese las dos frases proporcionadas como reglas o instrucciones.",
+    "output": {
+      "SHA256 verifica integridad": [
+        "recomendación para asegurar la integridad de archivos mediante el uso del algoritmo SHA256",
+        "se refiere a generar un hash (en este caso, una firma digital) que se puede utilizar para verificar si los datos han sido alterados después de su almacenamiento o trasferencia"
+      ],
+      "REGLA 7: Aprender de noche, servir de dia — no saturar la CPU": [
+        "una regla de conducta personal que sugiere aprender durante las horas de quietud para luego aplicar ese conocimiento en el día",
+        "se refiere a evitar sobrecargar los recursos del procesador (CPU) al trabajar o programar, especialmente cuando se trabaja con tareas intensivas"
+      ]
+    }
+  },
+  {
+    "instruction": "",
+    "output": ""
+  },
+  {
+    "instruction": "proponer una alternativa ao texto fornecido",
+    "output": "A alternativa proposta seria: 'A atualização da continuidade é crucial — CONTEXTO_CLAUDE.md é atualizado diariamente'"
+  },
+  {
+    "instruction": "Crear un JSON que explica la sintaxis o error en tiempo de ejecución (como ZeroDivisionError o FileNotFoundError) y cómo se maneja mediante bloques de excepción.",
+    "output": {
+      "error_example": {
+        "type": "ZeroDivisionError",
+        "message": "division by zero"
+      },
+      "exception_handling": {
+        "block_structure": [
+          {
+            "name": "try_block",
+            "description": "Intenta ejecutar el código que puede generar una excepción."
+          },
+          {
+            "name": "except_block_for_ZeroDivisionError",
+            "description": "Bloque de control para manejar ZeroDivisionError, donde se especifica qué hacer cuando ocurre la excepción."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que exprese la estructura de una llamada recursiva dentro del manejo de memoria en CPU, enfocándose en cómo cada llamada recursiva añade un nuevo marco a la pila de ejecución.",
+    "output": {
+      "conceptoRecursivo": [
+        {
+          "nombreFuncion": "funcionOriginal",
+          "subProblemas": [
+            {
+              "nombreSubProblema1": "subProblema1",
+              "marcosPila": 1
+            },
+            {
+              "nombreSubProblema2": "subProblema2",
+              "marcosPila": 2
+            }
+          ],
+          "casoBase": false,
+          "llamadaRecursiva": true
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa cómo optimizar una función para corregir sintaxis corrupta y asegurar que el bucle continúe ejecutándose hasta que el error llegue a cero absoluto.",
+    "output": {
+      "optimizationSteps": [
+        {
+          "step": "Corregir errores de sintaxis"
+        },
+        {
+          "step": "Implementar un bucle infinito o con una condición que asegure que se siga ejecutando hasta que el error sea cero absoluto"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear una estructura de comprensión de lista que genere los cuadrados de los números impares entre 1 y 9.",
+    "output": "[x**2 for x in range(1, 10) if x % 2 != 0]"
+  },
+  {
+    "instruction": "Crear un JSON que explica la idea del texto proporcionado.",
+    "output": {
+      "concept": "Reducir drasticamente los ciclos de reloj asignados por el procesador en términos de iteración a nivel de C subyacente.",
+      "explanation": "Esta idea implica optimizar el código en C para que funcione con un menor número de ciclos de reloj disponibles. Los ciclos de reloj son las unidades básicas de tiempo en una CPU, y reducirlos significa que la CPU realizará menos operaciones por unidad de tiempo. Esto puede aumentar significativamente el rendimiento del programa al permitir que más tareas se ejecuten simultáneamente o a velocidades más rápidas."
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa la transformación lineal de colecciones de datos optimizada por el operador FOLD, enfocándose en cómo concatena la función de transformación a través de un LINK semántico para contrarrear directamente una lista original en una estructura unificada de alta densidad.",
+    "output": {
+      "type": "JSON",
+      "data": {
+        "instruction": "La transformación lineal de colecciones de datos se optimiza bajo el operador FOLD, que opera sobre un espacio vectorial mapeado. En lugar de iterar secuencialmente, el operador concatena la función de transformación a través de un LINK semántico, forzando la contracción directa de la lista original en una única estructura unificada de alta densidad.",
+        "details": {
+          "optimization_technique": "Fold",
+          "data_structure": "Estructura unificada de alta densidad",
+          "operation_mode": "Concatenación a través de LINK semántico"
+        }
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa el proceso de depuración utilizando un bucle de retroalimentación cerrado, incluyendo las etapas de ejecución del script, captura del código de estado (Exit Code), aislamiento del Traceback y identificación de la línea exacta y tipo de error.",
+    "output": {
+      "ciclo_de_instrumentacion": [
+        {
+          "etapa": "Ejecución del Script",
+          "detalles": "Se ejecuta el script para realizar las operaciones programadas."
+        },
+        {
+          "etapa": "Captura del Código de Estado (Exit Code)",
+          "detalles": "El sistema captura el código de estado después de la ejecución del script. Si es 0, indica que la ejecución fue limpia. Si es mayor a 0, indica que hubo una excepción."
+        },
+        {
+          "etapa": "Aislamiento del Traceback",
+          "detalles": "Si se detecta un código de estado mayor a 0, el sistema aisla el traceback para identificar la línea exacta y el tipo de error específico."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente las instrucciones dadas, donde la clave 'error' tiene el valor '0' y la clave 'restored_link' está inicializada a null.",
+    "output": {
+      "error": 0,
+      "restored_link": null
+    }
+  },
+  {
+    "instruction": "Crear un JSON representando la estructura del protocolo Wardenclyffe con las aserciones lógicas como limites de contención de la topología fractal, utilizando IF dentro de EVOLVE para manejar la falsedad de una aserción matemática.",
+    "output": {
+      "protocol": {
+        "evolve": {
+          "if": [
+            {
+              "condition": "asercion_pasa",
+              "then": "fold(codigo_consolidado)"
+            },
+            {
+              "condition": "!asercion_matematica",
+              "then": "spawn(reparacion_sintactica)"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "instruction": "Crear un documento JSON que describa cómo minimizar el impacto de la latencia en la CPU.",
+    "output": "{\"descripción\": \"Un documento JSON que proporcione una guía detallada sobre técnicas y prácticas para reducir el impacto de la latencia en la CPU. Incluye ejemplos, recomendaciones y consejos específicos.\"}"
+  },
+  {
+    "instruction": "Crear un JSON con los campos 'instruction' y 'output', donde 'instruction' indica cómo debe ser estructurado el JSON final, y 'output' contiene la información requerida en ese formato.",
+    "output": {
+      "instruction": "Depurar un nodo SPAWN que ha fallado",
+      "data": [
+        {
+          "node_id": "damaged_node_id",
+          "error_vector": "corrective_function_id",
+          "new_gradient": "corrected_data"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un fragmento de código en formato JSON que represente una prueba unitaria unitaria (Unit Testing) para un script generador en un entorno de sandbox.",
+    "output": {
+      "test_case_1": {
+        "input": {
+          "param1": "value1",
+          "param2": "value2"
+        },
+        "expected_output": "expected_result"
+      }
+    }
   }
 ]
