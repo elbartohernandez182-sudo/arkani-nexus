@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-06-21 21:48:17
-Último commit: fc4a059 - v4.6 — optimizar daemon: timeout 20min, fragmentos 3000ch, prioridad archivos recientes, limpieza duplicados
+Actualizado: 2026-06-22 00:26:27
+Último commit: 68a62a3 - Auto: Contexto actualizado 2026-06-21 21:48:17
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,6 +11,7 @@ Actualizado: 2026-06-21 21:48:17
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+68a62a3 Auto: Contexto actualizado 2026-06-21 21:48:17
 fc4a059 v4.6 — optimizar daemon: timeout 20min, fragmentos 3000ch, prioridad archivos recientes, limpieza duplicados
 94899e7 Auto: Contexto actualizado 2026-06-19 00:13:11
 e918ccd v4.5 — Google Search configurado + manuales IA, NLP, redes neuronales, Python, radiologia DICOM TAC, pydicom
@@ -20,7 +21,6 @@ e005702 Auto: Contexto actualizado 2026-06-18 10:15:10
 6396ec0 v4.4 — decoradores python aprendidos + archivos memoria_permanente
 1cabb53 Auto: Contexto actualizado 2026-06-18 08:29:42
 089f26f fix: corregir SyntaxError en tarea_entrenar del daemon
-f9871d1 v4.3 — manual instrucciones aprendizaje + fix aprende internet sin timeout
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
