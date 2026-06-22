@@ -1,12 +1,32 @@
 {
-  "ultima_ejecucion": "2026-06-19T00:12:44.267410",
+  "ultima_ejecucion": "2026-06-22T00:26:02.325895",
   "total_digestiones": 0,
   "total_neuronas_agregadas": 0,
-  "total_entrenamientos": 1,
+  "total_entrenamientos": 3,
   "archivos_procesados": [
     "/home/arkani/NEXUS/memoria_permanente/20260618_083706_python_decoradores_python_docs__python_decoradores.txt",
     "/home/arkani/NEXUS/memoria_permanente/20260618_083706_python_decoradores_real_python__python_decoradores.txt",
     "/home/arkani/NEXUS/memoria_permanente/20260618_084318_python_decoradores_python_docs__python_decoradores.txt",
-    "/home/arkani/NEXUS/memoria_permanente/20260618_084318_python_decoradores_real_python__python_decoradores.txt"
+    "/home/arkani/NEXUS/memoria_permanente/20260618_084318_python_decoradores_real_python__python_decoradores.txt",
+    "/home/arkani/NEXUS/memoria_permanente/manual_instrucciones_aprendizaje.txt",
+    "/home/arkani/NEXUS/memoria_permanente/manual_radiologia_fractal.txt",
+    "/home/arkani/NEXUS/memoria_permanente/manual_python_fractal.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_145736_es_wikipedia_org.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_145735_es_wikipedia_org.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_145213_es_wikipedia_org.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_145212_es_wikipedia_org.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_140719_pydicom_github_io.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_135538_tac_tomografia_computarizada_radiologia_t_cnico_en.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_135538_tac_tomografia_computarizada_radiologia_radiolog_a.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_135538_tac_tomografia_computarizada_radiologia_tomograf_a.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_134524_dicom_estandar_radiologia_telemedicina.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_134524_dicom_estandar_radiologia_telepatolog_a.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_134524_dicom_estandar_radiologia_imagen_m_dica.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_133415_pydicom_dataset_dicom_python_real_python__pydicom_.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_133415_pydicom_dataset_dicom_python_python_docs__pydicom_.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_130321_radiologia_dicom_python_real_python__radiologia_di.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_130321_radiologia_dicom_python_python_docs__radiologia_di.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_124338_python_decoradores_avanzados_mojo__lenguaje_de_pro.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_124338_python_decoradores_avanzados_real_python__python_d.txt"
   ]
 }

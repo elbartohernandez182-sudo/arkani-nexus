@@ -1,5 +1,5 @@
 # CONTEXTO_CLAUDE.md — Estado de ARKANI NEXUS
-Generado automaticamente: 2026-06-19 00:12
+Generado automaticamente: 2026-06-22 00:26
 
 ## Estado del Sistema
 - Modelo principal  : arkani:latest (qwen2.5:7b + Protocolo Wardenclyffe)
@@ -10,12 +10,12 @@ Generado automaticamente: 2026-06-19 00:12
 - Aprendizajes      : 0
 - Evoluciones       : 1
 
-## Sesion Nocturna — 2026-06-19
+## Sesion Nocturna — 2026-06-22
 - Ejemplos digeridos   : 0
 - Neuronas agregadas   : 0
 - Entrenamiento        : ✅ completado
 - Total digestiones    : 0
-- Total entrenamientos : 1
+- Total entrenamientos : 3
 
 ## GitHub
 - Repo: https://github.com/elbartohernandez182-sudo/arkani-nexus
@@ -45,5 +45,5 @@ aprender: [archivo]     # mover archivo a memoria permanente
 ```
 
 ## Notas del Daemon
-2026-06-17T21:59:32.546021
-Archivos procesados: 4
+2026-06-21T21:47:49.125355
+Archivos procesados: 24

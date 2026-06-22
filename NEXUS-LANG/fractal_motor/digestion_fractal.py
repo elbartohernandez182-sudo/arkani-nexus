@@ -32,12 +32,12 @@ from datetime import datetime
 NEXUS_DIR    = Path.home() / "NEXUS"
 DATASET_PATH = NEXUS_DIR / "NEXUS-LANG" / "arkani_fractal_dataset_v2.json"
 OLLAMA_URL   = "http://localhost:11434/api/generate"
-MODELO       = "arkani:latest"   # 7B maestro con Protocolo Wardenclyffe
+MODELO       = "qwen2.5:3b"
 
 # ── Configuracion ─────────────────────────────────────────────────────────────
-MAX_CHARS_FRAGMENTO = 3000   # chars por bloque (subido: menos llamadas Ollama)
+MAX_CHARS_FRAGMENTO = 400   # chars por bloque (subido: menos llamadas Ollama)
 PAUSA_ENTRE_BLOQUES = 0.3    # segundos entre llamadas (reducido)
-TIMEOUT_OLLAMA      = 150    # segundos por fragmento (un poco mas margen)
+TIMEOUT_OLLAMA      = 90    # segundos por fragmento (un poco mas margen)
 
 
 def leer_archivo(ruta: Path) -> str:
@@ -101,29 +101,24 @@ def traducir_a_fractal(fragmento: str, indice: int, total: int) -> dict:
     LINK: Envia el fragmento al modelo maestro (7B) para que lo
     traduzca al Protocolo Wardenclyffe en formato instruccion/output.
     """
-    prompt = f"""[SISTEMA PROTOCOLO WARDENCLYFFE — INGENIERIA DE DATASET]
-Eres el Ingeniero Core de ARKANI NEXUS. Tu tarea es digerir el siguiente
-fragmento tecnico y convertirlo en un par de entrenamiento estructurado.
-
-Fragmento [{indice}/{total}]:
-\"\"\"
-{fragmento[:1200]}
-\"\"\"
-
-INSTRUCCIONES:
-1. Extrae el concepto central del fragmento como pregunta clara en "instruction".
-2. Responde en "output" USANDO las 7 operaciones fractales: SUM, IF, LOOP, SPAWN, FOLD, LINK, EVOLVE.
-3. El output debe ser codigo fractal explicativo, no texto plano.
-
-Devuelve UNICAMENTE un objeto JSON sin markdown extra, con este formato:
-{{"instruction": "Pregunta concisa sobre el concepto", "output": "Respuesta en operaciones fractales"}}
-"""
+    system_prompt = (
+        "Eres el motor de traduccion fractal de ARKANI. "
+        "Tu UNICA tarea: convertir texto tecnico en un par JSON con llaves 'instruction' y 'output'. "
+        "El output DEBE usar operaciones fractales: SPAWN, FOLD, LINK, EVOLVE, LOOP, SUM, IF. "
+        "Devuelve SOLO JSON valido, sin markdown, sin explicaciones."
+    )
+    prompt = (
+        f"Fragmento tecnico [{indice}/{total}]:\n"
+        f"{fragmento[:2000]}\n\n"
+        f"Convierte en JSON con instruction y output fractal."
+    )
     payload = {
         "model":   MODELO,
+        "system":  system_prompt,
         "prompt":  prompt,
         "stream":  False,
         "format":  "json",
-        "options": {"temperature": 0.2, "num_predict": 400}
+        "options": {"temperature": 0.1, "num_predict": 60}
     }
 
     try:
