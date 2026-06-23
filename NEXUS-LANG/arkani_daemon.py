@@ -145,8 +145,14 @@ def tarea_digerir_archivos(estado: dict) -> int:
     log(f"📚 Archivos a digerir: {len(archivos_texto)}")
     total = 0
 
-    for archivo in archivos_texto[:MAX_ARCHIVOS_POR_NOCHE]:
+    for i, archivo in enumerate(archivos_texto[:MAX_ARCHIVOS_POR_NOCHE]):
         log(f"   SPAWN → {archivo.name}")
+        if i > 0 and i % 2 == 0:
+            log("   🔄 Reiniciando Ollama...")
+            import subprocess as sp
+            sp.run(["sudo", "systemctl", "restart", "ollama"], capture_output=True)
+            import time as t
+            t.sleep(15)
         try:
             result = subprocess.run(
                 [sys.executable, str(DIGESTOR_PATH),

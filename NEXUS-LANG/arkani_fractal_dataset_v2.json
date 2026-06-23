@@ -4579,5 +4579,585 @@
         "expected_output": "expected_result"
       }
     }
+  },
+  {
+    "instruction": "Crear un JSON que represente la estructura de navegación de la página Wikipedia sobre Inteligencia Artificial.",
+    "output": "[\n    {\n        \"id\": 1,\n        \"title\": \"Inteligencia artificial\",\n        \"url\": \"https://es.wikipedia.org/wiki/Inteligencia_artificial\"\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Ir al contenido\",\n        \"url\": \"#\"\n    }\n]"
+  },
+  {
+    "instruction": "Crear un JSON con información sobre diferentes medios de expresión: texto (Wikipedia), imagen generada por IA y video explicativo.",
+    "output": {
+      "text": "De Wikipedia, la enciclopedia libre",
+      "image": "Imagen generada por el modelo de IA de generación de imágenes DALL•E.",
+      "video": {
+        "duration": "6:47 min",
+        "language": "euskera (con subtítulos en castellano)",
+        "topics": [
+          "Inteligencia artificial",
+          "dilemas éticos"
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre la inteligencia artificial.",
+    "output": {
+      "inteligencia_artificial": {
+        "definicion": "La inteligencia artificial, abreviada como IA o AI, es una disciplina y conjunto de capacidades cognoscitivas e intelectuales expresadas por sistemas informáticos o combinaciones de algoritmos.",
+        "objetivo": "El propósito de la IA es la creación de máquinas que imiten la inteligencia humana."
+      }
+    }
+  },
+  {
+    "instruction": "Generar un fragmento de texto sobre tecnologías de aprendizaje automático que se ajuste al formato proporcionado.",
+    "output": "Estas tecnologías permiten que las máquinas aprendan de la experiencia, se adapten a nuevas entradas y realicen tareas humanas como el reconocimiento de voz, la toma de decisiones, la traducción de idiomas o la visión por computadora.[1][2]"
+  },
+  {
+    "instruction": "Crear un JSON que represente una variedad de subcampos dentro del campo de la inteligencia artificial.",
+    "output": {
+      "areas_of_general_purpose": [
+        "Aprendizaje",
+        "Percepción"
+      ],
+      "specific_areas": [
+        {
+          "name": "Reconocimiento de voz"
+        },
+        {
+          "name": "Juego de ajedrez"
+        },
+        {
+          "name": "Demostración de teoremas matemáticos"
+        },
+        {
+          "name": "Cálculo y resolución de problemas aritméticos y algebraicos"
+        },
+        {
+          "name": "Escritura de poesía"
+        },
+        {
+          "name": "Composición musical"
+        },
+        {
+          "name": "Creación"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un texto que explique cómo la inteligencia artificial (IA) puede ser relevante para cualquier ámbito de actividades intelectuales humanas, enfatizando en su naturaleza universal.",
+    "output": "{\"texto\": \"La IA sintetiza y automatiza tareas que en principio son intelectuales. Por lo tanto, es potencialmente relevante para cualquier ámbito de actividades intelectuales humanas. En este sentido, la IA se convierte en un campo genuinamente universal. Además, la IA está en constante evolución gracias a...\"}"
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado.",
+    "output": {
+      "texto_proveniente": "[Texto proporcionado]",
+      "informacion_extra": [
+        {
+          "nombre_tecnologia": "Aprendizaje profundo",
+          "explicacion": "Permite un avance acelerado en la capacidad para resolver problemas complejos."
+        },
+        {
+          "nombre_tecnologia": "Redes neuronales",
+          "explicacion": "Contribuyen al avance acelerado en la capacidad para resolver problemas complejos."
+        },
+        {
+          "nombre_tecnologia": "Procesamiento del lenguaje natural",
+          "explicacion": "Contribuye al avance acelerado en la capacidad para resolver problemas complejos."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Traducir el texto proporcionado a una versión en inglés.",
+    "output": "Artificial intelligence architectures and the processes by which they learn, improve, and are implemented in some area of interest vary according to the utility focus given them, but generally range from executing simple algorithms to interconnecting complex artificial neural networks that attempt to replicate neuronal circuits."
+  },
+  {
+    "instruction": "Crear un JSON que describa diferentes modelos de aprendizaje utilizados en la inteligencia artificial.",
+    "output": {
+      "models_of_learning": [
+        {
+          "name": "Aprendizaje Automático",
+          "description": "Permite a los sistemas aprender patrones y relaciones en datos sin ser explícitamente programados."
+        },
+        {
+          "name": "Aprendizaje por Refuerzo",
+          "description": "Permite a los sistemas tomar decisiones basándose en recompensas o penalizaciones para maximizar una función de valor."
+        },
+        {
+          "name": "Aprendizaje Profundo",
+          "description": "Incluye técnicas como la red neuronal profunda que permiten al sistema aprender representaciones jerárquicas de datos complejos."
+        },
+        {
+          "name": "Aprendizaje Supervisado",
+          "description": "Permite a los sistemas aprender patrones en conjuntos de datos etiquetados para predecir resultados desconocidos."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un JSON a partir del texto proporcionado, enfocándose en extraer información relevante sobre nuevos campos de estudio relacionados con la inteligencia artificial.",
+    "output": {
+      "new_fields_of_study": [
+        {
+          "name": "Roboética",
+          "description": "Un campo de estudio que aborda aspectos éticos relacionados con la inteligencia artificial."
+        },
+        {
+          "name": "Ética de las máquinas",
+          "description": "Otro campo de estudio que analiza cómo los avances en tecnologías de inteligencia artificial podrían afectar a diversos campos."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un documento JSON que describa los ámbitos de la vida, así como el manejo responsable y ético que se les debería dar a estos mismos, además de establecer cuál debería ser la manera correcta de proceder de las máquinas y las reglas que deberían cumplir.",
+    "output": {
+      "life_areas": [
+        "Educación",
+        "Salud",
+        "Trabajo",
+        "Comunicaciones",
+        "Gestión de recursos naturales",
+        "Política y gobierno"
+      ],
+      "responsible_ethical_management": true,
+      "correct_procedure": true,
+      "rules_to_follow": [
+        "Cumplir con las leyes y regulaciones aplicables",
+        "Respetar la privacidad de los individuos",
+        "Promover el bienestar humano en todas las operaciones",
+        "Evitar daños innecesarios a la naturaleza"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre la clasificación de la inteligencia artificial, incluyendo los tipos mencionados (inteligencia artificial débil y general) y una breve explicación.",
+    "output": {
+      "types_of_ai": [
+        {
+          "type": "Inteligencia Artificial DÉbil",
+          "description": "Se ocupa de realizar tareas específicas sin necesidad de entender el contexto o la intención detrás de dichas tareas."
+        },
+        {
+          "type": "Inteligencia Artificial General",
+          "description": "Es una IA que excede las capacidades humanas, capaz de realizar cualquier tarea que pueda ser programada."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre la posibilidad de una singularidad tecnológica en la era de la cuántica, incluyendo referencias a teorías como el basilisco de Roko.",
+    "output": {
+      "singularidad_tecnologica": {
+        "posible_aparicion": true,
+        "explicacion": "Una entidad tecnológica superior que se mejoraría a sí misma constantemente y volviéndose incontrolable para los humanos",
+        "teorías_relacionadas": [
+          "basilisco de Roko"
+        ]
+      },
+      "contexto_científico": {
+        "campo_tecnológico": "artificial cuántica",
+        "referencia": "[7]"
+      }
+    }
+  },
+  {
+    "instruction": "Generar una lista completa de diferentes tipos de inteligencia artificial y sus aplicaciones.",
+    "output": [
+      {
+        "type": "IA de ajedrez",
+        "examples": [
+          "Stockfish",
+          "AlphaZero"
+        ]
+      },
+      {
+        "type": "Chatbots e IA de conversación multimodal",
+        "examples": [
+          "ChatGPT",
+          "Gemini",
+          "Grok",
+          "LLaMA",
+          "DeepSeek",
+          "Perplexity",
+          "Claude (Anthropic)"
+        ]
+      },
+      {
+        "type": "Generadores de música",
+        "examples": [
+          "Suno AI"
+        ]
+      },
+      {
+        "type": "Modelos de texto a video",
+        "examples": [
+          "Veo 3",
+          "Sora"
+        ]
+      },
+      {
+        "type": "Creadores de arte IA",
+        "examples": [
+          "Midjourney",
+          "Dall-e",
+          "Leonardo",
+          "Stable Diffusion"
+        ]
+      },
+      {
+        "type": "Conducción autónoma",
+        "examples": [
+          "Tesla"
+        ]
+      }
+    ]
+  },
+  {
+    "instruction": "Crear un texto basado en el contenido proporcionado sobre la definición de inteligencia artificial por la COMEST de UNESCO en 2019, incluyendo las características mencionadas.",
+    "output": "{\"texto\": \"En 2019 la Comisión Mundial de Ética del Conocimiento Científico y la Tecnología (COMEST) de la UNESCO definió la inteligencia artificial como un campo que implica máquinas capaces de imitar determinadas funcionalidades de la inteligencia humana, incluidas características como la percepción, el aprendizaje, el razonamiento, la resolución de problemas, la interacción lingüística e incluso la\"}"
+  },
+  {
+    "instruction": "Crear un JSON con información sobre la definición de inteligencia artificial según los autores Andreas Kaplan y Michael Haenlein.",
+    "output": {
+      "definicionInteligenciaArtificial": "La capacidad de un sistema para interpretar correctamente datos externos, y así",
+      "explicacionDefinicion": "Esta definición sugiere que la inteligencia artificial se refiere a sistemas o máquinas capaces de entender e interpretar información procedente del mundo exterior de una manera apropiada y útil. Sin embargo, es importante notar que esta definición no abarca todas las facetas de la inteligencia artificial mencionadas en el texto original."
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre la evolución de la definición de Inteligencia Artificial basada en el texto proporcionado.",
+    "output": {
+      "text": "El texto sugiere que la definición de inteligencia artificial (IA) está cambiando a medida que las máquinas se vuelven más capaces. Según este texto, con el avance tecnológico, ciertas tecnologías que antes requerían IA ya no lo necesitan. Marvin Minsky, uno de los creadores de la IA, comparó esta definición a una 'palabra maleta' (suitcase), indicando que puede contener diferentes tipos de tecnología según su capacidad y funcionalidad.",
+      "interpretation": {
+        "evolution_of_definition": "La definición de IA está evolucionando. Con el avance tecnológico, ciertas tecnologías que antes requerían IA ya no lo necesitan.",
+        "comparison_to_minsky": "Más específicamente, la definición de IA se compara a una 'palabra maleta' (suitcase), sugiriendo que puede contener diferentes tipos de tecnología según su capacidad y funcionalidad."
+      }
+    }
+  },
+  {
+    "instruction": "Generar texto en formato JSON que explica la diferencia entre el reconocimiento óptico de caracteres como una tecnología común y avances tecnológicos clasificados como inteligencia artificial, utilizando los ejemplos proporcionados.",
+    "output": "{\"texto\": \"Por ejemplo, el reconocimiento óptico de caracteres ya no se percibe como un ejemplo de la \\\"inteligencia artificial\\\", habiéndose convertido en una tecnología común. [13] Avances tecnológicos todavía clasificados como inteligencia artificial son los sistemas de conducción autónomos o los capaces de jugar al ajedrez o Go. [14]\"}"
+  },
+  {
+    "instruction": "Generar un texto basado en la información proporcionada sobre sistemas expertos, procesamiento de robots e inteligencia artificial.",
+    "output": "La inteligencia artificial (IA) representa una nueva forma de abordar problemas que incluyen a los sistemas expertos, el manejo y control de robots, así como al procesamiento. La IA busca integrar conocimientos en estos sistemas. En otras palabras, se trata de un sistema capaz de escribir su propio programa. Un sistema experto, por otro lado, es una estructura de programación que puede almacenar y gestionar información específica para resolver problemas complejos en áreas como la medicina o el diseño de circuitos electrónicos."
+  },
+  {
+    "instruction": "Crear un JSON que exprese la diferencia entre el uso del conocimiento sobre una área determinada y la capacidad de aprendizaje en IA.",
+    "output": {
+      "knowledge_area_usage": "Utilizar un conocimiento específico sobre una área determinada, lo cual implica la aplicación práctica de ese conocimiento para resolver problemas o tomar decisiones.",
+      "ai_learning_ability": "La capacidad de las máquinas para utilizar algoritmos, aprender de los datos y aplicar el aprendido en la toma de decisiones, similar a cómo lo haría un ser humano."
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente una cita sobre inteligencia artificial según Takeyas (2007), enfocándose en los aspectos de razonamiento y comportamiento.",
+    "output": {
+      "text": "Según Takeyas (2007), la IA es una rama de las ciencias computacionales encargada de estudiar modelos de cómputo capaces de realizar actividades propias de los seres humanos con base en dos de sus características primordiales: el razonamiento y la conducta.",
+      "author": "Takeyas",
+      "year": 2007
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente una declaración sobre la definición de inteligencia artificial proporcionada en el texto.",
+    "output": "{\"definicion\": \"La ciencia e ingenio de hacer máquinas inteligentes, especialmente programas de cómputo inteligentes.\"}"
+  },
+  {
+    "instruction": "Traducir el texto proporcionado al español y crear un JSON con la información extraída.",
+    "output": {
+      "definicion_inteligencia_artificial": "Sistemas que llevan a cabo tareas consideradas inteligentes",
+      "subdisciplina": "Aprendizaje automático",
+      "referencias": [
+        "[19]"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre diferentes tipos de percepciones y acciones en sistemas de inteligencia artificial, incluyendo sensores físicos/mecánicos, entradas/salidas de bits del software y su entorno hardware.",
+    "output": {
+      "tipos_de_percepcion_y_accion": [
+        {
+          "tipo": "Sensores Físicos/Mecánicos",
+          "descripción": "Obtenidos por sensores físicos/mecánicos en máquinas"
+        },
+        {
+          "tipo": "Pulsos Eléctricos/Optícos",
+          "descripción": "Producidos por pulsos eléctricos/u ópticos en computadoras"
+        },
+        {
+          "tipo": "Entradas/Salidas de Bits",
+          "descripción": "Obtenidos/Producidos por entradas/salidas de bits del software y su entorno hardware"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en los ejemplos proporcionados que incluya diferentes áreas de aplicación de IA.",
+    "output": {
+      "areas_of_application": [
+        {
+          "name": "Control de sistemas",
+          "examples": [
+            "Varios ejemplos"
+          ]
+        },
+        {
+          "name": "Planificación automática",
+          "examples": [
+            "Varios ejemplos"
+          ]
+        },
+        {
+          "name": "Respuesta a diagnósticos y consultas de los consumidores",
+          "examples": [
+            "Varios ejemplos"
+          ]
+        },
+        {
+          "name": "Reconocimiento de escritura",
+          "examples": [
+            "Varios ejemplos"
+          ]
+        },
+        {
+          "name": "Reconocimiento del habla",
+          "examples": [
+            "Varios ejemplos"
+          ]
+        },
+        {
+          "name": "Reconocimiento de patrones",
+          "examples": [
+            "Varios ejemplos"
+          ]
+        }
+      ],
+      "current_usage_in_fields": [
+        {
+          "field": "Economía",
+          "usage_description": "Parte de la rutina"
+        },
+        {
+          "field": "Medicina",
+          "usage_description": "Parte de la rutina"
+        },
+        {
+          "field": "Ingeniería",
+          "usage_description": "Parte de la rutina"
+        },
+        {
+          "field": "Transporte",
+          "usage_description": "Parte de la rutina"
+        },
+        {
+          "field": "Comunicaciones",
+          "usage_description": "Parte de la rutina"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar texto JSON a partir del párrafo proporcionado que incluya información relevante sobre 'hotelería', 'milicia' y su uso en programas informáticos, juegos de estrategia y videojuegos.",
+    "output": "[\n    {\n        \"concept\": \"hotelería\",\n        \"usage\": \"se ha usado en gran variedad de programas informáticos\"\n    },\n    {\n        \"concept\": \"milicia\",\n        \"usage\": \"se ha usado en gran variedad de programas informáticos, juegos de estrategia y otros videojuegos\"\n    }\n]"
+  },
+  {
+    "instruction": "Generar un JSON que contenga información sobre la plataforma SIVIUM mencionada en el texto proporcionado.",
+    "output": {
+      "name": "SIVIUM",
+      "yearOfExistence": 2023,
+      "functionality": [
+        "Permite a una persona postular automáticamente a todas las ofertas laborales de diversos portales de trabajo",
+        "Elimina la necesidad de revisar cada oferta laboral manualmente"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre los tipos de inteligencia artificial según Stuart J. Russell y Peter Norvig.",
+    "output": "[\"Los tipos de inteligencia artificial mencionados por Stuart J. Russell y Peter Norvig incluyen:\n\n1. Inteligencia Artificial Clásica (Artificial Intelligence, AI)\n2. Inteligencia Artificial Bayesiana (Bayesian AI)\n3. Inteligencia Artificial Condicionalmente Bayesa (Conditional Bayesian AI)\n4. Inteligencia Artificial Probabilística (Probabilistic AI)\n5. Inteligencia Artificial Estocástica (Stochastic AI)\n6. Inteligencia Artificial de Requisitos de Recursos Limitados (Limited-Runtime AI)\n7. Inteligencia Artificial Condicionalmente Estocástica (Conditional Stochastic AI)\n8. Inteligencia Artificial Distribuida (Distributed AI)\n9. Inteligencia Artificial Aplicada a la Comunicación Natural (Natural Language Processing, NLP)\\n10. Inteligencia Artificial Aplicada a la Visión por Computadora (Computer Vision)\\n11. Inteligencia Artificial Aplicada a la Recolección de Datos y Análisis (Data Mining and Knowledge Discovery)\n\nEstos tipos de inteligencia artificial se diferencian en términos de cómo manejan información, como procesan datos y cómo interactúan con el mundo real.\"]"
+  },
+  {
+    "instruction": "Crear un JSON que represente una explicación sobre los sistemas que emulan el pensamiento humano.",
+    "output": "{\"text\": \"• Los sistemas que emulan el pensamiento humano: Estos modelos intentan replicar procesos cognitivos; por ejemplo, mediante las redes neuronales artificiales. Se centran en la automatización de actividades vinculadas a la inteligencia, tales como la toma de decisiones, resolución de problemas y aprendizaje.\"}"
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado sobre sistemas que actúan como humanos.",
+    "output": {
+      "text": "Los sistemas que actúan como humanos: Estos sistemas tratan de actuar como humanos; es decir, imitan el comportamiento humano; por ejemplo, la robótica (el estudio de cómo lograr que los computadores realicen tareas que, por el momento, los humanos hacen mejor)."
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que incluya información sobre sistemas que piensan racionalmente.",
+    "output": {
+      "sistemaRacional": [
+        {
+          "nombre": "Sistemas Expertos",
+          "descripción": "Estos son sistemas diseñados para imitar el pensamiento racional humano, realizando cálculos que permiten percibir, razonar y actuar de manera similar a cómo lo hace un ser humano."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre sistemas que actúan racionalmente, incluyendo la referencia al artículo de inteligencia artificial generativa.",
+    "output": {
+      "sistemaRacional": {
+        "descripcion": "Los sistemas que actúan racionalmente: Tratan de emular de forma racional el comportamiento humano; por ejemplo, los agentes inteligentes, que están relacionados con conductas inteligentes en artefactos.",
+        "referencia": "[25]"
+      },
+      "generativaInteligenciaArtificial": {
+        "descripcion": "Referencia al artículo principal de Inteligencia Artificial Generativa",
+        "referencia": ""
+      }
+    }
+  },
+  {
+    "instruction": "Describir la importancia de los prompts en la generación de texto por IA.",
+    "output": "Los prompts juegan un papel crucial en la generación de texto por inteligencia artificial (IA). Son las instrucciones, preguntas o conjuntos de indicaciones que guían a la IA para realizar una tarea específica y proporcionar la respuesta requerida. La calidad del prompt influye significativamente en el resultado final. Un prompt preciso puede asegurar que la IA genere texto relevante y coherente alineado con las expectativas del usuario. Por otro lado, un prompt mal formulado o ambiguo puede llevar a resultados inesperados o incorrectos. Es por eso que es importante tener una comprensión clara de cómo formular prompts efectivos para obtener el mejor resultado en la generación de texto por IA."
+  },
+  {
+    "instruction": "Crea un JSON con instruction y output",
+    "output": {
+      "text": "[27] Los modelos de IA generativa aprenden los patrones y la estructura de sus datos de entrenamiento de entrada, y luego generan nuevos datos que tienen características similares.",
+      "json_representation": "{\"instruction\": \"Crea un JSON con instruction y output\", \"output\": {\"text\": \"[27] Los modelos de IA generativa aprenden los patrones y la estructura de sus datos de entrenamiento de entrada, y luego generan nuevos datos que tienen características similares.\"}}"
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente los sistemas de IA generativa mencionados en el texto proporcionado.",
+    "output": {
+      "ChatGPT": {
+        "description": "Un bot conversacional creado por OpenAI usando sus modelos de lenguaje de gran escala de última generación, como GPT-5 y sus iteraciones de razonamiento avanzado (o1).",
+        "company": "OpenAI"
+      },
+      "Microsoft Copilot": {
+        "description": "Es una variante de ChatGPT creada por Microsoft.",
+        "company": "Microsoft"
+      },
+      "Gemini": {
+        "description": "Un bot conversacional creado por Google usando la familia de modelos multimodales nativos Gemini 2.0.",
+        "company": "Google"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre el aprendizaje automático basado en el texto proporcionado.",
+    "output": {
+      "agente_aprende_con_experiencia": true,
+      "aprendizaje_máquina_datos": true,
+      "hipótesis_mundo": true,
+      "software_resuelve_problemas": true
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada, incluyendo la distinción entre diferentes tipos de modelos en aprendizaje automático.",
+    "output": {
+      "text": "El aprendizaje automático tiene como resultado un modelo para resolver una tarea dada. Entre los modelos se distinguen [4]",
+      "models_distinction": [
+        "[1] Redes neuronales",
+        "[2] Máquinas de vectores de support",
+        "[3] Regresión logística",
+        "[4] Distinción no especificada"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en la frase proporcionada.",
+    "output": {
+      "concept": "Modelos Lógicos",
+      "description": "Transforman y expresan las probabilidades en reglas organizadas en forma de árboles de decisión."
+    }
+  },
+  {
+    "instruction": "Traducir el texto proporcionado al español y crear un JSON con la información resultante.",
+    "output": [
+      {
+        "texto": "Los modelos también pueden clasificarse como modelos de agrupamiento y modelos de gradiente. Los primeros tratan de dividir el espacio de instancias en grupos. Los segundos, como su nombre lo indica, representan un gradiente en el que se puede diferenciar entre cada instancia. Clasificadores geométricos como las máquinas de vectores de apoyo son modelos de gradientes.",
+        "instruction": "Traducir al español y crear un JSON con la información resultante."
+      }
+    ]
+  },
+  {
+    "instruction": "Crear un JSON que describa diferentes tipos de algoritmos de Aprendizaje Automático, agrupados según la salida de los mismos.",
+    "output": "[\n  {\n    \"type\": \"Clasificación\",\n    \"description\": \"Algoritmos que aprenden a clasificar datos en categorías o clases.\"\n  },\n  {\n    \"type\": \"Regresión\",\n    \"description\": \"Algoritmos que aprenden a predecir valores continuos basándose en una serie de características.\"\n  },\n  {\n    \"type\": \"Reconocimiento de patrones\",\n    \"description\": \"Algoritmos que buscan patrones y regularidades en datos para realizar predicciones o tomar decisiones.\"\n  },\n  {\n    \"type\": \"Aprendizaje por refuerzo\",\n    \"description\": \"Algoritmos que aprenden a través de la experiencia, obteniendo recompensas o penalizaciones basándose en su comportamiento.\"\n  }\n]"
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre base de conocimiento del sistema.",
+    "output": {
+      "base_conocimiento_sistema": {
+        "tipo": "etiquetados_anteriores",
+        "aplicacion_potencial": [
+          "problemas_research_biologico",
+          "biologia_computacional",
+          "bioinformatica"
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado.",
+    "output": {
+      "algoritmo": {
+        "formaDeAprender": "Observando el mundo que le rodea",
+        "informacionEntrada": "Retroalimentación del mundo exterior como respuesta a sus acciones",
+        "mejoraPropia": "Base de ensayo-error"
+      }
+    }
+  },
+  {
+    "instruction": "Generar un texto JSON basado en el contexto proporcionado, enfocándose en la función de valor del aprendizaje por refuerzo.",
+    "output": "{\"texto\": \"La función de valor es una herramienta fundamental en el aprendizaje por refuerzo. Se utiliza para medir la expectativa de recompensa futura que un agente inteligente puede obtener al tomar una determinada acción en un estado dado. El objetivo principal del aprendizaje por refuerzo es aprender esta función de valor, con el fin de ayudar al agente a maximizar la suma total de las recompensas recibidas durante su proceso de toma de decisiones.\"}"
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado, que incluya conceptos relacionados con señal de recompensa y políticas de optimización para entender el comportamiento del entorno.",
+    "output": {
+      "reinforcement_learning": true,
+      "policy_optimization": true,
+      "environment_behavior_understanding": true
+    }
+  },
+  {
+    "instruction": "Describir la transcripción proporcionada.",
+    "output": "La transcripción proporcionada se refiere a una descripción similar al aprendizaje supervisado, pero no construye de forma explícita una función. En su lugar, trata de predecir las categorías de los futuros ejemplos basándose en los ejemplos de entrada, sus respectivas categorías y los ejemplos nuevos al sistema."
+  },
+  {
+    "instruction": "Crear un JSON que describa la estructura básica de un árbol de decisión.",
+    "output": {
+      "type": "decision_tree",
+      "nodes": [
+        {
+          "name": "Raíz",
+          "children": []
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar una explicación del análisis por agrupamiento (clustering) en formato de texto breve, basándome en la información proporcionada.",
+    "output": "El análisis por agrupamiento, también conocido como clustering en inglés, implica dividir observaciones en subgrupos o clusters. En este proceso, las observaciones dentro de cada grupo deben ser similares entre sí según ciertos criterios definidos."
+  },
+  {
+    "instruction": "Crear un JSON que incluya información sobre agrupamiento y redes bayesianas.",
+    "output": {
+      "agrupamiento": {
+        "tipo": "método de aprendizaje no supervisado",
+        "popularidad": "técnica muy popular en análisis estadístico de datos"
+      },
+      "redes_bayesianas": {
+        "referencia": "Artículo principal: Red bayesiana"
+      }
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente una estructura de temario para un curso sobre aprendizaje automático, utilizando los temas proporcionados.",
+    "output": {
+      "temario": [
+        {
+          "tema": "Modelado de funciones de densidad de probabilidad condicionadas: clasificación y regresión",
+          "subtemas": []
+        },
+        {
+          "tema": "Redes neuronales artificiales",
+          "subtemas": []
+        }
+      ]
+    }
   }
 ]
