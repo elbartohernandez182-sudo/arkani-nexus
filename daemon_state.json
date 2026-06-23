@@ -1,8 +1,8 @@
 {
-  "ultima_ejecucion": "2026-06-22T00:26:02.325895",
-  "total_digestiones": 0,
-  "total_neuronas_agregadas": 0,
-  "total_entrenamientos": 3,
+  "ultima_ejecucion": "2026-06-22T23:52:29.692863",
+  "total_digestiones": 1,
+  "total_neuronas_agregadas": 2,
+  "total_entrenamientos": 4,
   "archivos_procesados": [
     "/home/arkani/NEXUS/memoria_permanente/20260618_083706_python_decoradores_python_docs__python_decoradores.txt",
     "/home/arkani/NEXUS/memoria_permanente/20260618_083706_python_decoradores_real_python__python_decoradores.txt",
@@ -27,6 +27,7 @@
     "/home/arkani/NEXUS/memoria_permanente/20260618_130321_radiologia_dicom_python_real_python__radiologia_di.txt",
     "/home/arkani/NEXUS/memoria_permanente/20260618_130321_radiologia_dicom_python_python_docs__radiologia_di.txt",
     "/home/arkani/NEXUS/memoria_permanente/20260618_124338_python_decoradores_avanzados_mojo__lenguaje_de_pro.txt",
-    "/home/arkani/NEXUS/memoria_permanente/20260618_124338_python_decoradores_avanzados_real_python__python_d.txt"
+    "/home/arkani/NEXUS/memoria_permanente/20260618_124338_python_decoradores_avanzados_real_python__python_d.txt",
+    "/home/arkani/NEXUS/memoria_permanente/20260618_124338_python_decoradores_avanzados_python_docs__python_d.txt"
   ]
 }

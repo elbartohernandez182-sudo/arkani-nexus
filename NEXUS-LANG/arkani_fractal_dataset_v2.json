@@ -5159,5 +5159,1839 @@
         }
       ]
     }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre Python basada en el texto proporcionado.",
+    "output": {
+      "language": {
+        "name": "Python",
+        "description": "Python es un lenguaje de programación interpretado, de alto nivel y orientado a objetos. Es conocido por su sintaxis clara y legible, lo que lo hace popular para la enseñanza de programación.",
+        "logo": {
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Python_logo_and_name.svg/1200px-Python_logo_and_name.svg.png"
+        }
+      },
+      "wikipedia_link": "La Wikipedia es una enciclopedia en línea que puede proporcionar más información detallada sobre Python."
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada sobre Python.",
+    "output": {
+      "lenguajeDeProgramacion": "Python",
+      "tiposPopulares": [
+        "Java",
+        "JavaScript",
+        "Go",
+        "C#"
+      ],
+      "categoria": "Lenguaje de propósito general",
+      "usos": [
+        {
+          "tipo": "scripts simples",
+          "nivel": "bajo"
+        },
+        {
+          "tipo": "servidores web grandes y continuo 24x7",
+          "nivel": "alto"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON con la información proporcionada en formato JSON.",
+    "output": {
+      "textos_de_programacion": [
+        {
+          "tipo": "interfaces_graficas",
+          "explicacion": "Utilizado para programación de interfaces gráficas y bases de datos."
+        },
+        {
+          "tipo": "programacion_web",
+          "explicacion": "Programación web tanto en el cliente como en el servidor (véase Django o Flask)."
+        },
+        {
+          "tipo": "testing_aplicaciones",
+          "explicacion": "\"Testing\" de aplicaciones."
+        }
+      ],
+      "aplicaciones_supercomputadoras": [
+        {
+          "explicacion": "Amplia aceptación por científicos que hacen aplicaciones para supercomputadores más rápidos del mundo."
+        }
+      ],
+      "programacion_iniciantes": [
+        {
+          "explicacion": "Amplia aceptación por niños que recién están comenzando a programar."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON basado en el texto proporcionado que contenga información relevante sobre la historia de Python.",
+    "output": {
+      "year_starting": 1989,
+      "month_starting": 12,
+      "day_starting": null,
+      "name_author": "Guido van Rossum",
+      "organization": "(CWI)",
+      "location_organization": "Holandés de carácter oficial",
+      "current_location_organization": "Alberga la oficina central del W3C",
+      "project_description": "decidió empezar el proyecto como un pasatiempo"
+    }
+  },
+  {
+    "instruction": "Crear un JSON con la información proporcionada, enfocándome en generar una estructura JSON que contenga los datos relevantes.",
+    "output": {
+      "text": "dándole continuidad al lenguaje de programación ABC del que había formado parte del equipo de desarrollo en el CWI,[3] dicho lenguaje se enfocaba en ser fácil de usar y aprender manteniendo potencia en su desempeño pero el hardware disponible en la época de su creación hacía difícil su uso y el proyecto no trascendió como se esperaba. Van Rossum es por tanto el autor principal de Python y"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre el Benevolent Dictator for Life (BDFL) en Python, incluyendo su nombre de origen ('Python'), la afición del creador por el grupo Monty Python, y la originalidad del lenguaje de programación para el sistema operativo Amoeba.",
+    "output": {
+      "nameOrigin": "Python",
+      "creatorFandom": "Monty Python",
+      "originalPlatform": "Amoeba"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que muestre cómo un código en ABC podría ser traducido a Python.",
+    "output": {
+      "abc_code": "def palabras_en_documento(archivo):\n    return [palabra for linea in archivo.readlines() for palabra in linea.split()]",
+      "python_code": "def palabras_en_documento(archivo):\n    return [palabra for linea in archivo.readlines() if linea.strip() and (palabra := linea.strip())]"
+    }
+  },
+  {
+    "instruction": "Recuperar las palabras de un documento en Python",
+    "output": {
+      "collection": []
+    }
+  },
+  {
+    "instruction": "Transform the provided Python function `words` into a JavaScript function that performs the same operation and returns a Set of unique words from a given document.",
+    "output": "{\n  \"function\": \"{\\n    \\\"words\\\": \\\"function words(document) {\\n        let collection = new Set();\\n        for (let line of document) {\\n            for (let word of line.split()) {\\n                if (!collection.has(word)) {\\n                    collection.add(word);\\n                }\\n            }\\n        }\\n        return collection;\\n    }\\\"\\n}\",\n  \"transformed_function\": "
+  },
+  {
+    "instruction": "Comparar y contrastar cómo se manejan conjuntos en ABC (un lenguaje que no especifica) y Python.",
+    "output": "{\"ABC\": \"En ABC no existe propiamente el tipo de dato conjunto, sino algo como multiconjuntos. Si se inserta un elemento dos veces, aparecerá dos veces en esa colección.\", \"Python\": \"En Python, la operación add sobre los conjuntos no hace nada si el elemento ya está en el conjunto. Esto permite observar similitudes entre ambos códigos.\"}"
+  },
+  {
+    "instruction": "Generar una descripción del lenguaje ABC en comparación con Python, enfocándose en las diferencias de sintaxis como uso de paréntesis en ciclo for, operador in, y distinción entre procedimiento y función.",
+    "output": {
+      "Lenguaje ABC": {
+        "Ciclo For": "No utiliza paréntesis alrededor del cuerpo del ciclo",
+        "Operador In": "Utiliza el operador 'IN' para verificar pertenencia en una colección",
+        "Distinción entre Procedimiento y Función": "Las palabras clave son mayúsculas, distinguiendo entre procedimientos y funciones"
+      },
+      "Python": {
+        "Ciclo For": "Utiliza paréntesis alrededor del cuerpo del ciclo",
+        "Operador In": "Utiliza el operador 'in' para verificar pertenencia en una colección",
+        "Distinción entre Procedimiento y Función": "Las palabras clave no están escritas en mayúsculas, sin distinción entre procedimientos y funciones"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre cómo la sintaxis de Python copia a C, incluyendo ejemplos de palabras clave y reglas para identificadores.",
+    "output": {
+      "copiedSyntaxes": [
+        {
+          "language": "C",
+          "keywords": [
+            "if",
+            "else",
+            "while",
+            "for"
+          ]
+        },
+        {
+          "language": "Python",
+          "keywords": [
+            "if",
+            "else",
+            "while",
+            "for"
+          ]
+        }
+      ],
+      "identifierRules": {
+        "C": "Las reglas para nombrar identificadores en C son las mismas que en Python.",
+        "Python": "Las reglas para nombrar identificadores en Python son las mismas que en C."
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con los datos proporcionados en una estructura adecuada.",
+    "output": {
+      "generadores_e_iteradores": [
+        "Los generadores e iteradores fueron inspirados por Icon, y fusionados con las ideas de la programación funcional en un modelo unificado."
+      ],
+      "modelos_unificados": [
+        "Modula-3 fue la base del modelo de excepciones y del sistema de módulos."
+      ],
+      "contribuciones_perl": [
+        "Perl contribuyó en las expresiones regulares, usadas para la manipulación de 'string'."
+      ],
+      "biblioteca_estandar_python": [
+        "Las adiciones a biblioteca estándar de Python standard library y algunas opciones"
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON a partir de la información proporcionada sobre las influencias sintácticas de Java en Sintáctica.",
+    "output": {
+      "sintaticas": [
+        {
+          "ejemplo": "[8]",
+          "informacion_adicional": "el paquete de logging introducido en la versión 2.3"
+        },
+        {
+          "ejemplo": "[10]",
+          "informacion_adicional": "el paquete threading para aplicaciones multihilos introducido en la versión 2.3"
+        },
+        {
+          "ejemplo": "[12]",
+          "informacion_adicional": "la sintaxis del decorador que usa @ incluida en la versión 2.4"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la cronología proporcionada, incluyendo las versiones obsoletas y sus fechas de publicación.",
+    "output": [
+      {
+        "version": "Python 0.9.0",
+        "status": "obsoleta",
+        "date": "20 de febrero de 1991"
+      },
+      {
+        "version": "Python 0.9.1",
+        "status": "obsoleta",
+        "date": "febrero de 1991"
+      }
+    ]
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre el lanzamiento del código por parte de van Rossum en alt.sources.",
+    "output": {
+      "date": "20 de febrero de 1991",
+      "version": "0.9.0",
+      "features": [
+        "clases con herencia",
+        "manejo de excepciones",
+        "funciones",
+        "tipos modulares como: str, list, dict"
+      ],
+      "modules_system": "sistema de módulos adoptado de Modula-3"
+    }
+  },
+  {
+    "instruction": "Generar un JSON que contenga información sobre los puntos mencionados en el texto proporcionado, estructurándolo de manera coherente.",
+    "output": "[1] El módulo es considerado una de las mayores unidades de programación en Python. [2] No hay información específica proporcionada para el punto [2]. [3] El modelo de excepciones en Python se asemeja al de Modula-3, con la inclusión de una cláusula else. En 1994, se formó comp.lang.python, que marca un hito en el crecimiento del grupo de usuarios de Python. La versión 1.0 no está mencionada específicamente."
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre Python 1.0.",
+    "output": {
+      "version": "1.0",
+      "release_date": "enero de 1994",
+      "important_features": [
+        "herramientas de programación funcional lambda",
+        "reduce",
+        "filter",
+        "map"
+      ],
+      "source_of_features": "un hacker de Lisp que las extrañaba y envió parches que funcionaban"
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que contenga información relevante sobre la historia de Python.",
+    "output": {
+      "historiaDePython": [
+        {
+          "version": "1.2",
+          "fecha": "1995",
+          "origen": "CWI (Centrum Wiskunde & Informatica)",
+          "trabajadorActual": "Van Rossum",
+          "nuevoLugarTrabajo": "Corporation for National Research Initiatives (CNRI) en Reston, Virginia",
+          "lenguajeNuevaVersion": "Python"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre las características nuevas en Python versión 1.4.",
+    "output": {
+      "version": "1.4",
+      "new_features": [
+        {
+          "name": "Argumentos por nombre inspirados por Modula-3 (similar a Common Lisp)",
+          "description": "Nuevo tipo de argumentos que permite especificar parámetros de función mediante su nombre en lugar del orden de los parámetros."
+        },
+        {
+          "name": "Soporte 'built-in' para números complejos",
+          "description": "Python incorporó soporte nativo para trabajar con números complejos, permitiendo operaciones y manipulación directa sin necesidad de importar módulos adicionales."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un fragmento de texto basado en la información proporcionada, enfocándose en explicar el papel crucial que Python jugó en el proceso de hacer la programación más accesible.",
+    "output": "Durante su estancia en CNRI, Van Rossum lanzó la iniciativa Computer Programming for Everybody (CP4E), con el fin de hacer la programación más accesible a más gente. Este objetivo se logró mediante un nivel de 'alfabetización' básico en lenguajes de programación, similar a las habilidades básicas en inglés y matemáticas necesarias por muchos empleadores. Python tuvo un papel crucial en este proceso: debido a su simplicidad y facilidad de aprendizaje, permitió que más personas se iniciaran en el mundo de la programación sin verse limitadas por complejidades innecesarias."
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que incluya información relevante sobre el proyecto CP4E, su patrocinador y actual estado.",
+    "output": {
+      "patrocinador": "DARPA",
+      "estado_actual": "Inactivo",
+      "características": [
+        {
+          "nombre": "Facilidad de Aprendizaje",
+          "descripción": "No muy arcano en su sintaxis y semántica"
+        },
+        {
+          "objetivo": "Atracción a los no-programadores",
+          "actualización": "Ya no una preocupación activa"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un JSON basado en el texto proporcionado, enfocándote únicamente en la información relevante para completar el JSON.",
+    "output": {
+      "texto": [
+        "En el año 2000, el equipo principal de desarrolladores de Python se cambió a BeOpen.com para formar el equipo BeOpen PythonLabs. CNRI pidió que la versión 1.6 fuera publicada hasta el punto de desarrollo en que el equipo abandonó CNRI. Consecuentemente su agenda de lanzamiento para la versión 1.6 y la versión 2.0 tenían una significativa cantidad de solapamiento.[19] Python 2.0 fue el primer y"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que muestre la información relevante del texto.",
+    "output": {
+      "textoOriginal": "único lanzamiento de BeOpen.com. Después que Python 2.0 fuera publicado por BeOpen.com, Guido van Rossum y los otros desarrolladores de PythonLabs se unieron a Digital Creations.",
+      "informacionRelevante": [
+        {
+          "nombre": "BeOpen.com",
+          "accion": "lanzó"
+        },
+        {
+          "fecha": "después que Python 2.0 fue publicado por BeOpen.com",
+          "evento": "Guido van Rossum y los otros desarrolladores de PythonLabs se unieron a Digital Creations"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un texto basado en el contenido proporcionado sobre la nueva licencia de Python 1.6, incluyendo detalles sobre su contenido específico y las críticas recibidas por parte de la Free Software Foundation (FSF). El texto debe estar estructurado como un párrafo coherente.",
+    "output": "La publicación de Python 1.6 introdujo una nueva licencia CNRI que era significativamente más extensa que la antigua licencia CWI utilizada en las ediciones anteriores. Esta nueva licencia incorporaba una cláusula que establecía que la norma estaba sujeta a las leyes del estado de Virginia. La Free Software Foundation (FSF) criticó esta cláusula, argumentando que era incompatible con el GNU GPL. Como resultado, se generaron controversias sobre cómo interpretar y aplicar esta nueva licencia en el marco de la comunidad de software libre."
+  },
+  {
+    "instruction": "Crear un texto JSON que describa la información proporcionada sobre BeOpen, CNRI, FSF, Python, su nueva licencia de software libre compatible con GPL y Python 1.6.1.",
+    "output": {
+      "organizations": [
+        {
+          "name": "BeOpen",
+          "role": "Participante en el acuerdo"
+        },
+        {
+          "name": "CNRI",
+          "role": "Participante en el acuerdo"
+        },
+        {
+          "name": "FSF",
+          "role": "Participante en el acuerdo"
+        }
+      ],
+      "software": {
+        "name": "Python",
+        "version_changes": [
+          {
+            "number": 1.6,
+            "description": "Básicamente el mismo que Python 1.6, con unos arreglos de bugs"
+          },
+          {
+            "number": 2.0,
+            "description": "Nueva versión con una nueva licencia compatible con GPL"
+          }
+        ],
+        "licensing_change": {
+          "old_license": null,
+          "new_license": "GPL"
+        }
+      },
+      "version_1_6_1_details": {
+        "compatible_with_gpl": true
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre la importación de una característica del lenguaje funcional Haskell por parte de Python 2.0, incluyendo detalles sobre la sintaxis similar a Haskell en Python y la diferencia en preferencia de caracteres de puntuación.",
+    "output": {
+      "feature_imported": "Generación de listas",
+      "similar_syntax_in_python": true,
+      "syntax_difference_haskell": "La preferencia de los caracteres de puntuación en Haskell es diferente a la de Python",
+      "python_keyword_preference": "Python tiene una preferencia por las palabras claves"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga la información proporcionada sobre Python 2.1.",
+    "output": {
+      "base_versions": [
+        "Python 1.6.1",
+        "Python 2.0"
+      ],
+      "license_name": "Python Software Foundation License",
+      "founder_year": 2001,
+      "organization_type": "sin ánimo de lucro"
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada en el texto.",
+    "output": {
+      "texto": [
+        "modelo la Apache Software Foundation.[20]",
+        "Este lanzamiento incluyó un cambio en el lenguaje para soportar ámbitos anidados (más conocido en programación como \"nested scopes\") como lo soportan otros lenguajes de \"static scoping\" (del cual Scheme es el originador).[21] (Esta característica fue deshabilitada por defecto, y no requerida, hasta Python 2.2.)"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON con la información proporcionada sobre las innovaciones en Python 2.2 y Python 3.0.",
+    "output": {
+      "Python_2_2": {
+        "innovation": [
+          "Unificación de los tipos en Python (tipos escritos en C) y clases (tipos escritos en Python) dentro de una jerarquía",
+          "Adición del modelo orientado a objetos puro y consistente"
+        ],
+        "references": [
+          "[22]"
+        ]
+      },
+      "Python_3_0": {
+        "innovation": [
+          "Agregación de los generadores, inspirados por el lenguaje Icon"
+        ],
+        "references": [
+          "[23]"
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre Python 3.0 basado en el texto proporcionado.",
+    "output": {
+      "version": "Python 3.0",
+      "alternativeNames": [
+        "Python 3000",
+        "Py3K"
+      ],
+      "designChanges": [
+        {
+          "description": "rectificar ciertas fallas fundamentales en el diseño del lenguaje",
+          "details": "cambios requeridos no podían ser implementados mientras se mantuviera compatibilidad hacia atrás con la serie 2.x"
+        },
+        {
+          "description": "principio que guía Python 3",
+          "details": "reducir la duplicación de características eliminando viejas formas de hacer las cosas (reduce)"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre Python 3.0.",
+    "output": {
+      "version": "Python 3.0",
+      "philosophy": "mantener la misma filosofía que en las versiones anteriores de Python",
+      "changes_made": [
+        "eliminar constructores duplicados",
+        "eliminar módulos redundantes"
+      ],
+      "motivation": "para tener un y preferiblemente solo un modo obvio de hacer algo"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la cronología y compatibilidad de Python 3.0, enfocándose en cómo se mantienen las opciones de paradigmas de programación y cómo los detalles han evolucionado.",
+    "output": "[\"Cronología y compatibilidad:\n\nPython 3.0 mantiene como un lenguaje de programación multiparadigma, permitiendo a los programadores elegir entre orientación a objetos, programación estructurada, programación funcional y otros paradigmas.\n\nEn Python 2.x, estos detalles eran más ocultos o menos claros. En cambio, en Python 3.0, los detalles han sido diseñados para ser más evidentes y fáciles de entender.\"]"
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que contenga información relevante sobre la versión de Python 2.6.",
+    "output": {
+      "Python_3_0": {
+        "fecha_lanzamiento": "3 de diciembre de 2008",
+        "coexistencia": "planeada para coexistir con las series Python 2.x y Python 3.x, existiendo principalmente por compatibilidad"
+      },
+      "Python_2_x_y_Python_3_x": {
+        "plan_de_coexistencia": "lanzadas en paralelo",
+        "compatibilidad": "mayormente por compatibilidad",
+        "nuevas_características_importadas": "algunas nuevas características siendo importadas hacia atrás de la serie 3.x"
+      },
+      "Python_2_6": {
+        "relación_con_Python_3_0": "liberado para coincidir con Python 3.0",
+        "nuevas_características": "incluye algunas nuevas características"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un texto que incluya características de una publicación, así como un modo de 'alertas (warnings)' que resalte el uso de características que han sido eliminadas en Python 3.0. Similarmente, explicar cómo Python 2.7 coincide e incluye características de Python 3.1 y fue la última publicación en la serie 2.x; las publicaciones en paralelo terminaron con Python 3.2.",
+    "output": {
+      "text": "La publicación menciona características específicas de Python, junto con alertas (warnings) que resaltan el uso de características eliminadas en Python 3.0. Por ejemplo, Python 2.7 coincide e incluye características de Python 3.1, publicado el 26 de junio de 2009. Python 2.7 fue la última versión en la serie 2.x; las versiones en paralelo terminaron con Python 3.2.",
+      "warnings": [
+        "Las alertas (warnings) resaltan características que han sido eliminadas en Python 3.0, como por ejemplo 'print' sin parentesis."
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa las principales diferencias entre Python 2.x y Python 3.0, incluyendo cambios básicos como el uso del comando print y la transición a Unicode para los textos 'strings'. También mencionar cómo el tipado dinámico de Python puede afectar estas modificaciones.",
+    "output": {
+      "differences": [
+        {
+          "change": "El uso del comando print ha cambiado. En Python 2.x, se usa como una función (print("
+        }
+      ],
+      "strings": "), mientras que en Python 3.0, es una función incorporada y se usa de manera diferente."
+    },
+    "{ \"change\": \"Todos los textos 'strings' ahora deben ser Unicode en Python 3.0.\" },\n            { \"change\": \"El tipado dinámico de Python puede afectar estas modificaciones, ya que el comportamiento de algunas funciones o operadores puede variar entre las versiones\" }\\n            ]\n        }\n    }\n} ": "",
+    "\n": ""
+  },
+  {
+    "instruction": "Crear un JSON con la información proporcionada.",
+    "output": {
+      "text": "para cambiar la semántica de ciertos métodos de los diccionarios, por ejemplo, hacen que convertir perfectamente de Python 2.x a Python 3.0 sea muy difícil de manera automática. Sin embargo, una herramienta llamada \"2to3\" puede hacer la mayoría del trabajo de \"traducción\", señalando áreas que son confusas para ella usando comentarios o alertas. Incluso en la etapa \"alpha\", 2to3 se mostraba"
+    }
+  },
+  {
+    "instruction": "Generar un fragmento de código JSON que muestra la documentación de Python sobre decoradores avanzados.",
+    "output": "[{'text': 'Search — Python 3.14.6 documentation', 'href': 'https://docs.python.org/3/search.html?q=python%20decoradores%20avanzados', 'score': 1, 'context': 'FUENTE: https://docs.python.org/3/search.html?q=python%20decoradores%20avanzados\nTEMA: python decoradores avanzados\nFECHA: 2026-06-18T12:43:38.635382'}]"
+  },
+  {
+    "instruction": "Generar un fragmento de texto JSON sobre Python decoradores basado en la información proporcionada, sin incluir el link a Wikipedia.",
+    "output": "[\n  {\n    \"tema\": \"python decoradores\",\n    \"fecha\": \"2026-06-18T08:37:10.765826\",\n    \"contenido\": \"Python ofrece una forma de extender el comportamiento de funciones y métodos utilizando un concepto llamado 'decorador'. Los decoradores son funciones que toman otra función como argumento, añaden funcionalidad adicional a esa función sin modificar su código original. Se utilizan comúnmente para simplificar la escritura de código, mejorar la legibilidad y facilitar el desarrollo de aplicaciones.\n\nLos decoradores se definen con una sintaxis especial que permite anidar funciones dentro de otras. Por ejemplo:\n\n\\ndef my_decorator(func):\n    def wrapper():\n        print('Decorador activado')\n        func()\n        print('Decorador finalizado')\n    return wrapper\n\n@my_decorator\ndef decorated_function():\n    print('Función decorada')\n\nDecorated_function() // Imprime: Decorador activado\nFunción decorada\nDecorador finalizado'\n\nLos decoradores son una herramienta poderosa en Python para mejorar la modularidad y la legibilidad de los programas.\"\n  }\n]"
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado, que incluya información relevante sobre lenguajes de programación.",
+    "output": {
+      "lenguaje_programacion": [
+        {
+          "nombre": "Python",
+          "referencias": [
+            {
+              "tipo": "Grupo de humoristas",
+              "referencia": "Monty Python"
+            },
+            {
+              "tipo": "Revolvers",
+              "referencia": "Colt Python"
+            },
+            {
+              "tipo": "Serpientes",
+              "referencia": "Pythonidae"
+            },
+            {
+              "tipo": "Otros usos del término",
+              "referencia": "Pitón"
+            },
+            {
+              "tipo": "Archivos de Python",
+              "referencias": [
+                ".py",
+                ".pyc",
+                ".pyd",
+                ".pyo",
+                ".pyw"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON a partir del texto proporcionado, manteniendo la estructura de datos más cercana al original.",
+    "output": "{\n  \"última_versión\": {\n    \"wt\": \"3.14.3<ref>{{Cita web |url=https://docs.python.org/3.14/whatsnew/changelog.html |título=Changelog - Python Documentation |fechaacceso=9 de febrero de 2026|editorial=python.org}}</ref>\"\n  },\n  \"última_versión_beta\": {\n    \"wt\": \"3.15.0a6<ref>{{Cita web\n"
+  },
+  {
+    "instruction": "Crear un JSON basado en la información proporcionada, creando campos para 'fecha_última_versión_beta', 'tipo_dato' y 'implementaciones'.",
+    "output": {
+      "fecha_última_versión_beta": "{{fecha de lanzamiento|11|2|2026}}",
+      "tipo_dato": "[[Duck typing]], [[Tipado dinámico]], [[Strong and weak typing|fuerte]];",
+      "implementaciones": "[[CPython]], [[IronPython]]"
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada sobre lenguajes de programación.",
+    "output": {
+      "linguagens_de_programacao": [
+        "Jython",
+        "Python for S60",
+        "PyPy",
+        "ActivePython",
+        "Unladen Swallow"
+      ],
+      "dialectos": {
+        "wt": [
+          "Stackless Python",
+          "RPython"
+        ]
+      },
+      "influido_por": {
+        "wt": [
+          "ABC (lenguaje de programación|ABC)",
+          "ALGOL 68",
+          "C (lenguaje de programação|C)",
+          "Haskell",
+          "Icon",
+          "Lisp",
+          "Modula-3",
+          "Perl",
+          "Smalltalk",
+          "Java (lenguaje de programación|Java)"
+        ]
+      },
+      "ha_influido": [
+        "Boo (lenguaje de"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga una lista de lenguajes de programación.",
+    "output": "[\n    \"programación\",\n    \"Boo\",\n    \"Cobra\",\n    \"D (lenguaje de programación)\" => \"D\",\n    \"Falcon (lenguaje de programación)\" => \"Falcon\",\n    \"Genie (lenguaje de programación)\" => \"Genie\",\n    \"Groovy (lenguaje de programación)\" => \"Groovy\",\n    \"Ruby\",\n    \"JavaScript\",\n    \"Cython\",\n    \"Go (lenguaje de programación)\" => \"Go\"\n]\n"
+  },
+  {
+    "instruction": "Crear un JSON a partir del texto proporcionado",
+    "output": "{\"programacion\":{\"wt\":\"Programación\"},\"sistema_operativo\":{\"wt\":\"Multiplataforma\"},\"sitio_web\":{\"wt\":\"https://www.python.org/ Sitio web oficial\"},\"licencia\":{\"wt\":\"Python Software Foundation License\"},\"i\":0}"
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada.",
+    "output": {
+      "operativo": {
+        "multiplataformaLicencia": [
+          "Python Software Foundation License"
+        ],
+        "__mediawiki_edit_data__": "[editar datos en Wikidata]"
+      }
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que describa los detalles del lenguaje Python proporcionados en el texto.",
+    "output": {
+      "lenguaje": "Python",
+      "nivelDeProgramacion": "alto nivel",
+      "tipoDeLenguaje": "interpretado",
+      "filosofiaCódigo": "legibilidad",
+      "paradigmasMultiples": [
+        "orientación a objetos",
+        "programación imperativa",
+        "menor medida de programación funcional"
+      ],
+      "tiposDeEjecución": [
+        "interpretado",
+        "dinámico"
+      ],
+      "plataformasMultiplataforma": true
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre Python, incluyendo su licencia, clasificación como lenguaje de programación popular y diferencia histórica en términos de popularidad.",
+    "output": {
+      "language": "Python",
+      "license": "Python Software Foundation License",
+      "popularity_classification": {
+        "current_position": "El más popular",
+        "historical_difference": "Más de 15 puntos porcentuales"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre Python y su creador Guido van Rossum.",
+    "output": {
+      "lenguaje_programacion": {
+        "nombre": "Python",
+        "creador": "Guido van Rossum",
+        "fecha_creacion": "Final de los años ochenta",
+        "ubicacion_creo": "Stichting Mathematisch Centrum (CWI), Países Bajos",
+        "inspiracion": "Lenguaje de programación ABC",
+        "características": {
+          "excepciones": true,
+          "interacción_operativo": true
+        }
+      },
+      "informacion_adicional": [
+        "Python fue creado como un sucesor del lenguaje de programación ABC.",
+        "Python puede manejar excepciones e interactuar con el sistema operativo Amoeba."
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado, que incluya información relevante sobre el origen del nombre de un lenguaje.",
+    "output": {
+      "language_name_origin": "provino de la afición por los humoristas británicos Monty Python",
+      "source_of_interest": "El creador del lenguaje tenía una pasión por Monty Python"
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre Guido van Rossum y Benevolent Dictator for Life (BDFL).",
+    "output": {
+      "name": "Guido van Rossum",
+      "title": "Benevolent Dictator for Life (BDFL)",
+      "status": "Retirado sin sucesor"
+    }
+  },
+  {
+    "instruction": "Generar una respuesta basada en el texto proporcionado, relacionado con la frase mencionada por Guido van Rossum.",
+    "output": "{\"response\": \"El texto que se ha proporcionado parece referirse a las posibles formas de gobierno que podrían adoptarse si alguien decide crear algo. Guido van Rossum, conocido como el creador de Siri y Hololens, podría estar haciendo referencia a diferentes sistemas políticos posibles. Sin embargo, la frase no es atribuida directamente a él en este texto. No se proporciona una respuesta específica basada en esta frase. La respuesta generada aquí está centrada en cómo interpretar y responder al contenido del texto dado.\"}"
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre Python 0.9.0.",
+    "output": {
+      "datePublished": "20 de febrero de 1991",
+      "versionNumber": "0.9.0",
+      "features": [
+        {
+          "featureType": "Herencia",
+          "status": "Presente"
+        },
+        {
+          "featureType": "Manejo de excepciones",
+          "status": "Presente"
+        },
+        {
+          "featureType": "Funciones",
+          "status": "Presente"
+        },
+        {
+          "featureType": "Tipos modulares",
+          "status": "Presente"
+        }
+      ],
+      "modulesSystem": "Sistema de módulos adoptado de Modula-3",
+      "developerDescription": "van Rossum describe el sistema"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre los puntos mencionados en el texto proporcionado.",
+    "output": {
+      "módulo": {
+        "descripción": "Una de las mayores unidades de programación de Python",
+        "fuente": "[5]"
+      },
+      "modelo de excepciones": {
+        "característica similar a": "Modula-3",
+        "añadido": "una cláusula else"
+      },
+      "comp.lang.python": {
+        "fecha de formación": 1994,
+        "significado": "Marcando un hito en el crecimiento del grupo de usuarios de Python"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre Python.",
+    "output": {
+      "version_1_0": {
+        "date": "enero de 1994",
+        "features": [
+          "lambda",
+          "reduce",
+          "filter",
+          "map"
+        ]
+      },
+      "source_of_features": "Amrit Perm, un hacker informático de Lisp que las implementó porque extrañaba estas características."
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que contenga información relevante sobre Python.",
+    "output": {
+      "last_cwi_release": {
+        "version": "Python 1.2",
+        "date": "1995"
+      },
+      "van_Rossum_work_continuation": {
+        "location": "Corporation for National Research Initiatives (CNRI)",
+        "city": "Reston",
+        "state": "Virginia",
+        "activities": [
+          "continuó su trabajo en Python"
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Generar texto basado en el contexto proporcionado sobre Python.",
+    "output": "su orientación hacia una sintaxis limpia, ya era idóneo, y las metas de CP4E presentaban similitudes con su predecesor, ABC. El proyecto fue patrocinado por DARPA.[13] Para el año 2007, el proyecto CP4E se encontraba inactivo;[14]; a pesar de ello, Python continúa intentando ser fácil de aprender y no muy arcano en su sintaxis y semántica, con el objetivo de ser entendible incluso para aquellos que no tienen una base sólida en programación."
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado, enfocándome principalmente en la información relevante sobre Python 1.6 y 2.0.",
+    "output": {
+      "python_1_6": {
+        "status": "Publicada",
+        "development_team": "CNRI"
+      },
+      "python_2_0": {
+        "status": "Lanzamiento único",
+        "development_team": "Desconocido (abandonó CNRI)"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en la frase proporcionada, donde la información relevante sea extraída y estructurada.",
+    "output": {
+      "dateOfRelease": "Python 2.0",
+      "publisher": "BeOpen.com",
+      "developersJoinedFrom": "Guido van Rossum y los otros desarrolladores de PythonLabs",
+      "newCompany": "Digital Creations"
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre la introducción de listas por comprensión en Python 2.0, incluyendo que tomó una característica del lenguaje funcional Haskell y mencionando que Python prefirió palabras claves alfabéticas en su sintaxis.",
+    "output": {
+      "caracteristica_introducida": "listas por comprensión",
+      "fuente_caracteristica": "Haskell (lenguaje funcional)",
+      "diferencia_sintaxis": "Python prefirió palabras claves alfabéticas en su sintaxis, mientras que Haskell prefería caracteres de puntuación",
+      "nuevas_funcionalidades": [
+        "sistema de recolección de basura"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que incluya información relevante sobre la licencia Python y su relación con el estado de Virginia.",
+    "output": {
+      "licencia_python": {
+        "nombre": "Python License",
+        "restricciones_legales": [
+          "Establece que la licencia está gobernada por el estado de Virginia"
+        ]
+      },
+      "contexto_general": "Posterior a un doble lanzamiento y tras la partida de Rossum del CNRI para trabajar con desarrolladores de software comercial, se hizo evidente que usar Python junto con software bajo GNU GPL era muy deseable."
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga la información proporcionada sobre Python, incluyendo detalles sobre su licencia y premios.",
+    "output": {
+      "python_license_info": {
+        "initial_incompatibility_with_GPL": "Inicialmente, las versiones de los abogados de Free Software Foundation (FSF) eran incompatibles con la GPL. Esto cambió para las versiones 1.61 y 2.1.",
+        "CNRI_and_FSF_compatibility": "Para estas versiones, CNRI y FSF hicieron compatibles la licencia de Python con la GPL, renombrándola como Python Software Foundation License (PSFL).",
+        "year_of_renaming": "Este cambio se produjo en el año 2001.",
+        "van_Rossum_award": "En ese mismo año, van Rossum fue premiado con el FSF Award for the Advancement of Free Software."
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre la transición de Python desde versiones anteriores hasta su gestión por la Python Software Foundation (PSF). Incluirá detalles sobre la implementación del alcance de variables más parecida a las reglas.",
+    "output": {
+      "version_derived_from": [
+        "1.6.1",
+        "2.0"
+      ],
+      "date_of_foundation_PSF": 2001,
+      "model_used_by_PSF": "Apache Software Foundation",
+      "variable_scope_implementations": [
+        "más parecida a las reglas"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un texto sobre la innovación en Python desde su versión 2.2 hasta ahora, enfocándose en las características mencionadas: tipos de datos unificados (escritos en C y en Python), clases dentro de una jerarquía, y los generadores.",
+    "output": "[Texto generado basado en la instruction]"
+  },
+  {
+    "instruction": "Generar un objeto JSON a partir del texto proporcionado, que contenga información relevante sobre las adiciones a la biblioteca estándar de Python.",
+    "output": {
+      "adicionales_a_la_biblioteca_estandar_de_python": [
+        {
+          "nombre_paquete": "logging",
+          "version_introduccion": "2.3",
+          "fuente_influencia": "log4j"
+        },
+        {
+          "nombre_paquete": "threading",
+          "version_introduccion": null,
+          "fuente_influencia": "Java"
+        },
+        {
+          "nombre_paquete": "SAX",
+          "version_introduccion": "2.0"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre la descontinuidad de Python 2.7 y su sustitución por Python 3.6.x.",
+    "output": {
+      "python_2_descontinuado": true,
+      "fecha_descontinuacion": "1 de enero de 2020",
+      "soporte_ramas_python": [
+        "Python 3.6.x"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre la evolución de Python 3.x, enfocándote en la entrada/salida asíncrona introducida con Python 3.5 a través de la biblioteca asyncio.",
+    "output": {
+      "version": "Python 3.5",
+      "feature": "Entrada/Salida Asíncrona",
+      "library": "asyncio",
+      "description": "Orientada a aplicaciones que requieren alto rendimiento de código concurrente, como servidores web, bibliotecas de conexión de bases de datos y colas de tareas distribuidas."
+    }
+  },
+  {
+    "instruction": "Generar un documento JSON que describa las características destacadas de la versión reciente de Python 3.x, específicamente Python 3.6, incluyendo una sección sobre f-strings.",
+    "output": "[{\"version\": \"Python 3.6\", \"features\": [{\"feature\": \"f-strings\", \"description\": \"Introducción de una nueva forma de formatear cadenas utilizando una sintaxis más sencilla y legible.\"}]}]"
+  },
+  {
+    "instruction": "Crear un JSON que represente los cambios mencionados en el texto proporcionado.",
+    "output": {
+      "guiones_bajos_en_literales_numericos": {
+        "descripcion": "Permite mejorar la legibilidad de los números grandes al permitir el uso de guiones bajos como separadores.",
+        "ejemplo": "1_000_000"
+      },
+      "anotaciones_de_variables": {
+        "descripcion": "Se añadió una sintaxis estándar para las anotaciones de tipo en variables.",
+        "ejemplo": "int x = 5;"
+      },
+      "generadores_y_comprensiones_asincronos": {
+        "descripcion": "Facilitan la escritura de código asíncrono más claro y eficiente.",
+        "ejemplo": "async function* gen() { yield 1; yield 2; }"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre las actualizaciones de Python 3.7[26].",
+    "output": {
+      "version": "Python 3.7[26]",
+      "features": [
+        {
+          "name": "dataclasses",
+          "description": "Proporciona un decorador y funciones para crear clases que solo contienen datos, reduciendo el código repetitivo."
+        },
+        {
+          "name": "contextvars",
+          "description": "Permite manejar variables de contexto, útiles en programación asíncrona."
+        },
+        {
+          "name": "nuevas funciones en asyncio",
+          "description": "Mejoras significativas en el módulo asyncio, incluyendo nuevas funciones y optimizaciones."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que muestre los cambios en Python 3.8 relacionados con el operador de asignación (:=) y los parámetros posicionales-only.",
+    "output": {
+      "operador_de_asignacion": {
+        "descripcion": "Operador morsa",
+        "funcion": "Permite asignar valores a variables como parte de una expresión"
+      },
+      "parámetros_posicionales_only": {
+        "descripcion": "Permite especificar que ciertos parámetros deben ser pasados solo por posición, no por nombre"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que exprese la información proporcionada sobre los cambios en Python desde Python 3.9 hasta Python 3.9 (28)",
+    "output": "{\"Módulo importlib.metadata\": \"Proporciona una forma de acceder a la metadata de los paquetes instalados.\", \"Operadores de unión y actualización en diccionarios\": \"Se introdujeron los operadores | y |= para unir y actualizar diccionarios de manera más intuitiva.\"}"
+  },
+  {
+    "instruction": "Crear un JSON con instruction y output",
+    "output": {
+      "• Soporte para anotaciones de tipo genéricas en las colecciones estándar: Simplifica la especificación de tipos en estructuras de datos.": "",
+      "• Módulo zoneinfo: Incorpora la base de datos de zonas horarias IANA directamente en la biblioteca estándar.": ""
+    }
+  },
+  {
+    "instruction": "Crear un JSON que muestre las características mencionadas en el texto proporcionado.",
+    "output": {
+      "estructuras_de_control_match_y_case": [
+        "Implementación de la coincidencia de patrones estructurales, similar a switch en otros lenguajes."
+      ],
+      "mejoras_en_mensajes_de_error": [
+        "Mensajes de error más precisos y descriptivos para facilitar la depuración."
+      ],
+      "soporte_para_anotaciones_de_tipo_mas_precisas": [
+        "Incluye la unión de tipos con el operador |."
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre las mejoras de rendimiento en Python 3.11, los grupos de excepciones y except*, y el módulo tomllib.",
+    "output": {
+      "Mejoras_Rendimiento": {
+        "Python_3_11": {
+          "Mayoría": "un 60%",
+          "Menor_Mayoría": "un 10%"
+        }
+      },
+      "Grupos_Excepciones": [
+        "*Permite manejar múltiples excepciones simultáneamente de manera más eficiente."
+      ],
+      "Módulo_tomllib": {
+        "Funcionalidad": "Añade soporte para analizar archivos TOML en la biblioteca estándar."
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre mejora en rastreos de errores para Python, incluyendo su aplicación en inteligencia artificial y machine learning, junto con una sección de características y paradigmas.",
+    "output": {
+      "mejoras_en_rastreos_de_errores": {
+        "descripcion": "Señala con mayor precisión la ubicación exacta de los errores en el código."
+      },
+      "aplicacion_en_inteligencia_artificial_y_machine_learning": [
+        "[31]"
+      ],
+      "caracteristicas_y_paradigmas": {
+        "secciones": [
+          {
+            "nombre": "Características",
+            "descripcion": "Lista de características y parámetros específicos del lenguaje."
+          },
+          {
+            "nombre": "Paradigmas",
+            "descripcion": "Modelos o enfoques de programación que se utilizan con Python."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Generar un fragmento de código en Python que muestra cómo se pueden utilizar los decoradores avanzados, basándolo en la información proporcionada sobre Mojo (un lenguaje de programación).",
+    "output": ""
+  },
+  {
+    "instruction": "Genera un JSON que describa los detalles de la biblioteca estándar Mojo, incluyendo desarrolladores, empresa propietaria, información del sitio web oficial, paradigma de programación y emojis utilizados.",
+    "output": {
+      "desarrollador(es)": [
+        "MojoDesarrollador(es)"
+      ],
+      "empresaPropietaria": "Modular Inc.",
+      "informacionWebOficial": "",
+      "paradigma": "Multiparadigma: orientado",
+      "emojisUtilizados": [
+        ""
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre la versión inicial de Mojo.",
+    "output": {
+      "fecha_lanzamiento": "Septiembre de 2022",
+      "empresa_creadora": "Modular Inc.",
+      "características_avanzadas": [
+        "Características impulsadas por MLIR (Multi-Level Intermediate Representation)"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un ejemplo de programa Hola Mundo en Mojo, que incluya la impresión del mensaje 'Hola mundo!' usando una función externa entre C/C++ y Mojo.",
+    "output": null
+  },
+  {
+    "instruction": "Generar una lista de lenguajes de programación para Inteligencia Artificial basada en los referencias proporcionadas.",
+    "output": [
+      {
+        "language": "Python",
+        "reference": "[1] ↑ «Modular: Community License»."
+      },
+      {
+        "language": "Mojo",
+        "reference": "[4] Krill, Paul (4 de mayo de 2023). «Mojo language marries Python and MLIR for AI development». InfoWorld (en inglés)."
+      }
+    ]
+  },
+  {
+    "instruction": "Generar un JSON que contenga información sobre los artículos mencionados en la lista proporcionada, incluyendo el autor, fecha de publicación y enlace al artículo.",
+    "output": "[\n    {\n        \"title\": \"Modular reveals Mojo, Python superset with C-level speed\",\n        \"author\": \"Claburn, Thomas\",\n        \"date\": \"5 de mayo de 2023\",\n        \"source\": \"The Register\"\n    },\n    {\n        \"title\": \"This New Programming Language is Likely to Replace Python\",\n        \"author\": \"Pandey, Mohit\",\n        \"date\": \"3 de mayo de 2023\",\n        \"source\": \"Analytics India Magazine\"\n    },\n    {\n        \"title\": \"A first look at the Mojo language\",\n        \"author\": \"Yegulalp, Serdar\",\n        \"date\": \"7 de junio de 2023\",\n        \"source\": \"InfoWorld\"\n    }\n]"
+  },
+  {
+    "instruction": "Generar un JSON que contenga información sobre los artículos mencionados en el texto proporcionado, incluyendo la autoría, fecha de publicación o consulta, y una breve descripción del contenido.",
+    "output": [
+      {
+        "id": 1,
+        "author": "Deutscher, Maria",
+        "date": "7 de septiembre de 2023",
+        "title": "Modular makes its AI-optimized Mojo programming language generally available",
+        "source": "Silicon Angle (en inglés)",
+        "status": "Consultado el 11 de septiembre de 2023"
+      },
+      {
+        "id": 2,
+        "author": "Claburn, Thomas",
+        "date": "5 de mayo de 2023",
+        "title": "Modular finds its Mojo, a Python superset with C-level speed",
+        "source": "The Register",
+        "status": "Consultado el 8 de agosto de 2023"
+      },
+      {
+        "id": 3,
+        "author": "",
+        "date": "",
+        "title": "Mojo changelog",
+        "source": "",
+        "status": ""
+      }
+    ]
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada.",
+    "output": {
+      "Modular Inference Engine": {
+        "Control de autoridades": null,
+        "Proyectos Wikimedia": null,
+        "Datos": [
+          {
+            "Q118152673": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada en las categorías del texto.",
+    "output": {
+      "lenguajes_de_programacion_orientados_a_objetos": true,
+      "lenguajes_de_programacion_de_alto_nivel": true,
+      "lenguajes_de_programacion_dinamicamente_tipados": true,
+      "lenguajes_de_programacion_educativos": true,
+      "software_de_2023": true,
+      "ciencia_y_tecnologia": true,
+      "inteligencia_artificial": true
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada, incluyendo los datos de lenguaje de programación 'Mojo', el número de idiomas disponibles (13) y la posibilidad de añadir un tema.",
+    "output": {
+      "language": "Mojo",
+      "languagesAvailable": 13,
+      "addThemeOption": true
+    }
+  },
+  {
+    "instruction": "Generar un fragmento de texto JSON sobre la historia del uso de decoradores en Python, basado en información actualizada.",
+    "output": "[JSON_FRAGMENT]\n\nPor ejemplo:\n{\n    \"fragment\": \"Decoradores en Python se introdujeron oficialmente con la versión 2.4 de Python en el año 2006.\"\n}\n"
+  },
+  {
+    "instruction": "Crear un JSON con información sobre Python basada en el texto proporcionado.",
+    "output": {
+      "language": {
+        "name": "Python",
+        "description": "Python es un lenguaje de programación interpretado, multiparadigma y orientado a objetos. Se utiliza ampliamente para desarrollo web, análisis de datos, inteligencia artificial, automatización de tareas y más.",
+        "logo": "Logo de Python"
+      },
+      "wikipedia_reference": {
+        "name": "Wikipedia",
+        "description": "La enciclopedia libre en español."
+      }
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada sobre Python.",
+    "output": {
+      "lenguajeDeProgramacion": "Python",
+      "tiposPopulares": [
+        "Java",
+        "JavaScript",
+        "Go",
+        "C#"
+      ],
+      "categoria": "Lenguaje de propósito general",
+      "usosComunes": [
+        {
+          "tipo": "scripts simples",
+          "nivel": "bajo"
+        },
+        {
+          "tipo": "servidores web",
+          "nivel": "alto"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON con la información proporcionada en formato JSON.",
+    "output": {
+      "textos_de_programación": [
+        {
+          "nombre": "interfaces_gráficas",
+          "explicacion": "utilizado para programar interfaces gráficas"
+        },
+        {
+          "nombre": "bases_de_datos",
+          "explicacion": "programación de bases de datos"
+        },
+        {
+          "nombre": "programación_web",
+          "explicacion": "programación web tanto en el cliente como en el servidor (véase Django o Flask)"
+        },
+        {
+          "nombre": "testing_aplicaciones",
+          "explicacion": "testeo de aplicaciones"
+        }
+      ],
+      "científicos_supercomputadores": [
+        {
+          "explicacion": "científicos que hacen aplicaciones para las supercomputadores más rápidos del mundo"
+        }
+      ],
+      "niños_programación_iniciada": [
+        {
+          "explicacion": "niños que recién están comenzando a programar"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON basado en el texto proporcionado que contenga información relevante sobre la historia de Python.",
+    "output": {
+      "year_starting": 1989,
+      "month_starting": 12,
+      "day_starting": null,
+      "name_project": "Python",
+      "person_in_charge": "Guido van Rossum",
+      "organization_involved": "(CWI)",
+      "location_of_organization": "Holandés de carácter oficial",
+      "current_location_of_organization": "Alberga la oficina central del W3C"
+    }
+  },
+  {
+    "instruction": "Recuperar las palabras de un documento en Python",
+    "output": {
+      "collection": []
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre los componentes del lenguaje de programación.",
+    "output": {
+      "generadores_e_iteradores": {
+        "inspiracion": "Los generadores e iteradores fueron inspirados por Icon, y fusionados con las ideas de la programación funcional en un modelo unificado."
+      },
+      "modula-3": {
+        "base": [
+          "modelo de excepciones",
+          "sistema de módulos"
+        ]
+      },
+      "perl": {
+        "contribucion": "Las expresiones regulares, usadas para la manipulación de 'string'."
+      },
+      "biblioteca_estandar_python": {
+        "adicion": "adiciones a biblioteca estándar de Python standard library y algunas opciones"
+      }
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON a partir de la información proporcionada sobre las influencias sintácticas de Java en Sintáctica.",
+    "output": {
+      "sintaticas": [
+        {
+          "ejemplo": "[8] el paquete de logging",
+          "versión_java": "2.3"
+        },
+        {
+          "ejemplo": "[10] el paquete threading para aplicaciones multihilos",
+          "versión_java": "2.3"
+        },
+        {
+          "ejemplo": "[9] el parser SAX, introducido en la versión 2.0",
+          "versión_java": "2.0"
+        },
+        {
+          "ejemplo": "[11] la sintaxis del decorador que usa @",
+          "versión_java": "2.4"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la cronología proporcionada, incluyendo las versiones obsoletas y sus fechas de publicación.",
+    "output": [
+      {
+        "version": "Python 0.9.0",
+        "status": "obsoleta",
+        "date": "20 de febrero de 1991"
+      },
+      {
+        "version": "Python 0.9.1",
+        "status": "obsoleta",
+        "date": "febrero de 1991"
+      }
+    ]
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que incluya información relevante sobre el proyecto CP4E, su patrocinador y actual estado.",
+    "output": {
+      "patrocinador": "DARPA",
+      "estado_actual": "Inactivo",
+      "características": [
+        {
+          "nombre": "Sintaxis limpia",
+          "valor": "Idónea"
+        },
+        {
+          "objetivos": "Similares a CP4E",
+          "predecesor": "ABC"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON a partir del texto proporcionado, manteniendo la estructura de datos más simple posible.",
+    "output": "{\n  \"última_versión\": {\n    \"wt\": \"3.14.3\",\n    \"ref\": \"{{Cita web |url=https://docs.python.org/3.14/whatsnew/changelog.html |título=Changelog - Python Documentation |fechaacceso=9 de febrero de 2026|editorial=python.org}}\"\n  },\n  \"última_versión_beta\": {\n    \"wt\": \"3.15.0a6\",\n    \"ref\": \"{{Cita web |url=https://docs.python.org/3.15/whatsnew/changelog.html |título=Changelog - Python Documentation |fechaacceso=9 de febrero de 2026|editorial=python.org}}\"\n  },\n  \"fecha_última_versión\": \"{{fecha de lanzamiento|3|2|2026}}\"\n}"
+  },
+  {
+    "instruction": "Crear un JSON basado en la información proporcionada, creando campos para 'fecha_última_versión_beta', 'tipo_dato' y 'implementaciones'.",
+    "output": {
+      "fecha_última_versión_beta": "{{fecha de lanzamiento|11|2|2026}}",
+      "tipo_dato": "[[Duck typing]], [[Tipado dinámico]], [[Strong and weak typing|fuerte]];",
+      "implementaciones": "[[CPython]], [[IronPython]]"
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada sobre lenguajes de programación.",
+    "output": {
+      "linguagens_de_programacao": [
+        "Jython",
+        "Python for S60",
+        "PyPy",
+        "ActivePython",
+        "Unladen Swallow"
+      ],
+      "dialectos": {
+        "wt": [
+          "Stackless Python",
+          "RPython"
+        ]
+      },
+      "influido_por": {
+        "wt": [
+          "ABC (lenguaje de programación)",
+          "ALGOL 68",
+          "C (lenguaje de programación)",
+          "Haskell",
+          "Icon",
+          "Lisp",
+          "Modula-3",
+          "Perl",
+          "Smalltalk",
+          "Java (lenguaje de programación)"
+        ]
+      },
+      "ha_influido": [
+        "Boo (lenguaje de"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que incluya una lista de lenguajes de programación.",
+    "output": [
+      {
+        "lenguaje": "programación"
+      },
+      {
+        "lenguaje": "Boo"
+      },
+      {
+        "lenguaje": "Cobra"
+      },
+      {
+        "lenguaje": "D (lenguaje de programación)"
+      },
+      {
+        "lenguaje": "Falcon (lenguaje de programación)"
+      },
+      {
+        "lenguaje": "Genie (lenguaje de programación)"
+      },
+      {
+        "lenguaje": "Groovy (lenguaje de programación)"
+      },
+      {
+        "lenguaje": "Ruby"
+      },
+      {
+        "lenguaje": "JavaScript"
+      },
+      {
+        "lenguaje": "Cython"
+      },
+      {
+        "lenguaje": "Go (lenguaje de programación)"
+      }
+    ]
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada en el texto.",
+    "output": {
+      "programación": {
+        "wt": "Programación"
+      },
+      "sistema_operativo": {
+        "wt": "Multiplataforma"
+      },
+      "sitio_web": {
+        "wt": "https://www.python.org/"
+      },
+      "licencia": {
+        "wt": "Python Software Foundation License"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada.",
+    "output": {
+      "operativo": {
+        "multiplataformaLicencia": [
+          "Python Software Foundation License"
+        ],
+        "__mediawiki_editdata__": [
+          "[editar datos en Wikidata]"
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON que describa los detalles del lenguaje Python proporcionados en el texto.",
+    "output": {
+      "lenguaje": "Python",
+      "nivelDeProgramacion": "alto nivel",
+      "tipoDeLenguaje": "interpretado",
+      "filosofiaDelCodigo": "legibilidad",
+      "paradigmaMultiparadigma": true,
+      "orientacionAObjetos": true,
+      "programacionImperativa": true,
+      "programacionFuncional": false,
+      "dinamico": true,
+      "multiplataforma": true
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que contenga la información proporcionada en el texto, estructurándola de manera coherente.",
+    "output": {
+      "softwareFoundation": "Python Software Foundation",
+      "licenseType": "Python Software Foundation License",
+      "popularityRanking": [
+        {
+          "year": "2025",
+          "rank": 1,
+          "differencePercentage": "15%"
+        },
+        {
+          "year": "Anterior a 2025",
+          "rank": "Mayor que 1",
+          "differencePercentage": "Más de 15%"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre Python y su creador Guido van Rossum.",
+    "output": {
+      "lenguaje_programacion": {
+        "nombre": "Python",
+        "creador": "Guido van Rossum",
+        "fecha_creacion": "Final de los años ochenta",
+        "ubicacion_creadura": "Stichting Mathematisch Centrum (CWI), Países Bajos",
+        "inspiracion": "Lenguaje de programación ABC",
+        "características_especiales": [
+          "Manejo de excepciones",
+          "Interacción con el sistema operativo Amoeba"
+        ]
+      },
+      "informacion_adicional": {
+        "conferencia": "Convención OSCON 2006",
+        "presentador": "Guido van Rossum"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente una frase proporcionada, donde el contenido del texto se almacena en la clave 'output'. La clave 'input' contendrá la frase dada.",
+    "output": "El nombre del lenguaje proviene de la afición de su creador por los humoristas británicos Monty Python.[7]"
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre Guido van Rossum y Benevolent Dictator for Life (BDFL).",
+    "output": {
+      "name": "Guido van Rossum",
+      "position": "Principal autor de Python y Benevolent Dictator for Life (BDFL)",
+      "status_change": {
+        "date": "12 de julio de 2018",
+        "action": "Declinó su papel sin dejar un sucesor o sucesora"
+      },
+      "reason": "Una declaración altisonante"
+    }
+  },
+  {
+    "instruction": "Generar una respuesta basada en el texto proporcionado, relacionado con la frase mencionada por Guido van Rossum.",
+    "output": "{\"response\": \"El texto que se ha proporcionado parece referirse a las diferentes formas de gobierno y estructuras sociales que Guido van Rossum podría estar considerando. Sin embargo, no hay suficiente contexto para dar una respuesta precisa o completa. La frase sugiere preguntas sobre cómo los individuos podrían organizar su sociedad, pero no ofrece detalles específicos sobre qué propuestas concretas está evaluando Guido van Rossum.}\""
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre Python 0.9.0 lanzada por Guido van Rossum en 1991.",
+    "output": {
+      "date": "20 de febrero de 1991",
+      "version": "0.9.0",
+      "features": [
+        {
+          "feature": "clases con herencia",
+          "status": "presente"
+        },
+        {
+          "feature": "manejo de excepciones",
+          "status": "presente"
+        },
+        {
+          "feature": "funciones",
+          "status": "presente"
+        },
+        {
+          "feature": "tipos modulares (str, list, dict)",
+          "status": "presente"
+        }
+      ],
+      "additional_features": [
+        {
+          "feature": "sistema de módulos adoptado de Modula-3",
+          "status": "presente"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre los puntos mencionados en el texto proporcionado.",
+    "output": {
+      "módulo": {
+        "descripción": "Una de las mayores unidades de programación de Python",
+        "fuente": "[5]"
+      },
+      "modelo de excepciones": {
+        "característica": "parecido al de Modula-3",
+        "añadido": "una cláusula else"
+      },
+      "comp.lang.python": {
+        "fecha": "1994",
+        "significado": "Marcando un hito en el crecimiento del grupo de usuarios de Python"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre Python.",
+    "output": {
+      "version_1_0": {
+        "date": "enero de 1994",
+        "features": [
+          "lambda",
+          "reduce",
+          "filter",
+          "map"
+        ]
+      },
+      "source_citation": [
+        "[11]",
+        "[12]"
+      ],
+      "context": "Van Rossum mencionó que Python adquirió estas herramientas de programación funcional hace 12 años, gracias a Amrit Perm, un hacker informático de Lisp."
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado que incluya información relevante sobre la historia de Python.",
+    "output": {
+      "historiaDePython": [
+        {
+          "version": "1.2",
+          "fecha": "1995",
+          "origen": "CWI (Center for Mathematics and Computer Science)",
+          "ubicacionActual": "Corporation for National Research Initiatives (CNRI) en Reston, Virginia"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un texto basado en el texto proporcionado, enfocándose en explicar cómo Python jugó un papel crucial en la iniciativa CP4E de van Rossum.",
+    "output": "Durante su estancia en CNRI, van Rossum lanzó la iniciativa Computer Programming for Everybody (CP4E), con el fin de hacer la programación más accesible a más gente. El nivel de 'alfabetización' básico requerido para poder utilizar lenguajes de programación era similar al inglés y habilidades matemáticas necesarias por muchos trabajadores. Python tuvo un papel crucial en este proceso, ya que fue seleccionado como el lenguaje de programación principal para CP4E debido a su simplicidad y facilidad de aprendizaje. Su sintaxis clara y concisa facilitó la comprensión del código para los usuarios iniciales, lo que permitió una mayor accesibilidad al mundo de la programación."
+  },
+  {
+    "instruction": "Generar texto basado en el contexto proporcionado sobre el proyecto CP4E.",
+    "output": "{\"output\": \"Python continúa intentando ser fácil de aprender y no muy arcano en su sintaxis y semántica, con el objetivo de ser entendible incluso para principiantes. A pesar de que el proyecto CP4E se encontraba inactivo en el año 2007, las metas del CP4E eran similares a las del predecesor ABC y el proyecto era patrocinado por DARPA.\"}"
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado, enfocándose en la información relevante sobre Python 2.0.",
+    "output": {
+      "python_2_0": {
+        "public_release": true,
+        "overlap_with_launch_program": true,
+        "unique_release": true
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada, convirtiéndola en campos del objeto.",
+    "output": {
+      "textoOriginal": "BeOpen.com. Después que Python 2.0 fuera publicado por BeOpen.com, Guido van Rossum y los otros desarrolladores de PythonLabs se unieron en Digital Creations.",
+      "informacionTransformada": {
+        "publicacionPython2.0": "BeOpen.com",
+        "desdePublicacion": "Python 2.0",
+        "integrantesAdicionales": [
+          "Guido van Rossum",
+          "otros desarrolladores de PythonLabs"
+        ],
+        "unirseA": "Digital Creations"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre la introducción de listas por comprensión en Python 2.0, incluyendo que tomó una característica del lenguaje funcional Haskell y mencionando que la sintaxis es similar a Haskell pero con preferencias diferentes para caracteres de puntuación y palabras claves alfabéticas. También se debe incluir información sobre el sistema de recolección de basura introducido en Python 2.0.",
+    "output": {
+      "caracteristica_introducida": "Listas por comprensión",
+      "fuente_caracteristica": "Haskell (lenguaje funcional)",
+      "diferencias_sintaxis": {
+        "Python": "Sintaxis similar a Haskell, pero con preferencia de caracteres de puntuación diferentes y palabras claves alfabéticas"
+      },
+      "nuevas_funcionalidades": [
+        {
+          "nombre": "Recolección de basura",
+          "descripcion": "Introdujo un sistema de recolección de basura que ayuda a liberar memoria automáticamente"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en el texto proporcionado, enfocándose en extraer información relevante sobre la licencia Python y su relación con Virginia.",
+    "output": {
+      "licencia_python": {
+        "nombre": "Python License",
+        "aspectos_relevantes": [
+          "uso_con_software_gnulinux_gpl",
+          "gobierno_por_el_estado_de_Virginia"
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga la información proporcionada sobre Python, incluyendo detalles sobre su licencia y premios.",
+    "output": {
+      "Python": {
+        "licenseCompatibility": {
+          "version1_61_to_2_1": "compatible con GPL",
+          "currentVersion": "no se menciona si está compatible con GPL en la versión actual"
+        },
+        "licenseNameChange": {
+          "originalLicense": "licencia de Python original",
+          "newLicenseName": "Python Software Foundation License",
+          "renamedBy": [
+            "CNRI",
+            "FSF"
+          ]
+        },
+        "award": {
+          "year": 2001,
+          "recipient": "van Rossum",
+          "awardType": "FSF Award for the Advancement of Free Software"
+        }
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que contenga información sobre la transición de Python desde versiones anteriores hasta su gestión por parte de Python Software Foundation (PSF). Incluirá detalles sobre la implementación del alcance de variables más parecida a las reglas y el lanzamiento correspondiente.",
+    "output": {
+      "version_derived_from": [
+        "1.6.1",
+        "2.0"
+      ],
+      "new_management_organization": {
+        "name": "Python Software Foundation (PSF)",
+        "type": "organization without profit",
+        "year_established": 2001,
+        "model": "Apache Software Foundation"
+      },
+      "included_features": [
+        "implementación del alcance de variables más parecida a las reglas"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un texto sobre la innovación en Python desde su versión 2.2 hasta ahora, enfocándose en los cambios mencionados: la unificación de tipos en Python (tipos escritos en C) y clases dentro de una jerarquía, así como el añadir generadores.",
+    "output": "Desde Python 2.2, se introdujeron importantes innovaciones que han transformado significativamente la arquitectura del lenguaje. Una de las principales novedades fue la unificación de los tipos en Python (tipos escritos en C) y clases dentro de una jerarquía, lo cual permitió crear un modelo de objetos puro y consistente. Esta mejora ha sido bien recibida por el público debido a su consistencia y facilidad para el desarrollo de software robusto y eficiente. Además, se añadieron los generadores, que fueron inspirados por el lenguaje Icon. Los generadores son una forma de optimizar la programación en Python al permitir la creación de secuencias dinámicas sin necesidad de almacenar todo el contenido a la vez. Estos cambios han sido bien recibidos y han contribuido significativamente a hacer de Python un lenguaje de programación cada vez más versátil y potente."
+  },
+  {
+    "instruction": "Generar un objeto JSON a partir del texto proporcionado, que contenga información relevante sobre las adiciones a la biblioteca estándar de Python.",
+    "output": {
+      "adicionales_a_la_biblioteca_estandar_de_python": [
+        {
+          "nombre_paquete": "logging",
+          "versión_introducción": "2.3",
+          "fuente_influencia": "log4j"
+        },
+        {
+          "nombre_paquete": "threading",
+          "versión_introducción": "",
+          "fuente_influencia": ""
+        }
+      ],
+      "decisiones_sintácticas_influenciadas_por_java": [
+        {
+          "paquete": "logging",
+          "influencia": "log4j"
+        },
+        {
+          "paquete": "threading",
+          "influencia": ""
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre la descontinuidad de Python 2.7 y el soporte para Python 3.6.x y posteriores.",
+    "output": {
+      "python_2_descontinuado": true,
+      "fecha_descontinuacion": "1 de enero de 2020",
+      "soporte_python_3_ramas": [
+        "Python 3.6.x",
+        "Python 3.7.x",
+        "Python 3.8.x",
+        "Python 3.9.x",
+        "Python 3.10.x",
+        "Python 3.11.x"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre la evolución de Python 3.x, enfocándote en la entrada/salida asíncrona introducida con Python 3.5.",
+    "output": {
+      "version": "Python 3.5",
+      "feature": "Entrada/Salida Asíncrona",
+      "description": "Introducción de la biblioteca asyncio para aplicaciones que requieren alto rendimiento de código concurrente, como servidores web, bibliotecas de conexión de bases de datos y colas de tareas distribuidas."
+    }
+  },
+  {
+    "instruction": "Generar un documento JSON que describa las características más destacadas de la versión reciente de Python 3.x, específicamente Python 3.6, introduciendo f-strings.",
+    "output": "[\"Las versiones recientes de Python 3.x incluyen varias mejoras y nuevas características. En particular, Python 3.6 incorpora una nueva forma de formatear cadenas llamadas f-strings (format strings). Las f-strings permiten a los programadores utilizar variables dentro de las cadenas de texto de manera más sencilla y legible. Por ejemplo: \\n\\n\"abc{}xyz\".format(\"def\") generaría \"abcdefxyz\", mientras que con f-strings, se podría escribir: \\n\\n\"{0}{1}\".format(\"abc\",\"xyz\") equivaldría a la anterior expresión, pero si usamos f-strings, el código quedaría como: \\n\\nf'{\"abc\"}{"
+  },
+  {
+    "instruction": "Crear un JSON que represente las características mencionadas en el texto proporcionado.",
+    "output": {
+      "features": [
+        {
+          "name": "Guiones bajos en literales numéricos",
+          "description": "Permite mejorar la legibilidad de los números grandes al permitir el uso de guiones bajos como separadores."
+        },
+        {
+          "name": "Anotaciones de variables",
+          "description": "Se añadió una sintaxis estándar para las anotaciones de tipo en variables."
+        },
+        {
+          "name": "Generadores y comprensiones asíncronos",
+          "description": "Facilitan la escritura de código asíncrono más claro y eficiente."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre las actualizaciones de Python 3.7[26].",
+    "output": {
+      "version": "Python 3.7[26]",
+      "features": [
+        {
+          "name": "dataclasses",
+          "description": "Proporciona un decorador y funciones para crear clases que solo contienen datos, reduciendo el código repetitivo."
+        },
+        {
+          "name": "contextvars",
+          "description": "Permite manejar variables de contexto, útiles en programación asíncrona."
+        },
+        {
+          "name": "nuevas funciones en asyncio",
+          "description": "Mejoras significativas en el módulo asyncio, incluyendo nuevas funciones y optimizaciones."
+        }
+      ],
+      "date": "27 de junio de 2018"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que muestre los cambios en Python 3.8 respecto a operadores de asignación y parámetros posicionales-only.",
+    "output": {
+      "operador_asignacion": {
+        "descripcion": "Operador de asignación en expresiones (:=)",
+        "informacion_adicional": "Conocido como el 'operador morsa', permite asignar valores a variables como parte de una expresión."
+      },
+      "parámetros_posicionales_only": {
+        "descripcion": "Parámetros posicionales-only",
+        "información_adicional": "Permite especificar que ciertos parámetros de una función deben ser pasados solo por posición, no por nombre."
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que exprese la información proporcionada sobre los cambios en Python desde Python 3.9 hasta Python 3.9 (28)",
+    "output": "{\"Módulo importlib.metadata\": \"Proporciona una forma de acceder a la metadata de los paquetes instalados.\", \"Operadores de unión y actualización en diccionarios\": \"Se introdujeron los operadores | y |= para unir y actualizar diccionarios de manera más intuitiva.\"}"
+  },
+  {
+    "instruction": "Crear un JSON con instruction y output",
+    "output": {
+      "• Soporte para anotaciones de tipo genéricas en las colecciones estándar: Simplifica la especificación de tipos en estructuras de datos.": "Crea un nuevo campo 'generic_annotations' dentro del objeto JSON que contiene una lista de tipos genericos.",
+      "• Módulo zoneinfo: Incorpora la base de datos de zonas horarias IANA directamente en la biblioteca estándar.": "Actualiza el módulo 'zoneinfo' para incluir la base de datos de zonas horarias IANA."
+    }
+  },
+  {
+    "instruction": "Crear un JSON que muestre las características mencionadas en el texto proporcionado.",
+    "output": {
+      "estructuras_de_control_match_y_case": "Implementación de la coincidencia de patrones estructurales, similar a switch en otros lenguajes",
+      "mejoras_en_mensajes_de_error": "Mensajes de error más precisos y descriptivos para facilitar la depuración",
+      "soporte_para_anotaciones_de_tipo_mas_precisas": "Incluye la unión de tipos con el operador |"
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente los puntos mencionados en el texto proporcionado.",
+    "output": {
+      "mejoras_en_el_rendimiento": {
+        "python_3_11": {
+          "diferencia_de_rendimiento": {
+            "minima": "un 10%",
+            "maxima": "un 60%"
+          }
+        },
+        "grupos_de_excepciones_y_except": "Permite manejar múltiples excepciones simultáneamente de manera más eficiente",
+        "módulo_tomllib": {
+          "función_adicional": "añade soporte para analizar archivos TOML en la biblioteca estándar"
+        }
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada sobre Python como lenguaje de programación multiparadigma.",
+    "output": {
+      "lenguaje_programacion": "Python",
+      "caracteristica_principal": "Multiparadigma",
+      "estilos_permitidos": [
+        "Programación orientada a objetos",
+        "Programación imperativa",
+        "Programación funcional"
+      ],
+      "extensiones_soportadas": "Otros paradigmas mediante la utilización de extensiones"
+    }
+  },
+  {
+    "instruction": "Crear un JSON con información sobre Python, incluyendo características como el tipado dinámico, gestión de memoria por conteo de referencias y resolución dinámica de nombres.",
+    "output": {
+      "python_features": [
+        {
+          "feature_name": "Tipado Dinámico",
+          "description": "Python utiliza un sistema de tipado dinámico, lo que significa que no se requiere declarar el tipo de datos en tiempo de compilación."
+        },
+        {
+          "feature_name": "Gestión de Memoria por Conteo de Referencias",
+          "description": "Python maneja la memoria utilizando un contador de referencias. Cuando una referencia a un objeto es eliminada, si este objeto tiene menos referencias que se mantienen, el objeto también puede ser liberado."
+        },
+        {
+          "feature_name": "Resolución Dinámica de Nombres",
+          "description": "Es una característica importante en Python donde los métodos y variables son resueltos durante la ejecución del programa (también conocido como enlace dinámico de métodos)."
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un texto de explicación basado en el texto proporcionado, enfocándome en la facilidad de extensión del diseño del lenguaje.",
+    "output": "El diseño del lenguaje también tiene como objetivo facilitar la extensión. Esto significa que se pueden escribir nuevos módulos de manera sencilla utilizando lenguajes como C o C++. Además, Python puede integrarse en aplicaciones que requieren una interfaz programable. Esta facilidad de extensión permite a los desarrolladores añadir nuevas funcionalidades y mejorar las existentes sin tener que modificar el núcleo del sistema."
+  },
+  {
+    "instruction": "Crear un JSON que explique las similitudes entre Python y lenguajes minimalistas basados en el texto proporcionado.",
+    "output": {
+      "similitud_programacion_funcional": [
+        "Python, a pesar de ser considerado hostil a la programación funcional tradicional expuesta por Lisp, tiene muchas analogías con los lenguajes minimalistas. Ambos enfatizan en sintaxis simple y directa.",
+        "Ambas tendencias minimizan las estructuras redundantes y complejas que pueden surgir en otros lenguajes, permitiendo un código más limpio y conciso."
+      ],
+      "similitud_lenguaje_minimalista": [
+        "Python simplifica muchas funcionalidades incorporadas a través de su sintaxis simple, lo que permite una programación minimalista.",
+        "Los lenguajes minimalistas también eliminan componentes innecesarios para enfocarse en la simplicidad y eficiencia del código."
+      ]
+    }
   }
 ]
