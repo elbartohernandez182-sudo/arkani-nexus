@@ -6993,5 +6993,279 @@
         "Los lenguajes minimalistas también eliminan componentes innecesarios para enfocarse en la simplicidad y eficiencia del código."
       ]
     }
+  },
+  {
+    "instruction": "Generar un fragmento de código en Python que muestra cómo se pueden usar decoradores avanzados, basándolo en la información proporcionada sobre Mojo (un lenguaje de programación).",
+    "output": ""
+  },
+  {
+    "instruction": "Crear un objeto JSON que describe la información proporcionada en el texto, estructurándola de manera coherente.",
+    "output": {
+      "mojo": {
+        "emoji": ":mojo:",
+        "code": ".mojo",
+        "description": "El emoji del fuego / carácter Unicode U+1F525"
+      },
+      "paradigma": {
+        "tipo": "Multiparadigma",
+        "componentes": [
+          "Programación orientada a objetos",
+          "Programación imperativa",
+          "Programación funcional",
+          "Reflexión"
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON basado en los datos proporcionados",
+    "output": {
+      "informatica": {
+        "reflexivo": [
+          "[[Inteligencia Artificial]]"
+        ]
+      },
+      "año": {
+        "wt": "2023"
+      },
+      "diseñador": {
+        "wt": "[[Chris Lattner]]"
+      },
+      "desarrollador": {
+        "wt": "[[Modular Inc.]]"
+      },
+      "última_versión": {
+        "wt": "0.2.1 (64d14e85)"
+      },
+      "fecha_última_versión": {
+        "wt": "{{fecha de lanzamiento|2|5|2023}}"
+      },
+      "tipo_dato": {
+        "wt": "Fuertemente tipado, dinámico"
+      },
+      "influido_por": [
+        "[[Python (lenguaje de]"
+      ]
+    }
+  },
+  {
+    "instruction": "Generar un objeto JSON basado en los datos proporcionados",
+    "output": {
+      "nombre_del_proyecto": "",
+      "lenguajes_de_programación": [
+        "Python",
+        "Rust",
+        "Swift"
+      ],
+      "sistema_operativo": "Multiplataforma",
+      "sitio_web": "https://www.modular.com/mojo",
+      "licencia": {
+        "tipo": "Modular Community License",
+        "referencia": "{{cite web|url=https://www.modular.com/legal/community|title=Modular: Community License}}"
+      }
+    }
+  },
+  {
+    "instruction": "Genera un JSON que describa los detalles de la biblioteca estándar Mojo, incluyendo desarrolladores, empresa, sitio web oficial, información general y extensiones comunes.",
+    "output": {
+      "desarrollador(es)": [
+        "MojoDesarrollador(es)"
+      ],
+      "empresa": "Modular Inc.",
+      "sitio_web_oficial": "",
+      "información_general": "No hay información disponible en el texto proporcionado.",
+      "extensiones_comunes": []
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre el lenguaje de programación Mojo.",
+    "output": {
+      "nombre_del_lenguaje": "Mojo",
+      "desarrollador": "Modular Inc.",
+      "acceso_a_través_de_navegadores": true,
+      "fecha_acceso_a_través_de_navegadores": "mayo de 2023",
+      "acceso_localmente_en_Linux": true,
+      "fecha_acceso_localmente_en_Linux": "septiembre de 2023",
+      "capacidad_para_ejecutar_programas_en_Python": true,
+      "objetivos_de_mejora": [
+        "desarrolladores"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que describa la fundación de la compañía Modular Inc. por Chris Lattner y Tim Davis en el año 2022.",
+    "output": {
+      "company_name": "Modular Inc.",
+      "founding_years": 2022,
+      "founders": [
+        {
+          "name": "Chris Lattner",
+          "role": "Arquitecto original del lenguaje de programación Swift"
+        },
+        {
+          "name": "Tim Davis",
+          "role": "Reconocido ingeniero en Machine Learning en Google"
+        }
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un objeto JSON que represente la información proporcionada sobre la versión inicial de Mojo.",
+    "output": {
+      "fecha_lanzamiento": "Septiembre de 2022",
+      "empresa_creadora": "Modular Inc.",
+      "características_avanzadas": [
+        "Características avanzadas de compilación impulsadas por MLIR (Multi-Level Intermediate Representation)"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que compare la descripción dada sobre el sistema de tipos híbrido del desarrollador con una comparación sencilla con Python.",
+    "output": {
+      "Algoritmo de Tipado Híbrido": {
+        "Características": [
+          "Sistema de tipos híbrido que combina elementos de tipado estático y dinámico",
+          "Permite al desarrollador elegir entre escribir funciones con tipo estático rápido o usar una función definida por el usuario (fn) para un estilo más dinámico"
+        ],
+        "Referencia": "[12]"
+      },
+      "Motor de Inferencia Modular": {
+        "Características": [
+          "Incluye tanto un compilador como un tiempo de ejecución"
+        ]
+      },
+      "Comparación con Python": {
+        "Características": [
+          "No hay información específica proporcionada en el texto sobre cómo es comparado con Python, por lo que no se incluye en este JSON."
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Crear un JSON que describa los aspectos mencionados del lenguaje de programación Mojo.",
+    "output": {
+      "objetivo_ecosistema_jupyter": true,
+      "compatibilidad_código_fuente_python_3x": false,
+      "subconjunto_sintaxis": [
+        "falta_de_argumentos_en_las_funciones",
+        "palabra_clave_global",
+        "comprehensions_de_listas_y_diccionarios",
+        "soporte_para_clases"
+      ]
+    }
+  },
+  {
+    "instruction": "Crear un JSON que explica las características mencionadas en el texto sobre el lenguaje de programación Mojo, incluyendo la capacidad para crear funciones (fn) y estructuras (struct), así como su relación con Python.",
+    "output": {
+      "lenguajeMojo": {
+        "funciones": {
+          "tipo": "Permite la creación de funciones con tipos",
+          "ejemplo": "fn myFunction(arg1, arg2):"
+        },
+        "estructuras": {
+          "tipo": "Alternativas optimizadas en memoria a las clases",
+          "ejemplo": "struct MyStruct { ... }"
+        }
+      },
+      "similaridadesConPython": {
+        "funciones": "Admite métodos y campos similares a las clases en Python",
+        "operadoresSobrecargados": "Permiten sobrecarga de operadores",
+        "metaProgramación": "Acepta decoradores para la meta-programación"
+      },
+      "integracionConPython": {
+        "capacidad": "Puede llamar a código existente en Python 3.x"
+      }
+    }
+  },
+  {
+    "instruction": "Crear un ejemplo de programa Hola Mundo en Mojo, que imprime 'Hola Mundo!', e incluirlo en una lista.",
+    "output": [
+      {
+        "language": "mojo",
+        "code": "print('Hola mundo!')"
+      }
+    ]
+  },
+  {
+    "instruction": "Generar una lista de lenguajes de programación para Inteligencia Artificial basada en los referencias proporcionadas.",
+    "output": [
+      {
+        "language": "Python",
+        "reference": "[1] ↑ «Modular: Community License». InfoWorld (en inglés)."
+      },
+      {
+        "language": "Mojo",
+        "reference": "[4] Krill, Paul. «Mojo language marries Python and MLIR for AI development». InfoWorld (en inglés), 4 de mayo de 2023."
+      }
+    ]
+  },
+  {
+    "instruction": "Generar un objeto JSON que represente la información proporcionada, incluyendo los datos duplicados.",
+    "output": {
+      "Modular Inference Engine": {
+        "Control de autoridades": [],
+        "Proyectos Wikimedia": [],
+        "Datos": [
+          {
+            "id": "Q118152673",
+            "repeated": true
+          },
+          {
+            "id": "Q118152673",
+            "repeated": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "instruction": "Extraer las categorías relacionadas con Mojo del texto proporcionado y representarlas en formato JSON.",
+    "output": [
+      {
+        "categoria": "Lenguajes de programación orientada a objetos"
+      },
+      {
+        "categoria": "Lenguajes de programación de alto nivel"
+      },
+      {
+        "categoria": "Lenguajes de programación dinámicamente tipados"
+      },
+      {
+        "categoria": "Lenguajes de programación educativos"
+      },
+      {
+        "categoria": "Software de 2023"
+      },
+      {
+        "categoria": "Ciencia y tecnología"
+      },
+      {
+        "categoria": "Inteligencia artificial"
+      }
+    ]
+  },
+  {
+    "instruction": "Crear un JSON que represente la información proporcionada, incluyendo el lenguaje de programación 'Mojo', los 13 idiomas disponibles y la opción para añadir un tema.",
+    "output": {
+      "languages": [
+        "Mojo"
+      ],
+      "availableLanguages": [
+        "Alemán",
+        "Bengali",
+        "Coreano",
+        "Croata",
+        "Danés",
+        "Eslovaco",
+        "Estonio",
+        "Finés",
+        "Francés",
+        "Holandés",
+        "Inglés",
+        "Italiano",
+        "Japonés"
+      ],
+      "addTopicOption": true
+    }
   }
 ]
