@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARKANI NEXUS v5.0</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js">
+// ══════════════════════════════════════════════════════════
+// NEXUS-MAIL
+// ══════════════════════════════════════════════════════════
+function mailConectar() {
+    const proveedor = document.getElementById('mailProveedor').value;
+    const email = document.getElementById('mailEmail').value.trim();
+    if (!email) { alert('Ingresa tu correo'); return; }
+    document.getElementById('mailBandeja').textContent = 'Conectando a ' + proveedor + '...';
+    fetch('/mail/conectar', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({proveedor, email})
+    }).then(r=>r.json()).then(d=>{
+        document.getElementById('mailBandeja').textContent =
+            d.ok ? '✅ Conectado a ' + email : '❌ ' + (d.error||'Error');
+    }).catch(()=>{
+        document.getElementById('mailBandeja').textContent =
+            '⚠️ Endpoint /mail/conectar en desarrollo\n💡 Usa: aprende internet: gmail python imaplib';
+    });
+}
+
+function mailLeer() {
+    document.getElementById('mailBandeja').textContent = '⏳ Leyendo correos...';
+    fetch('/mail/bandeja').then(r=>r.json()).then(d=>{
+        if (d.correos && d.correos.length) {
+            document.getElementById('mailBandeja').textContent =
+                d.correos.map((c,i)=>`[${i}] ${c.de} — ${c.asunto}`).join('\n');
+        } else {
+            document.getElementById('mailBandeja').textContent = d.error || 'Sin correos';
+        }
+    }).catch(()=>{
+        document.getElementById('mailBandeja').textContent =
+            '⚠️ Integración IMAP en desarrollo\nPor ahora usa el chat:\naprende internet: python imaplib gmail';
+    });
+}
+
+function mailResumirTodos() {
+    if (typeof socket !== 'undefined') {
+        socket.emit('chat_message', {mensaje: 'Resume mis correos no leídos y dame las acciones urgentes'});
+        switchTab('chat');
+    }
+}
+
+function mailRedactar() {
+    const instruccion = document.getElementById('mailInstruccion').value.trim();
+    const dest = document.getElementById('mailDestinatario').value.trim();
+    if (!instruccion) { alert('Describe qué quieres escribir'); return; }
+    document.getElementById('mailBorrador').textContent = '⏳ Redactando...';
+    fetch('/mail/redactar', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({instruccion, destinatario: dest})
+    }).then(r=>r.json()).then(d=>{
+        document.getElementById('mailBorrador').textContent =
+            d.ok ? d.borrador : (d.error || 'Error');
+    }).catch(()=>{
+        // Fallback: usar chat
+        if (typeof socket !== 'undefined') {
+            socket.emit('chat_message', {
+                mensaje: 'Redacta un correo profesional. Instrucción: ' + instruccion +
+                         (dest ? '. Destinatario: ' + dest : '')
+            });
+            switchTab('chat');
+        }
+    });
+}
+
+function mailEnviar() {
+    const borrador = document.getElementById('mailBorrador').textContent;
+    const dest = document.getElementById('mailDestinatario').value.trim();
+    if (!dest) { alert('Ingresa el destinatario'); return; }
+    if (!borrador || borrador.includes('aparecerá aquí')) { alert('Primero redacta el correo'); return; }
+    if (!confirm('¿Enviar este correo a ' + dest + '?')) return;
+    fetch('/mail/enviar', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({destinatario: dest, cuerpo: borrador})
+    }).then(r=>r.json()).then(d=>{
+        alert(d.ok ? '✅ Correo enviado' : '❌ ' + (d.error||'Error'));
+    }).catch(()=>{
+        alert('⚠️ Envío por SMTP en desarrollo');
+    });
+}
+
+function mailCopiarBorrador() {
+    const txt = document.getElementById('mailBorrador').textContent;
+    navigator.clipboard.writeText(txt).then(()=>alert('📋 Copiado'));
+}
+
+function mailEditarBorrador() {
+    const el = document.getElementById('mailBorrador');
+    el.contentEditable = 'true';
+    el.style.border = '1px solid #4488ff66';
+    el.focus();
+}
+
+</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a0f; color: #00ffff; font-family: 'Courier New', monospace;
+               height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        .header { background: #0d1117; border-bottom: 1px solid #00ffff33;
+                  padding: 8px 20px; display: flex; justify-content: space-between;
+                  align-items: center; flex-shrink: 0; }
+        .header h1 { font-size: 1.1em; letter-spacing: 4px; color: #00ffff; text-shadow: 0 0 10px #00ffff; }
+        .header-stats { display: flex; gap: 15px; font-size: 0.75em; color: #00ffff99; }
+        .stat-item { display: flex; flex-direction: column; align-items: center; }
+        .stat-val { color: #00ff88; font-size: 1.1em; font-weight: bold; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #00ff88;
+                      box-shadow: 0 0 8px #00ff88; display: inline-block; margin-right: 6px;
+                      animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        /* ═══ TABS VERTICALES ═══ */
+        .tabs { display: flex; flex-direction: column; background: #06060a;
+                border-left: 1px solid #00ffff22; width: 148px; min-width: 148px; order: 3;
+                flex-shrink: 0; overflow-y: auto; overflow-x: hidden; }
+        .tab { padding: 9px 12px; cursor: pointer; font-size: 0.75em; color: #00ffff55;
+               border-right: 2px solid transparent; border-bottom: 1px solid #00ffff0a; border-left: none;
+               transition: all 0.2s; letter-spacing: 0.5px; white-space: nowrap;
+               overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+        .tab:hover { color: #00ffff; background: #00ffff0d; border-right-color: #00ffff44; }
+        .tab.active { color: #00ffff; border-right-color: #00ffff; background: #00ffff0d; }
+        .tab.tab-m2m.active    { border-right-color: #ff8800; color: #ff8800; background: #ff880008; }
+        .tab.tab-explorer.active { border-right-color: #aa88ff; color: #aa88ff; background: #aa88ff08; }
+        .tab.tab-avatar.active { border-right-color: #ff44aa; color: #ff44aa; background: #ff44aa08; }
+        .tab-sep { height: 1px; background: #00ffff22; margin: 4px 8px; flex-shrink: 0; }
+        .tab-group-label { font-size: 0.6em; color: #ffffff22; letter-spacing: 2px;
+                           padding: 8px 10px 2px; text-transform: uppercase; flex-shrink: 0; }
+        .badge { background: #ff4444; color: white; border-radius: 10px; padding: 1px 5px; font-size: 0.78em; margin-left: 4px; }
+        .badge-green { background: #00aa44; }
+        .body-layout { display: flex; flex: 1; overflow: hidden; }
+        .sidebar { width: 150px; min-width: 150px; background: #06060a; border-right: 1px solid #00ffff22;
+                   display: flex; flex-direction: column; align-items: center; padding: 15px 8px; overflow-y: auto; flex-shrink: 0; }
+        .avatar-wrap { position: relative; margin-bottom: 6px; }
+        .avatar-wrap img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ffff88;
+                           box-shadow: 0 0 25px #00ffff55; object-fit: cover; display: block; }
+        .avatar-btn { position: absolute; bottom: 6px; right: 6px; background: #0d1117; border: 1px solid #00ffff66;
+                      border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center;
+                      justify-content: center; cursor: pointer; font-size: 13px; }
+        /* nombre editable en sidebar */
+        .arkani-name-display { color: #00ffff; font-size: 0.88em; letter-spacing: 3px; margin-bottom: 2px; font-weight: bold; cursor: pointer; }
+        .arkani-name-display:hover { color: #ff44aa; }
+        .arkani-status { color: #00ff88; font-size: 0.7em; margin-bottom: 15px; }
+        .conv-title { color: #00ffff44; font-size: 0.68em; letter-spacing: 2px; margin-bottom: 8px;
+                      text-align: center; width: 100%; border-top: 1px solid #00ffff22; padding-top: 10px; }
+        .conv-item { width: 100%; padding: 5px 7px; border-radius: 5px; cursor: pointer; font-size: 0.72em;
+                     color: #00ffff88; border: 1px solid #00ffff11; background: #00ffff05; line-height: 1.3; margin-bottom: 3px; }
+        .conv-item:hover { background: #00ffff15; color: #00ffff; }
+        .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .tab-panel { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+        .tab-panel.active { display: flex; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+        .msg { padding: 10px 14px; border-radius: 8px; max-width: 85%; font-size: 0.87em; line-height: 1.5; word-break: break-word; }
+        .msg-user { background: #00ffff15; border: 1px solid #00ffff33; align-self: flex-end; color: #00ffff; }
+        .msg-arkani { background: #00ff8815; border: 1px solid #00ff8833; align-self: flex-start; color: #00ff88; }
+        .msg-system { background: #ff880015; border: 1px solid #ff880033; align-self: center; color: #ff8800; font-size: 0.78em; }
+        .msg-time { font-size: 0.68em; opacity: 0.5; margin-top: 4px; }
+        .typing-ind { color: #00ffff66; font-size: 0.82em; padding: 4px 15px; animation: blink 1s infinite; flex-shrink: 0; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .chat-input-area { background: #0d1117; border-top: 1px solid #00ffff22; padding: 10px;
+                           display: flex; gap: 8px; flex-shrink: 0; align-items: flex-end; }
+        .chat-input { flex: 1; background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
+                      padding: 10px; border-radius: 6px; font-family: 'Courier New', monospace;
+                      font-size: 0.88em; resize: none; height: 58px; }
+        .chat-input:focus { outline: none; border-color: #00ffff88; }
+        .chat-btns { display: flex; flex-direction: column; gap: 5px; }
+        .voz-bar { background: #0d1117; border-top: 1px solid #00ffff11; padding: 6px 10px;
+                   display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+        /* ── SUBIR ARCHIVO ── */
+        .btn-upload { width:42px; height:42px; border-radius:50%; border:2px solid #ff88ff44;
+            background:transparent; color:#ff88ff; font-size:18px; cursor:pointer;
+            transition:all .2s; display:flex; align-items:center; justify-content:center; }
+        .btn-upload:hover { background:#ff88ff22; border-color:#ff88ff; }
+        .upload-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:#000000cc; z-index:9999; align-items:center; justify-content:center; }
+        .upload-modal.active { display:flex; }
+        .upload-box { background:#0d1117; border:1px solid #ff88ff44; border-radius:12px;
+            padding:24px; width:340px; max-width:90vw; }
+        .upload-box h3 { color:#ff88ff; margin:0 0 16px; font-size:14px; letter-spacing:2px; }
+        .upload-drop { border:2px dashed #ff88ff44; border-radius:8px; padding:32px 16px;
+            text-align:center; color:#888; cursor:pointer; transition:all .2s; margin-bottom:14px; }
+        .upload-drop:hover, .upload-drop.dragover { border-color:#ff88ff; color:#ff88ff;
+            background:#ff88ff11; }
+        .upload-drop span { font-size:32px; display:block; margin-bottom:8px; }
+        .upload-modo { display:flex; gap:10px; margin-bottom:14px; }
+        .upload-modo label { flex:1; display:flex; align-items:center; gap:6px; cursor:pointer;
+            background:#ffffff08; border:1px solid #ffffff11; border-radius:6px;
+            padding:8px 10px; color:#ccc; font-size:12px; transition:all .2s; }
+        .upload-modo label:hover { border-color:#ff88ff44; }
+        .upload-modo input[type=radio]:checked + label,
+        .upload-modo label:has(input:checked) { border-color:#ff88ff; color:#ff88ff;
+            background:#ff88ff11; }
+        .upload-preview { background:#ffffff08; border-radius:6px; padding:10px;
+            font-size:11px; color:#aaa; margin-bottom:14px; display:none;
+            max-height:80px; overflow:hidden; white-space:pre-wrap; word-break:break-all; }
+        .upload-btns { display:flex; gap:8px; }
+        .btn-mic { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #00ffff44;
+                   background: #00ffff11; color: #00ffff; font-size: 1.2em; cursor: pointer;
+                   display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .btn-mic:hover { background: #00ffff22; border-color: #00ffff; }
+        .btn-mic.grabando { background: #ff444433; border-color: #ff4444; animation: pulseRed 0.8s infinite; }
+        @keyframes pulseRed { 0%,100%{box-shadow:0 0 5px #ff4444} 50%{box-shadow:0 0 20px #ff4444} }
+        .btn-mic-activo { background: #00ff8811; border-color: #00ff8844; color: #00ff88; }
+        .btn-mic-activo.activo { background: #00ff8833; border-color: #00ff88; animation: pulseGreen 2s infinite; }
+        @keyframes pulseGreen { 0%,100%{box-shadow:0 0 5px #00ff88} 50%{box-shadow:0 0 15px #00ff88} }
+        .voz-status { flex: 1; font-size: 0.75em; color: #00ffff66; }
+        .btn { padding: 7px 14px; border: none; border-radius: 6px; cursor: pointer;
+               font-family: 'Courier New', monospace; font-size: 0.8em; font-weight: bold;
+               letter-spacing: 1px; transition: all 0.2s; }
+        .btn-cyan { background: #00ffff22; color: #00ffff; border: 1px solid #00ffff44; }
+        .btn-cyan:hover { background: #00ffff33; }
+        .btn-green { background: #00ff8822; color: #00ff88; border: 1px solid #00ff8844; }
+        .btn-green:hover { background: #00ff8833; }
+        .btn-orange { background: #ff880022; color: #ff8800; border: 1px solid #ff880044; }
+        .btn-orange:hover { background: #ff880033; }
+        .btn-red { background: #ff444422; color: #ff4444; border: 1px solid #ff444444; }
+        .btn-red:hover { background: #ff444433; }
+        .btn-purple { background: #aa88ff22; color: #aa88ff; border: 1px solid #aa88ff44; }
+        .btn-purple:hover { background: #aa88ff33; }
+        .btn-pink { background: #ff44aa22; color: #ff44aa; border: 1px solid #ff44aa44; }
+        .btn-pink:hover { background: #ff44aa33; }
+        .btn-sm { padding: 4px 10px; font-size: 0.75em; }
+        .editor-header { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #00ffff22;
+                         display: flex; align-items: center; gap: 8px; flex-wrap: wrap; flex-shrink: 0; }
+        .editor-title { color: #00ffff99; font-size: 0.8em; letter-spacing: 2px; flex: 1; }
+        .file-selector { background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
+                         padding: 4px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.8em; }
+        .code-editor { flex: 1; background: #050508; color: #e0e0e0; border: none; padding: 15px;
+                       font-family: 'Courier New', monospace; font-size: 0.85em; resize: none; line-height: 1.6; tab-size: 4; }
+        .code-editor:focus { outline: none; }
+        .editor-footer { padding: 8px 12px; background: #0d1117; border-top: 1px solid #00ffff22;
+                         display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+        .editor-status { flex: 1; font-size: 0.75em; color: #00ffff66; }
+        .nombre-input { background: #0a0a0f; border: 1px solid #00ffff33; color: #00ffff;
+                        padding: 5px 8px; border-radius: 4px; font-family: monospace; font-size: 0.8em; width: 160px; }
+        .panel-header { padding: 10px 12px; background: #0d1117; border-bottom: 1px solid #00ffff22;
+                        display: flex; gap: 8px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+        .panel-header-title { flex: 1; font-size: 0.85em; letter-spacing: 2px; }
+        .errores-lista { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .error-card { border-radius: 8px; padding: 12px; }
+        .error-card.error { background: #ff444410; border: 1px solid #ff444433; }
+        .error-card.warning { background: #ff880010; border: 1px solid #ff880033; }
+        .error-titulo { font-size: 0.85em; margin-bottom: 6px; }
+        .error-card.error .error-titulo { color: #ff4444; }
+        .error-card.warning .error-titulo { color: #ff8800; }
+        .error-desc { font-size: 0.78em; color: #cccccc; margin-bottom: 8px; }
+        .error-codigo { background: #0a0a0f; border-radius: 4px; padding: 8px; font-size: 0.76em; color: #00ff88; margin-bottom: 8px; white-space: pre-wrap; }
+        .error-acciones { display: flex; gap: 6px; }
+        .intro-grid { flex: 1; overflow-y: auto; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; }
+        .fn-card { background: #00ff8808; border: 1px solid #00ff8822; border-radius: 8px; padding: 10px; cursor: pointer; transition: all 0.2s; }
+        .fn-card:hover { background: #00ff8815; border-color: #00ff8844; }
+        .fn-nombre { color: #00ff88; font-size: 0.82em; margin-bottom: 4px; }
+        .fn-desc { color: #cccccc; font-size: 0.75em; line-height: 1.4; }
+        .fn-status { font-size: 0.7em; margin-top: 6px; }
+        .fn-ok { color: #00ff88; } .fn-err { color: #ff4444; }
+        .hipo-panel { flex: 1; overflow-y: auto; padding: 10px; }
+        .instr-row { display: flex; gap: 10px; padding: 6px 10px; border-bottom: 1px solid #00ffff11; font-size: 0.8em; }
+        .instr-addr { color: #00ffff66; width: 40px; }
+        .instr-op { color: #00ff88; width: 80px; }
+        .instr-hex { color: #ffffff33; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* M2M unificado */
+        .m2m-layout { flex: 1; display: flex; overflow: hidden; }
+        .m2m-left { width: 320px; min-width: 280px; border-right: 1px solid #ff880022; display: flex; flex-direction: column; overflow: hidden; }
+        .m2m-right { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .m2m-section { padding: 10px 12px; border-bottom: 1px solid #ff880022; flex-shrink: 0; }
+        .m2m-title { color: #ff8800; font-size: 0.8em; letter-spacing: 2px; margin-bottom: 8px; }
+        .m2m-input { background: #0a0a0f; border: 1px solid #ff880044; color: #ff8800; padding: 7px 10px;
+                     border-radius: 5px; font-family: monospace; font-size: 0.82em; width: 100%; margin-bottom: 6px; }
+        .m2m-input:focus { outline: none; border-color: #ff8800; }
+        .m2m-nodos { flex: 1; overflow-y: auto; padding: 8px; }
+        .nodo-card { background: #ff880008; border: 1px solid #ff880033; border-radius: 8px; padding: 10px 12px; margin-bottom: 6px; }
+        .nodo-nombre { color: #ff8800; font-size: 0.85em; font-weight: bold; margin-bottom: 3px; }
+        .nodo-url { color: #ff880066; font-size: 0.72em; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .nodo-acciones { display: flex; gap: 5px; flex-wrap: wrap; }
+        .nodo-dot { width: 7px; height: 7px; border-radius: 50%; background: #00ff88; display: inline-block; margin-right: 5px; box-shadow: 0 0 5px #00ff88; }
+        .m2m-archivos { flex: 1; overflow-y: auto; padding: 8px; }
+        .nxf-card { background: #ff880005; border: 1px solid #ff880022; border-radius: 6px; padding: 8px 10px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+        .nxf-nombre { flex: 1; color: #ff8800; font-size: 0.8em; }
+        .nxf-meta { color: #ff880066; font-size: 0.72em; white-space: nowrap; }
+        .m2m-drop { border: 2px dashed #ff880033; border-radius: 8px; padding: 20px; text-align: center;
+                    color: #ff880066; font-size: 0.82em; margin: 8px; cursor: pointer; transition: all 0.2s; }
+        .m2m-drop:hover,.m2m-drop.drag-over { border-color: #ff8800; color: #ff8800; background: #ff880008; }
+        .m2m-log { flex: 1; overflow-y: auto; padding: 8px 10px; font-size: 0.78em; }
+        .m2m-log-line { padding: 3px 0; border-bottom: 1px solid #ff880011; color: #ff880099; }
+        .m2m-log-line.ok { color: #00ff88; }
+        .m2m-log-line.err { color: #ff4444; }
+        /* sub-tabs dentro de COMUNICACIÓN M2M */
+        .m2m-subtabs { display: flex; background: #0d1117; border-bottom: 1px solid #ff880022; flex-shrink: 0; }
+        .m2m-subtab { padding: 6px 14px; cursor: pointer; font-size: 0.75em; color: #ff880066;
+                      border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 1px; }
+        .m2m-subtab:hover { color: #ff8800; }
+        .m2m-subtab.active { color: #ff8800; border-bottom-color: #ff8800; }
+        .m2m-subtab.sub-llamada.active { color: #00ff88; border-bottom-color: #00ff88; }
+        .m2m-subpanel { display: none; flex: 1; overflow: hidden; flex-direction: column; }
+        .m2m-subpanel.active { display: flex; }
+        /* llamada (dentro de subpanel) */
+        .llamada-layout { flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 15px; gap: 12px; }
+        .llamada-header { display: flex; gap: 10px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+        .llamada-estado { flex: 1; padding: 10px 14px; background: #00ff8808; border: 1px solid #00ff8833; border-radius: 8px; font-size: 0.82em; color: #00ff88; }
+        .llamada-videos { display: flex; gap: 12px; flex: 1; overflow: hidden; }
+        .video-box { flex: 1; background: #050508; border: 1px solid #00ff8833; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; min-height: 200px; }
+        .video-label { padding: 6px 10px; font-size: 0.75em; color: #00ff8888; background: #00ff8808; border-bottom: 1px solid #00ff8822; }
+        .video-box video { flex: 1; object-fit: cover; background: #0a0a0f; width: 100%; }
+        .video-placeholder { flex: 1; display: flex; align-items: center; justify-content: center; color: #00ff8833; font-size: 2em; }
+        .llamada-controles { display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0; padding: 10px; background: #0d1117; border-radius: 8px; border: 1px solid #00ff8822; }
+        .llamada-info { font-size: 0.75em; color: #00ffff66; padding: 6px 10px; background: #00ffff08; border-radius: 6px; border: 1px solid #00ffff11; }
+        /* AVATAR */
+        .avatar-layout { flex: 1; display: flex; overflow: hidden; }
+        .avatar-left { width: 300px; min-width: 260px; border-right: 1px solid #ff44aa22; display: flex; flex-direction: column; overflow-y: auto; padding: 12px; gap: 10px; }
+        .avatar-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 10px; overflow: hidden; }
+        .avatar-section { background: #ff44aa08; border: 1px solid #ff44aa22; border-radius: 8px; padding: 12px; }
+        .avatar-section-title { color: #ff44aa; font-size: 0.78em; letter-spacing: 2px; margin-bottom: 10px; }
+        .avatar-canvas { border-radius: 50%; border: 3px solid #ff44aa88; box-shadow: 0 0 30px #ff44aa44; }
+        .avatar-upload-zone { border: 2px dashed #ff44aa33; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; color: #ff44aa66; font-size: 0.82em; transition: all 0.2s; }
+        .avatar-upload-zone:hover { border-color: #ff44aa; color: #ff44aa; background: #ff44aa08; }
+        .filter-btn { padding: 6px 10px; background: #ff44aa11; border: 1px solid #ff44aa33; color: #ff44aa; border-radius: 5px; cursor: pointer; font-size: 0.75em; font-family: monospace; transition: all 0.2s; margin: 2px; }
+        .filter-btn:hover,.filter-btn.active { background: #ff44aa33; border-color: #ff44aa; }
+        .avatar-slider { width: 100%; accent-color: #ff44aa; margin: 4px 0; }
+        .avatar-label { font-size: 0.75em; color: #ff44aa88; display: flex; justify-content: space-between; margin-bottom: 2px; }
+        /* input nombre en avatar */
+        .nombre-arkani-input { background: #0a0a0f; border: 1px solid #ff44aa44; color: #ff44aa;
+                               padding: 6px 10px; border-radius: 5px; font-family: 'Courier New', monospace;
+                               font-size: 0.85em; width: 100%; letter-spacing: 2px; text-transform: uppercase; }
+        .nombre-arkani-input:focus { outline: none; border-color: #ff44aa; }
+        /* EXPLORADOR */
+        .explorer-layout { flex: 1; display: flex; overflow: hidden; }
+        .explorer-left { width: 340px; min-width: 260px; border-right: 1px solid #aa88ff22; display: flex; flex-direction: column; overflow: hidden; }
+        .explorer-right { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .explorer-header { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #aa88ff22; display: flex; gap: 6px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+        .explorer-path { background: #0a0a0f; border: 1px solid #aa88ff44; color: #aa88ff; padding: 5px 8px; border-radius: 4px; font-family: monospace; font-size: 0.78em; flex: 1; min-width: 0; }
+        .explorer-path:focus { outline: none; border-color: #aa88ff; }
+        .explorer-list { flex: 1; overflow-y: auto; }
+        .explorer-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px; cursor: pointer; font-size: 0.8em; border-bottom: 1px solid #aa88ff11; transition: background 0.15s; }
+        .explorer-item:hover { background: #aa88ff11; }
+        .explorer-icon { width: 18px; text-align: center; flex-shrink: 0; }
+        .explorer-nombre { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .explorer-item.tipo-dir .explorer-nombre { color: #aa88ff; }
+        .explorer-item.tipo-archivo .explorer-nombre { color: #cccccc; }
+        .explorer-meta { color: #aa88ff44; font-size: 0.72em; white-space: nowrap; }
+        .explorer-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+        .explorer-content-header { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #aa88ff22; display: flex; gap: 6px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+        .explorer-content-title { flex: 1; color: #aa88ff99; font-size: 0.78em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .explorer-viewer { flex: 1; background: #050508; color: #e0e0e0; padding: 12px; font-family: monospace; font-size: 0.82em; overflow-y: auto; line-height: 1.6; white-space: pre-wrap; word-break: break-all; }
+        .explorer-search { padding: 8px 12px; background: #0d1117; border-bottom: 1px solid #aa88ff22; display: flex; gap: 6px; flex-shrink: 0; }
+        .explorer-search-input { flex: 1; background: #0a0a0f; border: 1px solid #aa88ff33; color: #aa88ff; padding: 5px 8px; border-radius: 4px; font-family: monospace; font-size: 0.8em; }
+        .explorer-search-input:focus { outline: none; border-color: #aa88ff; }
+        .search-result { padding: 6px 12px; cursor: pointer; font-size: 0.78em; border-bottom: 1px solid #aa88ff11; }
+        .search-result:hover { background: #aa88ff11; }
+        .search-result-nombre { color: #aa88ff; }
+        .search-result-ruta { color: #aa88ff44; font-size: 0.88em; }
+        .statusbar { background: #0d1117; border-top: 1px solid #00ffff22; padding: 4px 15px; display: flex; gap: 20px; font-size: 0.72em; color: #00ffff66; flex-shrink: 0; flex-wrap: wrap; }
+        .statusbar .val { color: #00ff88; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: #000000cc; z-index: 1000; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: #0d1117; border: 1px solid #ff880066; border-radius: 12px; padding: 24px; max-width: 480px; width: 90%; box-shadow: 0 0 30px #ff880033; }
+        .modal h3 { color: #ff8800; margin-bottom: 12px; letter-spacing: 2px; }
+        .modal pre { background: #050508; padding: 12px; border-radius: 6px; font-size: 0.8em; color: #00ff88; margin: 12px 0; overflow-x: auto; max-height: 180px; overflow-y: auto; }
+        .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0f; }
+        ::-webkit-scrollbar-thumb { background: #00ffff33; border-radius: 2px; }
+        .empty-state { text-align: center; color: #00ffff22; padding: 40px; font-size: 0.85em; }
+
+        /* ═══ NIVELES DE USUARIO ═══ */
+        .nivel-badge { padding: 2px 10px; border-radius: 12px; font-size: 0.72em; letter-spacing: 2px; cursor: pointer; font-weight: bold; }
+        .nivel-alpha { background: #ff000022; border: 1px solid #ff4444; color: #ff4444; }
+        .nivel-senior { background: #ff880022; border: 1px solid #ff8800; color: #ff8800; }
+        .nivel-beta { background: #00ff8822; border: 1px solid #00ff88; color: #00ff88; }
+        .nivel-selector { background: #0d1117; border: 1px solid #00ffff44; color: #00ffff; padding: 3px 8px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 0.75em; }
+
+        /* ═══ TABS MÓDULOS ═══ */
+        .tab.tab-rad.active    { border-bottom-color: #ff4444; color: #ff4444; }
+        .tab.tab-world.active  { border-bottom-color: #aa44ff; color: #aa44ff; }
+        .tab.tab-sam.active    { border-bottom-color: #44ff88; color: #44ff88; }
+        .tab.tab-office.active { border-bottom-color: #4488ff; color: #4488ff; }
+        .tab.tab-car.active    { border-bottom-color: #ffcc00; color: #ffcc00; }
+        .tab.tab-pack.active   { border-bottom-color: #ff8844; color: #ff8844; }
+        .tab.tab-beta.active   { border-bottom-color: #ff44aa; color: #ff44aa; }
+
+        /* ═══ MÓDULO GENÉRICO ═══ */
+        .mod-layout { display: flex; flex-direction: column; height: 100%; padding: 16px; gap: 12px; overflow-y: auto; }
+        .mod-header-strip { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; flex-shrink: 0; }
+        .mod-rad-strip   { background: #ff000011; border: 1px solid #ff444433; }
+        .mod-world-strip { background: #aa44ff11; border: 1px solid #aa44ff33; }
+        .mod-sam-strip   { background: #44ff8811; border: 1px solid #44ff8833; }
+        .mod-office-strip{ background: #4488ff11; border: 1px solid #4488ff33; }
+        .mod-car-strip   { background: #ffcc0011; border: 1px solid #ffcc0033; }
+        .mod-pack-strip  { background: #ff884411; border: 1px solid #ff884433; }
+        .mod-icon  { font-size: 2.2em; }
+        .mod-title { font-size: 1.1em; font-weight: bold; letter-spacing: 2px; }
+        .mod-sub   { font-size: 0.78em; color: #ffffff66; margin-top: 2px; }
+        .mod-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+        .mod-card  { background: #0d1117; border-radius: 8px; padding: 14px; border: 1px solid #ffffff11; }
+        .mod-card-title { font-size: 0.82em; letter-spacing: 1px; margin-bottom: 8px; }
+        .mod-card input, .mod-card select, .mod-card textarea {
+            width: 100%; background: #050508; border: 1px solid #ffffff22; color: #cccccc;
+            padding: 6px 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.8em;
+            margin-bottom: 6px; }
+        .mod-card textarea { height: 80px; resize: vertical; }
+        .mod-result { background: #050508; border: 1px solid #ffffff11; border-radius: 6px;
+                      padding: 10px; font-size: 0.78em; color: #aaaaaa; min-height: 60px;
+                      white-space: pre-wrap; overflow-y: auto; max-height: 200px; }
+        .mod-coming { color: #ffffff33; font-size: 0.82em; text-align: center; padding: 20px;
+                      border: 1px dashed #ffffff11; border-radius: 8px; }
+
+        /* ═══ NEXUS-RAD ═══ */
+        .rad-drop { border: 2px dashed #ff444444; border-radius: 8px; padding: 20px;
+                    text-align: center; color: #ff444488; cursor: pointer; font-size: 0.85em;
+                    transition: all 0.2s; }
+        .rad-drop:hover { border-color: #ff4444; color: #ff4444; background: #ff000008; }
+        .rad-viewer { background: #050508; border: 1px solid #ff444422; border-radius: 8px;
+                      min-height: 200px; display: flex; align-items: center; justify-content: center;
+                      color: #ff444444; font-size: 0.85em; overflow: hidden; }
+        .rad-viewer canvas { max-width: 100%; max-height: 300px; }
+
+        /* ═══ NEXUS-PACK ═══ */
+        .pack-drop { border: 2px dashed #ff884444; border-radius: 8px; padding: 20px;
+                     text-align: center; color: #ff884488; cursor: pointer; font-size: 0.85em;
+                     transition: all 0.2s; }
+        .pack-drop:hover { border-color: #ff8844; color: #ff8844; background: #ff440008; }
+        .pack-log  { background: #050508; border: 1px solid #ff884422; border-radius: 6px;
+                     padding: 10px; font-size: 0.75em; color: #ff8844; height: 150px;
+                     overflow-y: auto; white-space: pre-wrap; font-family: 'Courier New', monospace; }
+
+        /* ═══ NEXUS-BETA (usuario final) ═══ */
+        .beta-layout { display: flex; flex-direction: column; align-items: center;
+                       padding: 20px; gap: 16px; overflow-y: auto; height: 100%; }
+        .beta-welcome { font-size: 1.3em; letter-spacing: 3px; color: #ff44aa;
+                        text-shadow: 0 0 15px #ff44aa66; text-align: center; }
+        .beta-section { width: 100%; max-width: 500px; background: #0d1117;
+                        border: 1px solid #ff44aa22; border-radius: 10px; padding: 16px; }
+        .beta-section-title { color: #ff44aa; font-size: 0.8em; letter-spacing: 2px; margin-bottom: 12px; }
+        .beta-input { width: 100%; background: #050508; border: 1px solid #ff44aa33; color: #cccccc;
+                      padding: 8px 10px; border-radius: 6px; font-family: 'Courier New', monospace;
+                      font-size: 0.85em; margin-bottom: 8px; }
+        .btn-pink-sm { padding: 5px 14px; border-radius: 5px; border: 1px solid #ff44aa; background: #ff44aa11;
+                       color: #ff44aa; font-size: 0.8em; cursor: pointer; font-family: 'Courier New', monospace; }
+        .btn-pink-sm:hover { background: #ff44aa22; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><span class="status-dot" id="statusDot"></span>ARKANI NEXUS v4.0</h1>
+    <div class="header-stats">
+        <div class="stat-item"><span class="stat-val" id="statConv">0</span><span>CONV</span></div>
+        <div class="stat-item"><span class="stat-val" id="statEvol">0</span><span>EVOL</span></div>
+        <div class="stat-item"><span class="stat-val" id="statHipo">0</span><span>HIPOCAMPO</span></div>
+        <div class="stat-item"><span class="stat-val" id="statRam">0%</span><span>RAM</span></div>
+        <div class="stat-item"><span class="stat-val" id="statCpu">0%</span><span>CPU</span></div>
+    </div>
+</div>
+
+<!-- BARRA DE TABS: 8 → 7 (LLAMADA M2M absorbida en COMUNICACIÓN M2M) -->
+<div class="body-layout">
+<div class="tabs">
+    <div class="tab-group-label">CORE</div>
+    <div class="tab active" id="tabChat" onclick="switchTab('chat')">💬 CHAT</div>
+    <div class="tab" id="tabEditor" onclick="switchTab('editor')">⌨️ EDITOR</div>
+    <div class="tab" id="tabErrores" onclick="switchTab('errores')">⚠️ ERRORES <span class="badge" id="badgeErrores" style="display:none">0</span></div>
+    <div class="tab" id="tabIntro" onclick="switchTab('intro')">🧬 CAPACIDADES</div>
+    <div class="tab" id="tabHipo" onclick="switchTab('hipocampo')">💾 HIPOCAMPO</div>
+    <div class="tab tab-explorer" id="tabExplorer" onclick="switchTab('explorer')">📁 EXPLORADOR</div>
+    <div class="tab tab-m2m" id="tabM2m" onclick="switchTab('m2m')">📡 M2M <span class="badge badge-green" id="badgeNodos" style="display:none">0</span></div>
+    <div class="tab tab-avatar" id="tabAvatar" onclick="switchTab('avatar')">🎨 AVATAR</div>
+    <div class="tab" id="tabHelp" onclick="switchTab('help')">❓ HELP</div>
+    <div class="tab-sep"></div>
+    <div class="tab-group-label">MÓDULOS</div>
+    <div class="tab tab-rad"    id="tabRad"    onclick="switchTab('rad')">🩻 NEXUS-RAD</div>
+    <div class="tab tab-world"  id="tabWorld"  onclick="switchTab('world')">🌍 NEXUS-WORLD</div>
+    <div class="tab tab-sam"    id="tabSam"    onclick="switchTab('sam')">🤖 SAM</div>
+    <div class="tab tab-office" id="tabOffice" onclick="switchTab('office')">📄 NEXUS-OFFICE</div>
+    <div class="tab tab-car"    id="tabCar"    onclick="switchTab('car')">🚗 NEXUS-CAR</div>
+    <div class="tab tab-pack"   id="tabPack"   onclick="switchTab('pack')">📦 NEXUS-PACK</div>
+    <div class="tab-sep"></div>
+    <div class="tab-group-label">USUARIO</div>
+    <div class="tab tab-beta" id="tabBeta" onclick="switchTab('beta')">📧 NEXUS-MAIL</div>
+</div>
+    <div class="sidebar">
+        <div class="avatar-wrap">
+            <img id="avatarImg" src="/static/avatar.png"
+                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230d1117%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 font-size=%2240%22>🤖</text></svg>'"
+                 alt="Avatar">
+            <div class="avatar-btn" onclick="switchTab('avatar')" title="Personalizar">🎨</div>
+        </div>
+        <!-- Nombre clicable — abre avatar para editar -->
+        <div class="arkani-name-display" id="sidebarNombre" onclick="switchTab('avatar')" title="Cambiar nombre">ARKANI</div>
+        <div class="arkani-status">● EN LÍNEA</div>
+        <div class="conv-title">CONVERSACIONES</div>
+        <div id="sidebarConvs"></div>
+    </div>
+
+    <div class="main-area">
+
+        <!-- CHAT -->
+        <div class="tab-panel active" id="panelChat">
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="typing-ind" id="typingInd" style="display:none">⟦ARKANI⟧ procesando...</div>
+            <div class="voz-bar">
+                <button class="btn-upload" onclick="uploadAbrir()" title="Subir archivo">📎</button>
+                <button class="btn-mic" id="btnMicPasivo" onclick="vozPasivoToggle()" title="Grabar">🎙️</button>
+                <button class="btn-mic btn-mic-activo" id="btnMicActivo" onclick="vozActivoToggle()" title="Modo activo">👂</button>
+                <span class="voz-status" id="vozStatus">🔇 Voz lista</span>
+                <audio id="vozAudio" autoplay style="display:none"></audio>
+            </div>
+            <div class="chat-input-area">
+                <textarea class="chat-input" id="chatInput"
+                    placeholder="Escribe aquí... | autoprograma: [tarea] | evoluciona: [desc]"
+                    onkeydown="chatKeyDown(event)"></textarea>
+                <div class="chat-btns">
+                    <button class="btn btn-cyan" onclick="enviarMensaje()">ENVIAR</button>
+                    <button class="btn btn-orange btn-sm" onclick="escanearErrores()">ESCANEAR</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDITOR -->
+        <div class="tab-panel" id="panelEditor">
+            <div class="editor-header">
+                <span class="editor-title">⌨️ CONSTRUCTOR DE CÓDIGO</span>
+                <select class="file-selector" id="fileSelector" onchange="cargarArchivoEditor()">
+                    <option value="">— nuevo archivo —</option>
+                </select>
+                <button class="btn btn-cyan btn-sm" onclick="nuevoArchivo()">+ NUEVO</button>
+            </div>
+            <textarea class="code-editor" id="codeEditor" placeholder="# Escribe o genera código aquí..." spellcheck="false"></textarea>
+            <div class="editor-footer">
+                <input class="nombre-input" id="nombreArchivo" placeholder="nombre_funcion" />
+                <button class="btn btn-green btn-sm" onclick="guardarCodigo()">💾 GUARDAR</button>
+                <button class="btn btn-cyan btn-sm" onclick="probarCodigo()">▶ PROBAR</button>
+                <button class="btn btn-orange btn-sm" onclick="pedirCodigo()">🤖 GENERAR</button>
+                <span class="editor-status" id="editorStatus">Listo</span>
+            </div>
+        </div>
+
+        <!-- ERRORES -->
+        <div class="tab-panel" id="panelErrores">
+            <div class="panel-header">
+                <span class="panel-header-title">⚠️ DETECTOR DE ERRORES</span>
+                <button class="btn btn-orange btn-sm" onclick="escanearErrores()">🔍 ESCANEAR</button>
+                <button class="btn btn-cyan btn-sm" onclick="switchTab('editor')">+ NUEVO</button>
+            </div>
+            <div class="errores-lista" id="erroresLista">
+                <div class="empty-state">Presiona ESCANEAR para detectar errores</div>
+            </div>
+        </div>
+
+        <!-- CAPACIDADES -->
+        <div class="tab-panel" id="panelIntro">
+            <div class="panel-header">
+                <span class="panel-header-title">🧬 CAPACIDADES AUTOGEN</span>
+                <button class="btn btn-green btn-sm" onclick="cargarCapacidades()">↺ RECARGAR</button>
+                <button class="btn btn-cyan btn-sm" onclick="switchTab('editor')">+ NUEVA</button>
+            </div>
+            <div class="intro-grid" id="capacidadesGrid">
+                <div class="empty-state">Cargando capacidades...</div>
+            </div>
+        </div>
+
+        <!-- HIPOCAMPO -->
+        <div class="tab-panel" id="panelHipocampo">
+            <div class="panel-header">
+                <span class="panel-header-title">💾 MEMORIA HIPOCAMPO</span>
+                <span id="hipoInfo" style="font-size:0.78em;color:#00ffff66"></span>
+                <button class="btn btn-cyan btn-sm" onclick="cargarHipocampo()">↺</button>
+            </div>
+            <div class="hipo-panel" id="hipocampoPanel"></div>
+        </div>
+
+        <!-- EXPLORADOR -->
+        <div class="tab-panel" id="panelExplorer">
+            <div class="explorer-layout">
+                <div class="explorer-left">
+                    <div class="explorer-header">
+                        <input class="explorer-path" id="explorerPath" placeholder="~/NEXUS"
+                               onkeydown="if(event.key==='Enter')explorerNavegar(this.value)">
+                        <button class="btn btn-purple btn-sm" onclick="explorerNavegar(document.getElementById('explorerPath').value)">IR</button>
+                        <button class="btn btn-purple btn-sm" onclick="explorerSubir()">⬆</button>
+                    </div>
+                    <div class="explorer-search">
+                        <input class="explorer-search-input" id="explorerBuscar" placeholder="buscar *.py, *.nxf..."
+                               onkeydown="if(event.key==='Enter')explorerBuscar()">
+                        <button class="btn btn-purple btn-sm" onclick="explorerBuscar()">🔍</button>
+                    </div>
+                    <div class="explorer-list" id="explorerList"></div>
+                </div>
+                <div class="explorer-right">
+                    <div class="explorer-content-header">
+                        <span class="explorer-content-title" id="explorerContentTitle">Selecciona un archivo</span>
+                        <button class="btn btn-cyan btn-sm" id="btnExplorerChat" style="display:none" onclick="explorerEnviarChat()">💬 Chat</button>
+                        <button class="btn btn-green btn-sm" id="btnExplorerEditor" style="display:none" onclick="explorerEnviarEditor()">⌨️ Editor</button>
+                        <button class="btn btn-orange btn-sm" id="btnExplorerPack" style="display:none" onclick="explorerEmpaquetar()">📦 .nxf</button>
+                    </div>
+                    <div class="explorer-viewer" id="explorerViewer">Selecciona un archivo para ver su contenido</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMUNICACIÓN M2M (compartir + llamada unificados) -->
+        <div class="tab-panel" id="panelM2m">
+            <!-- SUB-TABS -->
+            <div class="m2m-subtabs">
+                <div class="m2m-subtab active" id="subTabCompartir" onclick="switchM2mSub('compartir')">📡 COMPARTIR</div>
+                <div class="m2m-subtab sub-llamada" id="subTabLlamada" onclick="switchM2mSub('llamada')">📞 LLAMADA M2M</div>
+            </div>
+
+            <!-- SUB-PANEL: COMPARTIR -->
+            <div class="m2m-subpanel active" id="subPanelCompartir">
+                <div class="m2m-layout">
+                    <div class="m2m-left">
+                        <div class="m2m-section">
+                            <div class="m2m-title">📡 CONECTAR NODO</div>
+                            <input class="m2m-input" id="m2mUrlInput" placeholder="https://nodo.ngrok-free.app">
+                            <button class="btn btn-orange" style="width:100%" onclick="m2mConectar()">⚡ CONECTAR</button>
+                        </div>
+                        <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+                            <div class="m2m-title">🌐 NODOS ACTIVOS</div>
+                            <div class="m2m-nodos" id="m2mNodos">
+                                <div class="empty-state" style="color:#ff880033">Sin nodos conectados</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m2m-right">
+                        <div class="m2m-section">
+                            <div class="m2m-title">📤 ENVIAR ARCHIVO .NXF</div>
+                            <input class="m2m-input" id="m2mArchivoPath" placeholder="Ruta del archivo .nxf">
+                            <select class="m2m-input" id="m2mDestinoSelect" style="margin-bottom:6px">
+                                <option value="">-- Seleccionar destino --</option>
+                            </select>
+                            <div style="display:flex;gap:6px">
+                                <button class="btn btn-orange btn-sm" onclick="m2mEnviar()">📤 ENVIAR</button>
+                                <button class="btn btn-cyan btn-sm" onclick="m2mExplorarNxf()">📁 EXPLORAR</button>
+                            </div>
+                        </div>
+                        <div class="m2m-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+                            <div class="m2m-title">📥 ARCHIVOS RECIBIDOS</div>
+                            <div class="m2m-archivos" id="m2mRecibidos"></div>
+                            <div class="m2m-drop" id="m2mDrop"
+                                 ondrop="m2mDrop(event)"
+                                 ondragover="event.preventDefault();this.classList.add('drag-over')"
+                                 ondragleave="this.classList.remove('drag-over')">
+                                📦 Arrastra un .nxf aquí
+                            </div>
+                        </div>
+                        <div class="m2m-log" id="m2mLog"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-PANEL: LLAMADA -->
+            <div class="m2m-subpanel" id="subPanelLlamada">
+                <div class="llamada-layout">
+                    <div class="llamada-header">
+                        <div class="llamada-estado" id="llamadaEstado">📞 Sin llamada activa — Conecta un nodo primero</div>
+                        <select class="file-selector" id="llamadaNodoSelect" style="border-color:#00ff8844;color:#00ff88;background:#0a0a0f">
+                            <option value="">— Seleccionar nodo —</option>
+                        </select>
+                        <button class="btn btn-green btn-sm" onclick="llamadaIniciar('audio')">🎙️ AUDIO</button>
+                        <button class="btn btn-green btn-sm" onclick="llamadaIniciar('video')">📹 VIDEO</button>
+                        <button class="btn btn-red btn-sm" id="btnColgar" style="display:none" onclick="llamadaColgar()">📵 COLGAR</button>
+                    </div>
+                    <div class="llamada-videos">
+                        <div class="video-box">
+                            <div class="video-label">📹 TÚ (LOCAL)</div>
+                            <video id="videoLocal" autoplay muted playsinline></video>
+                        </div>
+                        <div class="video-box">
+                            <div class="video-label">📹 NODO REMOTO</div>
+                            <video id="videoRemoto" autoplay playsinline></video>
+                            <div class="video-placeholder" id="videoRemotoPlaceholder">👤</div>
+                        </div>
+                    </div>
+                    <div class="llamada-controles">
+                        <button class="btn btn-cyan btn-sm" id="btnMuteAudio" onclick="llamadaMuteAudio()">🎙️ MUTE</button>
+                        <button class="btn btn-cyan btn-sm" id="btnMuteVideo" onclick="llamadaMuteVideo()">📹 CAMARA</button>
+                        <div class="llamada-info">🔐 Codificación fractal .nxf — Canal M2M seguro</div>
+                        <div class="llamada-info" id="llamadaStats">⏱️ 00:00 | 🔐 fractal activo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AVATAR — "Personalizar" movido debajo de la imagen, campo Nombre agregado -->
+        <div class="tab-panel" id="panelAvatar">
+            <div class="avatar-layout">
+                <div class="avatar-left">
+                    <!-- FOTO primero -->
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">📸 SUBIR FOTO</div>
+                        <div class="avatar-upload-zone" onclick="document.getElementById('avatarFileInput').click()">
+                            📷 Click para subir foto<br><span style="font-size:0.85em;color:#ff44aa44">JPG, PNG, WEBP</span>
+                        </div>
+                        <input type="file" id="avatarFileInput" style="display:none" accept="image/*" onchange="avatarCargarFoto(event)">
+                    </div>
+                    <!-- ESTILO -->
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">🎨 ESTILO</div>
+                        <div>
+                            <button class="filter-btn active" id="filtroNormal" onclick="avatarFiltro('normal')">Original</button>
+                            <button class="filter-btn" id="filtroCartoon" onclick="avatarFiltro('cartoon')">Cartoon</button>
+                            <button class="filter-btn" id="filtroNeon" onclick="avatarFiltro('neon')">Neón</button>
+                            <button class="filter-btn" id="filtroCyber" onclick="avatarFiltro('cyber')">Cyber</button>
+                            <button class="filter-btn" id="filtroPixel" onclick="avatarFiltro('pixel')">Pixel</button>
+                            <button class="filter-btn" id="filtroSketch" onclick="avatarFiltro('sketch')">Sketch</button>
+                        </div>
+                    </div>
+                    <!-- AJUSTES -->
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">⚙️ AJUSTES</div>
+                        <div class="avatar-label"><span>Brillo</span><span id="valBrillo">100%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderBrillo" min="0" max="200" value="100" oninput="avatarAplicarFiltros()">
+                        <div class="avatar-label"><span>Contraste</span><span id="valContraste">100%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderContraste" min="0" max="200" value="100" oninput="avatarAplicarFiltros()">
+                        <div class="avatar-label"><span>Saturación</span><span id="valSaturacion">100%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderSaturacion" min="0" max="200" value="100" oninput="avatarAplicarFiltros()">
+                        <div class="avatar-label"><span>Tono neón</span><span id="valNeon">0%</span></div>
+                        <input type="range" class="avatar-slider" id="sliderNeon" min="0" max="100" value="0" oninput="avatarAplicarFiltros()">
+                    </div>
+                    <!-- GUARDAR -->
+                    <div class="avatar-section">
+                        <div class="avatar-section-title">💾 GUARDAR</div>
+                        <button class="btn btn-pink" style="width:100%;margin-bottom:6px" onclick="avatarGuardar()">✅ ESTABLECER COMO AVATAR</button>
+                        <button class="btn btn-cyan btn-sm" style="width:100%" onclick="avatarDescargar()">⬇️ DESCARGAR</button>
+                    </div>
+                </div>
+
+                <!-- DERECHA: imagen + personalizar DEBAJO -->
+                <div class="avatar-right">
+                    <div style="color:#ff44aa88;font-size:0.8em;letter-spacing:2px">VISTA PREVIA</div>
+                    <canvas id="avatarCanvas" class="avatar-canvas" width="300" height="300"></canvas>
+                    <div style="color:#ff44aa44;font-size:0.75em;text-align:center" id="avatarStatusMsg">Sube una foto para comenzar</div>
+
+                    <!-- PERSONALIZAR — debajo de la imagen -->
+                    <div style="width:100%;max-width:340px;background:#ff44aa08;border:1px solid #ff44aa22;border-radius:8px;padding:14px;margin-top:4px">
+                        <div style="color:#ff44aa;font-size:0.78em;letter-spacing:2px;margin-bottom:10px">✏️ PERSONALIZAR</div>
+
+                        <!-- Nombre -->
+                        <div class="avatar-label" style="margin-bottom:4px">
+                            <span>Nombre del asistente</span>
+                        </div>
+                        <input class="nombre-arkani-input" id="inputNombreArkani"
+                               placeholder="ARKANI"
+                               value="ARKANI"
+                               maxlength="20"
+                               oninput="previewNombreArkani(this.value)">
+                        <div style="font-size:0.7em;color:#ff44aa44;margin:4px 0 10px">
+                            Por defecto: "Arkani abre youtube" · Personalizado: "Jarvis abre youtube"
+                        </div>
+
+                        <button class="btn btn-pink" style="width:100%" onclick="guardarNombreArkani()">
+                            💾 GUARDAR NOMBRE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HELP -->
+        <div class="tab-panel" id="panelHelp">
+            <div class="panel-header">
+                <span class="panel-header-title">❓ MANUAL DE USUARIO</span>
+                <button class="btn btn-cyan btn-sm" onclick="helpDescargar()">⬇️ DESCARGAR TXT</button>
+            </div>
+            <div style="flex:1;overflow-y:auto;padding:20px;font-family:'Courier New',monospace;font-size:0.82em;line-height:1.7;color:#cccccc;background:#050508;white-space:pre-wrap" id="helpContent">Cargando manual...</div>
+        </div>
+
+    </div>
+</div>
+
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- NEXUS-RAD — Radiología Diagnóstica + DICOM              -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="tab-panel" id="panelRad">
+            <div class="mod-layout">
+                <div class="mod-header-strip mod-rad-strip">
+                    <span class="mod-icon">🩻</span>
+                    <div>
+                        <div class="mod-title" style="color:#ff4444">NEXUS-RAD</div>
+                        <div class="mod-sub">Radiología Diagnóstica · DICOM → Fractal · LLaVA (GPU)</div>
+                    </div>
+                    <div style="margin-left:auto;font-size:0.75em;color:#ff444466">v1.0 — CPU mode</div>
+                </div>
+                <div class="mod-cards">
+                    <!-- Subir DICOM -->
+                    <div class="mod-card" style="border-color:#ff444422">
+                        <div class="mod-card-title" style="color:#ff4444">📤 SUBIR ESTUDIO DICOM</div>
+                        <div class="rad-drop" id="radDrop"
+                             onclick="document.getElementById('radInput').click()"
+                             ondragover="event.preventDefault();this.style.borderColor='#ff4444'"
+                             ondragleave="this.style.borderColor='#ff444444'"
+                             ondrop="radDrop(event)">
+                            🏥 Arrastra .dcm aquí o haz clic<br>
+                            <small style="color:#ff444444">DICOM, NIfTI, RAW</small>
+                        </div>
+                        <input type="file" id="radInput" style="display:none" accept=".dcm,.dicom" onchange="radSeleccionar(this)">
+                        <div style="margin-top:8px;display:flex;gap:6px">
+                            <button class="btn btn-sm" style="border-color:#ff4444;color:#ff4444;background:#ff000011;flex:1" onclick="radComprimir()">📦 → .nxf</button>
+                            <button class="btn btn-sm" style="border-color:#ff4444;color:#ff4444;background:#ff000011;flex:1" onclick="radAnalizar()">🤖 Analizar</button>
+                        </div>
+                    </div>
+                    <!-- Visor -->
+                    <div class="mod-card" style="border-color:#ff444422;grid-column:span 2">
+                        <div class="mod-card-title" style="color:#ff4444">🖼️ VISOR DICOM</div>
+                        <div class="rad-viewer" id="radViewer">
+                            <div style="text-align:center">
+                                <div style="font-size:2em;margin-bottom:8px">🏥</div>
+                                <div>Sube un archivo DICOM para visualizar</div>
+                                <div style="color:#ff444444;font-size:0.8em;margin-top:4px">Ventanas: Pulmonar · Mediastínica · Ósea</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:6px;margin-top:8px">
+                            <button class="btn btn-sm" style="border-color:#ff444466;color:#ff444488" onclick="radVentana('pulmonar')">🫁 Pulmonar</button>
+                            <button class="btn btn-sm" style="border-color:#ff444466;color:#ff444488" onclick="radVentana('mediastino')">❤️ Mediastino</button>
+                            <button class="btn btn-sm" style="border-color:#ff444466;color:#ff444488" onclick="radVentana('osea')">🦴 Ósea</button>
+                        </div>
+                    </div>
+                    <!-- Reporte IA -->
+                    <div class="mod-card" style="border-color:#ff444422">
+                        <div class="mod-card-title" style="color:#ff4444">📋 REPORTE IA</div>
+                        <div class="mod-result" id="radReporte">El análisis automático con LLaVA estará disponible cuando llegue el servidor GPU (Radeon RX 9060 XT 16GB).
+
+Por ahora puedes enviar la imagen al chat con:
+aprende internet: radiopaedia [hallazgo]</div>
+                    </div>
+                    <!-- PACS Info -->
+                    <div class="mod-card" style="border-color:#ff444422">
+                        <div class="mod-card-title" style="color:#ff4444">📊 PACS FRACTAL</div>
+                        <div style="font-size:0.78em;color:#aaaaaa;line-height:1.6">
+                            <div>📁 Estudios: <span style="color:#ff4444" id="radEstudios">0</span></div>
+                            <div>💾 Original: <span style="color:#ff4444" id="radSizeOrig">0 MB</span></div>
+                            <div>📦 Fractal: <span style="color:#ff4444" id="radSizeNxf">0 MB</span></div>
+                            <div>📉 Ratio: <span style="color:#00ff88" id="radRatio">—</span></div>
+                        </div>
+                        <button class="btn btn-sm" style="border-color:#ff4444;color:#ff4444;background:#ff000011;width:100%;margin-top:8px" onclick="radVerPACS()">📂 VER EXPEDIENTES</button>
+                    </div>
+                </div>
+                <div class="mod-coming">
+                    🔬 pydicom · matplotlib · LLaVA — Integración completa con servidor GPU<br>
+                    <small>pip install pydicom matplotlib — pendiente instalación</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- NEXUS-WORLD — Realidad Aumentada + Avatares             -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="tab-panel" id="panelWorld">
+            <div class="mod-layout">
+                <div class="mod-header-strip mod-world-strip">
+                    <span class="mod-icon">🌍</span>
+                    <div>
+                        <div class="mod-title" style="color:#aa44ff">NEXUS-WORLD</div>
+                        <div class="mod-sub">Realidad Aumentada · Avatares WebXR · Red Social Fractal</div>
+                    </div>
+                    <div style="margin-left:auto;font-size:0.75em;color:#aa44ff66">En desarrollo — Hermano</div>
+                </div>
+                <div class="mod-cards">
+                    <div class="mod-card" style="border-color:#aa44ff22">
+                        <div class="mod-card-title" style="color:#aa44ff">🎮 MI AVATAR NEXUS-WORLD</div>
+                        <div style="text-align:center;padding:20px">
+                            <img id="worldAvatarImg" src="/static/avatar.png"
+                                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230d1117%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 font-size=%2240%22>👤</text></svg>'"
+                                 style="width:100px;height:100px;border-radius:50%;border:2px solid #aa44ff66">
+                        </div>
+                        <input class="mod-card input" style="width:100%;background:#050508;border:1px solid #aa44ff33;color:#ccc;padding:6px;border-radius:4px;font-family:'Courier New';font-size:0.8em;margin-bottom:6px" placeholder="Nombre en NEXUS-WORLD" id="worldNombre">
+                        <button class="btn btn-sm" style="border-color:#aa44ff;color:#aa44ff;background:#aa00ff11;width:100%">🌍 ENTRAR A NEXUS-WORLD</button>
+                    </div>
+                    <div class="mod-card" style="border-color:#aa44ff22">
+                        <div class="mod-card-title" style="color:#aa44ff">🌐 NODOS CONECTADOS</div>
+                        <div class="mod-result" id="worldNodos">Sin nodos NEXUS-WORLD activos</div>
+                        <button class="btn btn-sm" style="border-color:#aa44ff;color:#aa44ff;background:#aa00ff11;width:100%;margin-top:8px" onclick="worldBuscarNodos()">🔍 BUSCAR NODOS</button>
+                    </div>
+                    <div class="mod-card" style="border-color:#aa44ff22">
+                        <div class="mod-card-title" style="color:#aa44ff">📡 ESTADO DEL MÓDULO</div>
+                        <div style="font-size:0.78em;color:#aaaaaa;line-height:1.8">
+                            <div>🏗️ Estado: <span style="color:#ffcc00">En desarrollo</span></div>
+                            <div>👨‍💻 Dev: <span style="color:#aa44ff">Hermano de Elías</span></div>
+                            <div>🛠️ Tech: <span style="color:#aa44ff">Three.js + WebXR</span></div>
+                            <div>📱 Target: <span style="color:#aa44ff">Smartphone (sin lentes)</span></div>
+                            <div>🎯 Meta: <span style="color:#aa44ff">Pokémon GO style, gratis</span></div>
+                        </div>
+                    </div>
+                    <div class="mod-card" style="border-color:#aa44ff22;grid-column:span 3">
+                        <div class="mod-card-title" style="color:#aa44ff">🗺️ MAPA DE NODOS NEXUS-WORLD</div>
+                        <div style="background:#050508;border-radius:6px;height:150px;display:flex;align-items:center;justify-content:center;color:#aa44ff33;font-size:0.85em">
+                            El mapa AR de nodos estará disponible cuando el módulo esté integrado<br>
+                            <small>Protocolo M2M fractal — .nxf sincronización</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SAM — System Auto-coder Module                          -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="tab-panel" id="panelSam">
+            <div class="mod-layout">
+                <div class="mod-header-strip mod-sam-strip">
+                    <span class="mod-icon">🤖</span>
+                    <div>
+                        <div class="mod-title" style="color:#44ff88">SAM</div>
+                        <div class="mod-sub">System Auto-coder Module · Genera · Prueba · Despliega</div>
+                    </div>
+                    <div style="margin-left:auto;font-size:0.75em;color:#44ff8866">Powered by arkani:latest</div>
+                </div>
+                <div class="mod-cards">
+                    <div class="mod-card" style="border-color:#44ff8822;grid-column:span 2">
+                        <div class="mod-card-title" style="color:#44ff88">⚡ GENERADOR DE MÓDULOS</div>
+                        <textarea id="samDescripcion" class="mod-card textarea" placeholder="Describe el módulo que necesitas...
+Ejemplo: Función que lee un archivo DICOM y extrae los metadatos del paciente"></textarea>
+                        <div style="display:flex;gap:6px">
+                            <select id="samLenguaje" style="background:#050508;border:1px solid #44ff8833;color:#ccc;padding:5px;border-radius:4px;font-family:'Courier New';font-size:0.8em">
+                                <option>Python</option>
+                                <option>JavaScript</option>
+                                <option>Bash</option>
+                                <option>SQL</option>
+                            </select>
+                            <button class="btn btn-sm" style="border-color:#44ff88;color:#44ff88;background:#00ff4411;flex:1" onclick="samGenerar()">⚡ GENERAR</button>
+                            <button class="btn btn-sm" style="border-color:#44ff8866;color:#44ff8866" onclick="samEnviarChat()">💬 Chat</button>
+                        </div>
+                    </div>
+                    <div class="mod-card" style="border-color:#44ff8822">
+                        <div class="mod-card-title" style="color:#44ff88">📁 MÓDULOS AUTOGEN</div>
+                        <div class="mod-result" id="samAutogenList">Cargando...</div>
+                        <button class="btn btn-sm" style="border-color:#44ff88;color:#44ff88;background:#00ff4411;width:100%;margin-top:6px" onclick="samCargarAutogen()">↺ ACTUALIZAR</button>
+                    </div>
+                    <div class="mod-card" style="border-color:#44ff8822;grid-column:span 3">
+                        <div class="mod-card-title" style="color:#44ff88">📝 CÓDIGO GENERADO</div>
+                        <div class="mod-result" id="samOutput" style="height:200px;color:#00ff88;font-family:'Courier New',monospace">El código aparecerá aquí...</div>
+                        <div style="display:flex;gap:6px;margin-top:6px">
+                            <button class="btn btn-sm" style="border-color:#44ff88;color:#44ff88;background:#00ff4411" onclick="samCopiar()">📋 COPIAR</button>
+                            <button class="btn btn-sm" style="border-color:#44ff88;color:#44ff88;background:#00ff4411" onclick="samGuardar()">💾 GUARDAR</button>
+                            <button class="btn btn-sm" style="border-color:#44ff88;color:#44ff88;background:#00ff4411" onclick="samEjecutar()">▶️ EJECUTAR</button>
+                            <button class="btn btn-sm" style="border-color:#44ff88;color:#44ff88;background:#00ff4411" onclick="samEmpaquetar()">📦 → .nxf</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- NEXUS-OFFICE — Documentos Word/Excel/PPT                -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="tab-panel" id="panelOffice">
+            <div class="mod-layout">
+                <div class="mod-header-strip mod-office-strip">
+                    <span class="mod-icon">📄</span>
+                    <div>
+                        <div class="mod-title" style="color:#4488ff">NEXUS-OFFICE</div>
+                        <div class="mod-sub">Word · Excel · PowerPoint · Canvas · Arkani asistente personal</div>
+                    </div>
+                    <div style="margin-left:auto;font-size:0.75em;color:#4488ff66">En desarrollo — Primos</div>
+                </div>
+                <div class="mod-cards">
+                    <div class="mod-card" style="border-color:#4488ff22">
+                        <div class="mod-card-title" style="color:#4488ff">📝 GENERAR DOCUMENTO</div>
+                        <select style="width:100%;background:#050508;border:1px solid #4488ff33;color:#ccc;padding:6px;border-radius:4px;font-family:'Courier New';font-size:0.8em;margin-bottom:6px" id="officeType">
+                            <option value="word">📝 Word (.docx)</option>
+                            <option value="excel">📊 Excel (.xlsx)</option>
+                            <option value="ppt">📊 PowerPoint (.pptx)</option>
+                            <option value="reporte">📋 Reporte Médico</option>
+                        </select>
+                        <textarea style="width:100%;background:#050508;border:1px solid #4488ff33;color:#ccc;padding:6px;border-radius:4px;font-family:'Courier New';font-size:0.8em;height:80px;resize:vertical;margin-bottom:6px" id="officeDescripcion" placeholder="Describe el documento que necesitas..."></textarea>
+                        <button class="btn btn-sm" style="border-color:#4488ff;color:#4488ff;background:#0044ff11;width:100%" onclick="officeGenerar()">📄 GENERAR</button>
+                    </div>
+                    <div class="mod-card" style="border-color:#4488ff22">
+                        <div class="mod-card-title" style="color:#4488ff">📊 PLANTILLAS</div>
+                        <div style="display:flex;flex-direction:column;gap:6px">
+                            <button class="btn btn-sm" style="border-color:#4488ff66;color:#4488ff88;text-align:left" onclick="officeTemplate('reporte_radiologico')">🩻 Reporte Radiológico</button>
+                            <button class="btn btn-sm" style="border-color:#4488ff66;color:#4488ff88;text-align:left" onclick="officeTemplate('presentacion')">📊 Presentación Médica</button>
+                            <button class="btn btn-sm" style="border-color:#4488ff66;color:#4488ff88;text-align:left" onclick="officeTemplate('hoja_datos')">📋 Hoja de Datos</button>
+                            <button class="btn btn-sm" style="border-color:#4488ff66;color:#4488ff88;text-align:left" onclick="officeTemplate('curriculum')">👤 Currículum</button>
+                        </div>
+                    </div>
+                    <div class="mod-card" style="border-color:#4488ff22">
+                        <div class="mod-card-title" style="color:#4488ff">📁 DOCUMENTOS GENERADOS</div>
+                        <div class="mod-result" id="officeDocsList">Sin documentos generados aún</div>
+                        <div class="mod-coming" style="margin-top:8px">
+                            python-docx · openpyxl · python-pptx<br>
+                            <small>Integración completa: primos desarrollando</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- NEXUS-CAR — Asistente Vehicular                         -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="tab-panel" id="panelCar">
+            <div class="mod-layout">
+                <div class="mod-header-strip mod-car-strip">
+                    <span class="mod-icon">🚗</span>
+                    <div>
+                        <div class="mod-title" style="color:#ffcc00">NEXUS-CAR</div>
+                        <div class="mod-sub">Asistente Vehicular · Voz · Sin tocar pantalla · CarPlay style</div>
+                    </div>
+                </div>
+                <div class="mod-cards">
+                    <div class="mod-card" style="border-color:#ffcc0022;grid-column:span 3;text-align:center">
+                        <div style="font-size:3em;margin-bottom:12px">🚗</div>
+                        <div class="mod-card-title" style="color:#ffcc00;font-size:1em">MODO CONDUCCIÓN</div>
+                        <div style="color:#ffffff66;font-size:0.82em;margin-bottom:16px">
+                            Interfaz minimalista · Solo voz · Sin distracciones
+                        </div>
+                        <button class="btn btn-sm" style="border-color:#ffcc00;color:#ffcc00;background:#ffcc0011;padding:12px 30px;font-size:1em" onclick="carActivar()">
+                            🎙️ ACTIVAR MODO CONDUCCIÓN
+                        </button>
+                        <div style="margin-top:12px;color:#ffcc0044;font-size:0.78em">
+                            Di "Arkani" para activar · Comandos de voz · Sin internet requerido
+                        </div>
+                    </div>
+                    <div class="mod-card" style="border-color:#ffcc0022">
+                        <div class="mod-card-title" style="color:#ffcc00">🎙️ COMANDOS DE VOZ</div>
+                        <div style="font-size:0.78em;color:#aaaaaa;line-height:1.8">
+                            <div>"Arkani, <b style='color:#ffcc00'>navega a</b> hospital"</div>
+                            <div>"Arkani, <b style='color:#ffcc00'>llama a</b> recepción"</div>
+                            <div>"Arkani, <b style='color:#ffcc00'>recuérdame</b> guardia a las 8"</div>
+                            <div>"Arkani, <b style='color:#ffcc00'>qué estudios</b> tengo hoy"</div>
+                            <div>"Arkani, <b style='color:#ffcc00'>dictar</b> nota: paciente..."</div>
+                        </div>
+                    </div>
+                    <div class="mod-card" style="border-color:#ffcc0022">
+                        <div class="mod-card-title" style="color:#ffcc00">⚙️ CONFIGURACIÓN</div>
+                        <div style="font-size:0.78em;color:#aaaaaa;margin-bottom:8px">Velocidad de respuesta TTS:</div>
+                        <input type="range" style="width:100%;margin-bottom:8px" min="0.5" max="2" step="0.1" value="0.9" id="carVelocidad">
+                        <div style="font-size:0.78em;color:#aaaaaa;margin-bottom:8px">Wake word:</div>
+                        <input style="width:100%;background:#050508;border:1px solid #ffcc0033;color:#ccc;padding:5px;border-radius:4px;font-family:'Courier New';font-size:0.8em" value="Arkani" id="carWakeWord">
+                        <button class="btn btn-sm" style="border-color:#ffcc00;color:#ffcc00;background:#ffcc0011;width:100%;margin-top:8px" onclick="carGuardarConfig()">💾 GUARDAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- NEXUS-PACK — Compresor/Descompresor .nxf                -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="tab-panel" id="panelPack">
+            <div class="mod-layout">
+                <div class="mod-header-strip mod-pack-strip">
+                    <span class="mod-icon">📦</span>
+                    <div>
+                        <div class="mod-title" style="color:#ff8844">NEXUS-PACK</div>
+                        <div class="mod-sub">Compresor/Descompresor .nxf · Formato Fractal Propietario · SHA256</div>
+                    </div>
+                    <div style="margin-left:auto;font-size:0.75em;color:#ff884466">Wardenclyffe v1.0</div>
+                </div>
+                <div class="mod-cards">
+                    <!-- Comprimir -->
+                    <div class="mod-card" style="border-color:#ff884422">
+                        <div class="mod-card-title" style="color:#ff8844">📦 COMPRIMIR → .nxf</div>
+                        <div class="pack-drop" id="packDropComprimir"
+                             onclick="document.getElementById('packInputComprimir').click()"
+                             ondragover="event.preventDefault();this.style.borderColor='#ff8844'"
+                             ondragleave="this.style.borderColor='#ff884444'"
+                             ondrop="packDropComprimir(event)">
+                            📁 Arrastra carpeta/archivo o haz clic
+                        </div>
+                        <input type="file" id="packInputComprimir" style="display:none" multiple onchange="packSeleccionarComprimir(this)">
+                        <input style="width:100%;background:#050508;border:1px solid #ff884433;color:#ccc;padding:5px;border-radius:4px;font-family:'Courier New';font-size:0.8em;margin:6px 0" placeholder="Nombre salida (ej: modulo_v1)" id="packNombreSalida">
+                        <button class="btn btn-sm" style="border-color:#ff8844;color:#ff8844;background:#ff440011;width:100%" onclick="packComprimir()">📦 COMPRIMIR</button>
+                    </div>
+                    <!-- Extraer -->
+                    <div class="mod-card" style="border-color:#ff884422">
+                        <div class="mod-card-title" style="color:#ff8844">📂 EXTRAER .nxf</div>
+                        <div class="pack-drop" id="packDropExtraer"
+                             onclick="document.getElementById('packInputExtraer').click()"
+                             ondragover="event.preventDefault()"
+                             ondrop="packDropExtraer(event)">
+                            📦 Arrastra archivo .nxf aquí
+                        </div>
+                        <input type="file" id="packInputExtraer" style="display:none" accept=".nxf" onchange="packSeleccionarExtraer(this)">
+                        <button class="btn btn-sm" style="border-color:#ff8844;color:#ff8844;background:#ff440011;width:100%;margin-top:6px" onclick="packExtraer()">📂 EXTRAER</button>
+                    </div>
+                    <!-- Info / Log -->
+                    <div class="mod-card" style="border-color:#ff884422">
+                        <div class="mod-card-title" style="color:#ff8844">📊 INFO .nxf</div>
+                        <div class="pack-drop" style="font-size:0.78em" onclick="document.getElementById('packInputInfo').click()">
+                            📋 Arrastra .nxf para ver contenido
+                        </div>
+                        <input type="file" id="packInputInfo" style="display:none" accept=".nxf" onchange="packVerInfo(this)">
+                        <div class="mod-result" id="packInfoResult" style="margin-top:6px">Info del paquete aparecerá aquí</div>
+                    </div>
+                    <!-- Log -->
+                    <div class="mod-card" style="border-color:#ff884422;grid-column:span 3">
+                        <div class="mod-card-title" style="color:#ff8844">📋 LOG DE OPERACIONES</div>
+                        <div class="pack-log" id="packLog">Listo para operar...
+</div>
+                        <div style="display:flex;gap:6px;margin-top:6px">
+                            <button class="btn btn-sm" style="border-color:#ff8844;color:#ff8844" onclick="packLimpiarLog()">🗑️ Limpiar log</button>
+                            <div style="flex:1;font-size:0.75em;color:#ff884466;display:flex;align-items:center">
+                                Formato .nxf: SHA256 verificado · ZLIB compresión · ~27-73% ratio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- NEXUS-BETA — Vista Usuario Final (MI ARKANI)            -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="tab-panel" id="panelBeta">
+            <div class="beta-layout">
+                <div class="beta-welcome" style="color:#4488ff;text-shadow:0 0 15px #4488ff66">
+                    📧 NEXUS-MAIL
+                </div>
+                <div style="color:#ff44aa66;font-size:0.8em;text-align:center;margin-top:-8px">
+                    Asistente de correo · Gmail/Outlook · Sin subir datos a la nube
+                </div>
+                <!-- Configurar cuenta -->
+                <div class="beta-section" style="border-color:#4488ff22">
+                    <div class="beta-section-title" style="color:#4488ff">⚙️ CUENTA DE CORREO</div>
+                    <select class="beta-input" id="mailProveedor" style="border-color:#4488ff33">
+                        <option value="gmail">📧 Gmail</option>
+                        <option value="outlook">📧 Outlook/Hotmail</option>
+                        <option value="yahoo">📧 Yahoo</option>
+                        <option value="custom">⚙️ IMAP personalizado</option>
+                    </select>
+                    <input class="beta-input" id="mailEmail" placeholder="tu@correo.com" style="border-color:#4488ff33">
+                    <button class="btn-pink-sm" style="border-color:#4488ff;color:#4488ff" onclick="mailConectar()">🔗 CONECTAR</button>
+                    <div style="font-size:0.7em;color:#4488ff44;margin-top:4px">Tus credenciales nunca salen de tu servidor local</div>
+                </div>
+                <!-- Leer correos -->
+                <div class="beta-section" style="border-color:#4488ff22">
+                    <div class="beta-section-title" style="color:#4488ff">📥 BANDEJA DE ENTRADA</div>
+                    <div style="display:flex;gap:6px;margin-bottom:8px">
+                        <button class="btn-pink-sm" style="border-color:#4488ff;color:#4488ff;flex:1" onclick="mailLeer()">📥 LEER CORREOS</button>
+                        <button class="btn-pink-sm" style="border-color:#4488ff;color:#4488ff;flex:1" onclick="mailResumirTodos()">🤖 RESUMIR TODO</button>
+                    </div>
+                    <div id="mailBandeja" style="background:#050508;border:1px solid #4488ff22;border-radius:6px;padding:8px;min-height:80px;font-size:0.78em;color:#aaaaaa;overflow-y:auto;max-height:150px">
+                        Conecta tu cuenta para ver correos...
+                    </div>
+                </div>
+                <!-- Redactar con IA -->
+                <div class="beta-section" style="border-color:#4488ff22">
+                    <div class="beta-section-title" style="color:#4488ff">✍️ REDACTAR CON ARKANI</div>
+                    <textarea class="beta-input" style="height:70px;resize:vertical;border-color:#4488ff33" id="mailInstruccion"
+                              placeholder="Dile a Arkani qué escribir...
+Ej: Contesta el correo de la aseguradora diciendo que el estudio ya está listo"></textarea>
+                    <input class="beta-input" id="mailDestinatario" placeholder="Para: destinatario@correo.com" style="border-color:#4488ff33">
+                    <div style="display:flex;gap:6px">
+                        <button class="btn-pink-sm" style="border-color:#4488ff;color:#4488ff;flex:1" onclick="mailRedactar()">🤖 REDACTAR</button>
+                        <button class="btn-pink-sm" style="border-color:#4488ff;color:#4488ff;flex:1" onclick="mailEnviar()">📤 ENVIAR</button>
+                    </div>
+                </div>
+                <!-- Borrador generado -->
+                <div class="beta-section" style="border-color:#4488ff22">
+                    <div class="beta-section-title" style="color:#4488ff">📝 BORRADOR</div>
+                    <div id="mailBorrador" style="background:#050508;border:1px solid #4488ff22;border-radius:6px;padding:8px;min-height:60px;font-size:0.78em;color:#cccccc;white-space:pre-wrap">
+                        El borrador generado por Arkani aparecerá aquí...
+                    </div>
+                    <div style="display:flex;gap:6px;margin-top:6px">
+                        <button class="btn-pink-sm" style="border-color:#4488ff;color:#4488ff" onclick="mailCopiarBorrador()">📋 COPIAR</button>
+                        <button class="btn-pink-sm" style="border-color:#4488ff;color:#4488ff" onclick="mailEditarBorrador()">✏️ EDITAR</button>
+                    </div>
+                </div>
+                <div style="color:#ffffff22;font-size:0.72em;text-align:center;margin-top:auto">
+                    ARKANI NEXUS · Protocolo Wardenclyffe · Elías Hernández · Xalapa, México
+                </div>
+            </div>
+        </div>
+
+<div class="statusbar">
+    <span><span class="val" id="sbEstado">ONLINE</span></span>
+    <span>HIPOCAMPO <span class="val" id="sbHipo">—</span></span>
+    <span>EVOL <span class="val" id="sbEvol">0/10</span></span>
+    <span>AUTOGEN <span class="val" id="sbAutogen">—</span></span>
+    <span>M2M <span class="val" id="sbM2m">0</span> nodos</span>
+    <span>VOZ <span class="val" id="sbVoz">OFF</span></span>
+    <span style="margin-left:auto"><span class="val" id="sbHora">--:--:--</span></span>
+</div>
+
+<div class="modal-overlay" id="modalFix">
+    <div class="modal">
+        <h3>⚡ APLICAR FIX</h3>
+        <div id="modalFixDesc" style="font-size:0.82em;color:#cccccc;margin-bottom:8px"></div>
+        <pre id="modalFixCodigo"></pre>
+        <div class="modal-btns">
+            <button class="btn btn-red btn-sm" onclick="cerrarModal()">CANCELAR</button>
+            <button class="btn btn-green btn-sm" onclick="aplicarFix()">✅ APLICAR</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const socket = io();
+let fixPendiente = null;
+let explorerRutaActual = '';
+let explorerArchivoActual = '';
+let explorerContenidoActual = '';
+let vozModoActivo = false;
+let vozGrabando = false;
+let mediaRecorder = null;
+let audioChunks = [];
+let llamadaStream = null;
+let llamadaTimer = null;
+let llamadaSegundos = 0;
+let avatarFiltroActual = 'normal';
+let avatarImagenOriginal = null;
+let m2mNodos = {};
+
+// ── NOMBRE ARKANI ────────────────────────────
+const NOMBRE_KEY = 'arkani_nombre_asistente';
+
+function cargarNombreGuardado() {
+    const n = localStorage.getItem(NOMBRE_KEY) || 'ARKANI';
+    document.getElementById('sidebarNombre').textContent = n.toUpperCase();
+    document.getElementById('inputNombreArkani').value = n.toUpperCase();
+    // actualiza placeholder del chat con el nombre actual
+    document.getElementById('chatInput').placeholder =
+        'Escribe aquí... | ' + n + ' abre youtube | autoprograma: [tarea]';
+    // actualiza indicador de voz
+    document.getElementById('vozStatus').textContent =
+        '🔇 Voz lista — di "' + n + '" para activar';
+}
+
+function previewNombreArkani(val) {
+    // muestra preview en tiempo real en sidebar
+    if (val.trim()) {
+        document.getElementById('sidebarNombre').textContent = val.toUpperCase();
+    }
+}
+
+function guardarNombreArkani() {
+    const n = document.getElementById('inputNombreArkani').value.trim().toUpperCase();
+    if (!n) return;
+    localStorage.setItem(NOMBRE_KEY, n);
+    cargarNombreGuardado();
+    addMsg('system', '✏️ Nombre actualizado a: ' + n + ' — di "' + n + ' abre youtube" para probar');
+    // Notifica al backend para actualizar el wake word
+    fetch('/config/nombre', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({nombre: n})
+    }).catch(() => {});
+}
+
+// ── SUB-TABS M2M ─────────────────────────────
+function switchM2mSub(sub) {
+    document.querySelectorAll('.m2m-subtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.m2m-subpanel').forEach(p => p.classList.remove('active'));
+    document.getElementById('subTab' + sub.charAt(0).toUpperCase() + sub.slice(1)).classList.add('active');
+    document.getElementById('subPanel' + sub.charAt(0).toUpperCase() + sub.slice(1)).classList.add('active');
+    if (sub === 'compartir') { m2mActualizar(); m2mCargarRecibidos(); }
+    if (sub === 'llamada') actualizarNodosLlamada();
+}
+
+// ── SOCKET ───────────────────────────────────
+socket.on('connect', () => addMsg('system','🔗 Arkani Nexus v4.0 Conectado'));
+socket.on('status', d => addMsg('system', d.msg));
+socket.on('typing', d => document.getElementById('typingInd').style.display = d.status?'block':'none');
+socket.on('respuesta', d => {
+    addMsg('arkani', d.texto, d.timestamp);
+    vozReproducir(d.texto);
+    if (d.action === 'open_url' || d.action === 'open_url_dynamic') {
+        window.open(d.param, '_blank');
+    }
+    if (d.action === 'search_google' || d.action === 'search_youtube') {
+        window.open(d.param, '_blank');
+    }
+    if (d.nav_tab) {
+        const tabEl = document.getElementById('tab' + d.nav_tab.charAt(0).toUpperCase() + d.nav_tab.slice(1));
+        if (tabEl) tabEl.click();
+    }
+});
+socket.on('voz_respuesta', d => {
+    addMsg('user','🎙️ '+d.texto_usuario);
+    addMsg('arkani', d.respuesta, d.timestamp);
+    if (d.audio_url) vozReproducirUrl(d.audio_url);
+});
+
+function addMsg(tipo, texto, hora) {
+    const box = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'msg msg-'+tipo;
+    const h = hora || new Date().toLocaleTimeString('es-MX');
+    div.innerHTML = texto.replace(/\n/g,'<br>')+'<div class="msg-time">'+h+'</div>';
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+}
+
+function enviarMensaje() {
+    const inp = document.getElementById('chatInput');
+    const txt = inp.value.trim();
+    if (!txt) return;
+    addMsg('user', txt);
+    socket.emit('mensaje',{texto:txt});
+    inp.value = '';
+}
+function chatKeyDown(e) { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensaje();} }
+
+// ── VOZ PASIVO ───────────────────────────────
+async function vozPasivoToggle() {
+    if (vozGrabando) { vozPararGrabacion(); return; }
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = async () => {
+            stream.getTracks().forEach(t=>t.stop());
+            const blob = new Blob(audioChunks,{type:'audio/webm'});
+            await vozEnviarAudio(blob);
+        };
+        mediaRecorder.start();
+        vozGrabando = true;
+        document.getElementById('btnMicPasivo').classList.add('grabando');
+        document.getElementById('btnMicPasivo').textContent = '⏹️';
+        document.getElementById('vozStatus').textContent = '🔴 Grabando... (click para detener)';
+        document.getElementById('sbVoz').textContent = 'REC';
+    } catch(e) { document.getElementById('vozStatus').textContent = '❌ Sin micrófono: '+e.message; }
+}
+function vozPararGrabacion() {
+    if (mediaRecorder && vozGrabando) {
+        mediaRecorder.stop(); vozGrabando = false;
+        document.getElementById('btnMicPasivo').classList.remove('grabando');
+        document.getElementById('btnMicPasivo').textContent = '🎙️';
+        document.getElementById('vozStatus').textContent = '⏳ Procesando voz...';
+    }
+}
+async function vozEnviarAudio(blob) {
+    try {
+        const fd = new FormData(); fd.append('audio', blob, 'voz.webm');
+        const r = await fetch('/voz/transcribir',{method:'POST',body:fd});
+        const d = await r.json();
+        if (d.ok && d.texto) {
+            document.getElementById('vozStatus').textContent = '✅ '+d.texto;
+            document.getElementById('chatInput').value = d.texto;
+            enviarMensaje();
+        } else { document.getElementById('vozStatus').textContent = '❌ No se entendió'; }
+    } catch(e) { document.getElementById('vozStatus').textContent = '❌ '+e.message; }
+}
+
+// ── VOZ ACTIVO ───────────────────────────────
+async function vozActivoToggle() {
+    const btn = document.getElementById('btnMicActivo');
+    if (vozModoActivo) {
+        await fetch('/voz/modo_activo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accion:'desactivar'})});
+        vozModoActivo = false; btn.classList.remove('activo'); btn.textContent = '👂';
+        document.getElementById('vozStatus').textContent = '🔇 Modo activo OFF';
+        document.getElementById('sbVoz').textContent = 'OFF';
+    } else {
+        await fetch('/voz/modo_activo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({accion:'activar'})});
+        vozModoActivo = true; btn.classList.add('activo'); btn.textContent = '🟢';
+        const n = localStorage.getItem(NOMBRE_KEY) || 'Arkani';
+        document.getElementById('vozStatus').textContent = '👂 Escuchando... di "'+n+'" para activar';
+        document.getElementById('sbVoz').textContent = 'ACTIVO';
+    }
+}
+
+async function vozReproducir(texto) {
+    try {
+        const r = await fetch('/voz/generar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({texto})});
+        const d = await r.json();
+        if (d.ok) vozReproducirUrl(d.url);
+    } catch(e){}
+}
+function vozReproducirUrl(url) {
+    const audio = document.getElementById('vozAudio');
+    audio.src = url+'?t='+Date.now();
+    audio.style.display='block';
+    audio.play().catch(()=>{});
+}
+
+// ── LLAMADA M2M ──────────────────────────────
+async function llamadaIniciar(modo) {
+    const nid = document.getElementById('llamadaNodoSelect').value;
+    if (!nid) { addMsg('system','❌ Selecciona un nodo primero'); return; }
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(
+            modo==='video'?{audio:true,video:true}:{audio:true,video:false});
+        llamadaStream = stream;
+        document.getElementById('videoLocal').srcObject = stream;
+        document.getElementById('btnColgar').style.display = 'inline-block';
+        document.getElementById('llamadaEstado').textContent =
+            '📞 Llamada activa — '+nid+' | '+modo.toUpperCase()+' | 🔐 Fractal activo';
+        llamadaSegundos = 0;
+        llamadaTimer = setInterval(()=>{
+            llamadaSegundos++;
+            const m=String(Math.floor(llamadaSegundos/60)).padStart(2,'0');
+            const s=String(llamadaSegundos%60).padStart(2,'0');
+            document.getElementById('llamadaStats').textContent='⏱️ '+m+':'+s+' | 🔐 M2M fractal';
+        },1000);
+        addMsg('system','📞 Llamada M2M '+modo.toUpperCase()+' iniciada');
+    } catch(e) { addMsg('system','❌ Error: '+e.message); }
+}
+function llamadaColgar() {
+    if (llamadaStream) { llamadaStream.getTracks().forEach(t=>t.stop()); llamadaStream=null; }
+    if (llamadaTimer) { clearInterval(llamadaTimer); llamadaTimer=null; }
+    document.getElementById('videoLocal').srcObject = null;
+    document.getElementById('btnColgar').style.display = 'none';
+    document.getElementById('llamadaEstado').textContent = '📞 Llamada terminada';
+    addMsg('system','📵 Llamada terminada');
+}
+function llamadaMuteAudio() {
+    if (!llamadaStream) return;
+    llamadaStream.getAudioTracks().forEach(t=>t.enabled=!t.enabled);
+    const on = llamadaStream.getAudioTracks()[0]?.enabled;
+    document.getElementById('btnMuteAudio').textContent = on?'🎙️ MUTE':'🔇 SILENCIO';
+}
+function llamadaMuteVideo() {
+    if (!llamadaStream) return;
+    llamadaStream.getVideoTracks().forEach(t=>t.enabled=!t.enabled);
+    const on = llamadaStream.getVideoTracks()[0]?.enabled;
+    document.getElementById('btnMuteVideo').textContent = on?'📹 CAMARA':'🚫 CAMARA';
+}
+function actualizarNodosLlamada() {
+    const sel = document.getElementById('llamadaNodoSelect');
+    sel.innerHTML = '<option value="">— Seleccionar nodo —</option>';
+    Object.entries(m2mNodos).forEach(([nid,info])=>{
+        const o=document.createElement('option'); o.value=nid; o.textContent=info.nombre; sel.appendChild(o);
+    });
+}
+
+// ── AVATAR ───────────────────────────────────
+function avatarCargarFoto(event) {
+    const file = event.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+        const img = new Image();
+        img.onload = () => { avatarImagenOriginal=img; avatarAplicarFiltros(); document.getElementById('avatarStatusMsg').textContent='✅ Foto cargada'; };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+function avatarFiltro(f) {
+    avatarFiltroActual = f;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('filtro'+f.charAt(0).toUpperCase()+f.slice(1)).classList.add('active');
+    avatarAplicarFiltros();
+}
+function avatarAplicarFiltros() {
+    if (!avatarImagenOriginal) return;
+    const canvas = document.getElementById('avatarCanvas');
+    const ctx = canvas.getContext('2d');
+    const b=document.getElementById('sliderBrillo').value;
+    const c=document.getElementById('sliderContraste').value;
+    const s=document.getElementById('sliderSaturacion').value;
+    const n=document.getElementById('sliderNeon').value;
+    document.getElementById('valBrillo').textContent=b+'%';
+    document.getElementById('valContraste').textContent=c+'%';
+    document.getElementById('valSaturacion').textContent=s+'%';
+    document.getElementById('valNeon').textContent=n+'%';
+    ctx.clearRect(0,0,300,300);
+    ctx.save();
+    ctx.beginPath(); ctx.arc(150,150,148,0,Math.PI*2); ctx.clip();
+    const sz=Math.min(avatarImagenOriginal.width,avatarImagenOriginal.height);
+    const ox=(avatarImagenOriginal.width-sz)/2, oy=(avatarImagenOriginal.height-sz)/2;
+    let filt=`brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
+    if(avatarFiltroActual==='cartoon') filt+=' saturate(200%) contrast(150%)';
+    if(avatarFiltroActual==='neon') filt+=' saturate(300%) brightness(120%) hue-rotate(90deg)';
+    if(avatarFiltroActual==='cyber') filt+=' hue-rotate(180deg) saturate(200%) contrast(120%)';
+    if(avatarFiltroActual==='sketch') filt+=' grayscale(100%) contrast(200%)';
+    ctx.filter=filt;
+    if(avatarFiltroActual==='pixel'){ctx.imageSmoothingEnabled=false;ctx.drawImage(avatarImagenOriginal,ox,oy,sz,sz,0,0,30,30);ctx.drawImage(canvas,0,0,30,30,0,0,300,300);ctx.restore();return;}
+    ctx.drawImage(avatarImagenOriginal,ox,oy,sz,sz,0,0,300,300);
+    ctx.restore();
+    if(parseInt(n)>0){const g=ctx.createRadialGradient(150,150,80,150,150,150);g.addColorStop(0,'transparent');g.addColorStop(1,`rgba(0,255,255,${n/200})`);ctx.globalCompositeOperation='screen';ctx.fillStyle=g;ctx.beginPath();ctx.arc(150,150,148,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation='source-over';}
+}
+async function avatarGuardar() {
+    document.getElementById('avatarCanvas').toBlob(async blob=>{
+        const fd=new FormData(); fd.append('file',blob,'avatar.png');
+        const r=await fetch('/upload_avatar',{method:'POST',body:fd});
+        const d=await r.json();
+        if(d.ok){document.getElementById('avatarImg').src=d.url+'?t='+Date.now();document.getElementById('avatarStatusMsg').textContent='✅ Avatar guardado';addMsg('system','🎨 Avatar actualizado');}
+    },'image/png');
+}
+function avatarDescargar(){const a=document.createElement('a');a.download='arkani_avatar.png';a.href=document.getElementById('avatarCanvas').toDataURL();a.click();}
+
+// ── EDITOR ───────────────────────────────────
+async function cargarListaArchivos() {
+    try {
+        const r=await fetch('/archivos');const d=await r.json();
+        const sel=document.getElementById('fileSelector');
+        sel.innerHTML='<option value="">— nuevo archivo —</option>';
+        (d.archivos||[]).forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;sel.appendChild(o);});
+        document.getElementById('sbAutogen').textContent=(d.archivos||[]).length+' mód';
+    }catch(e){}
+}
+async function cargarArchivoEditor(){
+    const nombre=document.getElementById('fileSelector').value;
+    if(!nombre){document.getElementById('codeEditor').value='';document.getElementById('nombreArchivo').value='';return;}
+    const r=await fetch('/archivo?nombre='+encodeURIComponent(nombre));const d=await r.json();
+    if(d.contenido!==undefined){document.getElementById('codeEditor').value=d.contenido;document.getElementById('nombreArchivo').value=nombre.replace('.py','').replace('fn_','');document.getElementById('editorStatus').textContent='Cargado: '+nombre;}
+}
+function nuevoArchivo(){document.getElementById('codeEditor').value='';document.getElementById('nombreArchivo').value='';document.getElementById('fileSelector').value='';document.getElementById('editorStatus').textContent='Nuevo archivo';}
+async function guardarCodigo(){
+    const codigo=document.getElementById('codeEditor').value.trim();const nombre=document.getElementById('nombreArchivo').value.trim();
+    if(!codigo||!nombre){document.getElementById('editorStatus').textContent='❌ Completa nombre y código';return;}
+    const r=await fetch('/guardar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nombre,codigo})});
+    const d=await r.json();document.getElementById('editorStatus').textContent=d.ok?'✅ '+d.mensaje:'❌ '+d.error;
+    if(d.ok)cargarListaArchivos();
+}
+async function probarCodigo(){
+    const codigo=document.getElementById('codeEditor').value.trim();if(!codigo)return;
+    const r=await fetch('/probar_codigo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codigo})});
+    const d=await r.json();document.getElementById('editorStatus').textContent=d.ok?'✅ '+d.mensaje:'❌ '+d.error;
+}
+function pedirCodigo(){const n=document.getElementById('nombreArchivo').value||'nueva funcion';document.getElementById('chatInput').value='autoprograma: crear funcion python llamada '+n+' que haga: ';switchTab('chat');document.getElementById('chatInput').focus();}
+
+// ── ERRORES ──────────────────────────────────
+async function escanearErrores(){
+    switchTab('errores');document.getElementById('erroresLista').innerHTML='<div class="empty-state">🔍 Escaneando...</div>';
+    const r=await fetch('/escanear_errores');const d=await r.json();
+    const lista=document.getElementById('erroresLista');const badge=document.getElementById('badgeErrores');
+    badge.textContent=d.total||0;badge.style.display=d.total>0?'inline':'none';
+    if(!d.errores||d.errores.length===0){lista.innerHTML='<div class="empty-state">✅ Sin errores</div>';return;}
+    lista.innerHTML='';
+    d.errores.forEach(e=>{
+        const card=document.createElement('div');card.className='error-card '+e.tipo;
+        card.innerHTML='<div class="error-titulo">'+e.archivo+' — '+e.titulo+'</div>'+
+            '<div class="error-desc">'+e.descripcion+'</div>'+
+            (e.codigo_fix?'<div class="error-codigo">'+e.codigo_fix+'</div>':'')+
+            '<div class="error-acciones">'+(e.codigo_fix?'<button class="btn btn-green btn-sm" onclick="mostrarFix(\''+e.archivo+'\',\''+encodeURIComponent(e.codigo_fix)+'\',\''+e.titulo+'\')">⚡ FIX</button>':'')+'</div>';
+        lista.appendChild(card);
+    });
+}
+function mostrarFix(archivo,codigo,titulo){fixPendiente={archivo,codigo:decodeURIComponent(codigo)};document.getElementById('modalFixDesc').textContent=titulo+' en '+archivo;document.getElementById('modalFixCodigo').textContent=decodeURIComponent(codigo);document.getElementById('modalFix').classList.add('show');}
+async function aplicarFix(){if(!fixPendiente)return;const r=await fetch('/aplicar_fix',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fixPendiente)});const d=await r.json();cerrarModal();addMsg('system',d.ok?'✅ '+d.mensaje:'❌ '+d.error);escanearErrores();}
+function cerrarModal(){document.getElementById('modalFix').classList.remove('show');fixPendiente=null;}
+
+// ── CAPACIDADES ──────────────────────────────
+async function cargarCapacidades(){
+    const r=await fetch('/introspeccion');const d=await r.json();
+    const grid=document.getElementById('capacidadesGrid');
+    if(!d.funciones||d.funciones.length===0){grid.innerHTML='<div class="empty-state">Sin capacidades</div>';return;}
+    grid.innerHTML='';
+    d.funciones.forEach(fn=>{
+        const card=document.createElement('div');card.className='fn-card';
+        card.innerHTML='<div class="fn-nombre">⚙️ '+fn.nombre+'</div><div class="fn-desc">'+fn.descripcion+'</div><div class="fn-status '+(fn.valido?'fn-ok':'fn-err')+'">'+(fn.valido?'✅':'❌')+' '+fn.lineas+' líneas — '+fn.fecha+'</div>';
+        card.onclick=()=>{document.getElementById('fileSelector').value=fn.nombre;cargarArchivoEditor();switchTab('editor');};
+        grid.appendChild(card);
+    });
+}
+
+// ── HIPOCAMPO ────────────────────────────────
+async function cargarHipocampo(){
+    const r=await fetch('/hipocampo');const d=await r.json();
+    document.getElementById('statHipo').textContent=d.total||0;document.getElementById('sbHipo').textContent=d.total||0;
+    const panel=document.getElementById('hipocampoPanel');panel.innerHTML='';
+    (d.instrucciones||[]).forEach((inst,i)=>{
+        const row=document.createElement('div');row.className='instr-row';
+        const m=inst.match(/[\u27e6\u27e7](\w+)[\u27e7]\s*.*SCALE:(\d+)/);
+        row.innerHTML='<span class="instr-addr">Dir '+i+'</span><span class="instr-op">⟦'+(m?m[1]:'?')+'⟧</span><span class="instr-hex">'+inst.replace(/[\u27e6\u27e7]\w+[\u27e7]\s*/,'')+'</span>';
+        panel.appendChild(row);
+    });
+    document.getElementById('hipoInfo').textContent=(d.total||0)+' instrucciones — '+(d.bytes||0)+' bytes';
+}
+
+// ── SIDEBAR CONVS ────────────────────────────
+async function cargarSidebarConvs(){
+    try{const r=await fetch('/status');const d=await r.json();const cont=document.getElementById('sidebarConvs');const convs=d.ultimas_conversaciones||[];cont.innerHTML='';convs.forEach(c=>{const div=document.createElement('div');div.className='conv-item';div.textContent=c.pregunta||'...';div.title=c.fecha||'';div.onclick=()=>{document.getElementById('chatInput').value=c.pregunta||'';switchTab('chat');};cont.appendChild(div);});}catch(e){}
+}
+
+// ── TABS ─────────────────────────────────────
+function switchTab(tab){
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const pid='panel'+tab.charAt(0).toUpperCase()+tab.slice(1);
+    const tid='tab'+tab.charAt(0).toUpperCase()+tab.slice(1);
+    if(document.getElementById(pid))document.getElementById(pid).classList.add('active');
+    if(document.getElementById(tid))document.getElementById(tid).classList.add('active');
+    if(tab==='intro')cargarCapacidades();
+    if(tab==='hipocampo')cargarHipocampo();
+    if(tab==='editor')cargarListaArchivos();
+    if(tab==='explorer'&&!explorerRutaActual)explorerNavegar('~/NEXUS');
+    if(tab==='m2m'){m2mActualizar();m2mCargarRecibidos();}
+}
+
+// ── STATS ────────────────────────────────────
+async function actualizarStats(){
+    try{const r=await fetch('/status');const d=await r.json();
+    document.getElementById('statConv').textContent=d.conversaciones||0;document.getElementById('statEvol').textContent=d.evoluciones||0;
+    document.getElementById('statRam').textContent=Math.round(d.ram||0)+'%';document.getElementById('statCpu').textContent=Math.round(d.cpu||0)+'%';
+    document.getElementById('sbEvol').textContent=(d.evol_sesion||0)+'/'+(d.evol_max_sesion||10);
+    document.getElementById('statusDot').style.background=d.arkani_ok?'#00ff88':'#ff4444';
+    document.getElementById('sbEstado').textContent=d.arkani_ok?'ONLINE':'ERROR';}catch(e){}
+}
+
+// ── EXPLORADOR ───────────────────────────────
+async function explorerNavegar(ruta){
+    if(!ruta)return;
+    try{const r=await fetch('/explorador/listar?ruta='+encodeURIComponent(ruta));const d=await r.json();if(d.error)return;
+    explorerRutaActual=d.ruta;document.getElementById('explorerPath').value=d.ruta;
+    const lista=document.getElementById('explorerList');lista.innerHTML='';
+    if(d.padre){const up=document.createElement('div');up.className='explorer-item tipo-dir';up.innerHTML='<span class="explorer-icon">⬆️</span><span class="explorer-nombre">.. (subir)</span>';up.onclick=()=>explorerNavegar(d.padre);lista.appendChild(up);}
+    d.entradas.forEach(e=>{const item=document.createElement('div');item.className='explorer-item tipo-'+e.tipo;const icon=e.tipo==='dir'?'📁':explorerIcono(e.nombre);item.innerHTML='<span class="explorer-icon">'+icon+'</span><span class="explorer-nombre">'+e.nombre+'</span><span class="explorer-meta">'+(e.tipo==='archivo'?formatBytes(e.tamaño):'')+'</span>';if(e.tipo==='dir')item.onclick=()=>explorerNavegar(e.ruta);else item.onclick=()=>explorerAbrirArchivo(e.ruta,e.nombre);lista.appendChild(item);});
+    }catch(e){}
+}
+function explorerIcono(n){if(n.endsWith('.py'))return'🐍';if(n.endsWith('.nxf'))return'📦';if(n.endsWith('.sh'))return'⚙️';if(n.endsWith('.json'))return'📋';if(n.endsWith('.html'))return'🌐';if(n.endsWith('.log'))return'📜';return'📄';}
+function explorerSubir(){const p=explorerRutaActual.split('/').slice(0,-1).join('/')||'/';explorerNavegar(p);}
+async function explorerAbrirArchivo(ruta,nombre){
+    explorerArchivoActual=ruta;document.getElementById('explorerContentTitle').textContent=nombre+' — '+ruta;
+    document.getElementById('btnExplorerChat').style.display='inline-block';document.getElementById('btnExplorerEditor').style.display=nombre.endsWith('.py')?'inline-block':'none';
+    try{const r=await fetch('/explorador/leer?ruta='+encodeURIComponent(ruta));const d=await r.json();explorerContenidoActual=d.contenido||'';document.getElementById('explorerViewer').textContent=d.error||d.contenido+(d.truncado?'\n[truncado]':'');}catch(e){}
+}
+async function explorerBuscar(){
+    const patron=document.getElementById('explorerBuscar').value.trim();if(!patron)return;
+    const lista=document.getElementById('explorerList');lista.innerHTML='<div class="empty-state">Buscando...</div>';
+    const r=await fetch('/explorador/buscar?patron='+encodeURIComponent(patron)+'&directorio='+encodeURIComponent(explorerRutaActual));const d=await r.json();lista.innerHTML='';
+    if(!d.resultados||d.resultados.length===0){lista.innerHTML='<div class="empty-state">Sin resultados</div>';return;}
+    const v=document.createElement('div');v.className='explorer-item tipo-dir';v.innerHTML='<span class="explorer-icon">🔙</span><span class="explorer-nombre">← Volver</span>';v.onclick=()=>explorerNavegar(explorerRutaActual);lista.appendChild(v);
+    d.resultados.forEach(e=>{const item=document.createElement('div');item.className='search-result';item.innerHTML='<div class="search-result-nombre">'+explorerIcono(e.nombre)+' '+e.nombre+'</div><div class="search-result-ruta">'+e.ruta+' · '+formatBytes(e.tamaño)+'</div>';item.onclick=()=>explorerAbrirArchivo(e.ruta,e.nombre);lista.appendChild(item);});
+}
+function explorerEnviarChat(){if(!explorerContenidoActual)return;const n=(explorerArchivoActual||'').split('/').pop();document.getElementById('chatInput').value='Revisa este archivo ('+n+'):\n```'+n.split('.').pop()+'\n'+explorerContenidoActual.substring(0,3000)+'\n```';switchTab('chat');}
+function explorerEnviarEditor(){if(!explorerContenidoActual||!explorerArchivoActual)return;document.getElementById('codeEditor').value=explorerContenidoActual;document.getElementById('nombreArchivo').value=explorerArchivoActual.split('/').pop().replace('.py','').replace('fn_','');switchTab('editor');}
+function explorerEmpaquetar(){document.getElementById('m2mArchivoPath').value=explorerArchivoActual||'';switchTab('m2m');}
+function formatBytes(b){if(!b)return'';if(b<1024)return b+'B';if(b<1048576)return(b/1024).toFixed(1)+'K';return(b/1048576).toFixed(1)+'M';}
+
+// ── M2M ──────────────────────────────────────
+async function m2mActualizar(){
+    try{const r=await fetch('/m2m/estado');const d=await r.json();m2mNodos=d.nodos||{};const total=Object.keys(m2mNodos).length;document.getElementById('sbM2m').textContent=total;const badge=document.getElementById('badgeNodos');badge.textContent=total;badge.style.display=total>0?'inline':'none';renderNodos();actualizarDestinosSelect();actualizarNodosLlamada();}catch(e){}
+}
+function renderNodos(){
+    const cont=document.getElementById('m2mNodos');
+    if(Object.keys(m2mNodos).length===0){cont.innerHTML='<div class="empty-state" style="color:#ff880033">Sin nodos</div>';return;}
+    cont.innerHTML='';
+    Object.entries(m2mNodos).forEach(([nid,info])=>{
+        const card=document.createElement('div');card.className='nodo-card';
+        card.innerHTML='<div class="nodo-nombre"><span class="nodo-dot"></span>'+info.nombre+'</div><div class="nodo-url">'+info.url+'</div><div style="font-size:0.72em;color:#ff880066;margin-bottom:6px">ID: '+nid+'</div><div class="nodo-acciones"><button class="btn btn-orange btn-sm" onclick="m2mPing(\''+nid+'\')">📡 PING</button><button class="btn btn-green btn-sm" onclick="switchM2mSub(\'llamada\')">📞 LLAMAR</button><button class="btn btn-red btn-sm" onclick="m2mDesconectar(\''+nid+'\')">✕</button></div>';
+        cont.appendChild(card);
+    });
+}
+function actualizarDestinosSelect(){const sel=document.getElementById('m2mDestinoSelect');sel.innerHTML='<option value="">-- Destino --</option>';Object.entries(m2mNodos).forEach(([nid,info])=>{const o=document.createElement('option');o.value=nid;o.textContent=info.nombre;sel.appendChild(o);});}
+async function m2mConectar(){const url=document.getElementById('m2mUrlInput').value.trim();if(!url){m2mLog('❌ Ingresa URL','err');return;}m2mLog('⏳ Conectando...');const r=await fetch('/m2m/conectar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});const d=await r.json();if(d.ok){m2mLog('✅ '+d.nombre,'ok');document.getElementById('m2mUrlInput').value='';await m2mActualizar();}else m2mLog('❌ '+d.error,'err');}
+async function m2mDesconectar(nid){await fetch('/m2m/desconectar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({node_id:nid})});m2mLog('⚡ Desconectado');await m2mActualizar();}
+async function m2mPing(nid){m2mLog('📡 Ping...');try{const r=await fetch(m2mNodos[nid].url+'/ping');if(r.ok)m2mLog('✅ Pong','ok');else m2mLog('❌ Sin respuesta','err');}catch(e){m2mLog('❌ '+e.message,'err');}}
+async function m2mEnviar(){const ruta=document.getElementById('m2mArchivoPath').value.trim();const nid=document.getElementById('m2mDestinoSelect').value;if(!ruta||!nid){m2mLog('❌ Completa campos','err');return;}m2mLog('📤 Enviando...');const r=await fetch('/m2m/enviar_archivo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({node_id:nid,ruta})});const d=await r.json();if(d.ok)m2mLog('✅ Enviado','ok');else m2mLog('❌ '+d.error,'err');}
+function m2mExplorarNxf(){switchTab('explorer');}
+function m2mDrop(e){e.preventDefault();document.getElementById('m2mDrop').classList.remove('drag-over');const f=e.dataTransfer.files[0];if(f&&!f.name.endsWith('.nxf'))m2mLog('❌ Solo .nxf','err');}
+async function m2mCargarRecibidos(){const r=await fetch('/m2m/archivos_recibidos');const d=await r.json();const cont=document.getElementById('m2mRecibidos');if(!d.archivos||d.archivos.length===0){cont.innerHTML='<div class="empty-state" style="color:#ff880033;font-size:0.75em">Sin recibidos</div>';return;}cont.innerHTML='';d.archivos.forEach(a=>{const card=document.createElement('div');card.className='nxf-card';card.innerHTML='<span class="nxf-nombre">📦 '+a.nombre+'</span><span class="nxf-meta">'+formatBytes(a.tamaño)+'</span>';cont.appendChild(card);});}
+function m2mLog(msg,tipo){const log=document.getElementById('m2mLog');const line=document.createElement('div');line.className='m2m-log-line'+(tipo?' '+tipo:'');line.textContent='['+new Date().toLocaleTimeString('es-MX')+'] '+msg;log.appendChild(line);log.scrollTop=log.scrollHeight;}
+
+function actualizarHora(){document.getElementById('sbHora').textContent=new Date().toLocaleTimeString('es-MX');}
+
+async function cargarHelp(){
+    try {
+        const r = await fetch('/help');
+        const txt = await r.text();
+        document.getElementById('helpContent').textContent = txt;
+    } catch(e) {
+        document.getElementById('helpContent').textContent = 'No se pudo cargar el manual.';
+    }
+}
+function helpDescargar(){
+    const txt = document.getElementById('helpContent').textContent;
+    const a = document.createElement('a');
+    a.download = 'ARKANI_HELP.txt';
+    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt);
+    a.click();
+}
+
+// ── INIT ─────────────────────────────────────
+cargarNombreGuardado();
+actualizarStats();
+cargarCapacidades();
+cargarSidebarConvs();
+explorerNavegar('~/NEXUS');
+setInterval(actualizarStats,5000);
+setInterval(cargarSidebarConvs,8000);
+setInterval(actualizarHora,1000);
+setInterval(m2mActualizar,15000);
+actualizarHora();
+cargarHelp();
+
+// ════════════════════════════════════════════
+// SUBIR ARCHIVO
+// ════════════════════════════════════════════
+let _uploadFile = null;
+
+function uploadAbrir() {
+    document.getElementById('uploadModal').classList.add('active');
+    _uploadFile = null;
+    document.getElementById('btnUploadEnviar').disabled = true;
+    document.getElementById('uploadPreview').style.display = 'none';
+    document.getElementById('uploadPreview').textContent = '';
+    document.getElementById('uploadInput').value = '';
+    document.getElementById('uploadDrop').querySelector('span').textContent = '📂';
+}
+
+function uploadCerrar() {
+    document.getElementById('uploadModal').classList.remove('active');
+}
+
+function uploadCerrarFuera(e) {
+    if (e.target.id === 'uploadModal') uploadCerrar();
+}
+
+function uploadDragOver(e) {
+    e.preventDefault();
+    document.getElementById('uploadDrop').classList.add('dragover');
+}
+
+function uploadDragLeave(e) {
+    document.getElementById('uploadDrop').classList.remove('dragover');
+}
+
+function uploadDrop(e) {
+    e.preventDefault();
+    document.getElementById('uploadDrop').classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) uploadProcesarArchivo(file);
+}
+
+function uploadSeleccionar(input) {
+    if (input.files[0]) uploadProcesarArchivo(input.files[0]);
+}
+
+function uploadProcesarArchivo(file) {
+    _uploadFile = file;
+    const drop = document.getElementById('uploadDrop');
+    drop.querySelector('span').textContent = '✅';
+    drop.innerHTML = `<span>✅</span>${file.name}<br><small style="color:#666">${(file.size/1024).toFixed(1)} KB</small>`;
+    document.getElementById('btnUploadEnviar').disabled = false;
+    const prev = document.getElementById('uploadPreview');
+    prev.style.display = 'block';
+    prev.textContent = 'Listo para subir: ' + file.name;
+}
+
+async function uploadEnviar() {
+    if (!_uploadFile) return;
+    const aprende = false;  // por defecto temporal; usa 'aprender: archivo' en chat
+    const btn   = document.getElementById('btnUploadEnviar');
+    btn.textContent = 'SUBIENDO...';
+    btn.disabled = true;
+
+    const fd = new FormData();
+    fd.append('archivo', _uploadFile);
+    fd.append('aprende', aprende ? 'true' : 'false');
+
+    try {
+        const r = await fetch('/subir_archivo', { method: 'POST', body: fd });
+        const d = await r.json();
+        uploadCerrar();
+        if (d.ok) {
+            const modo_txt = aprende ? '🧠 Aprendido' : '👁️ Analizado (temporal)';
+            addMsg('bot', '📎 ' + _uploadFile.name + '\n' + (d.preview || d.mensaje || ''));
+            addMsg('bot', '💡 Para memoria permanente escribe: aprender: ' + _uploadFile.name);
+        } else {
+            addMsg('bot', '⚠️ Error: ' + (d.error || 'desconocido'));
+        }
+    } catch(e) {
+        addMsg('bot', '⚠️ Error de conexión: ' + e);
+    } finally {
+        btn.textContent = 'SUBIR';
+        btn.disabled = false;
+    }
+}
+</script>
+
+    <!-- MODAL SUBIR ARCHIVO -->
+    <div class="upload-modal" id="uploadModal" onclick="uploadCerrarFuera(event)">
+        <div class="upload-box">
+            <h3>📎 SUBIR ARCHIVO</h3>
+            <div class="upload-drop" id="uploadDrop"
+                 onclick="document.getElementById('uploadInput').click()"
+                 ondragover="uploadDragOver(event)"
+                 ondragleave="uploadDragLeave(event)"
+                 ondrop="uploadDrop(event)">
+                <span>📂</span>
+                Arrastra aquí o haz clic<br>
+                <small style="color:#666">txt, py, md, pdf, png, jpg, docx</small>
+            </div>
+            <input type="file" id="uploadInput" style="display:none"
+                   accept=".txt,.py,.md,.pdf,.png,.jpg,.jpeg,.webp,.docx,.json,.nl"
+                   onchange="uploadSeleccionar(this)">
+            <div style="font-size:10px;color:#555;text-align:center;padding:4px 0">
+                Para guardar permanente escribe en el chat: <span style="color:#ff88ff">aprender: nombre_archivo</span>
+            </div>
+            <div class="upload-preview" id="uploadPreview"></div>
+            <div class="upload-btns">
+                <button class="btn btn-cyan" onclick="uploadEnviar()" id="btnUploadEnviar" disabled>
+                    SUBIR
+                </button>
+                <button class="btn btn-orange" onclick="uploadCerrar()">CANCELAR</button>
+            </div>
+        </div>
+    </div>
+<script>
+// ══════════════════════════════════════════════════════════
+// SISTEMA DE NIVELES
+// ══════════════════════════════════════════════════════════
+const NIVELES = {
+    alpha:  { label: '🔴 ALPHA',  class: 'nivel-alpha',  tabs: ['all'] },
+    senior: { label: '⚡ SENIOR', class: 'nivel-senior', tabs: ['chat','editor','errores','intro','hipocampo','explorer','m2m','avatar','help','sam','pack'] },
+    beta:   { label: '👤 BETA',   class: 'nivel-beta',   tabs: ['chat','avatar','beta'] }
+};
+
+function cambiarNivel(nivel) {
+    const n = NIVELES[nivel];
+    if (!n) return;
+    const badge = document.getElementById('nivelBadge');
+    badge.textContent = n.label.split(' ')[1];
+    badge.className = 'nivel-badge ' + n.class;
+    // Mostrar/ocultar tabs según nivel
+    const allTabs = document.querySelectorAll('.tab');
+    if (n.tabs[0] === 'all') {
+        allTabs.forEach(t => t.style.display = '');
+    } else {
+        allTabs.forEach(t => {
+            const id = t.id.replace('tab','').toLowerCase();
+            t.style.display = n.tabs.includes(id) ? '' : 'none';
+        });
+    }
+    localStorage.setItem('nexus_nivel', nivel);
+    packLog('🔑 Nivel cambiado a: ' + nivel.toUpperCase());
+}
+
+// Restaurar nivel al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    const nivel = localStorage.getItem('nexus_nivel') || 'alpha';
+    const sel = document.getElementById('nivelSelector');
+    if (sel) sel.value = nivel;
+    cambiarNivel(nivel);
+});
+
+// ══════════════════════════════════════════════════════════
+// NEXUS-RAD
+// ══════════════════════════════════════════════════════════
+function radDrop(e) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = '#ff444444';
+    const file = e.dataTransfer.files[0];
+    if (file) radProcesar(file);
+}
+
+function radSeleccionar(input) {
+    if (input.files[0]) radProcesar(input.files[0]);
+}
+
+function radProcesar(file) {
+    document.getElementById('radViewer').innerHTML =
+        '<div style="text-align:center;color:#ff4444"><div style="font-size:2em">⏳</div>Procesando: ' + file.name + '</div>';
+    addMsg('bot', '🩻 NEXUS-RAD: Archivo DICOM recibido: ' + file.name + '\n' +
+           'Para análisis completo: instalar pydicom (cuando llegue GPU)\n' +
+           'Por ahora usa el chat: aprende internet: radiopaedia ' + file.name);
+}
+
+function radComprimir() {
+    addMsg('bot', '📦 Para comprimir DICOM a .nxf usa el tab NEXUS-PACK o el comando:\n' +
+           'python3 nexus_fractal_packager.py --comprimir estudio.dcm estudio.nxf');
+}
+
+function radAnalizar() {
+    addMsg('bot', '🤖 Análisis automático con LLaVA disponible cuando llegue el servidor GPU.\nPor ahora puedes describir el estudio en el chat y te ayudo con la interpretación.');
+}
+
+function radVentana(tipo) {
+    const ventanas = { pulmonar: 'WL=-600, WW=1500', mediastino: 'WL=40, WW=400', osea: 'WL=400, WW=1800' };
+    addMsg('bot', '🩻 Ventana ' + tipo + ': ' + ventanas[tipo]);
+}
+
+function radVerPACS() {
+    addMsg('bot', '📂 PACS Fractal: los expedientes .nxf se almacenan en:\n~/NEXUS/nexus-rad/expedientes/');
+}
+
+// ══════════════════════════════════════════════════════════
+// NEXUS-WORLD
+// ══════════════════════════════════════════════════════════
+function worldBuscarNodos() {
+    document.getElementById('worldNodos').textContent = 'Buscando nodos NEXUS-WORLD...';
+    setTimeout(() => {
+        document.getElementById('worldNodos').textContent = 'Sin nodos activos en la red local.\nConecta un nodo desde M2M primero.';
+    }, 1500);
+}
+
+// ══════════════════════════════════════════════════════════
+// SAM — System Auto-coder Module
+// ══════════════════════════════════════════════════════════
+function samGenerar() {
+    const desc = document.getElementById('samDescripcion').value.trim();
+    const lang = document.getElementById('samLenguaje').value;
+    if (!desc) return;
+    document.getElementById('samOutput').textContent = '⏳ Generando...';
+    // Enviar al chat como comando crea:
+    if (typeof socket !== 'undefined') {
+        socket.emit('chat_message', { mensaje: 'crea: ' + desc + ' en ' + lang });
+    } else {
+        // Fallback: mostrar comando
+        document.getElementById('samOutput').textContent = 'Usa en el chat:\ncrea: ' + desc;
+    }
+}
+
+function samEnviarChat() {
+    const desc = document.getElementById('samDescripcion').value.trim();
+    if (desc) {
+        switchTab('chat');
+        document.getElementById('chatInput').value = 'crea: ' + desc;
+    }
+}
+
+function samCopiar() {
+    const txt = document.getElementById('samOutput').textContent;
+    navigator.clipboard.writeText(txt).then(() => packLog('📋 Código copiado al portapapeles'));
+}
+
+function samGuardar() {
+    addMsg('bot', '💾 SAM: Para guardar el código usa el EDITOR o escribe en el chat:\ncrea: [descripción]');
+}
+
+function samEjecutar() {
+    addMsg('bot', '▶️ SAM: Para ejecutar el módulo generado:\npython3 ~/NEXUS/NEXUS-LANG/autogen/[nombre].py');
+}
+
+function samEmpaquetar() {
+    addMsg('bot', '📦 SAM: Para empaquetar el módulo en .nxf ve a NEXUS-PACK');
+}
+
+function samCargarAutogen() {
+    fetch('/nexus/listar_autogen')
+        .then(r => r.json())
+        .then(d => {
+            const el = document.getElementById('samAutogenList');
+            if (d.archivos && d.archivos.length) {
+                el.textContent = d.archivos.map((f, i) => '[' + i + '] ' + f).join('\n');
+            } else {
+                el.textContent = 'Sin módulos en autogen/ aún';
+            }
+        })
+        .catch(() => {
+            document.getElementById('samAutogenList').textContent = 'autogen/ vacío o no disponible';
+        });
+}
+
+// ══════════════════════════════════════════════════════════
+// NEXUS-OFFICE
+// ══════════════════════════════════════════════════════════
+function officeGenerar() {
+    const tipo = document.getElementById('officeType').value;
+    const desc = document.getElementById('officeDescripcion').value.trim();
+    if (!desc) return;
+    addMsg('bot', '📄 NEXUS-OFFICE: Generando ' + tipo + '...\n' +
+           'crea: documento ' + tipo + ' — ' + desc + '\n\n' +
+           'Integración completa con python-docx/pptx/openpyxl en desarrollo.');
+}
+
+function officeTemplate(tipo) {
+    const templates = {
+        reporte_radiologico: 'Reporte radiológico: paciente, fecha, modalidad, hallazgos, conclusión',
+        presentacion: 'Presentación médica con 10 diapositivas sobre el tema',
+        hoja_datos: 'Hoja de datos con tabla de pacientes y estudios',
+        curriculum: 'Currículum profesional médico'
+    };
+    document.getElementById('officeDescripcion').value = templates[tipo] || '';
+}
+
+// ══════════════════════════════════════════════════════════
+// NEXUS-CAR
+// ══════════════════════════════════════════════════════════
+function carActivar() {
+    switchTab('chat');
+    addMsg('bot', '🚗 NEXUS-CAR: Modo conducción activado.\n' +
+           'Di "Arkani" para dar comandos de voz.\n' +
+           'Pantalla mínima activada para conducción segura.');
+    // Activar escucha si está disponible
+    if (typeof vozActivarModo !== 'undefined') vozActivarModo('activo');
+}
+
+function carGuardarConfig() {
+    const vel = document.getElementById('carVelocidad').value;
+    const wake = document.getElementById('carWakeWord').value;
+    localStorage.setItem('car_velocidad', vel);
+    localStorage.setItem('car_wake_word', wake);
+    packLog('🚗 NEXUS-CAR: Configuración guardada. Wake word: ' + wake);
+}
+
+// ══════════════════════════════════════════════════════════
+// NEXUS-PACK — Compresor/Descompresor .nxf
+// ══════════════════════════════════════════════════════════
+let _packFiles = [];
+let _packNxf = null;
+
+function packLog(msg) {
+    const el = document.getElementById('packLog');
+    if (!el) return;
+    el.textContent += '[' + new Date().toLocaleTimeString() + '] ' + msg + '\n';
+    el.scrollTop = el.scrollHeight;
+}
+
+function packLimpiarLog() {
+    const el = document.getElementById('packLog');
+    if (el) el.textContent = 'Log limpiado.\n';
+}
+
+function packDropComprimir(e) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = '#ff884444';
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length) packMostrarArchivos(files);
+}
+
+function packSeleccionarComprimir(input) {
+    if (input.files.length) packMostrarArchivos(Array.from(input.files));
+}
+
+function packMostrarArchivos(files) {
+    _packFiles = files;
+    const drop = document.getElementById('packDropComprimir');
+    drop.textContent = '✅ ' + files.length + ' archivo(s) seleccionado(s):\n' +
+                       files.map(f => f.name + ' (' + (f.size/1024).toFixed(1) + 'KB)').join('\n');
+    packLog('📁 Seleccionados: ' + files.map(f=>f.name).join(', '));
+}
+
+function packComprimir() {
+    if (!_packFiles.length) { packLog('❌ Selecciona archivos primero'); return; }
+    const nombre = document.getElementById('packNombreSalida').value || 'paquete_nexus';
+    packLog('📦 Comprimiendo ' + _packFiles.length + ' archivo(s) → ' + nombre + '.nxf ...');
+    // Enviar al servidor
+    const fd = new FormData();
+    _packFiles.forEach(f => fd.append('archivos', f));
+    fd.append('nombre', nombre);
+    fetch('/pack/comprimir', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(d => {
+            if (d.ok) {
+                packLog('✅ Comprimido: ' + d.archivo + ' (' + d.ratio + '% ratio)');
+                packLog('💾 Guardado en: ~/NEXUS/' + d.archivo);
+            } else {
+                packLog('⚠️ ' + (d.error || 'Error desconocido'));
+                packLog('💡 Usa la terminal: python3 nexus_fractal_packager.py --comprimir [origen] [salida.nxf]');
+            }
+        })
+        .catch(() => {
+            packLog('⚠️ Endpoint /pack/comprimir no disponible aún');
+            packLog('💡 Usa: python3 ~/NEXUS/NEXUS-LANG/nexus_fractal_packager.py --comprimir [origen] paquete.nxf');
+        });
+}
+
+function packDropExtraer(e) {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file && file.name.endsWith('.nxf')) packMostrarNxf(file);
+}
+
+function packSeleccionarExtraer(input) {
+    if (input.files[0]) packMostrarNxf(input.files[0]);
+}
+
+function packMostrarNxf(file) {
+    _packNxf = file;
+    document.getElementById('packDropExtraer').textContent = '✅ ' + file.name + ' (' + (file.size/1024).toFixed(1) + 'KB)';
+    packLog('📦 .nxf seleccionado: ' + file.name);
+}
+
+function packExtraer() {
+    if (!_packNxf) { packLog('❌ Selecciona un .nxf primero'); return; }
+    packLog('📂 Extrayendo: ' + _packNxf.name + '...');
+    const fd = new FormData();
+    fd.append('archivo', _packNxf);
+    fetch('/pack/extraer', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(d => {
+            if (d.ok) {
+                packLog('✅ Extraído en: ' + d.destino);
+                packLog('📁 Archivos: ' + d.archivos + ' archivos');
+            } else {
+                packLog('⚠️ ' + (d.error || 'Error'));
+                packLog('💡 Usa: python3 nexus_fractal_packager.py --extraer archivo.nxf ~/destino/');
+            }
+        })
+        .catch(() => {
+            packLog('⚠️ Endpoint no disponible. Usa terminal:');
+            packLog('python3 ~/NEXUS/NEXUS-LANG/nexus_fractal_packager.py --extraer [archivo.nxf] [destino]');
+        });
+}
+
+function packVerInfo(input) {
+    const file = input.files[0];
+    if (!file) return;
+    packLog('📋 Analizando: ' + file.name);
+    const fd = new FormData();
+    fd.append('archivo', file);
+    fetch('/pack/info', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(d => {
+            if (d.ok) {
+                document.getElementById('packInfoResult').textContent =
+                    'Archivo: ' + d.nombre + '\n' +
+                    'Archivos: ' + d.archivos + '\n' +
+                    'Original: ' + (d.size_orig/1024).toFixed(1) + 'KB\n' +
+                    'Comprimido: ' + (d.size_comp/1024).toFixed(1) + 'KB\n' +
+                    'Ratio: ' + d.ratio + '%\n' +
+                    'Fecha: ' + d.fecha;
+            } else {
+                document.getElementById('packInfoResult').textContent = d.error || 'Error leyendo .nxf';
+            }
+        })
+        .catch(() => {
+            document.getElementById('packInfoResult').textContent =
+                'Endpoint no disponible.\nUsa terminal:\npython3 nexus_fractal_packager.py --info archivo.nxf';
+        });
+}
+
+// ══════════════════════════════════════════════════════════
+// BETA — Usuario final
+// ══════════════════════════════════════════════════════════
+function betaGuardarNombre() {
+    const nombre = document.getElementById('betaNombre').value.trim() || 'ARKANI';
+    localStorage.setItem('arkani_nombre', nombre);
+    // Sincronizar con el input del tab Avatar
+    const inputAvatar = document.getElementById('inputNombreArkani');
+    if (inputAvatar) { inputAvatar.value = nombre; guardarNombreArkani(); }
+    packLog('✅ Nombre guardado: ' + nombre);
+    addMsg('bot', '✅ Tu asistente ahora se llama: ' + nombre);
+}
+
+function betaEnsenar() {
+    const txt = document.getElementById('betaEnseñar').value.trim();
+    if (!txt) return;
+    addMsg('user', txt);
+    document.getElementById('betaEnseñar').value = '';
+    if (typeof socket !== 'undefined') socket.emit('chat_message', { mensaje: txt });
+}
+
+function betaProbarVoz() {
+    addMsg('bot', '🔊 Probando voz...');
+    fetch('/voz/generar', { method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({texto: 'Hola, soy tu asistente personal Arkani. Sistema operativo.'}) });
+}
+
+function betaActivarEscucha() {
+    switchTab('chat');
+    addMsg('bot', '🎙️ Di "Arkani" para activar la escucha. Ve al tab CHAT para interactuar.');
+}
+
+// Cargar autogen al cambiar a SAM
+document.addEventListener('DOMContentLoaded', () => {
+    // Restaurar nombre beta
+    const nombre = localStorage.getItem('arkani_nombre');
+    if (nombre) {
+        const el = document.getElementById('betaNombre');
+        if (el) el.value = nombre;
+    }
+});
+
+</script>
+</body>
+</html>
