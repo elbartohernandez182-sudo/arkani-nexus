@@ -1062,58 +1062,54 @@ def frachat_estado():
 # SUBIR ARCHIVO a memoria permanente (si no existe)
 # ═══════════════════════════════════════════════════════════
 
-@app.route('/subir_archivo', methods=['POST'])
-def subir_archivo():
+
+# ═══════════════════════════════════════════════════════════
+# NEXUS-MAIL — Asistente de correo
+# ═══════════════════════════════════════════════════════════
+_mail_config = {}
+_mail_correos = []
+
+@app.route('/mail/conectar', methods=['POST'])
+def mail_conectar():
     try:
-        archivo = request.files.get('archivo')
-        aprende  = request.form.get('aprende', 'false').lower() == 'true'
-        if not archivo:
-            return jsonify({"ok": False, "error": "Sin archivo"})
-
-        if aprende:
-            destino_dir = os.path.expanduser("~/NEXUS/memoria_permanente/")
-        else:
-            destino_dir = os.path.expanduser("~/NEXUS/papelera/")
-
-        os.makedirs(destino_dir, exist_ok=True)
-        ruta = os.path.join(destino_dir, archivo.filename)
-        archivo.save(ruta)
-
-        preview = ""
-        try:
-            with open(ruta, 'r', errors='replace') as f:
-                preview = f.read(300)
-        except:
-            preview = "(archivo binario)"
-
-        return jsonify({
-            "ok": True,
-            "nombre": archivo.filename,
-            "ruta": ruta,
-            "modo": "permanente" if aprende else "temporal",
-            "preview": preview
-        })
+        data = request.json or {}
+        _mail_config['proveedor'] = data.get('proveedor', 'gmail')
+        _mail_config['email'] = data.get('email', '')
+        return jsonify({"ok": True, "msg": f"Configurado {_mail_config['email']}"})
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)})
 
-
-@app.route('/archivos_memoria')
-def archivos_memoria():
+@app.route('/mail/bandeja')
+def mail_bandeja():
     try:
-        mp = os.path.expanduser("~/NEXUS/memoria_permanente/")
-        archivos = []
-        if os.path.exists(mp):
-            for f in sorted(os.listdir(mp)):
-                ruta = os.path.join(mp, f)
-                archivos.append({
-                    "nombre": f,
-                    "size": os.path.getsize(ruta),
-                    "fecha": __import__('datetime').datetime.fromtimestamp(
-                        os.path.getmtime(ruta)).strftime('%Y-%m-%d %H:%M')
-                })
-        return jsonify({"archivos": archivos, "total": len(archivos)})
+        return jsonify({"correos": _mail_correos, "total": len(_mail_correos),
+                       "nota": "Integración IMAP en desarrollo"})
     except Exception as e:
-        return jsonify({"archivos": [], "error": str(e)})
+        return jsonify({"correos": [], "error": str(e)})
+
+@app.route('/mail/redactar', methods=['POST'])
+def mail_redactar():
+    try:
+        data = request.json or {}
+        instruccion = data.get('instruccion', '')
+        destinatario = data.get('destinatario', '')
+        if not instruccion:
+            return jsonify({"ok": False, "error": "Sin instrucción"})
+        if arkani:
+            prompt = f"Redacta un correo profesional en español. Instrucción: {instruccion}. Destinatario: {destinatario}"
+            borrador = arkani.chat(prompt)
+            return jsonify({"ok": True, "borrador": borrador})
+        return jsonify({"ok": False, "error": "Arkani no disponible"})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
+
+@app.route('/mail/enviar', methods=['POST'])
+def mail_enviar():
+    try:
+        data = request.json or {}
+        return jsonify({"ok": False, "error": "Envío SMTP en desarrollo — integración próxima versión"})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
 
 if __name__ == '__main__':
     print("\n" + "=" * 50)
