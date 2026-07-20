@@ -1,6 +1,6 @@
 # CONTEXTO ARKANI NEXUS - PARA CLAUDE
-Actualizado: 2026-07-19 19:51:33
-Último commit: 0988ffd - v5.1 — index v5 funcional, todos los módulos, NEXUS-MAIL
+Actualizado: 2026-07-19 20:13:35
+Último commit: 5f25ee6 - Auto: Contexto actualizado 2026-07-19 19:51:33
 
 ## Arquitectura activa
 - arkani_web.py (Flask + SocketIO, puerto 8081)
@@ -11,6 +11,7 @@ Actualizado: 2026-07-19 19:51:33
 - URL: https://outscore-goes-january.ngrok-free.dev
 
 ## Git History (últimos 10 commits)
+5f25ee6 Auto: Contexto actualizado 2026-07-19 19:51:33
 0988ffd v5.1 — index v5 funcional, todos los módulos, NEXUS-MAIL
 e5c6a83 Auto: Contexto actualizado 2026-07-13 22:43:58
 12e8d84 Auto: Contexto actualizado 2026-06-25 00:48:03
@@ -20,7 +21,6 @@ df146a4 Auto: Contexto actualizado 2026-06-25 00:28:18
 66fc63d v5.1 — NEXUS-PACK GUI Windows, index v5 módulos completos, patch web aplicado
 3c89a54 Auto: Contexto actualizado 2026-06-24 23:41:27
 ffe1c42 v5.0 — dataset 1261 ejemplos, Modelfile identidad soberana aplicado
-e03f416 v5.0 — Modelfile identidad soberana, dialogo socratico, especializacion radiologica
 
 ## Pendientes
 - nexus_remote_daemon.py (M2M JWT)
